@@ -1,21 +1,36 @@
 ---
 import Placeholder from './Placeholder.astro';
 import { href } from '../lib/site';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { locali: CollectionEntry<'locali'>[] }
+const { locali } = Astro.props;
+
+// L'oggetto che segue SCEGLI: la scelta come azione, non come slogan.
+const objects = ['la pasta', 'il pane', 'un panino', 'dove', 'con chi'];
 ---
 <section class="hero" id="top">
-  <Placeholder class="hero__media" label="IMG FULL-SCREEN — 100vh · tavola imbandita, tutto senza glutine" />
+  <Placeholder class="hero__media" label="IMG FULL-SCREEN — la tavola dall'alto, piena di piatti diversi, tutto senza glutine" />
   <p class="hero__side u-label">100% gluten free · dal 1978 · Firenze</p>
   <div class="hero__bottom">
-    <h1 class="hero__word">SCEGLI</h1>
+    <p class="hero__ask">Pensavi che senza glutine volesse dire meno scelta?</p>
+    <h1 class="hero__word">
+      Scegli
+      <span class="hero__obj" aria-hidden="true">
+        {objects.map((o, i) => <span style={`--i:${i}`}>{o}</span>)}
+      </span>
+      <span class="sr-only">{objects.join(', ')}.</span>
+    </h1>
     <div class="hero__row">
-      <p class="hero__claim">
-        Una cucina 100% senza glutine a Firenze. Scegli cosa mangiare. Scegli dove.<span class="d-only"> Scegli come vivere Boboli.</span>
-      </p>
-      <a class="hero__scroll" href={href('/#intro')}>
-        <span class="u-label d-only">Scroll</span>
-        <span class="u-label m-only">100% gluten free</span>
-        <span class="hero__arrow" aria-hidden="true">&darr;</span>
-      </a>
+      <p class="hero__claim">Una cucina 100% senza glutine a Firenze. Tutto il menu, tutta la scelta.</p>
+      <ul class="hero__today" aria-label="I quattro locali">
+        {locali.map((l) => (
+          <li>
+            <a href={href(`/locali/${l.id}/`)}>{l.data.nameShort}</a>
+            <span>{l.data.street}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
 </section>

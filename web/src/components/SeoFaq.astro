@@ -1,42 +1,40 @@
 ---
+import { href } from '../lib/site';
+
 export const faq = [
   {
     q: 'Tutto il menu è senza glutine?',
-    a: 'Sì. Il senza glutine è il punto di partenza della cucina: pasta, pane, panini, sughi e dolci nascono nel nostro laboratorio.',
-    desktopOnly: false,
+    a: 'Sì, in tutti e quattro i locali. Il senza glutine è il punto di partenza della cucina: pasta, pane, panini, sughi e dolci nascono nel nostro laboratorio.',
   },
   {
     q: 'Dove mangiare gluten free a Firenze?',
-    a: 'In Oltrarno alla Trattoria di Via Romana 45/R e da Boboli To-Go, a Santa Croce al Bargello in Via Ghibellina 147/r, con La Cantina in Via Romana 60R.',
-    desktopOnly: true,
+    a: 'In Oltrarno alla Trattoria di Via Romana 45/R, da Boboli To-Go al 52 e alla Cantina al 60R; a Santa Croce al Bargello, in Via Ghibellina 147/r.',
   },
   {
     q: 'Serve prenotare?',
-    a: 'È consigliato, soprattutto a cena e nel fine settimana. Puoi prenotare per ogni locale dalla sezione Firenze.',
-    desktopOnly: false,
+    a: 'È consigliato, soprattutto a cena e nel fine settimana. Puoi prenotare per ogni locale dal pulsante Prenota.',
   },
   {
     q: 'Fate asporto e prodotti da portare a casa?',
-    a: "Sì: Boboli To-Go per l'asporto e lo shop per pasta, sughi, kit e box da portare a casa.",
-    desktopOnly: false,
+    a: "Sì: Boboli To-Go in Via Romana 52 è il locale per l'asporto, e i prodotti del laboratorio — pasta, sughi, pane — si comprano nei locali.",
   },
 ];
 ---
 <section class="seo">
-  <p class="u-label seo__crumb"><span class="d-only">Home › Firenze › Gluten free</span><span class="m-only">SEO + FAQ</span></p>
-  <h2 class="seo__title">Boboli a Firenze: cucina 100% gluten free nel cuore della città</h2>
+  <h2 class="seo__title">Boboli a Firenze: cucina 100% gluten free, dal 1978</h2>
   <div class="seo__grid">
-    <div class="seo__copy d-only" aria-hidden="true">
-      <span class="skeleton"></span>
-      <span class="skeleton"></span>
-      <span class="skeleton skeleton--88"></span>
-      <span class="skeleton"></span>
-      <span class="skeleton skeleton--64"></span>
-      <p class="seo__links">Link interni: pagine locale · menu · cantina · shop · FAQ.</p>
+    <div class="seo__copy">
+      <p>
+        Boboli è un gruppo di ristorazione fiorentino con quattro locali e un laboratorio di produzione proprio. Tutta la cucina è senza glutine: non un menu alternativo accanto a quello normale, ma il punto di partenza di ogni piatto. Pasta fresca, pane, panini, sughi e dolci nascono nel <a href={href('/#laboratorio')}>laboratorio</a> e arrivano in tavola nei tre indirizzi di Via Romana, nell'Oltrarno — la <a href={href('/locali/trattoria-1978/')}>Trattoria</a> al 45/R, <a href={href('/locali/to-go/')}>Boboli To-Go</a> al 52, <a href={href('/locali/la-cantina/')}>La Cantina</a> al 60R — e al <a href={href('/locali/al-bargello/')}>Bargello</a> di Via Ghibellina 147/r, a Santa Croce.
+      </p>
+      <p>
+        La cucina è quella toscana, con le ricette legate alla storia della trattoria. Chi cerca un ristorante gluten free a Firenze per una famiglia, una coppia o un gruppo di amici trova un posto dove nessuno deve chiedere cosa può mangiare.
+      </p>
     </div>
     <div class="faq" id="faq">
+      <p class="u-label faq__title">Domande che ci fanno spesso</p>
       {faq.map((item) => (
-        <details class:list={{ 'd-only': item.desktopOnly }}>
+        <details>
           <summary><span>{item.q}</span><span class="faq__sign" aria-hidden="true">+</span></summary>
           <p>{item.a}</p>
         </details>

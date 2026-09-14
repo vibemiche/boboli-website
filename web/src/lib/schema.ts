@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { href } from './site';
 
 /**
  * I dati strutturati servono due volte: i rich result di Google e i motori
@@ -7,13 +8,14 @@ import type { CollectionEntry } from 'astro:content';
  */
 export function restaurantSchema(locale: CollectionEntry<'locali'>, site: URL) {
   const d = locale.data;
+  const page = new URL(href(`/locali/${locale.id}/`), site).href;
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
-    '@id': new URL(`#${locale.id}`, site).href,
+    '@id': page,
     name: d.nameLegal,
     alternateName: d.nameShort,
-    url: site.href,
+    url: page,
     address: {
       '@type': 'PostalAddress',
       streetAddress: d.street,
@@ -54,6 +56,19 @@ export function faqSchema(items: { q: string; a: string }[]) {
       '@type': 'Question',
       name: i.q,
       acceptedAnswer: { '@type': 'Answer', text: i.a },
+    })),
+  };
+}
+
+export function breadcrumbSchema(items: { name: string; path: string }[], site: URL) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((i, n) => ({
+      '@type': 'ListItem',
+      position: n + 1,
+      name: i.name,
+      item: new URL(href(i.path), site).href,
     })),
   };
 }

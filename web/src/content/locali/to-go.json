@@ -2,15 +2,16 @@
   "nameLegal": "Trattoria Boboli To-Go Gluten Free",
   "nameShort": "Boboli To-Go",
   "kicker": "Boboli To Go",
-  "title": "Firenze, da gustare dove vuoi.",
-  "blurb": "Asporto, passeggiata, pausa veloce.",
+  "title": "Un panino. Senza glutine. In Via Romana.",
+  "blurb": "Asporto, passeggiata, pausa veloce: il pane del laboratorio, da portare per Firenze.",
   "blurbShort": "Asporto, passeggiata, pausa veloce.",
+  "choiceVerb": "Prendi un panino to go",
   "street": "Via Romana, 52",
+  "civic": "52",
   "postalCode": "50125",
   "zone": "Oltrarno",
   "ctaLabel": "Ordina",
-  "formatNumber": "03",
   "formatOrder": 3,
   "listOrder": 4,
-  "imageAlt": "Confezione da asporto di Boboli To-Go in Via Romana a Firenze"
+  "imageAlt": "Un panino senza glutine di Boboli To-Go, in mano, in Via Romana a Firenze"
 }

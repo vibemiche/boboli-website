@@ -1,36 +1,31 @@
 ---
 import Placeholder from './Placeholder.astro';
-import { href } from '../lib/site';
 
-const categories = [
-  { label: 'Antipasti' },
-  { label: 'Pasta' },
-  { label: 'Piatti principali' },
-  { label: 'Dolci' },
-  { label: 'Vini' },
-  { label: 'Specialità del giorno', short: 'Del giorno' },
+const things = [
+  { label: 'Pane', desc: 'Dal nostro laboratorio, in tavola ogni giorno.' },
+  { label: 'Pasta fresca', desc: 'Fatta da noi, con i sughi della tradizione.' },
+  { label: 'Panini', desc: 'Anche da portare via, da Boboli To-Go.' },
+  { label: 'Sughi', desc: 'Ricette toscane, preparate nel laboratorio.' },
+  { label: 'Dolci', desc: 'Tutti senza glutine, tutti fatti da noi.' },
+  { label: 'Carne', desc: 'La tradizione toscana, in tavola.' },
 ];
 
-const gallery = ['pasta fresca', 'pane e panini', 'sughi', 'dolci'];
+const gallery = ['pane', 'pasta fresca', 'sughi', 'dolci'];
 ---
 <section class="menu" id="menu">
-  <div class="menu__head">
-    <h2 class="menu__title">Cosa scegli oggi?</h2>
-    <a class="btn btn--ink menu__cta" href={href('/menu/')}>Scopri il menu</a>
-  </div>
+  <h2 class="menu__title">Cosa pensavi di non poter più mangiare?</h2>
   <ul class="menu__list">
-    {categories.map((c) => (
-      <li>
-        <a href={href('/menu/')}>
-          <span class="menu__item">
-            {c.short ? <><span class="d-only">{c.label}</span><span class="m-only">{c.short}</span></> : c.label}
-          </span>
-          <span class="u-label">Vedi &rarr;</span>
-        </a>
+    {things.map((t) => (
+      <li class="menu__row">
+        <span class="menu__item">{t.label}</span>
+        <span class="menu__desc">{t.desc}</span>
       </li>
     ))}
   </ul>
   <div class="menu__gallery">
     {gallery.map((g) => <Placeholder label={`IMG — ${g}`} />)}
+  </div>
+  <div class="menu__shop" id="prodotti">
+    <p><strong>Porta Boboli a casa.</strong> Pasta, sughi e pane del laboratorio si comprano nei locali. Lo shop online arriva.</p>
   </div>
 </section>

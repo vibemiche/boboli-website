@@ -7,17 +7,24 @@ interface Props { locali: CollectionEntry<'locali'>[] }
 const { locali } = Astro.props;
 ---
 <section class="locations" id="firenze">
-  <h2 class="locations__title">Tre modi di vivere Boboli. Nel cuore di Firenze.</h2>
+  <h2 class="locations__title">Tre porte in Via Romana. Una in Via Ghibellina.</h2>
   <div class="locations__grid">
-    <Placeholder class="locations__map" label="MAPPA FULL-BLEED — 4 pin, Oltrarno + Santa Croce" />
+    <Placeholder class="locations__map" label="MAPPA — 4 pin con i civici: 45/R · 52 · 60R in Oltrarno, 147/R a Santa Croce" />
     <ul class="locations__list">
       {locali.map((l) => (
         <li>
+          <span class="locations__civic" aria-hidden="true">{l.data.civic}</span>
           <div>
-            <p class="locations__name"><span class="d-only">{l.data.nameLegal}</span><span class="m-only">{l.data.nameShort}</span></p>
-            <p class="locations__addr">{l.data.street}<span class="d-only">, {l.data.postalCode} {l.data.city}</span></p>
+            <a class="locations__name" href={href(`/locali/${l.id}/`)}>{l.data.nameShort}</a>
+            <p class="locations__addr">{l.data.street}, {l.data.postalCode} {l.data.city} · {l.data.zone}</p>
+            {(l.data.phone || l.data.openingHours.length > 0) && (
+              <p class="locations__meta">
+                {l.data.phone && <a href={`tel:${l.data.phone.replace(/\s+/g, '')}`}>{l.data.phone}</a>}
+                {l.data.openingHours.map((h) => <span>{h}</span>)}
+              </p>
+            )}
           </div>
-          <a class="btn btn--terracotta" href={href('/#firenze')}>{l.data.ctaLabel}</a>
+          <a class="btn btn--terracotta" href={href(`/locali/${l.id}/`)} data-book={l.data.ctaLabel === 'Prenota' ? l.id : undefined}>{l.data.ctaLabel}</a>
         </li>
       ))}
     </ul>

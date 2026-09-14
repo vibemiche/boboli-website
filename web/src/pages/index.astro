@@ -2,14 +2,12 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import Marquee from '../components/Marquee.astro';
-import Intro from '../components/Intro.astro';
+import ChoiceIndex from '../components/ChoiceIndex.astro';
 import FormatBlock from '../components/FormatBlock.astro';
 import Manifesto from '../components/Manifesto.astro';
+import Laboratorio from '../components/Laboratorio.astro';
 import MenuSection from '../components/MenuSection.astro';
-import Duo from '../components/Duo.astro';
 import Locations from '../components/Locations.astro';
-import Reviews from '../components/Reviews.astro';
 import SeoFaq, { faq } from '../components/SeoFaq.astro';
 import { restaurantSchema, organizationSchema, faqSchema } from '../lib/schema';
 
@@ -32,21 +30,18 @@ const jsonLd = [
 ];
 ---
 <Base
-  title="Boboli — La libertà di scegliere · 100% gluten free a Firenze"
-  description="Boboli a Firenze: una cucina 100% senza glutine dal 1978. Trattoria, Bargello, To Go e Cantina — scegli cosa mangiare, dove e come."
+  title="Boboli — Scegli · 100% gluten free a Firenze, dal 1978"
+  description="Boboli a Firenze: quattro locali e un laboratorio, tutta la cucina senza glutine. Trattoria, Bargello, To-Go e Cantina in Via Romana e Via Ghibellina. Tutto il menu, tutta la scelta."
   jsonLd={jsonLd}
 >
-  <Hero />
-  <Marquee />
-  <Intro />
+  <Hero locali={inList} />
+  <ChoiceIndex locali={inList} />
   {formats.map((l, i) => (
-    <FormatBlock locale={l} anchor={anchors[l.id]} dark={i === 1} />
+    <FormatBlock locale={l} anchor={anchors[l.id]} dark={i === 1} bleed={i === 2} />
   ))}
   <Manifesto />
+  <Laboratorio />
   <MenuSection />
-  <Duo />
   <Locations locali={inList} />
-  <Reviews />
   <SeoFaq />
-  <Marquee class="d-only" />
 </Base>

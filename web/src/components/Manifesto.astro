@@ -1,9 +1,5 @@
 ---
-const stats = [
-  { value: '100%', label: 'del menu', extra: ' senza glutine' },
-  { value: '1', label: 'laboratorio', extra: ' di produzione' },
-  { value: '35.000+', label: 'recensioni', extra: ' degli ospiti' },
-];
+const table = ['Pasta', 'Pane', 'Panini', 'Sughi', 'Dolci', 'Carne'];
 ---
 <section class="manifesto" id="manifesto">
   <div class="manifesto__claim">
@@ -13,15 +9,10 @@ const stats = [
   </div>
   <div class="manifesto__side">
     <p class="manifesto__body">
-      Il senza glutine è il punto di partenza della cucina, non un'alternativa nel menu.<span class="d-only"> Pasta, pane, panini, sughi e dolci nascono nel nostro laboratorio.</span>
+      Il senza glutine è il punto di partenza della cucina, non un'alternativa nel menu. Alla base resta la tradizione toscana: ricette tramandate, che continuano a vivere nella Boboli di oggi.
     </p>
-    <dl class="stats">
-      {stats.map((s) => (
-        <div class="stat">
-          <dt>{s.value}</dt>
-          <dd>{s.label}<span class="d-only">{s.extra}</span></dd>
-        </div>
-      ))}
-    </dl>
+    <ul class="manifesto__list" aria-label="Quello che trovi in tavola">
+      {table.map((t) => <li>{t}</li>)}
+    </ul>
   </div>
 </section>

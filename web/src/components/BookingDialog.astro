@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import { href } from '../lib/site';
+
+// Con quattro ristoranti «Prenota» deve chiedere dove. Senza JS ogni pulsante
+// resta un link alla lista dei locali; con JS apre questo dialog.
+const locali = (await getCollection('locali')).sort((a, b) => a.data.listOrder - b.data.listOrder);
+const anyContact = locali.some((l) => l.data.phone || l.data.bookingUrl);
+---
+<dialog class="book" id="prenota" aria-labelledby="prenota-titolo">
+  <div class="book__inner">
+    <div class="book__head">
+      <h2 class="book__title" id="prenota-titolo">Dove vuoi prenotare?</h2>
+      <button class="book__close" type="button" aria-label="Chiudi">&times;</button>
+    </div>
+    <p class="book__sub">Quattro locali, tutto il menu senza glutine in ognuno.</p>
+    <ul class="book__list">
+      {locali.map((l) => (
+        <li data-locale={l.id}>
+          <span class="book__civic" aria-hidden="true">{l.data.civic}</span>
+          <div>
+            <p class="book__name">{l.data.nameShort}</p>
+            <p class="u-label book__addr">{l.data.street} · {l.data.zone}</p>
+          </div>
+          <div class="book__actions">
+            {l.data.bookingUrl && <a class="btn btn--ink" href={l.data.bookingUrl} rel="noopener">Prenota</a>}
+            {l.data.phone && <a class="btn btn--ghost" href={`tel:${l.data.phone.replace(/\s+/g, '')}`}>Chiama</a>}
+            {!l.data.bookingUrl && !l.data.phone && <a class="btn btn--ghost" href={href(`/locali/${l.id}/`)}>Il locale</a>}
+          </div>
+        </li>
+      ))}
+    </ul>
+    {!anyContact && <p class="book__note">Telefoni e prenotazione online sono in arrivo: intanto trovi ogni locale al suo indirizzo.</p>}
+  </div>
+</dialog>
+
+<script>
+  const dlg = document.getElementById('prenota');
+  if (dlg instanceof HTMLDialogElement && typeof dlg.showModal === 'function') {
+    const rows = dlg.querySelectorAll<HTMLElement>('[data-locale]');
+    document.querySelectorAll<HTMLElement>('[data-book]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = el.getAttribute('data-book');
+        rows.forEach((r) => {
+          if (id && r.dataset.locale === id) r.setAttribute('aria-current', 'true');
+          else r.removeAttribute('aria-current');
+        });
+        dlg.showModal();
+      });
+    });
+    dlg.querySelector('.book__close')?.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg) dlg.close();
+    });
+  }
+</script>

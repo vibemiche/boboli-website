@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import Intro from '../components/Intro.astro';
+import FormatBlock from '../components/FormatBlock.astro';
+import Manifesto from '../components/Manifesto.astro';
+import MenuSection from '../components/MenuSection.astro';
+import Duo from '../components/Duo.astro';
+import Locations from '../components/Locations.astro';
+import Reviews from '../components/Reviews.astro';
+import SeoFaq, { faq } from '../components/SeoFaq.astro';
+import { restaurantSchema, organizationSchema, faqSchema } from '../lib/schema';
+
+const locali = await getCollection('locali');
+const formats = locali
+  .filter((l) => l.data.formatOrder !== null)
+  .sort((a, b) => a.data.formatOrder! - b.data.formatOrder!);
+const inList = [...locali].sort((a, b) => a.data.listOrder - b.data.listOrder);
+
+const anchors: Record<string, string> = {
+  'trattoria-1978': 'trattoria',
+  'al-bargello': 'bargello',
+  'to-go': 'togo',
+};
+
+const jsonLd = [
+  organizationSchema(Astro.site!),
+  ...locali.map((l) => restaurantSchema(l, Astro.site!)),
+  faqSchema(faq),
+];
+---
+<Base
+  title="Boboli — La libertà di scegliere · 100% gluten free a Firenze"
+  description="Boboli a Firenze: una cucina 100% senza glutine dal 1978. Trattoria, Bargello, To Go e Cantina — scegli cosa mangiare, dove e come."
+  jsonLd={jsonLd}
+>
+  <Hero />
+  <Marquee />
+  <Intro />
+  {formats.map((l, i) => (
+    <FormatBlock locale={l} anchor={anchors[l.id]} dark={i === 1} />
+  ))}
+  <Manifesto />
+  <MenuSection />
+  <Duo />
+  <Locations locali={inList} />
+  <Reviews />
+  <SeoFaq />
+  <Marquee class="d-only" />
+</Base>

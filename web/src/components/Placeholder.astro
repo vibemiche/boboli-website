@@ -1,0 +1,5 @@
+---
+interface Props { label: string; class?: string }
+const { label, class: className = '' } = Astro.props;
+---
+<div class:list={['ph', className]}>{label}</div>

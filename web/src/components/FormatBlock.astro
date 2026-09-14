@@ -1,0 +1,24 @@
+---
+import Placeholder from './Placeholder.astro';
+import { href } from '../lib/site';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { locale: CollectionEntry<'locali'>; anchor: string; dark?: boolean }
+const { locale, anchor, dark = false } = Astro.props;
+const d = locale.data;
+---
+<section class:list={['format', { 'format--dark': dark }]} id={anchor}>
+  <div class="format__media">
+    <Placeholder label={`IMG FULL-BLEED — ${d.kicker.toLowerCase()}`} />
+    <span class="format__num" aria-hidden="true">{d.formatNumber}</span>
+  </div>
+  <div class="format__body">
+    <div class="format__text">
+      <p class="u-label format__kicker">{d.kicker}</p>
+      <h2 class="format__title">{d.title}</h2>
+      <p class="format__blurb"><span class="d-only">{d.blurb}</span><span class="m-only">{d.blurbShort}</span></p>
+      <p class="u-label format__address">{d.street}<span class="d-only"> · {d.zone}</span></p>
+    </div>
+    <a class:list={['btn', dark ? 'btn--cream' : 'btn--ink']} href={href('/#firenze')}>Scopri &rarr;</a>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+---
+import { href } from '../lib/site';
+
+const columns = [
+  {
+    title: 'Ristoranti',
+    links: [
+      { label: 'Trattoria', path: '/#trattoria' },
+      { label: 'Bargello', path: '/#bargello' },
+      { label: 'To Go', path: '/#togo' },
+      { label: 'Cantina', path: '/#cantina' },
+    ],
+  },
+  {
+    title: 'Scopri',
+    links: [
+      { label: 'Menu', path: '/#menu' },
+      { label: '100% Gluten Free', path: '/#manifesto' },
+      { label: 'Shop', path: '/#shop' },
+      { label: 'Firenze', path: '/#firenze' },
+    ],
+  },
+  {
+    title: 'Contatti',
+    desktopOnly: true,
+    links: [
+      { label: 'Prenota', path: '/#firenze' },
+      { label: 'FAQ', path: '/#faq' },
+      { label: 'Telefono · WhatsApp', path: '/#firenze' },
+      { label: 'Privacy · Cookie', path: '/#firenze' },
+    ],
+  },
+];
+---
+<footer class="site-footer">
+  <div class="site-footer__brand">
+    <p class="site-footer__mark">BOBOLI</p>
+    <p class="site-footer__tagline d-only">La libertà di scegliere.<br />100% gluten free · Firenze</p>
+    <p class="u-label site-footer__lang d-only">IT / EN</p>
+  </div>
+  {columns.map((col) => (
+    <nav class:list={['site-footer__col', { 'd-only': col.desktopOnly }]}>
+      <p class="u-label">{col.title}</p>
+      {col.links.map((l) => <a href={href(l.path)}>{l.label}</a>)}
+    </nav>
+  ))}
+</footer>

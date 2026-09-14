@@ -1,0 +1,46 @@
+---
+export const faq = [
+  {
+    q: 'Tutto il menu è senza glutine?',
+    a: 'Sì. Il senza glutine è il punto di partenza della cucina: pasta, pane, panini, sughi e dolci nascono nel nostro laboratorio.',
+    desktopOnly: false,
+  },
+  {
+    q: 'Dove mangiare gluten free a Firenze?',
+    a: 'In Oltrarno alla Trattoria di Via Romana 45/R e da Boboli To-Go, a Santa Croce al Bargello in Via Ghibellina 147/r, con La Cantina in Via Romana 60R.',
+    desktopOnly: true,
+  },
+  {
+    q: 'Serve prenotare?',
+    a: 'È consigliato, soprattutto a cena e nel fine settimana. Puoi prenotare per ogni locale dalla sezione Firenze.',
+    desktopOnly: false,
+  },
+  {
+    q: 'Fate asporto e prodotti da portare a casa?',
+    a: "Sì: Boboli To-Go per l'asporto e lo shop per pasta, sughi, kit e box da portare a casa.",
+    desktopOnly: false,
+  },
+];
+---
+<section class="seo">
+  <p class="u-label seo__crumb"><span class="d-only">Home › Firenze › Gluten free</span><span class="m-only">SEO + FAQ</span></p>
+  <h2 class="seo__title">Boboli a Firenze: cucina 100% gluten free nel cuore della città</h2>
+  <div class="seo__grid">
+    <div class="seo__copy d-only" aria-hidden="true">
+      <span class="skeleton"></span>
+      <span class="skeleton"></span>
+      <span class="skeleton skeleton--88"></span>
+      <span class="skeleton"></span>
+      <span class="skeleton skeleton--64"></span>
+      <p class="seo__links">Link interni: pagine locale · menu · cantina · shop · FAQ.</p>
+    </div>
+    <div class="faq" id="faq">
+      {faq.map((item) => (
+        <details class:list={{ 'd-only': item.desktopOnly }}>
+          <summary><span>{item.q}</span><span class="faq__sign" aria-hidden="true">+</span></summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

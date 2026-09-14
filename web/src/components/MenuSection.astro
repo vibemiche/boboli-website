@@ -1,0 +1,36 @@
+---
+import Placeholder from './Placeholder.astro';
+import { href } from '../lib/site';
+
+const categories = [
+  { label: 'Antipasti' },
+  { label: 'Pasta' },
+  { label: 'Piatti principali' },
+  { label: 'Dolci' },
+  { label: 'Vini' },
+  { label: 'Specialità del giorno', short: 'Del giorno' },
+];
+
+const gallery = ['pasta fresca', 'pane e panini', 'sughi', 'dolci'];
+---
+<section class="menu" id="menu">
+  <div class="menu__head">
+    <h2 class="menu__title">Cosa scegli oggi?</h2>
+    <a class="btn btn--ink menu__cta" href={href('/menu/')}>Scopri il menu</a>
+  </div>
+  <ul class="menu__list">
+    {categories.map((c) => (
+      <li>
+        <a href={href('/menu/')}>
+          <span class="menu__item">
+            {c.short ? <><span class="d-only">{c.label}</span><span class="m-only">{c.short}</span></> : c.label}
+          </span>
+          <span class="u-label">Vedi &rarr;</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div class="menu__gallery">
+    {gallery.map((g) => <Placeholder label={`IMG — ${g}`} />)}
+  </div>
+</section>

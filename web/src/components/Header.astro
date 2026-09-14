@@ -1,0 +1,56 @@
+---
+import { href } from '../lib/site';
+
+const links = [
+  { label: 'Trattoria', path: '/#trattoria' },
+  { label: 'Bargello', path: '/#bargello' },
+  { label: 'To Go', path: '/#togo' },
+  { label: 'Cantina', path: '/#cantina' },
+  { label: 'Menu', path: '/#menu' },
+  { label: 'Shop', path: '/#shop' },
+  { label: 'Firenze', path: '/#firenze' },
+];
+---
+<header class="site-header">
+  <a class="brand" href={href('/')}>BOBOLI</a>
+  <div class="site-header__actions">
+    <span class="lang u-label">IT / EN</span>
+    <a class="btn btn--ink" href={href('/#firenze')}>Prenota</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-overlay" aria-label="Apri il menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-overlay" id="nav-overlay" hidden>
+  <button class="nav-overlay__close" type="button" aria-label="Chiudi il menu">&times;</button>
+  <ul class="nav-overlay__list">
+    {links.map((l) => <li><a href={href(l.path)}>{l.label}</a></li>)}
+  </ul>
+  <span class="nav-overlay__meta u-label">100% gluten free · dal 1978 · Firenze</span>
+</nav>
+
+<script>
+  const burger = document.querySelector<HTMLButtonElement>('.burger');
+  const overlay = document.getElementById('nav-overlay');
+  const closeBtn = overlay?.querySelector<HTMLButtonElement>('.nav-overlay__close');
+
+  if (burger && overlay) {
+    const setOpen = (open: boolean) => {
+      overlay.hidden = !open;
+      burger.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) overlay.querySelector('a')?.focus();
+      else burger.focus();
+    };
+
+    burger.addEventListener('click', () => setOpen(overlay.hidden));
+    closeBtn?.addEventListener('click', () => setOpen(false));
+    overlay.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !overlay.hidden) setOpen(false);
+    });
+  }
+</script>

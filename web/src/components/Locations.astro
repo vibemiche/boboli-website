@@ -1,0 +1,25 @@
+---
+import Placeholder from './Placeholder.astro';
+import { href } from '../lib/site';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { locali: CollectionEntry<'locali'>[] }
+const { locali } = Astro.props;
+---
+<section class="locations" id="firenze">
+  <h2 class="locations__title">Tre modi di vivere Boboli. Nel cuore di Firenze.</h2>
+  <div class="locations__grid">
+    <Placeholder class="locations__map" label="MAPPA FULL-BLEED — 4 pin, Oltrarno + Santa Croce" />
+    <ul class="locations__list">
+      {locali.map((l) => (
+        <li>
+          <div>
+            <p class="locations__name"><span class="d-only">{l.data.nameLegal}</span><span class="m-only">{l.data.nameShort}</span></p>
+            <p class="locations__addr">{l.data.street}<span class="d-only">, {l.data.postalCode} {l.data.city}</span></p>
+          </div>
+          <a class="btn btn--terracotta" href={href('/#firenze')}>{l.data.ctaLabel}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

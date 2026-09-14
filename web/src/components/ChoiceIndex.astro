@@ -1,0 +1,26 @@
+---
+import { href } from '../lib/site';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { locali: CollectionEntry<'locali'>[] }
+const { locali } = Astro.props;
+
+const rows = [
+  ...locali.map((l) => ({ verb: l.data.choiceVerb, where: l.data.street, path: `/locali/${l.id}/` })),
+  { verb: 'Porta Boboli a casa', where: 'I prodotti del laboratorio', path: '/#prodotti' },
+];
+---
+<section class="choices" id="intro">
+  <h2 class="choices__title">Da Boboli la libertà di scegliere non riguarda solo il piatto.</h2>
+  <ol class="choices__list">
+    {rows.map((r) => (
+      <li>
+        <a href={href(r.path)}>
+          <span class="choices__verb">{r.verb}</span>
+          <span class="choices__where">{r.where}</span>
+          <span class="choices__arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</section>

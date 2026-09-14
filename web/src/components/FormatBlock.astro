@@ -3,22 +3,29 @@ import Placeholder from './Placeholder.astro';
 import { href } from '../lib/site';
 import type { CollectionEntry } from 'astro:content';
 
-interface Props { locale: CollectionEntry<'locali'>; anchor: string; dark?: boolean }
-const { locale, anchor, dark = false } = Astro.props;
+interface Props { locale: CollectionEntry<'locali'>; anchor: string; dark?: boolean; bleed?: boolean }
+const { locale, anchor, dark = false, bleed = false } = Astro.props;
 const d = locale.data;
+const page = href(`/locali/${locale.id}/`);
+const books = d.ctaLabel === 'Prenota';
+const primaryHref = books ? href('/#firenze') : d.phone ? `tel:${d.phone.replace(/\s+/g, '')}` : page;
 ---
-<section class:list={['format', { 'format--dark': dark }]} id={anchor}>
+<section class:list={['format', { 'format--dark': dark, 'format--bleed': bleed }]} id={anchor}>
   <div class="format__media">
-    <Placeholder label={`IMG FULL-BLEED — ${d.kicker.toLowerCase()}`} />
-    <span class="format__num" aria-hidden="true">{d.formatNumber}</span>
+    <Placeholder label={`IMG FULL-BLEED — ${d.imageAlt}`} />
+    <span class="format__num" aria-hidden="true">{d.civic}</span>
   </div>
   <div class="format__body">
     <div class="format__text">
       <p class="u-label format__kicker">{d.kicker}</p>
       <h2 class="format__title">{d.title}</h2>
-      <p class="format__blurb"><span class="d-only">{d.blurb}</span><span class="m-only">{d.blurbShort}</span></p>
-      <p class="u-label format__address">{d.street}<span class="d-only"> · {d.zone}</span></p>
+      {d.insight && <p class="format__insight">{d.insight}</p>}
+      <p class="format__blurb">{d.blurb}</p>
+      <p class="u-label format__address">{d.street} · {d.zone}</p>
     </div>
-    <a class:list={['btn', dark ? 'btn--cream' : 'btn--ink']} href={href('/#firenze')}>Scopri &rarr;</a>
+    <div class="format__actions">
+      <a class="link-more" href={page}>Il locale &rarr;</a>
+      <a class:list={['btn', dark ? 'btn--cream' : 'btn--ink']} href={primaryHref} data-book={books ? locale.id : undefined}>{d.ctaLabel}</a>
+    </div>
   </div>
 </section>

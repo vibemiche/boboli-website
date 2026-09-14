@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { href } from '../../lib/site';
+import { restaurantSchema, breadcrumbSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const locali = await getCollection('locali');
+  return locali.map((l) => ({ params: { slug: l.id }, props: { locale: l } }));
+}
+
+interface Props { locale: CollectionEntry<'locali'> }
+const { locale } = Astro.props;
+const d = locale.data;
+const others = (await getCollection('locali'))
+  .filter((l) => l.id !== locale.id)
+  .sort((a, b) => a.data.listOrder - b.data.listOrder);
+
+const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${d.nameLegal}, ${d.street}, ${d.postalCode} ${d.city}`)}`;
+const books = d.ctaLabel === 'Prenota';
+
+const jsonLd = [
+  restaurantSchema(locale, Astro.site!),
+  breadcrumbSchema([{ name: 'Boboli', path: '/' }, { name: d.nameShort, path: `/locali/${locale.id}/` }], Astro.site!),
+];
+---
+<Base
+  title={`${d.nameShort} — ${d.street}, Firenze · 100% gluten free`}
+  description={`${d.nameLegal}: ${d.blurb} ${d.street}, ${d.postalCode} ${d.city}, ${d.zone}. Tutto il menu senza glutine.`}
+  jsonLd={jsonLd}
+>
+  <article class="place">
+    <p class="u-label place__crumb"><a href={href('/')}>Boboli</a> › {d.zone} › {d.nameShort}</p>
+    <header class="place__head">
+      <span class="place__civic" aria-hidden="true">{d.civic}</span>
+      <div>
+        <p class="u-label place__kicker">{d.nameLegal}</p>
+        <h1 class="place__title">{d.title}</h1>
+      </div>
+    </header>
+    <div class="place__media">
+      <Placeholder label={`IMG — ${d.imageAlt}`} />
+    </div>
+    <div class="place__grid">
+      <div class="place__body">
+        {d.insight && <p class="place__insight">{d.insight}</p>}
+        <p class="place__text">{d.blurb} Tutto il menu è senza glutine: pasta, pane, panini, sughi e dolci arrivano dal nostro laboratorio.</p>
+        <div class="place__actions">
+          <a class="btn btn--ink" href={books ? href('/#firenze') : maps} data-book={books ? locale.id : undefined} rel={books ? undefined : 'noopener'}>{books ? 'Prenota' : 'Come arrivare'}</a>
+          {d.phone && <a class="btn btn--ghost" href={`tel:${d.phone.replace(/\s+/g, '')}`}>Chiama</a>}
+        </div>
+      </div>
+      <dl class="place__facts">
+        <div><dt class="u-label">Indirizzo</dt><dd><a href={maps} rel="noopener">{d.street}, {d.postalCode} {d.city}</a><br />{d.zone}</dd></div>
+        {d.phone && <div><dt class="u-label">Telefono</dt><dd><a href={`tel:${d.phone.replace(/\s+/g, '')}`}>{d.phone}</a></dd></div>}
+        {d.openingHours.length > 0 && <div><dt class="u-label">Orari</dt><dd>{d.openingHours.map((h) => <span>{h}<br /></span>)}</dd></div>}
+        <div><dt class="u-label">Cucina</dt><dd>Toscana, 100% senza glutine</dd></div>
+      </dl>
+    </div>
+    <nav class="place__others" aria-label="Gli altri locali">
+      <p class="u-label">Gli altri locali</p>
+      <ol class="choices__list">
+        {others.map((o) => (
+          <li>
+            <a href={href(`/locali/${o.id}/`)}>
+              <span class="choices__verb">{o.data.choiceVerb}</span>
+              <span class="choices__where">{o.data.street}</span>
+              <span class="choices__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </article>
+</Base>

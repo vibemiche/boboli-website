@@ -1,21 +1,19 @@
 ---
+import { getCollection } from 'astro:content';
 import { href } from '../lib/site';
 
+const locali = (await getCollection('locali')).sort((a, b) => a.data.listOrder - b.data.listOrder);
 const links = [
-  { label: 'Trattoria', path: '/#trattoria' },
-  { label: 'Bargello', path: '/#bargello' },
-  { label: 'To Go', path: '/#togo' },
-  { label: 'Cantina', path: '/#cantina' },
-  { label: 'Menu', path: '/#menu' },
-  { label: 'Shop', path: '/#shop' },
-  { label: 'Firenze', path: '/#firenze' },
+  ...locali.map((l) => ({ label: l.data.nameShort, meta: l.data.street, path: `/locali/${l.id}/` })),
+  { label: 'Menu', meta: 'Tutto senza glutine', path: '/#menu' },
+  { label: 'Il laboratorio', meta: 'Fatto da noi', path: '/#laboratorio' },
 ];
 ---
 <header class="site-header">
   <a class="brand" href={href('/')}>BOBOLI</a>
   <div class="site-header__actions">
     <span class="lang u-label">IT / EN</span>
-    <a class="btn btn--ink" href={href('/#firenze')}>Prenota</a>
+    <a class="btn btn--ink" href={href('/#firenze')} data-book>Prenota</a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="nav-overlay" aria-label="Apri il menu">
       <span></span><span></span><span></span>
     </button>
@@ -25,7 +23,7 @@ const links = [
 <nav class="nav-overlay" id="nav-overlay" hidden>
   <button class="nav-overlay__close" type="button" aria-label="Chiudi il menu">&times;</button>
   <ul class="nav-overlay__list">
-    {links.map((l) => <li><a href={href(l.path)}>{l.label}</a></li>)}
+    {links.map((l) => <li><a href={href(l.path)}>{l.label}<small>{l.meta}</small></a></li>)}
   </ul>
   <span class="nav-overlay__meta u-label">100% gluten free · dal 1978 · Firenze</span>
 </nav>

@@ -1,33 +1,24 @@
 ---
+import { getCollection } from 'astro:content';
 import { href } from '../lib/site';
+
+const locali = (await getCollection('locali')).sort((a, b) => a.data.listOrder - b.data.listOrder);
 
 const columns = [
   {
-    title: 'Ristoranti',
-    links: [
-      { label: 'Trattoria', path: '/#trattoria' },
-      { label: 'Bargello', path: '/#bargello' },
-      { label: 'To Go', path: '/#togo' },
-      { label: 'Cantina', path: '/#cantina' },
-    ],
-  },
-  {
     title: 'Scopri',
     links: [
-      { label: 'Menu', path: '/#menu' },
-      { label: '100% Gluten Free', path: '/#manifesto' },
-      { label: 'Shop', path: '/#shop' },
-      { label: 'Firenze', path: '/#firenze' },
+      { label: 'Il laboratorio', path: '/#laboratorio' },
+      { label: '100% gluten free', path: '/#manifesto' },
+      { label: 'Il menu', path: '/#menu' },
+      { label: 'I prodotti', path: '/#prodotti' },
     ],
   },
   {
     title: 'Contatti',
-    desktopOnly: true,
     links: [
-      { label: 'Prenota', path: '/#firenze' },
-      { label: 'FAQ', path: '/#faq' },
-      { label: 'Telefono · WhatsApp', path: '/#firenze' },
-      { label: 'Privacy · Cookie', path: '/#firenze' },
+      { label: 'Prenota', path: '/#firenze', book: true },
+      { label: 'Domande frequenti', path: '/#faq' },
     ],
   },
 ];
@@ -35,13 +26,22 @@ const columns = [
 <footer class="site-footer">
   <div class="site-footer__brand">
     <p class="site-footer__mark">BOBOLI</p>
-    <p class="site-footer__tagline d-only">La libertà di scegliere.<br />100% gluten free · Firenze</p>
-    <p class="u-label site-footer__lang d-only">IT / EN</p>
+    <p class="site-footer__tagline">La libertà di scegliere.<br />100% gluten free · Firenze, dal 1978</p>
+    <p class="u-label site-footer__lang">IT / EN</p>
   </div>
+  <nav class="site-footer__col site-footer__locali" aria-label="I locali">
+    <p class="u-label">I locali</p>
+    {locali.map((l) => (
+      <a href={href(`/locali/${l.id}/`)}>
+        {l.data.nameLegal}
+        <span class="site-footer__addr">{l.data.street}, {l.data.postalCode} {l.data.city}{l.data.phone && ` · ${l.data.phone}`}</span>
+      </a>
+    ))}
+  </nav>
   {columns.map((col) => (
-    <nav class:list={['site-footer__col', { 'd-only': col.desktopOnly }]}>
+    <nav class="site-footer__col">
       <p class="u-label">{col.title}</p>
-      {col.links.map((l) => <a href={href(l.path)}>{l.label}</a>)}
+      {col.links.map((l) => <a href={href(l.path)} data-book={l.book ? '' : undefined}>{l.label}</a>)}
     </nav>
   ))}
 </footer>

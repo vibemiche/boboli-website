@@ -1,4 +1,5 @@
 ---
+import Figure from './Figure.astro';
 import { href } from '../lib/site';
 import type { CollectionEntry } from 'astro:content';
 
@@ -6,8 +7,8 @@ interface Props { locali: CollectionEntry<'locali'>[] }
 const { locali } = Astro.props;
 
 const rows = [
-  ...locali.map((l) => ({ verb: l.data.choiceVerb, where: l.data.street, path: `/locali/${l.id}/` })),
-  { verb: 'Porta Boboli a casa', where: 'I prodotti del laboratorio', path: '/#prodotti' },
+  ...locali.map((l) => ({ verb: l.data.choiceVerb, where: l.data.street, path: `/locali/${l.id}/`, seal: l.data.seal })),
+  { verb: 'Porta Boboli a casa', where: 'I prodotti del laboratorio', path: '/#prodotti', seal: 'pasta' },
 ];
 ---
 <section class="choices" id="intro">
@@ -16,6 +17,7 @@ const rows = [
     {rows.map((r) => (
       <li>
         <a href={href(r.path)}>
+          {r.seal && <Figure class="choices__seal" slot={`illustrazioni/${r.seal}`} alt="" label="" widths={[120, 240]} sizes="104px" />}
           <span class="choices__verb">{r.verb}</span>
           <span class="choices__where">{r.where}</span>
           <span class="choices__arrow" aria-hidden="true">&rarr;</span>

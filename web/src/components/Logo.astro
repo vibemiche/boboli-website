@@ -1,0 +1,15 @@
+---
+import raw from '../assets/logo.svg?raw';
+
+interface Props { class?: string }
+const { class: className = 'logo' } = Astro.props;
+
+// Inline, così il nero della scritta segue il colore del contesto (inchiostro
+// in header, crema nel footer) e il fregio prende l'accento dove serve.
+const svg = raw
+  .replace(/\s(width|height)="[^"]*"/g, '')
+  .replace(/fill="#000"/g, 'fill="currentColor"')
+  .replace(/fill="#690425"/g, 'fill="var(--logo-accent,#690425)"')
+  .replace('<svg ', `<svg class="${className}" role="img" aria-label="Trattoria Boboli, Firenze, dal 1978" focusable="false" `);
+---
+<Fragment set:html={svg} />

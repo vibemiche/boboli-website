@@ -77,6 +77,7 @@ const jsonLd = [
         {others.map((o) => (
           <li>
             <a href={href(`/locali/${o.id}/`)}>
+              {o.data.seal && <Figure class="choices__seal" slot={`illustrazioni/${o.data.seal}`} alt="" label="" widths={[120, 240]} sizes="104px" />}
               <span class="choices__verb">{o.data.choiceVerb}</span>
               <span class="choices__where">{o.data.street}</span>
               <span class="choices__arrow" aria-hidden="true">&rarr;</span>

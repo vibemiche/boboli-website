@@ -335,6 +335,9 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .locations__meta{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:4px;color:var(--cream-60);font-size:clamp(12px,1.02vw,15px)}
 .locations__meta a:hover{color:var(--terracotta)}
 .locations__list .btn{padding:11px 20px}
+.locations__firenze{margin-top:clamp(30px,4vw,60px);text-align:center}
+.locations__firenze-img :is(.ph,picture){height:clamp(200px,30vw,420px);border-radius:var(--r)}
+.locations__firenze-caption{margin-top:12px;font-weight:100;font-size:clamp(16px,2.2vw,32px);letter-spacing:-.02em;color:var(--cream-60)}
 
 /* ── blocco SEO + FAQ ────────────────────────────────────────────────────── */
 .seo{padding:clamp(30px,4.81vw,74px) var(--gutter)}
@@ -515,6 +518,8 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .locations__civic{font-size:26px}
   .locations__name{font-size:17px}
   .locations__addr,.locations__meta{font-size:12px}
+  .locations__firenze-img :is(.ph,picture){height:180px}
+  .locations__firenze-caption{font-size:15px}
 
   .seo{padding:26px var(--gutter) 30px}
   .seo__title{font-size:22px;line-height:1.1;margin-bottom:12px}

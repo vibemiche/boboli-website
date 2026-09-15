@@ -1,0 +1,101 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { locali: CollectionEntry<'locali'>[] }
+const { locali } = Astro.props;
+
+// Prima dello script, e senza JS, la mappa è una lista di indicazioni: mai un buco.
+const pins = locali
+  .filter((l) => l.data.geo)
+  .map((l) => ({
+    id: l.id,
+    civic: l.data.civic,
+    name: l.data.nameShort,
+    street: l.data.street,
+    lat: l.data.geo!.lat,
+    lng: l.data.geo!.lng,
+    maps: `https://www.google.com/maps/dir/?api=1&destination=${l.data.geo!.lat},${l.data.geo!.lng}`,
+  }));
+---
+<div class="map" data-pins={JSON.stringify(pins)}>
+  <ul class="map__fallback" aria-label="Indicazioni per i quattro locali">
+    {pins.map((p) => (
+      <li><a href={p.maps} target="_blank" rel="noopener"><b>{p.civic}</b> {p.street}</a></li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  type Pin = { id: string; civic: string; name: string; street: string; lat: number; lng: number; maps: string };
+
+  const el = document.querySelector<HTMLElement>('.map');
+
+  // Leaflet pesa quanto l'hero intero: si carica solo quando la sezione si avvicina.
+  if (el) {
+    const io = new IntersectionObserver(
+      async (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        // Il CSS con `?url` resta un asset: importato in modo statico Astro lo
+        // metterebbe nell'head di ogni pagina.
+        const [{ default: L }, { default: cssUrl }] = await Promise.all([import('leaflet'), import('leaflet/dist/leaflet.css?url')]);
+        await new Promise<void>((resolve) => {
+          const link = Object.assign(document.createElement('link'), { rel: 'stylesheet', href: cssUrl, onload: () => resolve(), onerror: () => resolve() });
+          document.head.append(link);
+        });
+        const pins: Pin[] = JSON.parse(el.dataset.pins ?? '[]');
+        el.querySelector('.map__fallback')?.remove();
+
+        const map = L.map(el, { scrollWheelZoom: false });
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+          maxZoom: 19,
+          subdomains: 'abcd',
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        }).addTo(map);
+
+        const rows = document.querySelectorAll<HTMLElement>('[data-locale-row]');
+        const markers = new Map<string, L.Marker>();
+        const setActive = (id: string | null) => {
+          markers.forEach((m, k) => m.getElement()?.classList.toggle('is-active', k === id));
+          rows.forEach((r) => r.classList.toggle('is-active', r.dataset.localeRow === id));
+        };
+
+        pins.forEach((p) => {
+          const m = L.marker([p.lat, p.lng], {
+            icon: L.divIcon({ className: 'map__pin', html: `<span>${p.civic}</span>`, iconSize: [0, 0] }),
+            title: p.name,
+          })
+            .bindPopup(`<b>${p.name}</b><br>${p.street}<br><a href="${p.maps}" target="_blank" rel="noopener">Indicazioni &rarr;</a>`)
+            .addTo(map);
+          m.on('mouseover', () => setActive(p.id));
+          m.on('mouseout', () => setActive(null));
+          markers.set(p.id, m);
+        });
+        rows.forEach((r) => {
+          r.addEventListener('mouseenter', () => setActive(r.dataset.localeRow ?? null));
+          r.addEventListener('mouseleave', () => setActive(null));
+        });
+
+        // Tre civici di Via Romana stanno in cinquanta metri: allo zoom che mostra
+        // anche il Bargello si sovrapporrebbero. I pin vicini si impilano su un'asta.
+        const layout = () => {
+          const placed: { x: number; y: number }[] = [];
+          pins.forEach((p) => {
+            const m = markers.get(p.id)!;
+            const pt = map.latLngToLayerPoint(m.getLatLng());
+            const near = placed.filter((q) => Math.abs(q.x - pt.x) < 56 && Math.abs(q.y - pt.y) < 56).length;
+            const pin = m.getElement();
+            pin?.classList.toggle('is-stacked', near > 0);
+            pin?.querySelector<HTMLElement>('span')?.style.setProperty('--lift', `${near * 35}px`);
+            placed.push({ x: pt.x, y: pt.y });
+          });
+        };
+        map.on('zoomend', layout);
+        map.fitBounds(pins.map((p) => [p.lat, p.lng] as [number, number]), { padding: [64, 64] });
+        layout();
+      },
+      { rootMargin: '240px' },
+    );
+    io.observe(el);
+  }
+</script>

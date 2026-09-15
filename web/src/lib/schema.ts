@@ -1,5 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 import { href } from './site';
+import { openingHoursSpecification } from './contact';
 
 /**
  * I dati strutturati servono due volte: i rich result di Google e i motori
@@ -30,7 +31,7 @@ export function restaurantSchema(locale: CollectionEntry<'locali'>, site: URL) {
     suitableForDiet: 'https://schema.org/GlutenFreeDiet',
     ...(d.phone ? { telephone: d.phone } : {}),
     ...(d.geo ? { geo: { '@type': 'GeoCoordinates', latitude: d.geo.lat, longitude: d.geo.lng } } : {}),
-    ...(d.openingHours.length ? { openingHours: d.openingHours } : {}),
+    ...(d.hours.length ? { openingHoursSpecification: openingHoursSpecification(d.hours) } : {}),
     ...(d.sameAs.length ? { sameAs: d.sameAs } : {}),
   };
 }

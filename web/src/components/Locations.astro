@@ -1,6 +1,7 @@
 ---
 import Figure from './Figure.astro';
 import { href } from '../lib/site';
+import { telHref, formatHours } from '../lib/contact';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props { locali: CollectionEntry<'locali'>[] }
@@ -24,10 +25,10 @@ const { locali } = Astro.props;
           <div>
             <a class="locations__name" href={href(`/locali/${l.id}/`)}>{l.data.nameShort}</a>
             <p class="locations__addr">{l.data.street}, {l.data.postalCode} {l.data.city} · {l.data.zone}</p>
-            {(l.data.phone || l.data.openingHours.length > 0) && (
+            {(l.data.phone || l.data.hours.length > 0) && (
               <p class="locations__meta">
-                {l.data.phone && <a href={`tel:${l.data.phone.replace(/\s+/g, '')}`}>{l.data.phone}</a>}
-                {l.data.openingHours.map((h) => <span>{h}</span>)}
+                {l.data.phone && <a href={telHref(l.data.phone)}>{l.data.phone}</a>}
+                {formatHours(l.data.hours).map((h) => <span>{h}</span>)}
               </p>
             )}
           </div>

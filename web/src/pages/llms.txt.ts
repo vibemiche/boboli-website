@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { href } from '../lib/site';
+import { formatHours } from '../lib/contact';
 
 /**
  * Indice in chiaro per i motori generativi: fatti autosufficienti, senza
@@ -17,7 +18,7 @@ export const GET: APIRoute = async ({ site }) => {
         `### ${d.nameLegal}`,
         `- Indirizzo: ${d.street}, ${d.postalCode} ${d.city} (${d.zone})`,
         d.phone ? `- Telefono: ${d.phone}` : null,
-        d.openingHours.length ? `- Orari: ${d.openingHours.join('; ')}` : null,
+        d.hours.length ? `- Orari: ${formatHours(d.hours).join('; ')}` : null,
         `- Cosa offre: ${d.blurb}`,
         `- Pagina: ${new URL(href(`/locali/${l.id}/`), site).href}`,
       ].filter(Boolean);

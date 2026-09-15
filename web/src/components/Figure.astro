@@ -1,0 +1,45 @@
+---
+import { Picture } from 'astro:assets';
+import { findImage } from '../lib/images';
+
+interface Props {
+  /** Nome del file in src/assets/, senza estensione. Vedi assets/README.md. */
+  slot: string;
+  alt: string;
+  /** Testo del riquadro grigio finché la foto non è stata caricata. */
+  label: string;
+  class?: string;
+  widths?: number[];
+  sizes?: string;
+  /** Solo l'hero: è l'immagine che determina l'LCP. */
+  priority?: boolean;
+}
+
+const {
+  slot,
+  alt,
+  label,
+  class: className = '',
+  widths = [640, 1024, 1600, 2400],
+  sizes = '100vw',
+  priority = false,
+} = Astro.props;
+
+const image = findImage(slot);
+---
+{image ? (
+  <Picture
+    src={image}
+    alt={alt}
+    widths={widths}
+    sizes={sizes}
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    pictureAttributes={className ? { class: className } : {}}
+    loading={priority ? 'eager' : 'lazy'}
+    decoding={priority ? 'sync' : 'async'}
+    fetchpriority={priority ? 'high' : 'auto'}
+  />
+) : (
+  <div class:list={['ph', className]}>{label}</div>
+)}

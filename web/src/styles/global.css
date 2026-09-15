@@ -77,8 +77,11 @@ button{font-family:inherit}
 .m-only{display:none}
 
 /* — blocchi immagine segnaposto — */
+picture{display:block;overflow:hidden}
+picture img{display:block;width:100%;height:100%;object-fit:cover}
+
 .ph{
-  display:grid;place-items:center;
+  display:grid;place-items:center;overflow:hidden;
   padding:16px;text-align:center;
   background:var(--ph-bg);color:var(--ph-ink);
   font-weight:400;font-size:clamp(11px,1.3vw,16px);line-height:1.4;
@@ -220,7 +223,7 @@ button{font-family:inherit}
 .format{background:var(--cream)}
 .format--dark{background:var(--ink)}
 .format__media{position:relative}
-.format__media .ph{height:clamp(220px,33.33vw,520px)}
+.format__media :is(.ph,picture){height:clamp(220px,33.33vw,520px)}
 .format__num{
   position:absolute;inset:0;display:flex;align-items:center;
   padding:0 var(--gutter);
@@ -249,7 +252,7 @@ button{font-family:inherit}
 .format__actions{display:flex;align-items:center;gap:22px}
 
 /* variante che sfonda: foto più alta, pannello di testo sovrapposto a sinistra */
-.format--bleed .format__media .ph{height:clamp(300px,50vw,760px)}
+.format--bleed .format__media :is(.ph,picture){height:clamp(300px,50vw,760px)}
 .format--bleed .format__num{align-items:flex-start;justify-content:flex-end;padding-top:var(--gutter)}
 .format--bleed .format__body{
   position:relative;width:min(680px,86%);
@@ -302,7 +305,7 @@ button{font-family:inherit}
 .menu__item{font-weight:700;font-size:clamp(21px,2.78vw,44px);line-height:1;letter-spacing:-.03em}
 .menu__desc{color:var(--muted);font-size:var(--body);line-height:1.4;text-align:right}
 .menu__gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
-.menu__gallery .ph{height:clamp(110px,13.9vw,220px)}
+.menu__gallery :is(.ph,picture){height:clamp(110px,13.9vw,220px)}
 .menu__shop{
   display:flex;justify-content:space-between;align-items:baseline;gap:24px;
   margin-top:26px;padding-top:16px;border-top:1px solid var(--rule);
@@ -373,7 +376,7 @@ button{font-family:inherit}
 }
 .place__kicker{color:var(--kicker);margin-bottom:10px}
 .place__title{max-width:14ch;font-weight:700;font-size:clamp(34px,5.4vw,86px);line-height:.94;letter-spacing:-.03em}
-.place__media .ph{height:clamp(240px,40vw,600px)}
+.place__media :is(.ph,picture){height:clamp(240px,40vw,600px)}
 .place__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;margin-top:30px;align-items:start}
 .place__body{display:flex;flex-direction:column;gap:14px}
 .place__insight{font-weight:100;font-size:clamp(20px,2.4vw,36px);line-height:1.2;max-width:26ch}
@@ -390,6 +393,7 @@ button{font-family:inherit}
 .place__others .u-label{color:var(--kicker);margin-bottom:8px}
 
 /* ── selettore di prenotazione ───────────────────────────────────────────── */
+.book:not([open]){display:none}
 .book{
   width:100%;max-width:min(640px,calc(100vw - 32px));
   border:0;padding:0;background:var(--cream);color:var(--ink);
@@ -472,12 +476,12 @@ button{font-family:inherit}
   .choices__where{font-size:14px;white-space:normal}
   .choices__arrow{font-size:22px;align-self:center}
 
-  .format__media .ph{height:220px}
+  .format__media :is(.ph,picture){height:220px}
   .format__num{font-size:20vw}
   .format__body{grid-template-columns:1fr;gap:16px;padding:var(--gutter)}
   .format__title{font-size:26px}
   .format__insight{font-size:17px}
-  .format--bleed .format__media .ph{height:300px}
+  .format--bleed .format__media :is(.ph,picture){height:300px}
   .format--bleed .format__body{width:auto;margin:0}
 
   .manifesto{grid-template-columns:1fr;gap:16px;padding:34px var(--gutter)}
@@ -499,7 +503,7 @@ button{font-family:inherit}
   .menu__item{font-size:22px}
   .menu__desc{text-align:left;font-size:14px}
   .menu__gallery{grid-template-columns:1fr 1fr}
-  .menu__gallery .ph{height:120px}
+  .menu__gallery :is(.ph,picture){height:120px}
   .menu__shop{flex-direction:column;gap:10px;align-items:flex-start}
 
   .locations{padding:30px var(--gutter)}
@@ -522,7 +526,7 @@ button{font-family:inherit}
   .place__head{grid-template-columns:1fr;gap:6px}
   .place__civic{font-size:26vw}
   .place__title{font-size:9vw;max-width:none}
-  .place__media .ph{height:220px}
+  .place__media :is(.ph,picture){height:220px}
   .place__grid{grid-template-columns:1fr;gap:22px;margin-top:20px}
   .place__insight{font-size:19px}
   .place__facts div{grid-template-columns:90px 1fr}

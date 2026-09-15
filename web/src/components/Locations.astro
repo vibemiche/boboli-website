@@ -1,5 +1,5 @@
 ---
-import Placeholder from './Placeholder.astro';
+import Figure from './Figure.astro';
 import { href } from '../lib/site';
 import type { CollectionEntry } from 'astro:content';
 
@@ -9,7 +9,14 @@ const { locali } = Astro.props;
 <section class="locations" id="firenze">
   <h2 class="locations__title">Tre porte in Via Romana. Una in Via Ghibellina.</h2>
   <div class="locations__grid">
-    <Placeholder class="locations__map" label="MAPPA — 4 pin con i civici: 45/R · 52 · 60R in Oltrarno, 147/R a Santa Croce" />
+    <Figure
+      slot="mappa"
+      class="locations__map"
+      alt="Mappa dei quattro locali Boboli a Firenze: tre in Via Romana, nell'Oltrarno, e uno in Via Ghibellina, a Santa Croce"
+      label="MAPPA — 4 pin con i civici: 45/R · 52 · 60R in Oltrarno, 147/R a Santa Croce"
+      widths={[560, 1120]}
+      sizes="(max-width: 760px) 100vw, 50vw"
+    />
     <ul class="locations__list">
       {locali.map((l) => (
         <li>

@@ -1,10 +1,12 @@
 ---
+import { getImage } from 'astro:assets';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
 import BookingDialog from '../components/BookingDialog.astro';
 import { indexable } from '../lib/site';
+import { findImage } from '../lib/images';
 
 interface Props {
   title: string;
@@ -17,9 +19,15 @@ interface Props {
 
 const { title, description, enPath, jsonLd = [], ogImagePath } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-// L'immagine di anteprima social esiste solo quando l'archivio fotografico
-// arriva: meglio nessun og:image che un og:image che punta nel vuoto.
-const ogImage = ogImagePath ? new URL(import.meta.env.BASE_URL + ogImagePath, Astro.site).href : null;
+// L'anteprima social si ricava dall'hero, ritagliata a 1200×630: così compare
+// appena la foto viene caricata, senza un secondo file da tenere allineato.
+// Finché l'hero manca, niente og:image: meglio di uno che punta nel vuoto.
+const hero = findImage('hero');
+const ogFallback = hero
+  ? (await getImage({ src: hero, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src
+  : null;
+const ogPath = ogImagePath ? import.meta.env.BASE_URL + ogImagePath : ogFallback;
+const ogImage = ogPath ? new URL(ogPath, Astro.site).href : null;
 ---
 <!doctype html>
 <html lang="it">

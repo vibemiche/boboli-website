@@ -1,5 +1,5 @@
 ---
-import Placeholder from './Placeholder.astro';
+import Figure from './Figure.astro';
 
 const things = [
   { label: 'Pane', desc: 'Dal nostro laboratorio, in tavola ogni giorno.' },
@@ -10,7 +10,12 @@ const things = [
   { label: 'Carne', desc: 'La tradizione toscana, in tavola.' },
 ];
 
-const gallery = ['pane', 'pasta fresca', 'sughi', 'dolci'];
+const gallery = [
+  { slug: 'pane', label: 'pane', alt: 'Il pane senza glutine del laboratorio Boboli' },
+  { slug: 'pasta-fresca', label: 'pasta fresca', alt: 'Pasta fresca senza glutine fatta nel laboratorio Boboli' },
+  { slug: 'sughi', label: 'sughi', alt: 'I sughi della tradizione toscana preparati da Boboli' },
+  { slug: 'dolci', label: 'dolci', alt: 'I dolci senza glutine di Boboli' },
+];
 ---
 <section class="menu" id="menu">
   <h2 class="menu__title">Cosa pensavi di non poter più mangiare?</h2>
@@ -23,7 +28,9 @@ const gallery = ['pane', 'pasta fresca', 'sughi', 'dolci'];
     ))}
   </ul>
   <div class="menu__gallery">
-    {gallery.map((g) => <Placeholder label={`IMG — ${g}`} />)}
+    {gallery.map((g) => (
+      <Figure slot={`menu/${g.slug}`} alt={g.alt} label={`IMG — ${g.label}`} widths={[220, 440, 660]} sizes="(max-width: 760px) 50vw, 25vw" />
+    ))}
   </div>
   <div class="menu__shop" id="prodotti">
     <p><strong>Porta Boboli a casa.</strong> Pasta, sughi e pane del laboratorio si comprano nei locali. Lo shop online arriva.</p>

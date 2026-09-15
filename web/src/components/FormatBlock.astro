@@ -1,5 +1,5 @@
 ---
-import Placeholder from './Placeholder.astro';
+import Figure from './Figure.astro';
 import { href } from '../lib/site';
 import type { CollectionEntry } from 'astro:content';
 
@@ -12,7 +12,7 @@ const primaryHref = books ? href('/#firenze') : d.phone ? `tel:${d.phone.replace
 ---
 <section class:list={['format', { 'format--dark': dark, 'format--bleed': bleed }]} id={anchor}>
   <div class="format__media">
-    <Placeholder label={`IMG FULL-BLEED — ${d.imageAlt}`} />
+    <Figure slot={`locali/${locale.id}`} alt={d.imageAlt} label={`IMG FULL-BLEED — ${d.imageAlt}`} widths={[768, 1280, 1920, 2560]} />
     <span class="format__num" aria-hidden="true">{d.civic}</span>
   </div>
   <div class="format__body">

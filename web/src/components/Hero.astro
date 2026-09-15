@@ -1,5 +1,5 @@
 ---
-import Placeholder from './Placeholder.astro';
+import Figure from './Figure.astro';
 import { href } from '../lib/site';
 import type { CollectionEntry } from 'astro:content';
 
@@ -10,7 +10,14 @@ const { locali } = Astro.props;
 const objects = ['la pasta', 'il pane', 'un panino', 'dove', 'con chi'];
 ---
 <section class="hero" id="top">
-  <Placeholder class="hero__media" label="IMG FULL-SCREEN — la tavola dall'alto, piena di piatti diversi, tutto senza glutine" />
+  <Figure
+    slot="hero"
+    class="hero__media"
+    alt="La tavola di Boboli vista dall'alto, piena di piatti diversi, tutti senza glutine"
+    label="IMG FULL-SCREEN — la tavola dall'alto, piena di piatti diversi, tutto senza glutine"
+    widths={[768, 1280, 1920, 2560]}
+    priority
+  />
   <p class="hero__side u-label">100% gluten free · dal 1978 · Firenze</p>
   <div class="hero__bottom">
     <p class="hero__ask">Pensavi che senza glutine volesse dire meno scelta?</p>

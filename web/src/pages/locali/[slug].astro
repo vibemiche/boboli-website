@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import Placeholder from '../../components/Placeholder.astro';
+import Figure from '../../components/Figure.astro';
 import { href } from '../../lib/site';
 import { restaurantSchema, breadcrumbSchema } from '../../lib/schema';
 
@@ -41,7 +41,7 @@ const jsonLd = [
       </div>
     </header>
     <div class="place__media">
-      <Placeholder label={`IMG — ${d.imageAlt}`} />
+      <Figure slot={`locali/${locale.id}`} alt={d.imageAlt} label={`IMG — ${d.imageAlt}`} widths={[768, 1280, 1920]} priority />
     </div>
     <div class="place__grid">
       <div class="place__body">

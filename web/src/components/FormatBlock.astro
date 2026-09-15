@@ -1,6 +1,7 @@
 ---
 import Figure from './Figure.astro';
 import { href } from '../lib/site';
+import { telHref } from '../lib/contact';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props { locale: CollectionEntry<'locali'>; anchor: string; dark?: boolean; bleed?: boolean }
@@ -8,7 +9,7 @@ const { locale, anchor, dark = false, bleed = false } = Astro.props;
 const d = locale.data;
 const page = href(`/locali/${locale.id}/`);
 const books = d.ctaLabel === 'Prenota';
-const primaryHref = books ? href('/#firenze') : d.phone ? `tel:${d.phone.replace(/\s+/g, '')}` : page;
+const primaryHref = books ? href('/#firenze') : d.phone ? telHref(d.phone) : page;
 ---
 <section class:list={['format', { 'format--dark': dark, 'format--bleed': bleed }]} id={anchor}>
   <div class="format__media">

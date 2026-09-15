@@ -1,43 +1,26 @@
 ---
 import Figure from './Figure.astro';
-import { href } from '../lib/site';
-import type { CollectionEntry } from 'astro:content';
 
-interface Props { locali: CollectionEntry<'locali'>[] }
-const { locali } = Astro.props;
-
-// L'oggetto che segue SCEGLI: la scelta come azione, non come slogan.
-const objects = ['la pasta', 'il pane', 'un panino', 'dove', 'con chi'];
+// Sei scelte, tutte visibili insieme: la quantità è il messaggio.
+const choices = ['la pasta.', 'il pane.', 'il panino.', 'pranzo o cena.', 'dove sederti.', 'con chi venire.'];
 ---
 <section class="hero" id="top">
   <Figure
     slot="hero"
     class="hero__media"
-    alt="La tavola di Boboli vista dall'alto, piena di piatti diversi, tutti senza glutine"
+    alt="La sala della Trattoria Boboli a Firenze, tutta la cucina senza glutine"
     label="IMG FULL-SCREEN — la tavola dall'alto, piena di piatti diversi, tutto senza glutine"
     widths={[768, 1280, 1920, 2560]}
     priority
   />
-  <p class="hero__side u-label">100% gluten free · dal 1978 · Firenze</p>
   <div class="hero__bottom">
-    <p class="hero__ask">Pensavi che senza glutine volesse dire meno scelta?</p>
-    <h1 class="hero__word">
-      Scegli
-      <span class="hero__obj" aria-hidden="true">
-        {objects.map((o, i) => <span style={`--i:${i}`}>{o}</span>)}
-      </span>
-      <span class="sr-only">{objects.join(', ')}.</span>
-    </h1>
-    <div class="hero__row">
-      <p class="hero__claim">Una cucina 100% senza glutine a Firenze. Tutto il menu, tutta la scelta.</p>
-      <ul class="hero__today" aria-label="I quattro locali">
-        {locali.map((l) => (
-          <li>
-            <a href={href(`/locali/${l.id}/`)}>{l.data.nameShort}</a>
-            <span>{l.data.street}</span>
-          </li>
-        ))}
+    <h1 class="hero__word">Scegli</h1>
+    <div class="hero__col">
+      <ul class="hero__list" aria-label="Cosa scegli da Boboli">
+        {choices.map((c, i) => <li style={`--i:${i}`}>{c}</li>)}
       </ul>
+      <p class="hero__answer">Tutto senza glutine.</p>
+      <p class="hero__since u-label">Firenze, dal 1978.</p>
     </div>
   </div>
 </section>

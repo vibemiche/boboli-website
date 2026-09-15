@@ -34,7 +34,7 @@ const jsonLd = [
   description="Boboli a Firenze: quattro locali e un laboratorio, tutta la cucina senza glutine. Trattoria, Bargello, To-Go e Cantina in Via Romana e Via Ghibellina. Tutto il menu, tutta la scelta."
   jsonLd={jsonLd}
 >
-  <Hero locali={inList} />
+  <Hero />
   <ChoiceIndex locali={inList} />
   {formats.map((l, i) => (
     <FormatBlock locale={l} anchor={anchors[l.id]} dark={i === 1} bleed={i === 2} />

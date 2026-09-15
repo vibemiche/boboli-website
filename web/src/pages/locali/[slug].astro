@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Figure from '../../components/Figure.astro';
 import { href } from '../../lib/site';
+import { telHref, formatHours } from '../../lib/contact';
 import { restaurantSchema, breadcrumbSchema } from '../../lib/schema';
 
 export async function getStaticPaths() {
@@ -23,7 +24,14 @@ const books = d.ctaLabel === 'Prenota';
 
 const jsonLd = [
   restaurantSchema(locale, Astro.site!),
-  breadcrumbSchema([{ name: 'Boboli', path: '/' }, { name: d.nameShort, path: `/locali/${locale.id}/` }], Astro.site!),
+  breadcrumbSchema(
+    [
+      { name: 'Boboli', path: '/' },
+      { name: d.zone, path: '/#firenze' },
+      { name: d.nameShort, path: `/locali/${locale.id}/` },
+    ],
+    Astro.site!,
+  ),
 ];
 ---
 <Base
@@ -32,7 +40,7 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <article class="place">
-    <p class="u-label place__crumb"><a href={href('/')}>Boboli</a> › {d.zone} › {d.nameShort}</p>
+    <nav class="u-label place__crumb" aria-label="Percorso"><a href={href('/')}>Boboli</a> › <a href={href('/#firenze')}>{d.zone}</a> › <span aria-current="page">{d.nameShort}</span></nav>
     <header class="place__head">
       <span class="place__civic" aria-hidden="true">{d.civic}</span>
       <div>
@@ -48,14 +56,18 @@ const jsonLd = [
         {d.insight && <p class="place__insight">{d.insight}</p>}
         <p class="place__text">{d.blurb} Tutto il menu è senza glutine: pasta, pane, panini, sughi e dolci arrivano dal nostro laboratorio.</p>
         <div class="place__actions">
-          <a class="btn btn--ink" href={books ? href('/#firenze') : maps} data-book={books ? locale.id : undefined} rel={books ? undefined : 'noopener'}>{books ? 'Prenota' : 'Come arrivare'}</a>
-          {d.phone && <a class="btn btn--ghost" href={`tel:${d.phone.replace(/\s+/g, '')}`}>Chiama</a>}
+          {books ? (
+            <a class="btn btn--ink" href={href('/#firenze')} data-book={locale.id}>Prenota</a>
+          ) : (
+            <a class="btn btn--ink" href={maps} target="_blank" rel="noopener">Come arrivare</a>
+          )}
+          {d.phone && <a class="btn btn--ghost" href={telHref(d.phone)}>Chiama</a>}
         </div>
       </div>
       <dl class="place__facts">
-        <div><dt class="u-label">Indirizzo</dt><dd><a href={maps} rel="noopener">{d.street}, {d.postalCode} {d.city}</a><br />{d.zone}</dd></div>
-        {d.phone && <div><dt class="u-label">Telefono</dt><dd><a href={`tel:${d.phone.replace(/\s+/g, '')}`}>{d.phone}</a></dd></div>}
-        {d.openingHours.length > 0 && <div><dt class="u-label">Orari</dt><dd>{d.openingHours.map((h) => <span>{h}<br /></span>)}</dd></div>}
+        <div><dt class="u-label">Indirizzo</dt><dd><a href={maps} target="_blank" rel="noopener">{d.street}, {d.postalCode} {d.city}</a><br />{d.zone}</dd></div>
+        {d.phone && <div><dt class="u-label">Telefono</dt><dd><a href={telHref(d.phone)}>{d.phone}</a></dd></div>}
+        {d.hours.length > 0 && <div><dt class="u-label">Orari</dt><dd>{formatHours(d.hours).map((h) => <span>{h}<br /></span>)}</dd></div>}
         <div><dt class="u-label">Cucina</dt><dd>Toscana, 100% senza glutine</dd></div>
       </dl>
     </div>

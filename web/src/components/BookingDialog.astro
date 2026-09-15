@@ -1,11 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import { href } from '../lib/site';
+import { telHref, formatHours } from '../lib/contact';
 
 // Con quattro ristoranti «Prenota» deve chiedere dove. Senza JS ogni pulsante
 // resta un link alla lista dei locali; con JS apre questo dialog.
 const locali = (await getCollection('locali')).sort((a, b) => a.data.listOrder - b.data.listOrder);
-const anyContact = locali.some((l) => l.data.phone || l.data.bookingUrl);
 ---
 <dialog class="book" id="prenota" aria-labelledby="prenota-titolo">
   <div class="book__inner">
@@ -21,16 +20,15 @@ const anyContact = locali.some((l) => l.data.phone || l.data.bookingUrl);
           <div>
             <p class="book__name">{l.data.nameShort}</p>
             <p class="u-label book__addr">{l.data.street} · {l.data.zone}</p>
+            {l.data.hours.length > 0 && <p class="book__hours">{formatHours(l.data.hours).join(' · ')}</p>}
           </div>
           <div class="book__actions">
-            {l.data.bookingUrl && <a class="btn btn--ink" href={l.data.bookingUrl} rel="noopener">Prenota</a>}
-            {l.data.phone && <a class="btn btn--ghost" href={`tel:${l.data.phone.replace(/\s+/g, '')}`}>Chiama</a>}
-            {!l.data.bookingUrl && !l.data.phone && <a class="btn btn--ghost" href={href(`/locali/${l.id}/`)}>Il locale</a>}
+            {l.data.bookingUrl && <a class="btn btn--ink" href={l.data.bookingUrl} target="_blank" rel="noopener">Prenota</a>}
+            {l.data.phone && <a class:list={['btn', l.data.bookingUrl ? 'btn--ghost' : 'btn--ink']} href={telHref(l.data.phone)}>Chiama</a>}
           </div>
         </li>
       ))}
     </ul>
-    {!anyContact && <p class="book__note">Telefoni e prenotazione online sono in arrivo: intanto trovi ogni locale al suo indirizzo.</p>}
   </div>
 </dialog>
 
@@ -40,6 +38,7 @@ const anyContact = locali.some((l) => l.data.phone || l.data.bookingUrl);
     const rows = dlg.querySelectorAll<HTMLElement>('[data-locale]');
     document.querySelectorAll<HTMLElement>('[data-book]').forEach((el) => {
       el.addEventListener('click', (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
         e.preventDefault();
         const id = el.getAttribute('data-book');
         rows.forEach((r) => {

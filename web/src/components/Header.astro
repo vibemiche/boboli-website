@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { href } from '../lib/site';
+import Logo from './Logo.astro';
 
 const locali = (await getCollection('locali')).sort((a, b) => a.data.listOrder - b.data.listOrder);
 const links = [
@@ -10,7 +11,7 @@ const links = [
 ];
 ---
 <header class="site-header">
-  <a class="brand" href={href('/')}>BOBOLI</a>
+  <a class="brand" href={href('/')}><Logo /></a>
   <div class="site-header__actions">
     <span class="lang u-label">IT / EN</span>
     <a class="btn btn--ink" href={href('/#firenze')} data-book>Prenota</a>

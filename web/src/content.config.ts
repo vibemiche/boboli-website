@@ -16,6 +16,8 @@ const locali = defineCollection({
     insight: z.string().nullable().default(null),
     // Il verbo con cui il locale compare nell'indice delle scelte in home.
     choiceVerb: z.string(),
+    // L'illustrazione tonda accanto al verbo: un file in assets/illustrazioni/.
+    seal: z.string().nullable().default(null),
     street: z.string(),
     // Il numero civico è il numerale gigante dei blocchi e il pin sulla mappa.
     civic: z.string(),

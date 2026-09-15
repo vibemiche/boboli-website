@@ -11,10 +11,10 @@ const things = [
 ];
 
 const gallery = [
-  { slug: 'pane', label: 'pane', alt: 'Il pane senza glutine del laboratorio Boboli' },
-  { slug: 'pasta-fresca', label: 'pasta fresca', alt: 'Pasta fresca senza glutine fatta nel laboratorio Boboli' },
-  { slug: 'sughi', label: 'sughi', alt: 'I sughi della tradizione toscana preparati da Boboli' },
-  { slug: 'dolci', label: 'dolci', alt: 'I dolci senza glutine di Boboli' },
+  { slug: 'antipasti', label: 'Antipasti', alt: 'Tagliere toscano con bruschette, salumi, olive e formaggio, tutto senza glutine' },
+  { slug: 'pasta', label: 'Pasta', alt: 'Tagliatelle al ragù senza glutine, fatte nel laboratorio Boboli' },
+  { slug: 'carne', label: 'Carne', alt: 'Bistecca alla fiorentina con un bicchiere di vino' },
+  { slug: 'dolci', label: 'Dolci', alt: 'Tiramisù senza glutine di Boboli' },
 ];
 ---
 <section class="menu" id="menu">
@@ -29,7 +29,10 @@ const gallery = [
   </ul>
   <div class="menu__gallery">
     {gallery.map((g) => (
-      <Figure slot={`menu/${g.slug}`} alt={g.alt} label={`IMG — ${g.label}`} widths={[220, 440, 660]} sizes="(max-width: 760px) 50vw, 25vw" />
+      <figure>
+        <Figure slot={`illustrazioni/${g.slug}`} alt={g.alt} label={`IMG — ${g.label}`} widths={[300, 600]} sizes="(max-width: 760px) 50vw, 25vw" />
+        <figcaption class="u-label">{g.label}</figcaption>
+      </figure>
     ))}
   </div>
   <div class="menu__shop" id="prodotti">

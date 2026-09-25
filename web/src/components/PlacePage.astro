@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import Figure from './Figure.astro';
+import BookButton from './BookButton.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { getLocali } from '../lib/locali';
+import { ui } from '../lib/ui';
+import { telHref, formatHours, directionsUrl } from '../lib/contact';
+import { restaurantSchema, breadcrumbSchema, socialImage } from '../lib/schema';
+
+interface Props { lang: Lang; id: string }
+const { lang, id } = Astro.props;
+const t = ui[lang];
+const site = Astro.site!;
+
+const locali = await getLocali(lang);
+const l = locali.find((x) => x.id === id)!;
+const others = locali.filter((x) => x.id !== id);
+const maps = directionsUrl(l);
+const path = `/locali/${l.id}/`;
+const image = await socialImage(`locali/${l.id}`, site);
+
+const jsonLd = [
+  restaurantSchema(l, lang, t, site, image),
+  breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: l.nameShort, url: lp(lang, path) }], site),
+];
+---
+<Base
+  lang={lang}
+  path={path}
+  title={t.meta.placeTitle(l.nameShort, l.street)}
+  description={t.meta.placeDesc(l.nameLegal, l.blurb, l.street, l.zone)}
+  image={image}
+  jsonLd={jsonLd}
+>
+  <article class="place">
+    <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+      <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">{l.nameShort}</span>
+    </nav>
+    <header class="place__head">
+      <span class="place__civic" aria-hidden="true">{l.civic}</span>
+      <div>
+        <p class="u-label place__kicker">{l.nameLegal}</p>
+        <h1 class="place__title">{l.title}</h1>
+      </div>
+    </header>
+    <div class="place__media">
+      <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[768, 1280, 1920]} priority />
+    </div>
+    <div class="place__grid">
+      <div class="place__body">
+        {l.insight && <p class="place__insight">{l.insight}</p>}
+        <p class="place__text">{l.blurb} {t.place.text}</p>
+        <div class="place__actions">
+          <BookButton lang={lang} locale={l} class="btn--ink" />
+          {l.bookable && l.phone && <a class="btn btn--ghost" href={telHref(l.phone)}>{t.book.call}</a>}
+          <a class="btn btn--ghost" href={maps} target="_blank" rel="noopener">{t.place.directions}</a>
+        </div>
+      </div>
+      <dl class="place__facts">
+        <div><dt class="u-label">{t.place.address}</dt><dd><a href={maps} target="_blank" rel="noopener">{l.street}, {l.postalCode} {l.city}</a><br />{l.zone}</dd></div>
+        {l.phone && <div><dt class="u-label">{t.place.phone}</dt><dd><a href={telHref(l.phone)}>{l.phone}</a></dd></div>}
+        {l.hours.length > 0 && <div><dt class="u-label">{t.place.hours}</dt><dd>{formatHours(l.hours, t.hours).map((h) => <span>{h}<br /></span>)}</dd></div>}
+        <div><dt class="u-label">{t.place.cuisine}</dt><dd>{t.place.cuisineValue}</dd></div>
+      </dl>
+    </div>
+    <nav class="place__others" aria-label={t.place.others}>
+      <p class="u-label">{t.place.others}</p>
+      <ol class="choices__list">
+        {others.map((o) => (
+          <li>
+            <a href={lp(lang, `/locali/${o.id}/`)}>
+              {o.seal && <Figure class="choices__seal" slot={`illustrazioni/${o.seal}`} alt="" label="" widths={[120, 240]} sizes="104px" />}
+              <span class="choices__verb">{o.choiceVerb}</span>
+              <span class="choices__where">{o.street}</span>
+              <span class="choices__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </article>
+</Base>

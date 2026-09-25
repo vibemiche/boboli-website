@@ -5,15 +5,45 @@
   "title": "Non solo cosa mangi. Anche cosa bevi.",
   "blurb": "Selezione vini, abbinamenti, degustazioni.",
   "choiceVerb": "Bevi in cantina",
+  "imageAlt": "Bottiglie della selezione vini di Trattoria Boboli La Cantina in Via Romana a Firenze",
   "seal": "cantina",
   "street": "Via Romana, 60R",
   "civic": "60R",
   "postalCode": "50125",
   "zone": "Oltrarno",
   "phone": "+39 055 7099425",
-  "geo": { "lat": 43.764148, "lng": 11.246070 },
+  "bookingUrl": "https://widget.thefork.com/1f42afea-6865-41bb-942e-13fe43dd7a88",
+  "geo": { "lat": 43.764148, "lng": 11.24607 },
   "hours": [{ "from": "Mo", "to": "Su", "opens": "11:30", "closes": "22:00" }],
-  "ctaLabel": "Degusta",
   "listOrder": 3,
-  "imageAlt": "Bottiglie della selezione vini di Trattoria Boboli La Cantina in Via Romana a Firenze"
+  "tr": {
+    "en": {
+      "kicker": "The Cantina",
+      "title": "Not just what you eat. What you drink, too.",
+      "blurb": "Wine selection, pairings, tastings.",
+      "choiceVerb": "Drink at the cantina",
+      "imageAlt": "Bottles from the wine selection at Trattoria Boboli La Cantina, Via Romana, Florence"
+    },
+    "es": {
+      "kicker": "La Cantina",
+      "title": "No solo lo que comes. También lo que bebes.",
+      "blurb": "Selección de vinos, maridajes, catas.",
+      "choiceVerb": "Bebe en la cantina",
+      "imageAlt": "Botellas de la selección de vinos de Trattoria Boboli La Cantina, Via Romana, Florencia"
+    },
+    "de": {
+      "kicker": "Die Cantina",
+      "title": "Nicht nur, was du isst. Auch, was du trinkst.",
+      "blurb": "Weinauswahl, Weinbegleitung, Verkostungen.",
+      "choiceVerb": "Trink in der Cantina",
+      "imageAlt": "Flaschen aus der Weinauswahl der Trattoria Boboli La Cantina, Via Romana, Florenz"
+    },
+    "fr": {
+      "kicker": "La Cantina",
+      "title": "Pas seulement ce que tu manges. Aussi ce que tu bois.",
+      "blurb": "Sélection de vins, accords, dégustations.",
+      "choiceVerb": "Bois à la cantina",
+      "imageAlt": "Bouteilles de la sélection de vins de Trattoria Boboli La Cantina, via Romana, Florence"
+    }
+  }
 }

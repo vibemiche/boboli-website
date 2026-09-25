@@ -1,38 +1,50 @@
 ---
-import { getCollection } from 'astro:content';
-import { href } from '../lib/site';
 import Logo from './Logo.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import type { Locale } from '../lib/locali';
+import { ui } from '../lib/ui';
 
-const locali = (await getCollection('locali')).sort((a, b) => a.data.listOrder - b.data.listOrder);
+interface Props { lang: Lang; locali: Locale[] }
+const { lang, locali } = Astro.props;
+const t = ui[lang];
 const links = [
-  ...locali.map((l) => ({ label: l.data.nameShort, meta: l.data.street, path: `/locali/${l.id}/` })),
-  { label: 'Menu', meta: 'Tutto senza glutine', path: '/#menu' },
-  { label: 'Il laboratorio', meta: 'Fatto da noi', path: '/#laboratorio' },
+  ...locali.map((l) => ({ label: l.nameShort, meta: l.street, path: `/locali/${l.id}/` })),
+  { label: t.nav.menu, meta: t.nav.menuMeta, path: '/#menu' },
+  { label: t.nav.lab, meta: t.nav.labMeta, path: '/#laboratorio' },
 ];
 ---
 <header class="site-header">
-  <a class="brand" href={href('/')}><Logo /></a>
+  <a class="brand" href={lp(lang, '/')} aria-label={t.nav.home}><Logo /></a>
   <div class="site-header__actions">
-    <span class="lang u-label">IT / EN</span>
-    <a class="btn btn--ink" href={href('/#firenze')} data-book>Prenota</a>
-    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-overlay" aria-label="Apri il menu">
+    <a class="btn btn--ink" href={lp(lang, '/#firenze')} data-book>{t.nav.book}</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-overlay" aria-label={t.nav.open}>
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
 <nav class="nav-overlay" id="nav-overlay" hidden>
-  <button class="nav-overlay__close" type="button" aria-label="Chiudi il menu">&times;</button>
+  <button class="nav-overlay__close" type="button" aria-label={t.nav.close}>&times;</button>
   <ul class="nav-overlay__list">
-    {links.map((l) => <li><a href={href(l.path)}>{l.label}<small>{l.meta}</small></a></li>)}
+    {links.map((l) => <li><a href={lp(lang, l.path)}>{l.label}<small>{l.meta}</small></a></li>)}
   </ul>
-  <span class="nav-overlay__meta u-label">100% gluten free · dal 1978 · Firenze</span>
+  <span class="nav-overlay__meta u-label">{t.nav.tagline}</span>
 </nav>
 
 <script>
+  const header = document.querySelector<HTMLElement>('.site-header');
   const burger = document.querySelector<HTMLButtonElement>('.burger');
   const overlay = document.getElementById('nav-overlay');
   const closeBtn = overlay?.querySelector<HTMLButtonElement>('.nav-overlay__close');
+
+  // Sopra l'hero l'header è trasparente; appena la pagina scorre diventa una
+  // barra piena, così logo, Prenota e menu restano sempre a portata.
+  if (header) {
+    const update = () => header.classList.toggle('is-solid', window.scrollY > 24);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
 
   if (burger && overlay) {
     const setOpen = (open: boolean) => {

@@ -1,72 +1,85 @@
 ---
-import { getImage } from 'astro:assets';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
 import BookingDialog from '../components/BookingDialog.astro';
 import { indexable } from '../lib/site';
-import { findImage } from '../lib/images';
+import { LANGS, FALLBACK, OG_LOCALE, lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { getLocali } from '../lib/locali';
+import { ui } from '../lib/ui';
 
 interface Props {
+  lang: Lang;
+  /** Il percorso senza prefisso di lingua, uguale in tutte le lingue: `/`, `/locali/to-go/`. */
+  path: string;
   title: string;
   description: string;
-  /** Percorso della versione inglese, quando esiste: senza, niente hreflang. */
-  enPath?: string;
+  image: string | null;
   jsonLd?: unknown[];
-  ogImagePath?: string;
 }
 
-const { title, description, enPath, jsonLd = [], ogImagePath } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
-// L'anteprima social si ricava dall'hero, ritagliata a 1200×630: così compare
-// appena la foto viene caricata, senza un secondo file da tenere allineato.
-// Finché l'hero manca, niente og:image: meglio di uno che punta nel vuoto.
-const hero = findImage('hero');
-const ogFallback = hero
-  ? (await getImage({ src: hero, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src
-  : null;
-const ogPath = ogImagePath ? import.meta.env.BASE_URL + ogImagePath : ogFallback;
-const ogImage = ogPath ? new URL(ogPath, Astro.site).href : null;
+const { lang, path, title, description, image, jsonLd = [] } = Astro.props;
+const t = ui[lang];
+const locali = await getLocali(lang);
+const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
 ---
 <!doctype html>
-<html lang="it">
+<html lang={lang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <link rel="canonical" href={canonical} />
+  <link rel="canonical" href={abs(lang)} />
   {!indexable && <meta name="robots" content="noindex, nofollow" />}
 
-  {enPath && (
-    <>
-      <link rel="alternate" hreflang="it" href={canonical} />
-      <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site).href} />
-      <link rel="alternate" hreflang="x-default" href={canonical} />
-    </>
-  )}
+  {LANGS.map((l) => <link rel="alternate" hreflang={l} href={abs(l)} />)}
+  <link rel="alternate" hreflang="x-default" href={abs(FALLBACK)} />
+
+  {/* Nessun selettore: comanda la lingua del browser. I crawler restano dove
+      arrivano, altrimenti Google (che naviga in inglese) non vedrebbe mai
+      l'italiano. Lo script legge gli hreflang qui sopra, quindi deve seguirli. */}
+  <script is:inline define:vars={{ langs: LANGS, fallback: FALLBACK }}>
+    (function () {
+      try {
+        if (/bot|crawl|spider|slurp|lighthouse|pagespeed|preview|facebookexternalhit|whatsapp|headless/i.test(navigator.userAgent)) return;
+        var want = fallback;
+        var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+        for (var i = 0; i < prefs.length; i++) {
+          var code = String(prefs[i]).slice(0, 2).toLowerCase();
+          if (langs.indexOf(code) > -1) { want = code; break; }
+        }
+        if (want === document.documentElement.lang) return;
+        var alt = document.querySelector('link[rel="alternate"][hreflang="' + want + '"]');
+        if (alt) location.replace(alt.href + location.hash);
+      } catch (e) {}
+    })();
+  </script>
 
   <meta property="og:type" content="website" />
-  <meta property="og:locale" content="it_IT" />
+  <meta property="og:locale" content={OG_LOCALE[lang]} />
+  {LANGS.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
+  <meta property="og:site_name" content="Trattoria Boboli" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:url" content={canonical} />
-  {ogImage && <meta property="og:image" content={ogImage} />}
-  <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+  <meta property="og:url" content={abs(lang)} />
+  {image && <meta property="og:image" content={image} />}
+  <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
 
   {jsonLd.map((schema) => (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   ))}
 </head>
 <body>
-  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
-  <Header />
+  <a class="skip-link" href="#contenuto">{t.meta.skip}</a>
+  <Header lang={lang} locali={locali} />
   <main id="contenuto">
     <slot />
   </main>
-  <Footer />
-  <BookingDialog />
-  <MobileBar />
+  <Footer lang={lang} locali={locali} />
+  <BookingDialog lang={lang} locali={locali} />
+  <MobileBar lang={lang} />
 </body>
 </html>

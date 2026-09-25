@@ -1,0 +1,17 @@
+---
+import type { Lang } from '../lib/i18n';
+import type { Locale } from '../lib/locali';
+import { ui } from '../lib/ui';
+import { telHref } from '../lib/contact';
+
+// L'azione principale di un locale, uguale ovunque: si prenota se ha il widget,
+// altrimenti si chiama. Deciso dai dati, non dal testo del pulsante.
+interface Props { lang: Lang; locale: Locale; class: string }
+const { lang, locale: l, class: variant } = Astro.props;
+const t = ui[lang].book;
+---
+{l.bookable ? (
+  <a class:list={['btn', variant]} href={l.bookingUrl} target="_blank" rel="noopener" data-book={l.id}>{t.book}</a>
+) : l.phone ? (
+  <a class:list={['btn', variant]} href={telHref(l.phone)}>{t.call}</a>
+) : null}

@@ -1,41 +1,30 @@
 ---
 import Figure from './Figure.astro';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
 
-const things = [
-  { label: 'Pane', desc: 'Dal nostro laboratorio, in tavola ogni giorno.' },
-  { label: 'Pasta fresca', desc: 'Fatta da noi, con i sughi della tradizione.' },
-  { label: 'Panini', desc: 'Anche da portare via, da Boboli To-Go.' },
-  { label: 'Sughi', desc: 'Ricette toscane, preparate nel laboratorio.' },
-  { label: 'Dolci', desc: 'Tutti senza glutine, tutti fatti da noi.' },
-  { label: 'Carne', desc: 'La tradizione toscana, in tavola.' },
-];
-
-const gallery = [
-  { slug: 'antipasti', label: 'Antipasti', alt: 'Tagliere toscano con bruschette, salumi, olive e formaggio, tutto senza glutine' },
-  { slug: 'pasta', label: 'Pasta', alt: 'Tagliatelle al ragù senza glutine, fatte nel laboratorio Boboli' },
-  { slug: 'carne', label: 'Carne', alt: 'Bistecca alla fiorentina con un bicchiere di vino' },
-  { slug: 'dolci', label: 'Dolci', alt: 'Tiramisù senza glutine di Boboli' },
-];
+interface Props { lang: Lang }
+const t = ui[Astro.props.lang].menu;
 ---
 <section class="menu" id="menu">
-  <h2 class="menu__title">Cosa pensavi di non poter più mangiare?</h2>
+  <h2 class="menu__title">{t.title}</h2>
   <ul class="menu__list">
-    {things.map((t) => (
+    {t.items.map(([label, desc]) => (
       <li class="menu__row">
-        <span class="menu__item">{t.label}</span>
-        <span class="menu__desc">{t.desc}</span>
+        <span class="menu__item">{label}</span>
+        <span class="menu__desc">{desc}</span>
       </li>
     ))}
   </ul>
   <div class="menu__gallery">
-    {gallery.map((g) => (
+    {Object.entries(t.gallery).map(([slug, [label, alt]]) => (
       <figure>
-        <Figure slot={`illustrazioni/${g.slug}`} alt={g.alt} label={`IMG — ${g.label}`} widths={[300, 600]} sizes="(max-width: 760px) 50vw, 25vw" />
-        <figcaption class="u-label">{g.label}</figcaption>
+        <Figure slot={`illustrazioni/${slug}`} alt={alt} label={label} widths={[300, 600]} sizes="(max-width: 760px) 50vw, 25vw" />
+        <figcaption class="u-label">{label}</figcaption>
       </figure>
     ))}
   </div>
   <div class="menu__shop" id="prodotti">
-    <p><strong>Porta Boboli a casa.</strong> Pasta, sughi e pane del laboratorio si comprano nei locali. Lo shop online arriva.</p>
+    <p><strong>{t.shopStrong}</strong> {t.shopText}</p>
   </div>
 </section>

@@ -1,25 +1,29 @@
 ---
-import { getCollection } from 'astro:content';
-import { href } from '../lib/site';
 import Logo from './Logo.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import type { Locale } from '../lib/locali';
+import { ui } from '../lib/ui';
 
-const locali = (await getCollection('locali')).sort((a, b) => a.data.listOrder - b.data.listOrder);
+interface Props { lang: Lang; locali: Locale[] }
+const { lang, locali } = Astro.props;
+const t = ui[lang];
 
 const columns = [
   {
-    title: 'Scopri',
+    title: t.footer.discover,
     links: [
-      { label: 'Il laboratorio', path: '/#laboratorio' },
-      { label: '100% gluten free', path: '/#manifesto' },
-      { label: 'Il menu', path: '/#menu' },
-      { label: 'I prodotti', path: '/#prodotti' },
+      { label: t.footer.links.lab, path: '/#laboratorio' },
+      { label: t.footer.links.manifesto, path: '/#manifesto' },
+      { label: t.footer.links.menu, path: '/#menu' },
+      { label: t.footer.links.shop, path: '/#prodotti' },
     ],
   },
   {
-    title: 'Contatti',
+    title: t.footer.contact,
     links: [
-      { label: 'Prenota', path: '/#firenze', book: true },
-      { label: 'Domande frequenti', path: '/#faq' },
+      { label: t.nav.book, path: '/#firenze', book: true },
+      { label: t.footer.faq, path: '/#faq' },
     ],
   },
 ];
@@ -27,22 +31,21 @@ const columns = [
 <footer class="site-footer">
   <div class="site-footer__brand">
     <Logo class="site-footer__logo" />
-    <p class="site-footer__tagline">La libertà di scegliere.<br />100% gluten free · Firenze, dal 1978</p>
-    <p class="u-label site-footer__lang">IT / EN</p>
+    <p class="site-footer__tagline">{t.footer.tagline[0]}<br />{t.footer.tagline[1]}</p>
   </div>
-  <nav class="site-footer__col site-footer__locali" aria-label="I locali">
-    <p class="u-label">I locali</p>
+  <nav class="site-footer__col site-footer__locali" aria-label={t.footer.locali}>
+    <p class="u-label">{t.footer.locali}</p>
     {locali.map((l) => (
-      <a href={href(`/locali/${l.id}/`)}>
-        {l.data.nameLegal}
-        <span class="site-footer__addr">{l.data.street}, {l.data.postalCode} {l.data.city}{l.data.phone && ` · ${l.data.phone}`}</span>
+      <a href={lp(lang, `/locali/${l.id}/`)}>
+        {l.nameLegal}
+        <span class="site-footer__addr">{l.street}, {l.postalCode} {l.city}{l.phone && ` · ${l.phone}`}</span>
       </a>
     ))}
   </nav>
   {columns.map((col) => (
-    <nav class="site-footer__col">
+    <nav class="site-footer__col" aria-label={col.title}>
       <p class="u-label">{col.title}</p>
-      {col.links.map((l) => <a href={href(l.path)} data-book={l.book ? '' : undefined}>{l.label}</a>)}
+      {col.links.map((l) => <a href={lp(lang, l.path)} data-book={'book' in l ? '' : undefined}>{l.label}</a>)}
     </nav>
   ))}
 </footer>

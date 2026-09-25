@@ -1,22 +1,25 @@
 ---
 import Figure from './Figure.astro';
-import { href } from '../lib/site';
-import type { CollectionEntry } from 'astro:content';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import type { Locale } from '../lib/locali';
+import { ui } from '../lib/ui';
 
-interface Props { locali: CollectionEntry<'locali'>[] }
-const { locali } = Astro.props;
+interface Props { lang: Lang; locali: Locale[] }
+const { lang, locali } = Astro.props;
+const t = ui[lang].choices;
 
 const rows = [
-  ...locali.map((l) => ({ verb: l.data.choiceVerb, where: l.data.street, path: `/locali/${l.id}/`, seal: l.data.seal })),
-  { verb: 'Porta Boboli a casa', where: 'I prodotti del laboratorio', path: '/#prodotti', seal: 'pasta' },
+  ...locali.map((l) => ({ verb: l.choiceVerb, where: l.street, path: `/locali/${l.id}/`, seal: l.seal })),
+  { verb: t.homeVerb, where: t.homeWhere, path: '/#prodotti', seal: 'pasta' },
 ];
 ---
-<section class="choices" id="intro">
-  <h2 class="choices__title">Da Boboli la libertà di scegliere non riguarda solo il piatto.</h2>
+<section class="choices">
+  <h2 class="choices__title">{t.title}</h2>
   <ol class="choices__list">
     {rows.map((r) => (
       <li>
-        <a href={href(r.path)}>
+        <a href={lp(lang, r.path)}>
           {r.seal && <Figure class="choices__seal" slot={`illustrazioni/${r.seal}`} alt="" label="" widths={[120, 240]} sizes="104px" />}
           <span class="choices__verb">{r.verb}</span>
           <span class="choices__where">{r.where}</span>

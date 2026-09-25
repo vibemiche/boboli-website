@@ -7,9 +7,3 @@ export function href(path: string): string {
 
 /** Finché il sito vive sull'URL provvisorio resta fuori dall'indice. */
 export const indexable = import.meta.env.PUBLIC_INDEXABLE === 'true';
-
-export const brand = {
-  name: 'Trattoria Boboli',
-  claim: 'La libertà di scegliere',
-  city: 'Firenze',
-};

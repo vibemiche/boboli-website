@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import PlacePage from '../../../components/PlacePage.astro';
+import { TRANSLATED } from '../../../lib/i18n';
+import type { Lang } from '../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const locali = await getCollection('locali');
+  return TRANSLATED.flatMap((lang) => locali.map((l) => ({ params: { lang, slug: l.id } })));
+}
+---
+<PlacePage lang={Astro.params.lang as Lang} id={Astro.params.slug!} />

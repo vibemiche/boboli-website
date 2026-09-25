@@ -6,16 +6,50 @@
   "blurb": "Pranzo, famiglia, informalità, cucina toscana contemporanea.",
   "insight": "Chi di solito sceglie il ristorante per necessità, qui lo sceglie per gusto.",
   "choiceVerb": "Mangia in trattoria",
+  "imageAlt": "La sala della Trattoria Boboli 1978 in Via Romana, nell'Oltrarno a Firenze",
   "seal": "vetrina",
   "street": "Via Romana, 45/R",
   "civic": "45/R",
   "postalCode": "50125",
   "zone": "Oltrarno",
   "phone": "+39 055 2336401",
+  "bookingUrl": "https://widget.thefork.com/13c79f43-4870-44dd-ae95-4d647eb50193",
   "geo": { "lat": 43.764149, "lng": 11.246213 },
   "hours": [{ "from": "Mo", "to": "Su", "opens": "12:00", "closes": "22:00" }],
-  "ctaLabel": "Prenota",
   "formatOrder": 1,
   "listOrder": 1,
-  "imageAlt": "La sala della Trattoria Boboli 1978 in Via Romana, nell'Oltrarno a Firenze"
+  "tr": {
+    "en": {
+      "kicker": "Boboli Trattoria",
+      "title": "The pleasure of being together.",
+      "blurb": "Lunch, family, easygoing, contemporary Tuscan cooking.",
+      "insight": "People who usually pick a restaurant out of necessity pick this one for the taste.",
+      "choiceVerb": "Eat at the trattoria",
+      "imageAlt": "The dining room of Trattoria Boboli 1978 on Via Romana, in the Oltrarno, Florence"
+    },
+    "es": {
+      "kicker": "Boboli Trattoria",
+      "title": "El gusto de estar juntos.",
+      "blurb": "Comida, familia, ambiente informal, cocina toscana contemporánea.",
+      "insight": "Quien suele elegir restaurante por necesidad, aquí lo elige por gusto.",
+      "choiceVerb": "Come en la trattoria",
+      "imageAlt": "El comedor de la Trattoria Boboli 1978 en Via Romana, en el Oltrarno de Florencia"
+    },
+    "de": {
+      "kicker": "Boboli Trattoria",
+      "title": "Die Freude am Zusammensein.",
+      "blurb": "Mittagessen, Familie, ungezwungen, zeitgemäße toskanische Küche.",
+      "insight": "Wer ein Restaurant sonst aus Notwendigkeit wählt, wählt dieses aus Genuss.",
+      "choiceVerb": "Iss in der Trattoria",
+      "imageAlt": "Der Speisesaal der Trattoria Boboli 1978 in der Via Romana, im Oltrarno von Florenz"
+    },
+    "fr": {
+      "kicker": "Boboli Trattoria",
+      "title": "Le plaisir d'être ensemble.",
+      "blurb": "Déjeuner, famille, simplicité, cuisine toscane contemporaine.",
+      "insight": "Ceux qui choisissent d'habitude un restaurant par nécessité choisissent celui-ci par goût.",
+      "choiceVerb": "Mange à la trattoria",
+      "imageAlt": "La salle de la Trattoria Boboli 1978, via Romana, dans l'Oltrarno à Florence"
+    }
+  }
 }

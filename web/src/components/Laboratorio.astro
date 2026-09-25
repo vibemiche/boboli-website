@@ -1,21 +1,24 @@
 ---
 import Figure from './Figure.astro';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+
+interface Props { lang: Lang }
+const t = ui[Astro.props.lang].lab;
 ---
 <section class="lab" id="laboratorio">
   <Figure
     slot="laboratorio"
     class="lab__media"
-    alt="Il laboratorio di Boboli: la pasta fresca preparata a mano"
-    label="IMG — il laboratorio: mani, impasto, farina, la stanza"
+    alt={t.alt}
+    label="IMG — laboratorio"
     widths={[640, 1024, 1600]}
     sizes="(max-width: 760px) 100vw, 55vw"
   />
   <div class="lab__body">
-    <p class="u-label lab__kicker">Il laboratorio</p>
-    <h2 class="lab__title">Fatto da noi.</h2>
-    <p class="lab__thin">Controlliamo il prodotto dalla produzione fino al piatto.</p>
-    <p class="lab__text">
-      Pasta, pane, panini, sughi e dolci nascono nel nostro laboratorio e arrivano nei quattro locali. Non è un reparto in più: è la prova concreta che tutto il menu può essere senza glutine senza rinunciare a niente.
-    </p>
+    <p class="u-label lab__kicker">{t.kicker}</p>
+    <h2 class="lab__title">{t.title}</h2>
+    <p class="lab__thin">{t.thin}</p>
+    <p class="lab__text">{t.text}</p>
   </div>
 </section>

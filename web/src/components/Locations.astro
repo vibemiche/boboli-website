@@ -1,45 +1,47 @@
 ---
 import Figure from './Figure.astro';
 import LocalMap from './LocalMap.astro';
-import { href } from '../lib/site';
+import BookButton from './BookButton.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import type { Locale } from '../lib/locali';
+import { ui } from '../lib/ui';
 import { telHref, formatHours } from '../lib/contact';
-import type { CollectionEntry } from 'astro:content';
 
-interface Props { locali: CollectionEntry<'locali'>[] }
-const { locali } = Astro.props;
+interface Props { lang: Lang; locali: Locale[] }
+const { lang, locali } = Astro.props;
+const t = ui[lang];
 ---
 <section class="locations" id="firenze">
-  <h2 class="locations__title">Tre porte in Via Romana. Una in Via Ghibellina.</h2>
+  <h2 class="locations__title">{t.locations.title}</h2>
   <div class="locations__grid">
-    <LocalMap locali={locali} />
+    <LocalMap lang={lang} locali={locali} />
     <ul class="locations__list">
       {locali.map((l) => (
         <li data-locale-row={l.id}>
-          <span class="locations__civic" aria-hidden="true">{l.data.civic}</span>
+          <span class="locations__civic" aria-hidden="true">{l.civic}</span>
           <div>
-            <a class="locations__name" href={href(`/locali/${l.id}/`)}>{l.data.nameShort}</a>
-            <p class="locations__addr">{l.data.street}, {l.data.postalCode} {l.data.city} · {l.data.zone}</p>
-            {(l.data.phone || l.data.hours.length > 0) && (
-              <p class="locations__meta">
-                {l.data.phone && <a href={telHref(l.data.phone)}>{l.data.phone}</a>}
-                {formatHours(l.data.hours).map((h) => <span>{h}</span>)}
-              </p>
-            )}
+            <a class="locations__name" href={lp(lang, `/locali/${l.id}/`)}>{l.nameShort}</a>
+            <p class="locations__addr">{l.street}, {l.postalCode} {l.city} · {l.zone}</p>
+            <p class="locations__meta">
+              {l.phone && <a href={telHref(l.phone)}>{l.phone}</a>}
+              {formatHours(l.hours, t.hours).map((h) => <span>{h}</span>)}
+            </p>
           </div>
-          <a class="btn btn--terracotta" href={href(`/locali/${l.id}/`)} data-book={l.data.ctaLabel === 'Prenota' ? l.id : undefined}>{l.data.ctaLabel}</a>
+          <BookButton lang={lang} locale={l} class="btn--terracotta" />
         </li>
       ))}
     </ul>
   </div>
-  <div class="locations__firenze">
+  <figure class="locations__firenze">
     <Figure
       slot="firenze"
       class="locations__firenze-img"
-      alt="Veduta di Firenze dal Giardino di Boboli: il Duomo e i tetti della città"
-      label="IMG — Firenze dal Giardino di Boboli"
+      alt={t.locations.firenzeAlt}
+      label="IMG — Firenze"
       widths={[768, 1280, 1920]}
       sizes="100vw"
     />
-    <p class="locations__firenze-caption">A pochi passi dal Giardino di Boboli.</p>
-  </div>
+    <figcaption class="locations__firenze-caption">{t.locations.firenzeCaption}</figcaption>
+  </figure>
 </section>

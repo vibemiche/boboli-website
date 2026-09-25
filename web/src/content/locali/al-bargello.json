@@ -5,16 +5,46 @@
   "title": "Quando la cena diventa un'esperienza.",
   "blurb": "Cena, coppie, atmosfera, vino.",
   "choiceVerb": "Cena al Bargello",
+  "imageAlt": "Tavolo apparecchiato per la cena da Boboli Al Bargello, in Via Ghibellina a Firenze",
   "seal": "carne",
   "street": "Via Ghibellina, 147/r",
   "civic": "147/R",
   "postalCode": "50122",
   "zone": "Santa Croce",
   "phone": "+39 055 289264",
+  "bookingUrl": "https://widget.thefork.com/55c4e6a9-f46d-46f7-ad35-119e2dbc8e69",
   "geo": { "lat": 43.770562, "lng": 11.258978 },
   "hours": [{ "from": "Mo", "to": "Su", "opens": "12:00", "closes": "22:30" }],
-  "ctaLabel": "Prenota",
   "formatOrder": 2,
   "listOrder": 2,
-  "imageAlt": "Tavolo apparecchiato per la cena da Boboli Al Bargello, in Via Ghibellina a Firenze"
+  "tr": {
+    "en": {
+      "kicker": "Boboli Bargello",
+      "title": "When dinner becomes an experience.",
+      "blurb": "Dinner, couples, atmosphere, wine.",
+      "choiceVerb": "Dine at the Bargello",
+      "imageAlt": "A table set for dinner at Boboli Al Bargello, on Via Ghibellina in Florence"
+    },
+    "es": {
+      "kicker": "Boboli Bargello",
+      "title": "Cuando la cena se convierte en una experiencia.",
+      "blurb": "Cena, parejas, ambiente, vino.",
+      "choiceVerb": "Cena en el Bargello",
+      "imageAlt": "Mesa preparada para la cena en Boboli Al Bargello, en Via Ghibellina, Florencia"
+    },
+    "de": {
+      "kicker": "Boboli Bargello",
+      "title": "Wenn das Abendessen zum Erlebnis wird.",
+      "blurb": "Abendessen, Paare, Atmosphäre, Wein.",
+      "choiceVerb": "Diniere im Bargello",
+      "imageAlt": "Gedeckter Tisch zum Abendessen im Boboli Al Bargello, Via Ghibellina, Florenz"
+    },
+    "fr": {
+      "kicker": "Boboli Bargello",
+      "title": "Quand le dîner devient une expérience.",
+      "blurb": "Dîner, couples, ambiance, vin.",
+      "choiceVerb": "Dîne au Bargello",
+      "imageAlt": "Table dressée pour le dîner chez Boboli Al Bargello, via Ghibellina à Florence"
+    }
+  }
 }

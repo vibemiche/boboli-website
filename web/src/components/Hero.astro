@@ -1,26 +1,28 @@
 ---
 import Figure from './Figure.astro';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
 
-// Sei scelte, tutte visibili insieme: la quantità è il messaggio.
-const choices = ['la pasta.', 'il pane.', 'il panino.', 'pranzo o cena.', 'dove sederti.', 'con chi venire.'];
+interface Props { lang: Lang }
+const t = ui[Astro.props.lang].hero;
 ---
 <section class="hero" id="top">
   <Figure
     slot="hero"
     class="hero__media"
-    alt="La sala della Trattoria Boboli a Firenze, tutta la cucina senza glutine"
-    label="IMG FULL-SCREEN — la tavola dall'alto, piena di piatti diversi, tutto senza glutine"
+    alt={t.alt}
+    label="IMG FULL-SCREEN"
     widths={[768, 1280, 1920, 2560]}
     priority
   />
   <div class="hero__bottom">
-    <h1 class="hero__word">Scegli</h1>
+    <h1 class="hero__word">{t.word}<span class="sr-only"> — {t.h1Hidden}</span></h1>
     <div class="hero__col">
-      <ul class="hero__list" aria-label="Cosa scegli da Boboli">
-        {choices.map((c, i) => <li style={`--i:${i}`}>{c}</li>)}
+      <ul class="hero__list" aria-label={t.choicesLabel}>
+        {t.choices.map((c, i) => <li style={`--i:${i}`}>{c}</li>)}
       </ul>
-      <p class="hero__answer">Tutto senza glutine.</p>
-      <p class="hero__since u-label">Firenze, dal 1978.</p>
+      <p class="hero__answer">{t.answer}</p>
+      <p class="hero__since u-label">{t.since}</p>
     </div>
   </div>
 </section>

@@ -1,32 +1,30 @@
 ---
 import Figure from './Figure.astro';
-import { href } from '../lib/site';
-import { telHref } from '../lib/contact';
-import type { CollectionEntry } from 'astro:content';
+import BookButton from './BookButton.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import type { Locale } from '../lib/locali';
+import { ui } from '../lib/ui';
 
-interface Props { locale: CollectionEntry<'locali'>; anchor: string; dark?: boolean; bleed?: boolean }
-const { locale, anchor, dark = false, bleed = false } = Astro.props;
-const d = locale.data;
-const page = href(`/locali/${locale.id}/`);
-const books = d.ctaLabel === 'Prenota';
-const primaryHref = books ? href('/#firenze') : d.phone ? telHref(d.phone) : page;
+interface Props { lang: Lang; locale: Locale; dark?: boolean; bleed?: boolean }
+const { lang, locale: l, dark = false, bleed = false } = Astro.props;
 ---
-<section class:list={['format', { 'format--dark': dark, 'format--bleed': bleed }]} id={anchor}>
+<section class:list={['format', { 'format--dark': dark, 'format--bleed': bleed }]}>
   <div class="format__media">
-    <Figure slot={`locali/${locale.id}`} alt={d.imageAlt} label={`IMG FULL-BLEED — ${d.imageAlt}`} widths={[768, 1280, 1920, 2560]} />
-    <span class="format__num" aria-hidden="true">{d.civic}</span>
+    <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[768, 1280, 1920, 2560]} />
+    <span class="format__num" aria-hidden="true">{l.civic}</span>
   </div>
   <div class="format__body">
     <div class="format__text">
-      <p class="u-label format__kicker">{d.kicker}</p>
-      <h2 class="format__title">{d.title}</h2>
-      {d.insight && <p class="format__insight">{d.insight}</p>}
-      <p class="format__blurb">{d.blurb}</p>
-      <p class="u-label format__address">{d.street} · {d.zone}</p>
+      <p class="u-label format__kicker">{l.kicker}</p>
+      <h2 class="format__title">{l.title}</h2>
+      {l.insight && <p class="format__insight">{l.insight}</p>}
+      <p class="format__blurb">{l.blurb}</p>
+      <p class="u-label format__address">{l.street} · {l.zone}</p>
     </div>
     <div class="format__actions">
-      <a class="link-more" href={page}>Il locale &rarr;</a>
-      <a class:list={['btn', dark ? 'btn--cream' : 'btn--ink']} href={primaryHref} data-book={books ? locale.id : undefined}>{d.ctaLabel}</a>
+      <a class="link-more" href={lp(lang, `/locali/${l.id}/`)}>{ui[lang].format.more} &rarr;</a>
+      <BookButton lang={lang} locale={l} class={dark ? 'btn--cream' : 'btn--ink'} />
     </div>
   </div>
 </section>

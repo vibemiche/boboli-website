@@ -1,7 +1,11 @@
 ---
-import { href } from '../lib/site';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
 ---
 <div class="mobile-bar">
-  <a class="mobile-bar__main u-label" href={href('/#firenze')} data-book>Prenota</a>
-  <a class="mobile-bar__call" href={href('/#firenze')} data-book aria-label="Chiama un locale">&#9742;</a>
+  <a class="mobile-bar__main u-label" href={lp(lang, '/#firenze')} data-book>{ui[lang].nav.book}</a>
 </div>

@@ -1,53 +1,106 @@
 ---
-import { getCollection } from 'astro:content';
+import type { Lang } from '../lib/i18n';
+import type { Locale } from '../lib/locali';
+import { ui } from '../lib/ui';
 import { telHref, formatHours } from '../lib/contact';
 
-// Con quattro ristoranti «Prenota» deve chiedere dove. Senza JS ogni pulsante
-// resta un link alla lista dei locali; con JS apre questo dialog.
-const locali = (await getCollection('locali')).sort((a, b) => a.data.listOrder - b.data.listOrder);
+// Con quattro ristoranti «Prenota» deve chiedere dove; scelto il locale, il
+// widget TheFork si apre qui dentro. Senza JS ogni pulsante resta un link: alla
+// sezione dei locali o direttamente al widget.
+interface Props { lang: Lang; locali: Locale[] }
+const { lang, locali } = Astro.props;
+const t = ui[lang];
+const widgets = Object.fromEntries(
+  locali.filter((l) => l.bookable).map((l) => [l.id, { url: l.bookingUrl, title: t.book.widget(l.nameShort) }]),
+);
 ---
-<dialog class="book" id="prenota" aria-labelledby="prenota-titolo">
+<dialog class="book" id="prenota" aria-labelledby="prenota-titolo" data-widgets={JSON.stringify(widgets)}>
   <div class="book__inner">
     <div class="book__head">
-      <h2 class="book__title" id="prenota-titolo">Dove vuoi prenotare?</h2>
-      <button class="book__close" type="button" aria-label="Chiudi">&times;</button>
+      <button class="book__back" type="button" hidden>&larr; {t.book.back}</button>
+      <h2 class="book__title" id="prenota-titolo" data-default={t.book.title}>{t.book.title}</h2>
+      <button class="book__close" type="button" aria-label={t.book.close}>&times;</button>
     </div>
-    <p class="book__sub">Quattro locali, tutto il menu senza glutine in ognuno.</p>
-    <ul class="book__list">
-      {locali.map((l) => (
-        <li data-locale={l.id}>
-          <span class="book__civic" aria-hidden="true">{l.data.civic}</span>
-          <div>
-            <p class="book__name">{l.data.nameShort}</p>
-            <p class="u-label book__addr">{l.data.street} · {l.data.zone}</p>
-            {l.data.hours.length > 0 && <p class="book__hours">{formatHours(l.data.hours).join(' · ')}</p>}
-          </div>
-          <div class="book__actions">
-            {l.data.bookingUrl && <a class="btn btn--ink" href={l.data.bookingUrl} target="_blank" rel="noopener">Prenota</a>}
-            {l.data.phone && <a class:list={['btn', l.data.bookingUrl ? 'btn--ghost' : 'btn--ink']} href={telHref(l.data.phone)}>Chiama</a>}
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div class="book__list-pane">
+      <p class="book__sub">{t.book.sub}</p>
+      <ul class="book__list">
+        {locali.map((l) => (
+          <li data-locale={l.id}>
+            <span class="book__civic" aria-hidden="true">{l.civic}</span>
+            <div>
+              <p class="book__name">{l.nameShort}</p>
+              <p class="u-label book__addr">{l.street} · {l.zone}</p>
+              {l.hours.length > 0 && <p class="book__hours">{formatHours(l.hours, t.hours).join(' · ')}</p>}
+            </div>
+            <div class="book__actions">
+              {l.bookable && <a class="btn btn--ink" href={l.bookingUrl} target="_blank" rel="noopener" data-widget={l.id}>{t.book.book}</a>}
+              {l.phone && <a class:list={['btn', l.bookable ? 'btn--ghost' : 'btn--ink']} href={telHref(l.phone)}>{t.book.call}</a>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="book__frame" hidden></div>
   </div>
 </dialog>
 
 <script>
   const dlg = document.getElementById('prenota');
   if (dlg instanceof HTMLDialogElement && typeof dlg.showModal === 'function') {
+    const widgets: Record<string, { url: string; title: string }> = JSON.parse(dlg.dataset.widgets ?? '{}');
+    const title = dlg.querySelector<HTMLElement>('.book__title')!;
+    const back = dlg.querySelector<HTMLButtonElement>('.book__back')!;
+    const listPane = dlg.querySelector<HTMLElement>('.book__list-pane')!;
+    const frame = dlg.querySelector<HTMLElement>('.book__frame')!;
     const rows = dlg.querySelectorAll<HTMLElement>('[data-locale]');
+    const plain = (e: MouseEvent) => !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0);
+
+    const showList = (highlight: string | null) => {
+      dlg.dataset.step = 'list';
+      title.textContent = title.dataset.default ?? '';
+      back.hidden = true;
+      listPane.hidden = false;
+      frame.hidden = true;
+      rows.forEach((r) => r.toggleAttribute('aria-current', r.dataset.locale === highlight));
+    };
+
+    const showWidget = (id: string) => {
+      const w = widgets[id];
+      dlg.dataset.step = 'widget';
+      title.textContent = w.title;
+      back.hidden = false;
+      listPane.hidden = true;
+      frame.hidden = false;
+      // Un iframe per volta, creato solo quando serve: TheFork non si carica
+      // finché nessuno sceglie di prenotare.
+      let iframe = frame.querySelector('iframe');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.allow = 'payment *';
+        frame.append(iframe);
+      }
+      if (iframe.src !== w.url) iframe.src = w.url;
+      iframe.title = w.title;
+    };
+
     document.querySelectorAll<HTMLElement>('[data-book]').forEach((el) => {
       el.addEventListener('click', (e) => {
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        if (!plain(e)) return;
         e.preventDefault();
-        const id = el.getAttribute('data-book');
-        rows.forEach((r) => {
-          if (id && r.dataset.locale === id) r.setAttribute('aria-current', 'true');
-          else r.removeAttribute('aria-current');
-        });
+        const id = el.getAttribute('data-book') || null;
+        if (id && widgets[id]) showWidget(id);
+        else showList(id);
         dlg.showModal();
       });
     });
+    dlg.querySelectorAll<HTMLElement>('[data-widget]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        if (!plain(e)) return;
+        e.preventDefault();
+        showWidget(el.dataset.widget!);
+      });
+    });
+    back.addEventListener('click', () => showList(null));
     dlg.querySelector('.book__close')?.addEventListener('click', () => dlg.close());
     dlg.addEventListener('click', (e) => {
       if (e.target === dlg) dlg.close();

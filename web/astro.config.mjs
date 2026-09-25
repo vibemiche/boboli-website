@@ -10,5 +10,12 @@ export default defineConfig({
   site: SITE,
   base: BASE,
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'it',
+        locales: { it: 'it-IT', en: 'en', es: 'es', de: 'de', fr: 'fr' },
+      },
+    }),
+  ],
 });

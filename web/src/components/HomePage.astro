@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './Hero.astro';
+import ChoiceIndex from './ChoiceIndex.astro';
+import FormatBlock from './FormatBlock.astro';
+import Manifesto from './Manifesto.astro';
+import Laboratorio from './Laboratorio.astro';
+import MenuSection from './MenuSection.astro';
+import Locations from './Locations.astro';
+import SeoFaq from './SeoFaq.astro';
+import type { Lang } from '../lib/i18n';
+import { getLocali } from '../lib/locali';
+import { ui } from '../lib/ui';
+import { buildFaq } from '../lib/faq';
+import { restaurantSchema, organizationSchema, faqSchema, socialImage } from '../lib/schema';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const site = Astro.site!;
+
+const locali = await getLocali(lang);
+const formats = locali.filter((l) => l.formatOrder !== null).sort((a, b) => a.formatOrder! - b.formatOrder!);
+const faq = buildFaq(lang, locali);
+const image = await socialImage('hero', site);
+
+const jsonLd = [
+  organizationSchema(t, lang, site),
+  ...(await Promise.all(locali.map(async (l) => restaurantSchema(l, lang, t, site, await socialImage(`locali/${l.id}`, site))))),
+  faqSchema(faq),
+];
+---
+<Base lang={lang} path="/" title={t.meta.homeTitle} description={t.meta.homeDesc} image={image} jsonLd={jsonLd}>
+  <Hero lang={lang} />
+  <ChoiceIndex lang={lang} locali={locali} />
+  {formats.map((l, i) => <FormatBlock lang={lang} locale={l} dark={i === 1} bleed={i === 2} />)}
+  <Manifesto lang={lang} />
+  <Laboratorio lang={lang} />
+  <MenuSection lang={lang} />
+  <Locations lang={lang} locali={locali} />
+  <SeoFaq lang={lang} faq={faq} />
+</Base>

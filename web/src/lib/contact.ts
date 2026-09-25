@@ -1,11 +1,10 @@
-import type { CollectionEntry } from 'astro:content';
+import type { Locale } from './locali';
+import type { Dict } from './ui';
 
-type Hours = CollectionEntry<'locali'>['data']['hours'];
+type Hours = Locale['hours'];
 type Day = Hours[number]['from'];
 
 const DAYS: Day[] = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
-const SHORT: Record<Day, string> = { Mo: 'Lun', Tu: 'Mar', We: 'Mer', Th: 'Gio', Fr: 'Ven', Sa: 'Sab', Su: 'Dom' };
-const LONG: Record<Day, string> = { Mo: 'Lunedì', Tu: 'Martedì', We: 'Mercoledì', Th: 'Giovedì', Fr: 'Venerdì', Sa: 'Sabato', Su: 'Domenica' };
 const SCHEMA: Record<Day, string> = { Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday', Fr: 'Friday', Sa: 'Saturday', Su: 'Sunday' };
 
 export function telHref(phone: string): string {
@@ -18,18 +17,16 @@ function range(from: Day, to: Day): Day[] {
   return b >= a ? DAYS.slice(a, b + 1) : [...DAYS.slice(a), ...DAYS.slice(0, b + 1)];
 }
 
-const time = (t: string) => t.replace(/^0/, '').replace(/:00$/, '');
-
-/** Righe leggibili: `Tutti i giorni 12–22`, `Mar–Dom 9–16`, `Lunedì chiuso`. */
-export function formatHours(hours: Hours): string[] {
+/** Righe leggibili: `Tutti i giorni 12–22`, `Mar–Dom 9–16`, `Chiuso il lunedì`. */
+export function formatHours(hours: Hours, t: Dict['hours']): string[] {
   const lines = hours.map((h) => {
     const days = range(h.from, h.to);
-    const label = days.length === 7 ? 'Tutti i giorni' : h.from === h.to ? SHORT[h.from] : `${SHORT[h.from]}–${SHORT[h.to]}`;
-    return `${label} ${time(h.opens)}–${time(h.closes)}`;
+    const label = days.length === 7 ? t.everyday : h.from === h.to ? t.short[h.from] : `${t.short[h.from]}–${t.short[h.to]}`;
+    return `${label} ${t.time(h.opens)}–${t.time(h.closes)}`;
   });
   const open = new Set(hours.flatMap((h) => range(h.from, h.to)));
-  const closed = DAYS.filter((d) => !open.has(d)).map((d) => LONG[d]);
-  if (hours.length && closed.length) lines.push(`${closed.join(', ')} chiuso`);
+  const closed = DAYS.filter((d) => !open.has(d)).map((d) => t.long[d]);
+  if (hours.length && closed.length) lines.push(t.closed(closed.join(', ')));
   return lines;
 }
 
@@ -40,4 +37,9 @@ export function openingHoursSpecification(hours: Hours) {
     opens: h.opens,
     closes: h.closes,
   }));
+}
+
+export function directionsUrl(l: Pick<Locale, 'geo' | 'nameLegal' | 'street' | 'postalCode' | 'city'>): string {
+  const dest = l.geo ? `${l.geo.lat},${l.geo.lng}` : `${l.nameLegal}, ${l.street}, ${l.postalCode} ${l.city}`;
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}`;
 }

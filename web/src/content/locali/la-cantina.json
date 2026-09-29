@@ -4,7 +4,9 @@
   "kicker": "Cantina",
   "title": "Non solo cosa mangi. Anche cosa bevi.",
   "blurb": "Selezione vini, abbinamenti, degustazioni.",
+  "body": ["Un bicchiere, qualcosa da mangiare e il piacere di scegliere con calma."],
   "choiceVerb": "Bevi in cantina",
+  "choiceSub": "Un bicchiere, qualcosa da mangiare e il piacere di scegliere con calma.",
   "imageAlt": "Bottiglie della selezione vini di Trattoria Boboli La Cantina in Via Romana a Firenze",
   "seal": "cantina",
   "street": "Via Romana, 60R",
@@ -21,28 +23,36 @@
       "kicker": "The Cantina",
       "title": "Not just what you eat. What you drink, too.",
       "blurb": "Wine selection, pairings, tastings.",
+      "body": ["A glass, something to eat and the pleasure of taking your time to choose."],
       "choiceVerb": "Drink at the cantina",
+      "choiceSub": "A glass, something to eat and the pleasure of taking your time to choose.",
       "imageAlt": "Bottles from the wine selection at Trattoria Boboli La Cantina, Via Romana, Florence"
     },
     "es": {
       "kicker": "La Cantina",
       "title": "No solo lo que comes. También lo que bebes.",
       "blurb": "Selección de vinos, maridajes, catas.",
+      "body": ["Una copa, algo para picar y el placer de elegir con calma."],
       "choiceVerb": "Bebe en la cantina",
+      "choiceSub": "Una copa, algo para picar y el placer de elegir con calma.",
       "imageAlt": "Botellas de la selección de vinos de Trattoria Boboli La Cantina, Via Romana, Florencia"
     },
     "de": {
       "kicker": "Die Cantina",
       "title": "Nicht nur, was du isst. Auch, was du trinkst.",
       "blurb": "Weinauswahl, Weinbegleitung, Verkostungen.",
+      "body": ["Ein Glas, etwas zu essen und die Freude, in Ruhe auszuwählen."],
       "choiceVerb": "Trink in der Cantina",
+      "choiceSub": "Ein Glas, etwas zu essen und die Freude, in Ruhe auszuwählen.",
       "imageAlt": "Flaschen aus der Weinauswahl der Trattoria Boboli La Cantina, Via Romana, Florenz"
     },
     "fr": {
       "kicker": "La Cantina",
       "title": "Pas seulement ce que tu manges. Aussi ce que tu bois.",
       "blurb": "Sélection de vins, accords, dégustations.",
+      "body": ["Un verre, de quoi grignoter et le plaisir de choisir sans se presser."],
       "choiceVerb": "Bois à la cantina",
+      "choiceSub": "Un verre, de quoi grignoter et le plaisir de choisir sans se presser.",
       "imageAlt": "Bouteilles de la sélection de vins de Trattoria Boboli La Cantina, via Romana, Florence"
     }
   }

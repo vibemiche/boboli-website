@@ -18,8 +18,7 @@ const { lang, locale: l, dark = false, bleed = false } = Astro.props;
     <div class="format__text">
       <p class="u-label format__kicker">{l.kicker}</p>
       <h2 class="format__title">{l.title}</h2>
-      {l.insight && <p class="format__insight">{l.insight}</p>}
-      <p class="format__blurb">{l.blurb}</p>
+      {l.body.map((p) => <p class="format__copy">{p}</p>)}
       <p class="u-label format__address">{l.street} · {l.zone}</p>
     </div>
     <div class="format__actions">

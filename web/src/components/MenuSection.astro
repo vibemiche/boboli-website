@@ -9,18 +9,14 @@ const t = ui[Astro.props.lang].menu;
 <section class="menu" id="menu">
   <h2 class="menu__title">{t.title}</h2>
   <ul class="menu__list">
-    {t.items.map(([label, desc]) => (
-      <li class="menu__row">
-        <span class="menu__item">{label}</span>
-        <span class="menu__desc">{desc}</span>
-      </li>
-    ))}
+    {t.items.map((item) => <li class="menu__item">{item}</li>)}
   </ul>
+  <p class="menu__note">{t.note}</p>
   <div class="menu__gallery">
-    {Object.entries(t.gallery).map(([slug, [label, alt]]) => (
+    {Object.entries(t.gallery).map(([slug, [label, line, alt]]) => (
       <figure>
         <Figure slot={`illustrazioni/${slug}`} alt={alt} label={label} widths={[300, 600]} sizes="(max-width: 760px) 50vw, 25vw" />
-        <figcaption class="u-label">{label}</figcaption>
+        <figcaption><span class="u-label">{label}</span>{line}</figcaption>
       </figure>
     ))}
   </div>

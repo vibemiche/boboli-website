@@ -4,8 +4,9 @@
   "kicker": "Boboli Trattoria",
   "title": "Il gusto di stare insieme.",
   "blurb": "Pranzo, famiglia, informalità, cucina toscana contemporanea.",
-  "insight": "Chi di solito sceglie il ristorante per necessità, qui lo sceglie per gusto.",
+  "body": ["A Via Romana ci si viene per mangiare, certo. Ma anche per fermarsi un po'. Un tavolo, un piatto fatto come si deve, qualcosa da bere e il tempo per goderselo.", "È la nostra trattoria nel cuore di Firenze. Ed è un posto dove sentirsi semplicemente a casa."],
   "choiceVerb": "Mangia in trattoria",
+  "choiceSub": "Ti siedi, scegli quello che ti va e ti godi il tempo che ci vuole.",
   "imageAlt": "La sala della Trattoria Boboli 1978 in Via Romana, nell'Oltrarno a Firenze",
   "seal": "vetrina",
   "street": "Via Romana, 45/R",
@@ -23,32 +24,36 @@
       "kicker": "Boboli Trattoria",
       "title": "The pleasure of being together.",
       "blurb": "Lunch, family, easygoing, contemporary Tuscan cooking.",
-      "insight": "People who usually pick a restaurant out of necessity pick this one for the taste.",
+      "body": ["People come to Via Romana to eat, of course. But also to slow down for a while. A table, a dish made properly, something to drink and the time to enjoy it.", "It's our trattoria in the heart of Florence. And it's a place where you simply feel at home."],
       "choiceVerb": "Eat at the trattoria",
+      "choiceSub": "Sit down, pick whatever you feel like and take all the time you need.",
       "imageAlt": "The dining room of Trattoria Boboli 1978 on Via Romana, in the Oltrarno, Florence"
     },
     "es": {
       "kicker": "Boboli Trattoria",
       "title": "El gusto de estar juntos.",
       "blurb": "Comida, familia, ambiente informal, cocina toscana contemporánea.",
-      "insight": "Quien suele elegir restaurante por necesidad, aquí lo elige por gusto.",
+      "body": ["A Via Romana se viene a comer, claro. Pero también a pararse un rato. Una mesa, un plato bien hecho, algo de beber y tiempo para disfrutarlo.", "Es nuestra trattoria en el corazón de Florencia. Y es un lugar donde sentirse, sencillamente, como en casa."],
       "choiceVerb": "Come en la trattoria",
+      "choiceSub": "Te sientas, eliges lo que te apetece y disfrutas el tiempo que haga falta.",
       "imageAlt": "El comedor de la Trattoria Boboli 1978 en Via Romana, en el Oltrarno de Florencia"
     },
     "de": {
       "kicker": "Boboli Trattoria",
       "title": "Die Freude am Zusammensein.",
       "blurb": "Mittagessen, Familie, ungezwungen, zeitgemäße toskanische Küche.",
-      "insight": "Wer ein Restaurant sonst aus Notwendigkeit wählt, wählt dieses aus Genuss.",
+      "body": ["In die Via Romana kommt man zum Essen, klar. Aber auch, um eine Weile zu bleiben. Ein Tisch, ein Gericht, wie es sein soll, etwas zu trinken und die Zeit, es zu genießen.", "Das ist unsere Trattoria im Herzen von Florenz. Und ein Ort, an dem man sich einfach zu Hause fühlt."],
       "choiceVerb": "Iss in der Trattoria",
+      "choiceSub": "Setz dich, wähle, worauf du Lust hast, und nimm dir alle Zeit, die du brauchst.",
       "imageAlt": "Der Speisesaal der Trattoria Boboli 1978 in der Via Romana, im Oltrarno von Florenz"
     },
     "fr": {
       "kicker": "Boboli Trattoria",
       "title": "Le plaisir d'être ensemble.",
       "blurb": "Déjeuner, famille, simplicité, cuisine toscane contemporaine.",
-      "insight": "Ceux qui choisissent d'habitude un restaurant par nécessité choisissent celui-ci par goût.",
+      "body": ["Via Romana, on vient pour manger, bien sûr. Mais aussi pour s'arrêter un peu. Une table, un plat fait comme il faut, quelque chose à boire et le temps d'en profiter.", "C'est notre trattoria au cœur de Florence. Et c'est un endroit où l'on se sent tout simplement chez soi."],
       "choiceVerb": "Mange à la trattoria",
+      "choiceSub": "Tu t'assieds, tu choisis ce qui te fait envie et tu prends tout ton temps.",
       "imageAlt": "La salle de la Trattoria Boboli 1978, via Romana, dans l'Oltrarno à Florence"
     }
   }

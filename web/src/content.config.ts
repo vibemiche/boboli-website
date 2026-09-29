@@ -8,9 +8,11 @@ const day = z.enum(['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']);
 const text = z.object({
   kicker: z.string(),
   title: z.string(),
+  // Sintesi per snippet, JSON-LD e llms.txt: in pagina si legge `body`.
   blurb: z.string(),
-  insight: z.string().nullable().default(null),
+  body: z.array(z.string()).min(1),
   choiceVerb: z.string(),
+  choiceSub: z.string(),
   imageAlt: z.string(),
 });
 

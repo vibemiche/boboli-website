@@ -207,8 +207,8 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .choices__list li{border-top:1px solid var(--ink)}
 .choices__list li:last-child{border-bottom:1px solid var(--ink)}
 .choices__list a{
-  display:grid;grid-template-columns:auto 1fr auto auto;grid-template-areas:"seal verb where arrow";
-  align-items:baseline;gap:clamp(14px,3vw,48px);
+  display:grid;grid-template-columns:auto 1fr auto auto;grid-template-areas:"seal verb where arrow" "seal sub . .";
+  align-items:baseline;gap:8px clamp(14px,3vw,48px);
   padding:clamp(14px,1.9vw,28px) 0;
   transition:color .18s ease;
 }
@@ -221,6 +221,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 }
 .choices__list a:hover .choices__seal{transform:rotate(-8deg) scale(1.06)}
 .choices__verb{grid-area:verb;font-weight:700;font-size:clamp(28px,5vw,80px);line-height:.95;letter-spacing:-.03em}
+.choices__sub{grid-area:sub;max-width:52ch;color:var(--muted);font-size:var(--body);line-height:1.45}
 .choices__where{grid-area:where;font-weight:100;font-size:clamp(15px,1.7vw,26px);line-height:1;white-space:nowrap}
 .choices__arrow{grid-area:arrow;font-weight:700;font-size:clamp(22px,2.8vw,44px);line-height:1;transition:transform .2s ease}
 .choices__list a:hover{color:var(--terracotta)}
@@ -250,10 +251,8 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   font-weight:700;font-size:clamp(24px,4.17vw,66px);line-height:.92;letter-spacing:-.03em;
 }
 .format--dark .format__title{color:var(--cream)}
-.format__insight{max-width:28ch;font-weight:100;font-size:clamp(17px,1.9vw,29px);line-height:1.2}
-.format--dark .format__insight{color:var(--cream)}
-.format__blurb{max-width:42ch;color:var(--muted);font-size:var(--body);line-height:1.6}
-.format--dark .format__blurb{color:rgba(245,234,216,.75)}
+.format__copy{max-width:46ch;color:var(--muted);font-size:var(--body-lg);line-height:1.6}
+.format--dark .format__copy{color:rgba(245,234,216,.75)}
 .format__address{color:var(--address)}
 .format--dark .format__address{color:var(--cream-50)}
 .format__actions{display:flex;align-items:center;gap:22px}
@@ -274,8 +273,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   background:var(--sage);color:#fff;
 }
 .manifesto__kicker{color:rgba(255,255,255,.7);margin-bottom:18px}
-.manifesto__line{font-weight:700;font-size:clamp(40px,7.04vw,112px);line-height:.9;letter-spacing:-.03em}
-.manifesto__line--thin{font-weight:100;line-height:.95;letter-spacing:0;margin-top:2px}
+.manifesto__title{font-weight:700;font-size:clamp(40px,7.04vw,112px);line-height:.9;letter-spacing:-.03em}
 .manifesto__side{display:flex;flex-direction:column;gap:18px}
 .manifesto__body{font-size:var(--body-lg);line-height:1.65}
 .manifesto__list{
@@ -298,23 +296,29 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .lab__thin{font-weight:100;font-size:clamp(18px,2.2vw,32px);line-height:1.2}
 .lab__text{color:var(--muted);font-size:var(--body-lg);line-height:1.6}
 
-/* ── menu: le cose che pensavi di non poter più mangiare ─────────────────── */
+/* ── menu: le categorie, e le illustrazioni che le raccontano ──────────── */
 .menu{padding:clamp(30px,5.19vw,80px) var(--gutter) clamp(32px,4.07vw,60px)}
 .menu__title{
   max-width:16ch;margin-bottom:22px;
   font-weight:700;font-size:clamp(34px,4.81vw,76px);line-height:.95;letter-spacing:-.03em;
 }
-.menu__list{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
-.menu__row{
-  display:grid;grid-template-columns:auto 1fr;align-items:baseline;gap:16px;
-  padding:14px 0;border-top:1px solid var(--rule);
+.menu__list{
+  display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);grid-auto-flow:column;gap:0 40px;
+  border-bottom:1px solid var(--rule);
 }
-.menu__item{font-weight:700;font-size:clamp(21px,2.78vw,44px);line-height:1;letter-spacing:-.03em}
-.menu__desc{color:var(--muted);font-size:var(--body);line-height:1.4;text-align:right}
+.menu__item{
+  padding:14px 0;border-top:1px solid var(--rule);
+  font-weight:700;font-size:clamp(21px,2.78vw,44px);line-height:1;letter-spacing:-.03em;
+}
+.menu__note{margin-top:18px;max-width:34ch;font-weight:100;font-size:clamp(18px,2.2vw,32px);line-height:1.2}
 .menu__gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
 .menu__gallery figure{margin:0}
 .menu__gallery :is(.ph,picture){height:auto;aspect-ratio:1;border-radius:50%;mix-blend-mode:multiply}
-.menu__gallery figcaption{margin-top:8px;text-align:center;color:var(--kicker)}
+.menu__gallery figcaption{
+  display:flex;flex-direction:column;gap:4px;margin-top:8px;
+  text-align:center;color:var(--muted);font-size:var(--body);line-height:1.35;
+}
+.menu__gallery figcaption .u-label{color:var(--kicker)}
 .menu__shop{
   display:flex;justify-content:space-between;align-items:baseline;gap:24px;
   margin-top:26px;padding-top:16px;border-top:1px solid var(--rule);
@@ -322,12 +326,13 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .menu__shop p{max-width:56ch;color:var(--muted);font-size:var(--body);line-height:1.5}
 .menu__shop strong{font-weight:700;color:var(--ink)}
 
-/* ── i locali: tre porte in Via Romana, una in Via Ghibellina ────────────── */
+/* ── i locali: quattro indirizzi ─────────────────────────────────────────── */
 .locations{padding:clamp(30px,5.19vw,80px) var(--gutter);background:var(--ink);color:var(--cream)}
 .locations__title{
-  max-width:14ch;margin-bottom:24px;
+  max-width:16ch;margin-bottom:16px;
   font-weight:700;font-size:clamp(34px,5.19vw,82px);line-height:.94;letter-spacing:-.03em;
 }
+.locations__sub{max-width:52ch;margin-bottom:28px;color:var(--cream-60);font-size:var(--body-lg);line-height:1.5}
 .locations__grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
 /* isolation: i pannelli di Leaflet hanno z-index 400–1000 e passerebbero sopra l'header fisso */
 .map{position:relative;isolation:isolate;height:clamp(220px,38.9vw,560px);background:#e6dfd3;color:var(--ink)}
@@ -431,7 +436,6 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .place__media :is(.ph,picture){height:clamp(240px,40vw,600px)}
 .place__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;margin-top:30px;align-items:start}
 .place__body{display:flex;flex-direction:column;gap:14px}
-.place__insight{font-weight:100;font-size:clamp(20px,2.4vw,36px);line-height:1.2;max-width:26ch}
 .place__text{color:var(--muted);font-size:var(--body-lg);line-height:1.6}
 .place__facts div{
   display:grid;grid-template-columns:110px 1fr;gap:14px;
@@ -523,10 +527,11 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .choices{padding:30px var(--gutter)}
   .choices__title{font-size:8.6vw;max-width:none}
   .choices__list a{
-    grid-template-columns:auto 1fr auto;grid-template-areas:"seal verb arrow" "seal where arrow";
+    grid-template-columns:auto 1fr auto;grid-template-areas:"seal verb arrow" "seal sub arrow" "seal where arrow";
     gap:2px 12px;padding:12px 0;
   }
-  .choices__seal{width:54px;height:54px;grid-row:1 / span 2}
+  .choices__seal{width:54px;height:54px;grid-row:1 / span 3}
+  .choices__sub{font-size:14px;line-height:1.4}
   .choices__verb{font-size:7.6vw}
   .choices__where{font-size:14px;white-space:normal}
   .choices__arrow{font-size:22px;align-self:center}
@@ -535,13 +540,12 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .format__num{font-size:20vw}
   .format__body{grid-template-columns:1fr;gap:16px;padding:var(--gutter)}
   .format__title{font-size:26px}
-  .format__insight{font-size:17px}
   .format--bleed .format__media :is(.ph,picture){height:300px}
   .format--bleed .format__body{width:auto;margin:0}
 
   .manifesto{grid-template-columns:1fr;gap:16px;padding:34px var(--gutter)}
   .manifesto__kicker{margin-bottom:14px}
-  .manifesto__line{font-size:11.1vw}
+  .manifesto__title{font-size:11.1vw}
   .manifesto__side{gap:14px}
   .manifesto__list{font-size:22px}
 
@@ -553,16 +557,17 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 
   .menu{padding:30px var(--gutter)}
   .menu__title{font-size:9.4vw;margin-bottom:14px;max-width:none}
-  .menu__list{grid-template-columns:1fr}
-  .menu__row{grid-template-columns:1fr;gap:4px}
-  .menu__item{font-size:22px}
-  .menu__desc{text-align:left;font-size:14px}
+  .menu__list{gap:0 16px}
+  .menu__item{padding:12px 0;font-size:22px}
+  .menu__note{font-size:18px}
+  .menu__gallery figcaption{font-size:13px}
   .menu__gallery{grid-template-columns:1fr 1fr}
   .menu__gallery{gap:8px 14px}
   .menu__shop{flex-direction:column;gap:10px;align-items:flex-start}
 
   .locations{padding:30px var(--gutter)}
-  .locations__title{max-width:none;font-size:9.4vw;margin-bottom:14px}
+  .locations__title{max-width:none;font-size:9.4vw;margin-bottom:10px}
+  .locations__sub{margin-bottom:18px;font-size:15px}
   .locations__grid{grid-template-columns:1fr;gap:8px}
   .map{height:260px}
   .locations__list li{grid-template-columns:auto 1fr;gap:10px 14px}
@@ -585,7 +590,6 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .place__title{font-size:9vw;max-width:none}
   .place__media :is(.ph,picture){height:220px}
   .place__grid{grid-template-columns:1fr;gap:22px;margin-top:20px}
-  .place__insight{font-size:19px}
   .place__facts div{grid-template-columns:90px 1fr}
 
   .book{max-width:100vw;max-height:100svh;margin:auto 0 0}

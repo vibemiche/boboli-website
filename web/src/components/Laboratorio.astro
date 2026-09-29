@@ -19,6 +19,6 @@ const t = ui[Astro.props.lang].lab;
     <p class="u-label lab__kicker">{t.kicker}</p>
     <h2 class="lab__title">{t.title}</h2>
     <p class="lab__thin">{t.thin}</p>
-    <p class="lab__text">{t.text}</p>
+    {t.text.map((p) => <p class="lab__text">{p}</p>)}
   </div>
 </section>

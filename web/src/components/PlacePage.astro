@@ -50,8 +50,8 @@ const jsonLd = [
     </div>
     <div class="place__grid">
       <div class="place__body">
-        {l.insight && <p class="place__insight">{l.insight}</p>}
-        <p class="place__text">{l.blurb} {t.place.text}</p>
+        {l.body.map((p) => <p class="place__text">{p}</p>)}
+        <p class="place__text">{t.place.text}</p>
         <div class="place__actions">
           <BookButton lang={lang} locale={l} class="btn--ink" />
           {l.bookable && l.phone && <a class="btn btn--ghost" href={telHref(l.phone)}>{t.book.call}</a>}
@@ -73,6 +73,7 @@ const jsonLd = [
             <a href={lp(lang, `/locali/${o.id}/`)}>
               {o.seal && <Figure class="choices__seal" slot={`illustrazioni/${o.seal}`} alt="" label="" widths={[120, 240]} sizes="104px" />}
               <span class="choices__verb">{o.choiceVerb}</span>
+              <span class="choices__sub">{o.choiceSub}</span>
               <span class="choices__where">{o.street}</span>
               <span class="choices__arrow" aria-hidden="true">&rarr;</span>
             </a>

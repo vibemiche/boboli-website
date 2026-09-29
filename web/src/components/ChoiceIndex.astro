@@ -10,8 +10,8 @@ const { lang, locali } = Astro.props;
 const t = ui[lang].choices;
 
 const rows = [
-  ...locali.map((l) => ({ verb: l.choiceVerb, where: l.street, path: `/locali/${l.id}/`, seal: l.seal })),
-  { verb: t.homeVerb, where: t.homeWhere, path: '/#prodotti', seal: 'pasta' },
+  ...locali.map((l) => ({ verb: l.choiceVerb, sub: l.choiceSub, where: l.street, path: `/locali/${l.id}/`, seal: l.seal })),
+  { verb: t.homeVerb, sub: t.homeSub, where: t.homeWhere, path: '/#prodotti', seal: 'pasta' },
 ];
 ---
 <section class="choices">
@@ -22,6 +22,7 @@ const rows = [
         <a href={lp(lang, r.path)}>
           {r.seal && <Figure class="choices__seal" slot={`illustrazioni/${r.seal}`} alt="" label="" widths={[120, 240]} sizes="104px" />}
           <span class="choices__verb">{r.verb}</span>
+          <span class="choices__sub">{r.sub}</span>
           <span class="choices__where">{r.where}</span>
           <span class="choices__arrow" aria-hidden="true">&rarr;</span>
         </a>

@@ -10,8 +10,9 @@ const { lang, locali } = Astro.props;
 const t = ui[lang];
 const links = [
   ...locali.map((l) => ({ label: l.nameShort, meta: l.street, path: `/locali/${l.id}/` })),
-  { label: t.nav.menu, meta: t.nav.menuMeta, path: '/#menu' },
+  { label: t.nav.menu, meta: t.nav.menuMeta, path: '/menu/' },
   { label: t.nav.lab, meta: t.nav.labMeta, path: '/#laboratorio' },
+  { label: t.nav.smartbox, meta: t.nav.smartboxMeta, path: '/smartbox/' },
 ];
 ---
 <header class="site-header">

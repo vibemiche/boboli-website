@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Figure from './Figure.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { getLocali } from '../lib/locali';
+import { ui } from '../lib/ui';
+import { breadcrumbSchema } from '../lib/schema';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const s = t.smartbox;
+const site = Astro.site!;
+const locali = (await getLocali(lang)).filter((l) => l.smartboxUrl);
+const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: 'Smartbox', url: lp(lang, '/smartbox/') }], site)];
+---
+<Base lang={lang} path="/smartbox/" title={s.title} description={s.desc} image={null} jsonLd={jsonLd}>
+  <article class="gift">
+    <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+      <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">Smartbox</span>
+    </nav>
+    <header class="gift__head">
+      <p class="u-label gift__kicker">{s.kicker}</p>
+      <h1 class="gift__title">{s.h1}</h1>
+      <p class="gift__lead">{s.lead}</p>
+    </header>
+
+    <ul class="gift__list">
+      {locali.map((l) => (
+        <li class="ticket">
+          <div class="ticket__stub" aria-hidden="true">
+            <span class="ticket__civic">{l.civic}</span>
+            <span class="u-label ticket__brand">Smartbox</span>
+          </div>
+          <div class="ticket__body">
+            {l.seal && <Figure class="ticket__seal" slot={`illustrazioni/${l.seal}`} alt="" label="" widths={[160, 320]} sizes="96px" />}
+            <p class="u-label ticket__kicker">{l.kicker}</p>
+            <h2 class="ticket__name"><a href={lp(lang, `/locali/${l.id}/`)}>{l.nameShort}</a></h2>
+            <p class="ticket__addr">{l.street} · {l.zone}</p>
+            <a class="btn btn--terracotta ticket__cta" href={l.smartboxUrl} target="_blank" rel="noopener">
+              {s.cta} <span aria-hidden="true">&rarr;</span><span class="sr-only"> — {l.nameShort} ({s.newTab})</span>
+            </a>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <p class="gift__note">{s.note}</p>
+  </article>
+</Base>

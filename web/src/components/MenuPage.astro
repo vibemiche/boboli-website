@@ -1,0 +1,217 @@
+---
+import Base from '../layouts/Base.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { getLocali } from '../lib/locali';
+import { ui } from '../lib/ui';
+import { telHref } from '../lib/contact';
+import { Image, getImage } from 'astro:assets';
+import { MENUS, menuPdf, menuImages, menuText } from '../lib/menu';
+import { breadcrumbSchema, socialImage } from '../lib/schema';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const m = t.menuPage;
+const site = Astro.site!;
+const locali = await getLocali(lang);
+
+const menus = await Promise.all(
+  MENUS.map(async (id) => ({
+    id,
+    name: m.tabs[id][0],
+    meta: m.tabs[id][1],
+    pdf: menuPdf(id),
+    text: await menuText(id),
+    images: await Promise.all(
+      menuImages(id).map(async ({ image, label }) => ({
+        image,
+        label,
+        full: (await getImage({ src: image, width: image.width, format: 'jpg', quality: 88 })).src,
+      })),
+    ),
+    // Chi serve quel menu: sono i locali da chiamare se il PDF non c'è ancora.
+    locali: locali.filter((l) => (id === 'to-go') === (l.id === 'to-go')),
+  })),
+);
+const image = await socialImage('illustrazioni/menu', site);
+const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: m.h1.replace(/\.$/, ''), url: lp(lang, '/menu/') }], site)];
+---
+<Base lang={lang} path="/menu/" title={m.title} description={m.desc} image={image} jsonLd={jsonLd}>
+  <article class="carte" data-i18n={JSON.stringify({ page: m.page(9991, 9992), one: m.pages(1), many: m.pages(9993) })}>
+    <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+      <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">{m.h1.replace(/\.$/, '')}</span>
+    </nav>
+    <header class="carte__head">
+      <p class="u-label carte__kicker">{m.kicker}</p>
+      <h1 class="carte__title">{m.h1}</h1>
+      <p class="carte__lead">{m.lead}</p>
+    </header>
+
+    <div class="carte__tabs" role="tablist" aria-label={m.tabsLabel} data-tabs hidden>
+      {menus.map((x, i) => (
+        <button type="button" role="tab" id={`tab-${x.id}`} aria-controls={x.id} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab={x.id}>
+          <span class="carte__tab-name">{x.name}</span>
+          <span class="carte__tab-meta">{x.meta}</span>
+        </button>
+      ))}
+    </div>
+
+    {menus.map((x) => (
+      <section class="carte__panel" id={x.id} role="tabpanel" aria-labelledby={`tab-${x.id}`} data-panel={x.id}>
+        <h2 class="carte__panel-title">{x.name} <span>{x.meta}</span></h2>
+        {x.pdf ? (
+          <div class="viewer" data-pdf={x.pdf}>
+            <div class="viewer__bar">
+              <span class="u-label viewer__count" data-count>{x.text.length ? m.pages(x.text.length) : ''}</span>
+              <div class="viewer__actions">
+                <a class="btn btn--ghost" href={x.pdf} target="_blank" rel="noopener">{m.open}<span class="sr-only"> ({t.smartbox.newTab})</span></a>
+                <a class="btn btn--ink" href={x.pdf} download={`boboli-menu-${x.id}.pdf`}>{m.download}</a>
+              </div>
+            </div>
+            <div class="viewer__pages" data-pages>
+              <p class="viewer__status" data-status>{m.loading}</p>
+            </div>
+            <p class="viewer__error" data-error hidden>{m.error} <a href={x.pdf} target="_blank" rel="noopener">{m.open} &rarr;</a></p>
+            {x.text.length > 0 && (
+              <details class="viewer__text">
+                <summary>{m.textVersion}</summary>
+                {x.text.map((lines) => <div>{lines.map((l) => <p>{l}</p>)}</div>)}
+              </details>
+            )}
+          </div>
+        ) : x.images.length > 0 ? (
+          <div class="viewer">
+            <div class="viewer__pages viewer__pages--images">
+              {x.images.map((p, i) => (
+                <a class="viewer__sheet is-ready" href={p.full} target="_blank" rel="noopener" aria-label={`${m.page(i + 1, x.images.length)} — ${p.label}`}>
+                  <Image src={p.image} widths={[640, 1024]} sizes="(max-width: 760px) 100vw, 46vw" alt={`${x.name} — ${p.label}`} />
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div class="carte__missing">
+            <p>{m.missing}</p>
+            <ul>
+              {x.locali.map((l) => (
+                <li>
+                  <a href={lp(lang, `/locali/${l.id}/`)}>{l.nameShort}</a>
+                  {l.phone && <a class="carte__tel" href={telHref(l.phone)}>{l.phone}</a>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+    ))}
+  </article>
+</Base>
+
+<script>
+  // Il PDF diventa una pila di fogli nitidi, larghi quanto lo schermo: niente
+  // visualizzatore del browser (su iPhone dentro una pagina è illeggibile).
+  // Toccando un foglio si apre il PDF a quella pagina, con lo zoom nativo.
+  const i18n = JSON.parse(document.querySelector<HTMLElement>('[data-i18n]')?.dataset.i18n || '{}');
+  const pageLabel = (i: number, n: number) => String(i18n.page).replace('9991', String(i)).replace('9992', String(n));
+  const pagesLabel = (n: number) => (n === 1 ? String(i18n.one) : String(i18n.many).replace('9993', String(n)));
+
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+  const panels = [...document.querySelectorAll<HTMLElement>('[data-panel]')];
+  const loaded = new WeakSet<HTMLElement>();
+
+  async function render(viewer: HTMLElement) {
+    if (loaded.has(viewer)) return;
+    loaded.add(viewer);
+    const url = viewer.dataset.pdf!;
+    const box = viewer.querySelector<HTMLElement>('[data-pages]')!;
+    try {
+      const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
+      const worker = await import('pdfjs-dist/legacy/build/pdf.worker.min.mjs?url');
+      pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
+      const doc = await pdfjs.getDocument({ url }).promise;
+      const count = viewer.querySelector('[data-count]');
+      if (count) count.textContent = pagesLabel(doc.numPages);
+      box.textContent = '';
+      // Su un telefono una doppia pagina larga come lo schermo è illeggibile:
+      // la si taglia in due fogli, sinistro e destro.
+      const narrow = box.clientWidth < 700;
+      const sheetFor = (n: number, ratio: number) => {
+        const sheet = document.createElement('a');
+        sheet.className = 'viewer__sheet';
+        sheet.href = `${url}#page=${n}`;
+        sheet.target = '_blank';
+        sheet.rel = 'noopener';
+        sheet.style.aspectRatio = String(ratio);
+        sheet.setAttribute('aria-label', pageLabel(n, doc.numPages));
+        const canvas = document.createElement('canvas');
+        sheet.append(canvas);
+        box.append(sheet);
+        return { sheet, canvas };
+      };
+      for (let n = 1; n <= doc.numPages; n++) {
+        const page = await doc.getPage(n);
+        const base = page.getViewport({ scale: 1 });
+        const split = narrow && base.width > base.height * 1.2;
+        const parts = split
+          ? [sheetFor(n, base.width / 2 / base.height), sheetFor(n, base.width / 2 / base.height)]
+          : [sheetFor(n, base.width / base.height)];
+        if (!split && base.width > base.height) parts[0].sheet.classList.add('is-spread');
+        // Oltre la risoluzione dello schermo: regge il pizzico per ingrandire.
+        const target = Math.min(box.clientWidth * Math.min(devicePixelRatio || 1, 2) * 1.6 * parts.length, 3200);
+        const viewport = page.getViewport({ scale: target / base.width });
+        const full = split ? document.createElement('canvas') : parts[0].canvas;
+        full.width = Math.floor(viewport.width);
+        full.height = Math.floor(viewport.height);
+        await page.render({ canvas: full, viewport }).promise;
+        if (split) {
+          const half = Math.floor(full.width / 2);
+          parts.forEach(({ canvas }, i) => {
+            canvas.width = half;
+            canvas.height = full.height;
+            canvas.getContext('2d')!.drawImage(full, i * half, 0, half, full.height, 0, 0, half, full.height);
+          });
+        }
+        parts.forEach(({ sheet }) => sheet.classList.add('is-ready'));
+      }
+    } catch {
+      box.hidden = true;
+      viewer.querySelector<HTMLElement>('[data-error]')!.hidden = false;
+    }
+  }
+
+  function select(id: string, focus = false) {
+    const tab = tabs.find((t) => t.dataset.tab === id) ?? tabs[0];
+    if (!tab) return;
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+    }
+    for (const p of panels) {
+      p.hidden = p.dataset.panel !== tab.dataset.tab;
+      const v = p.querySelector<HTMLElement>('[data-pdf]');
+      if (!p.hidden && v) render(v);
+    }
+    if (focus) tab.focus();
+  }
+
+  if (tabs.length) {
+    document.querySelector<HTMLElement>('[data-tabs]')!.hidden = false;
+    document.documentElement.classList.add('has-tabs');
+    tabs.forEach((t, i) =>
+      t.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (d) select(tabs[(i + d + tabs.length) % tabs.length].dataset.tab!, true);
+      }),
+    );
+    tabs.forEach((t) =>
+      t.addEventListener('click', () => {
+        select(t.dataset.tab!);
+        history.replaceState(null, '', t.dataset.tab === tabs[0].dataset.tab ? location.pathname : `#${t.dataset.tab}`);
+      }),
+    );
+    select(location.hash.slice(1));
+    addEventListener('hashchange', () => select(location.hash.slice(1)));
+  }
+</script>

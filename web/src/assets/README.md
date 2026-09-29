@@ -25,6 +25,26 @@ viene ritagliata a 1200×630 in automatico.
 La mappa dei locali non è un'immagine: è interattiva, e prende le coordinate dai file in
 `src/content/locali/`.
 
+## I menu (`menu/`)
+
+La pagina `/menu/` mostra due menu, e anche qui **il nome del file è il posto**:
+
+| File | Menu |
+| --- | --- |
+| `menu/ristoranti.pdf` | Trattoria, Bargello e Cantina |
+| `menu/to-go-1-panini.jpg`, `menu/to-go-2-pasta.jpg` | To-Go |
+
+Un menu può essere **un PDF** (`<nome>.pdf`) oppure **una serie di immagini**
+(`<nome>-1-….jpg`, `<nome>-2-….jpg`: escono nell'ordine dei numeri).
+
+**Per aggiornare il menu** carica il nuovo file **con lo stesso nome**: GitHub sostituisce il
+vecchio e dopo ~2 minuti il sito mostra quello nuovo. Se il file ha un altro nome (per esempio
+`boboli v6 ita eng.pdf`) rinominalo prima di caricarlo, oppure dopo, da GitHub: un nome diverso
+non rompe niente, ma il sito continua a mostrare il menu vecchio.
+
+Del PDF il sito legge anche il testo, che diventa la versione «solo testo» per screen reader e
+motori di ricerca: esporta il PDF con il testo selezionabile, non come immagine.
+
 ## Logo e illustrazioni
 
 - `logo.svg` — il marchio, in header e footer. Il nero della scritta segue il contesto (inchiostro

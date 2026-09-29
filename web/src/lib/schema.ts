@@ -50,10 +50,11 @@ export function restaurantSchema(l: Locale, lang: Lang, t: Dict, site: URL, imag
     hasMenu: {
       '@type': 'Menu',
       name: t.meta.menuName,
+      url: abs(lp(lang, l.id === 'to-go' ? '/menu/#to-go' : '/menu/'), site),
       hasMenuSection: {
         '@type': 'MenuSection',
         name: t.meta.menuName,
-        hasMenuItem: t.manifesto.items.map((name) => ({
+        hasMenuItem: t.menu.items.map((name) => ({
           '@type': 'MenuItem',
           name,
           suitableForDiet: 'https://schema.org/GlutenFreeDiet',

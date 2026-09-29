@@ -35,6 +35,8 @@ const locali = defineCollection({
     phone: z.string().nullable().default(null),
     // L'indirizzo del widget TheFork: se c'è, il locale si prenota online.
     bookingUrl: z.string().url().nullable().default(null),
+    // Il modulo Google in cui si inserisce il codice Smartbox; senza, il locale non la accetta.
+    smartboxUrl: z.string().url().nullable().default(null),
     geo: z.object({ lat: z.number(), lng: z.number() }).nullable().default(null),
     // Una riga per fascia; i giorni non coperti risultano chiusi.
     hours: z.array(z.object({ from: day, to: day, opens: z.string(), closes: z.string() })).default([]),

@@ -1,26 +1,66 @@
 ---
 import Figure from './Figure.astro';
+import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { ui } from '../lib/ui';
 
 interface Props { lang: Lang }
-const t = ui[Astro.props.lang].menu;
+const { lang } = Astro.props;
+const t = ui[lang].menu;
 ---
 <section class="menu" id="menu">
-  <h2 class="menu__title">{t.title}</h2>
-  <ul class="menu__list">
-    {t.items.map((item) => <li class="menu__item">{item}</li>)}
-  </ul>
-  <p class="menu__note">{t.note}</p>
-  <div class="menu__gallery">
-    {Object.entries(t.gallery).map(([slug, [label, line, alt]]) => (
-      <figure>
-        <Figure slot={`illustrazioni/${slug}`} alt={alt} label={label} widths={[300, 600]} sizes="(max-width: 760px) 50vw, 25vw" />
-        <figcaption><span class="u-label">{label}</span>{line}</figcaption>
-      </figure>
-    ))}
+  <div class="menu__intro">
+    <h2 class="menu__title">{t.title}</h2>
+    <p class="menu__note">{t.note}</p>
+    <div class="menu__ctas">
+      <a class="btn btn--ink" href={lp(lang, '/menu/')}>{t.cta}</a>
+      <a class="link-more" href={lp(lang, '/menu/#to-go')}>{t.ctaToGo} &rarr;</a>
+    </div>
   </div>
+
+  {/* La carta di una trattoria, ma dove andrebbe il prezzo c'è la promessa. */}
+  <a class="carta" href={lp(lang, '/menu/')} data-carta>
+    <span class="carta__head u-label">{t.card}</span>
+    <ul class="carta__list">
+      {t.items.map((item, i) => (
+        <li class="carta__row" style={`--i:${i}`}>
+          <span class="carta__item">{item}</span>
+          <span class="carta__dots" aria-hidden="true"></span>
+          <span class="carta__free">{t.free}</span>
+        </li>
+      ))}
+    </ul>
+    <span class="carta__more">{t.cardMore} <span aria-hidden="true">&rarr;</span></span>
+  </a>
+
+  <ul class="menu__gallery">
+    {Object.entries(t.gallery).map(([slug, [label, line, alt]]) => (
+      <li>
+        <figure>
+          <Figure slot={`illustrazioni/${slug}`} alt={alt} label={label} widths={[300, 600]} sizes="(max-width: 760px) 62vw, 25vw" />
+          <figcaption><span class="u-label">{label}</span>{line}</figcaption>
+        </figure>
+      </li>
+    ))}
+  </ul>
+
   <div class="menu__shop" id="prodotti">
     <p><strong>{t.shopStrong}</strong> {t.shopText}</p>
   </div>
 </section>
+
+<script>
+  // I puntini corrono verso «senza glutine» quando la carta entra in vista.
+  // Senza JS, o con il movimento ridotto, la carta è già completa.
+  const carta = document.querySelector<HTMLElement>('[data-carta]');
+  if (carta && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    carta.classList.add('is-armed');
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        carta.classList.add('is-in');
+        io.disconnect();
+      }
+    }, { threshold: 0.35 });
+    io.observe(carta);
+  }
+</script>

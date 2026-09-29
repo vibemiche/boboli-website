@@ -13,3 +13,12 @@ export function findImage(slot: string): ImageMetadata | null {
   const match = Object.keys(files).find((path) => path.replace(/\.[^./]+$/, '') === target);
   return match ? files[match].default : null;
 }
+
+/** Le immagini di una serie numerata, in ordine di nome: `menu/to-go` → `to-go-1-…`, `to-go-2-…`. */
+export function findSeries(slot: string): { name: string; image: ImageMetadata }[] {
+  const target = `/src/assets/${slot}`;
+  return Object.keys(files)
+    .filter((path) => path.replace(/\.[^./]+$/, '') === target || path.startsWith(`${target}-`))
+    .sort()
+    .map((path) => ({ name: path.slice(path.lastIndexOf('/') + 1).replace(/\.[^.]+$/, ''), image: files[path].default }));
+}

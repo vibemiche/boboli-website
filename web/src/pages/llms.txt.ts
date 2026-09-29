@@ -23,6 +23,8 @@ export const GET: APIRoute = async ({ site }) => {
         l.bookingUrl ? `- Prenotazione online: ${l.bookingUrl}` : null,
         `- Cosa offre: ${l.blurb}`,
         `- Pagina: ${url(`/locali/${l.id}/`)}`,
+        `- Menu: ${url(l.id === 'to-go' ? '/menu/#to-go' : '/menu/')}`,
+        l.smartboxUrl ? `- Smartbox: si usa qui; il codice si inserisce da ${url('/smartbox/')}` : null,
       ]
         .filter(Boolean)
         .join('\n'),

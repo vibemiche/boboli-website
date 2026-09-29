@@ -15,6 +15,7 @@
   "zone": "Oltrarno",
   "phone": "+39 055 2336401",
   "bookingUrl": "https://widget.thefork.com/13c79f43-4870-44dd-ae95-4d647eb50193",
+  "smartboxUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfIJ0BaJBiVhm2tiQzB56AxAmzpsDbVERLxvWtX6Gqu56TtgA/viewform",
   "geo": { "lat": 43.764149, "lng": 11.246213 },
   "hours": [{ "from": "Mo", "to": "Su", "opens": "12:00", "closes": "22:00" }],
   "formatOrder": 1,

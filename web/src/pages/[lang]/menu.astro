@@ -1,0 +1,10 @@
+---
+import MenuPage from '../../components/MenuPage.astro';
+import { TRANSLATED } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+export function getStaticPaths() {
+  return TRANSLATED.map((lang) => ({ params: { lang } }));
+}
+---
+<MenuPage lang={Astro.params.lang as Lang} />

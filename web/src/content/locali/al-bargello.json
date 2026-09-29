@@ -15,6 +15,7 @@
   "zone": "Santa Croce",
   "phone": "+39 055 289264",
   "bookingUrl": "https://widget.thefork.com/55c4e6a9-f46d-46f7-ad35-119e2dbc8e69",
+  "smartboxUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfxYAWWTjKluqvBnA9C8BwnwEQqJz_Vmj9-BIs1vb9n3Qu6mQ/viewform",
   "geo": { "lat": 43.770562, "lng": 11.258978 },
   "hours": [{ "from": "Mo", "to": "Su", "opens": "12:00", "closes": "22:30" }],
   "formatOrder": 2,

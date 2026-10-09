@@ -4,7 +4,7 @@
   "kicker": "Boboli To Go",
   "title": "Hai voglia di un panino?",
   "blurb": "Asporto, passeggiata, pausa veloce: il pane del laboratorio, da portare per Firenze.",
-  "body": ["Naturalmente 100% senza glutine."],
+  "body": ["Naturalmente 100% senza glutine.", "Lo prepariamo noi, lo prendi al volo e te lo porti dove vuoi."],
   "choiceVerb": "Prendi un panino to go",
   "choiceSub": "Hai poco tempo? Il gusto viene con te.",
   "imageAlt": "Un panino senza glutine di Boboli To-Go, in mano, in Via Romana a Firenze",
@@ -23,7 +23,7 @@
       "kicker": "Boboli To Go",
       "title": "Fancy a sandwich?",
       "blurb": "Takeaway, a stroll, a quick break: bread from our workshop, to carry around Florence.",
-      "body": ["Naturally, 100% gluten free."],
+      "body": ["Naturally, 100% gluten free.", "We make it, you grab it on the go and take it wherever you like."],
       "choiceVerb": "Grab a sandwich to go",
       "choiceSub": "Short on time? The flavour comes with you.",
       "imageAlt": "A gluten-free Boboli To-Go sandwich, in hand, on Via Romana in Florence"
@@ -32,7 +32,7 @@
       "kicker": "Boboli To Go",
       "title": "¿Te apetece un bocadillo?",
       "blurb": "Para llevar, de paseo, una pausa rápida: el pan de nuestro obrador, para recorrer Florencia.",
-      "body": ["Por supuesto, 100% sin gluten."],
+      "body": ["Por supuesto, 100% sin gluten.", "Lo preparamos nosotros, lo coges al vuelo y te lo llevas adonde quieras."],
       "choiceVerb": "Llévate un bocadillo",
       "choiceSub": "¿Tienes poco tiempo? El sabor se va contigo.",
       "imageAlt": "Un bocadillo sin gluten de Boboli To-Go, en la mano, en Via Romana, Florencia"
@@ -41,7 +41,7 @@
       "kicker": "Boboli To Go",
       "title": "Lust auf ein Panino?",
       "blurb": "Zum Mitnehmen, zum Spazieren, für die kurze Pause: Brot aus unserer Manufaktur, für unterwegs in Florenz.",
-      "body": ["Natürlich 100 % glutenfrei."],
+      "body": ["Natürlich 100 % glutenfrei.", "Wir machen es, du nimmst es im Vorbeigehen mit, wohin du willst."],
       "choiceVerb": "Hol dir ein Panino to go",
       "choiceSub": "Wenig Zeit? Der Genuss kommt mit.",
       "imageAlt": "Ein glutenfreies Panino von Boboli To-Go in der Hand, Via Romana, Florenz"
@@ -50,7 +50,7 @@
       "kicker": "Boboli To Go",
       "title": "Envie d'un sandwich ?",
       "blurb": "À emporter, en balade, pour une pause rapide : le pain de notre atelier, à emporter dans Florence.",
-      "body": ["Naturellement 100 % sans gluten."],
+      "body": ["Naturellement 100 % sans gluten.", "On le prépare, tu le prends en passant et tu l'emportes où tu veux."],
       "choiceVerb": "Prends un sandwich à emporter",
       "choiceSub": "Peu de temps ? Le goût part avec toi.",
       "imageAlt": "Un sandwich sans gluten de Boboli To-Go, à la main, via Romana à Florence"

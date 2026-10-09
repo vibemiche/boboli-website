@@ -42,7 +42,7 @@ const it = {
     alt: 'Una cuoca di Boboli stende a mano la pasta fresca senza glutine nel laboratorio',
   },
   choices: {
-    title: 'Da Boboli scegli anche come stare a tavola.',
+    title: 'I 5 modi di vivere Boboli:',
     homeVerb: 'Porta Boboli a casa',
     homeWhere: 'I prodotti del laboratorio',
     homeSub: 'Quella voglia di Boboli può continuare anche quando sei già rientrato.',
@@ -248,7 +248,7 @@ const en: Dict = {
     alt: 'A Boboli cook rolling out fresh gluten-free pasta by hand in the workshop',
   },
   choices: {
-    title: 'At Boboli, you also choose how you spend time at the table.',
+    title: '5 ways to experience Boboli:',
     homeVerb: 'Take Boboli home',
     homeWhere: 'Products from the workshop',
     homeSub: "That Boboli craving can carry on even once you're back home.",
@@ -450,7 +450,7 @@ const es: Dict = {
     alt: 'Una cocinera de Boboli estira a mano pasta fresca sin gluten en el obrador',
   },
   choices: {
-    title: 'En Boboli también eliges cómo disfrutar de la mesa.',
+    title: '5 formas de vivir Boboli:',
     homeVerb: 'Llévate Boboli a casa',
     homeWhere: 'Los productos del obrador',
     homeSub: 'Esas ganas de Boboli pueden seguir incluso cuando ya has vuelto a casa.',
@@ -652,7 +652,7 @@ const de: Dict = {
     alt: 'Eine Köchin von Boboli rollt in der Manufaktur frische glutenfreie Pasta von Hand aus',
   },
   choices: {
-    title: 'Bei Boboli wählst du auch, wie du genießt.',
+    title: '5 Arten, Boboli zu erleben:',
     homeVerb: 'Nimm Boboli mit nach Hause',
     homeWhere: 'Produkte aus der Manufaktur',
     homeSub: 'Die Lust auf Boboli darf weitergehen, auch wenn du schon wieder zu Hause bist.',
@@ -854,7 +854,7 @@ const fr: Dict = {
     alt: "Une cuisinière de Boboli étale à la main des pâtes fraîches sans gluten dans l'atelier",
   },
   choices: {
-    title: 'Chez Boboli, tu choisis aussi comment passer à table.',
+    title: '5 façons de vivre Boboli :',
     homeVerb: 'Emporte Boboli chez toi',
     homeWhere: "Les produits de l'atelier",
     homeSub: "L'envie de Boboli peut continuer même une fois rentré chez toi.",

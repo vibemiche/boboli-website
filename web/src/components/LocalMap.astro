@@ -37,6 +37,82 @@ const data = { pins, landmarks, directions: t.directions };
   type Pin = { id: string; civic: string; name: string; street: string; lat: number; lng: number; maps: string };
   type Mark = { name: string; lat: number; lng: number };
 
+  // Fondo mappa: OpenFreeMap, gratis e senza chiave API, ricolorato con la
+  // palette del sito. Se il browser non disegna in WebGL o lo stile non
+  // arriva, si ripiega sulle tessere standard di OpenStreetMap.
+  const OSM_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+  const GL_STYLE = 'https://tiles.openfreemap.org/styles/positron';
+  const PALETTE: Record<string, string> = {
+    background: '#efe6d6',
+    water: '#c6d3cf',
+    green: '#d6dcc0',
+    building: '#e4d9c6',
+    road: '#fbf6ec',
+  };
+
+  function webgl() {
+    try {
+      const c = document.createElement('canvas');
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  }
+
+  function tint(gl: import('maplibre-gl').Map) {
+    for (const layer of gl.getStyle().layers) {
+      const src = 'source-layer' in layer ? layer['source-layer'] : '';
+      const set = (prop: string, color: string) => {
+        try {
+          gl.setPaintProperty(layer.id, prop, color);
+        } catch {}
+      };
+      if (layer.type === 'background') set('background-color', PALETTE.background);
+      else if (src === 'water' && layer.type === 'fill') set('fill-color', PALETTE.water);
+      else if (src === 'waterway' && layer.type === 'line') set('line-color', PALETTE.water);
+      else if ((src === 'park' || src === 'landcover') && layer.type === 'fill') set('fill-color', PALETTE.green);
+      else if (src === 'building' && layer.type === 'fill') set('fill-color', PALETTE.building);
+      else if (src === 'transportation' && layer.type === 'line') set('line-color', PALETTE.road);
+    }
+  }
+
+  async function addBasemap(L: typeof import('leaflet'), map: import('leaflet').Map) {
+    const osm = () =>
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: OSM_ATTR }).addTo(map);
+    if (!webgl()) return osm();
+    try {
+      const [{ maplibreGL }, { setWorkerUrl }, { default: workerUrl }] = await Promise.all([
+        import('@maplibre/maplibre-gl-leaflet'),
+        import('maplibre-gl'),
+        // Una volta impacchettato, MapLibre non trova da solo il suo worker.
+        import('maplibre-gl/dist/maplibre-gl-worker.mjs?url'),
+      ]);
+      setWorkerUrl(workerUrl);
+      const layer = maplibreGL({
+        style: GL_STYLE,
+        attribution: `<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> ${OSM_ATTR}`,
+      } as Parameters<typeof maplibreGL>[0]).addTo(map);
+      const gl = layer.getMaplibreMap();
+      let ready = false;
+      gl.once('style.load', () => {
+        ready = true;
+        tint(gl);
+      });
+      // La licenza di OpenStreetMap chiede il credito sempre visibile.
+      gl.once('load', () => {
+        if (!/openstreetmap/i.test(layer.getAttribution() ?? '')) map.attributionControl?.addAttribution(`OpenFreeMap ${OSM_ATTR}`);
+      });
+      gl.on('error', () => {
+        if (ready) return;
+        ready = true;
+        map.removeLayer(layer);
+        osm();
+      });
+    } catch {
+      osm();
+    }
+  }
+
   const el = document.querySelector<HTMLElement>('.map');
   const data: { pins: Pin[]; landmarks: Mark[]; directions: string } = JSON.parse(el?.dataset.map ?? '{"pins":[]}');
 
@@ -48,22 +124,26 @@ const data = { pins, landmarks, directions: t.directions };
         io.disconnect();
         // Il CSS con `?url` resta un asset: importato in modo statico Astro lo
         // metterebbe nell'head. Le regole del sito vincono per specificità.
-        const [{ default: L }, { default: cssUrl }] = await Promise.all([import('leaflet'), import('leaflet/dist/leaflet.css?url')]);
-        await new Promise<void>((resolve) => {
-          const link = Object.assign(document.createElement('link'), { rel: 'stylesheet', href: cssUrl, onload: () => resolve(), onerror: () => resolve() });
-          document.head.append(link);
-        });
+        const [{ default: L }, { default: cssUrl }, { default: glCssUrl }] = await Promise.all([
+          import('leaflet'),
+          import('leaflet/dist/leaflet.css?url'),
+          import('maplibre-gl/dist/maplibre-gl.css?url'),
+        ]);
+        await Promise.all(
+          [glCssUrl, cssUrl].map(
+            (href) =>
+              new Promise<void>((resolve) => {
+                const link = Object.assign(document.createElement('link'), { rel: 'stylesheet', href, onload: () => resolve(), onerror: () => resolve() });
+                document.head.append(link);
+              }),
+          ),
+        );
         el.querySelector('.map__fallback')?.remove();
 
         // Con un dito la pagina scorre, con due la mappa zooma: su telefono la
         // mappa non deve intrappolare lo scroll.
         const touch = L.Browser.mobile;
         const map = L.map(el, { scrollWheelZoom: false, dragging: !touch, zoomSnap: 0.25 });
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-          maxZoom: 19,
-          subdomains: 'abcd',
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        }).addTo(map);
 
         data.landmarks.forEach((m) => {
           L.marker([m.lat, m.lng], {
@@ -114,6 +194,8 @@ const data = { pins, landmarks, directions: t.directions };
         map.on('zoomend', layout);
         const pts = [...data.pins, ...data.landmarks].map((p) => [p.lat, p.lng] as [number, number]);
         map.fitBounds(pts, { padding: [28, 28] });
+        // Il fondo vettoriale vuole già centro e zoom: si aggiunge dopo il fitBounds.
+        await addBasemap(L, map);
         layout();
       },
       { rootMargin: '240px' },

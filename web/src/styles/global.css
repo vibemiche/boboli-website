@@ -778,7 +778,6 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 
   .menu{padding:34px var(--gutter)}
   .menu__top{grid-template-columns:1fr;gap:26px}
-  .menu__gallery{margin-top:26px}
   .menu__shop{margin-top:24px}
   .menu__intro{position:static}
   .menu__title{font-size:9.4vw;max-width:none}
@@ -789,7 +788,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .carta__free{font-size:9.5px;letter-spacing:.16em}
   .menu__gallery{
     display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
-    margin:0 calc(-1 * var(--gutter));padding:0 var(--gutter) 4px;scroll-padding:0 var(--gutter);
+    margin:56px calc(-1 * var(--gutter)) 0;padding:0 var(--gutter) 4px;scroll-padding:0 var(--gutter);
   }
   .menu__gallery::-webkit-scrollbar{display:none}
   .menu__gallery li{flex:0 0 58%;scroll-snap-align:start}

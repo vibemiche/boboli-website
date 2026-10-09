@@ -48,6 +48,13 @@ export const GET: APIRoute = async ({ site }) => {
 
 ${schede}
 
+## Altre pagine
+
+- Menu dei ristoranti e del To-Go: ${url('/menu/')}
+- Gruppi ed eventi, spazi privatizzabili: ${url('/eventi/')}
+- Smartbox: ${url('/smartbox/')}
+- Lavora con noi: ${url('/lavora-con-noi/')}
+
 ## Altre lingue
 
 ${TRANSLATED.map((l) => `- ${l.toUpperCase()}: ${url('/', l)}`).join('\n')}

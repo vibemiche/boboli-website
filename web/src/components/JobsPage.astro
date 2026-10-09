@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import Figure from './Figure.astro';
+import FormBand from './FormBand.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+import { FORMS } from '../lib/forms';
+import { breadcrumbSchema, socialImage } from '../lib/schema';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const j = t.jobs;
+const site = Astro.site!;
+const image = await socialImage('illustrazioni/staff', site);
+const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: j.kicker, url: lp(lang, '/lavora-con-noi/') }], site)];
+---
+<Base lang={lang} path="/lavora-con-noi/" title={j.title} description={j.desc} image={image} jsonLd={jsonLd}>
+  <article class="join">
+    <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+      <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">{j.kicker}</span>
+    </nav>
+    <header class="join__head">
+      <div>
+        <p class="u-label join__kicker">{j.kicker}</p>
+        <h1 class="join__title">{j.h1}</h1>
+        <p class="join__lead">{j.lead}</p>
+      </div>
+      <Figure class="join__seal" slot="illustrazioni/staff" alt="" label="" widths={[320, 640]} sizes="(max-width: 760px) 60vw, 30vw" />
+    </header>
+
+    <section class="roles">
+      <h2 class="u-label roles__title">{j.rolesTitle}</h2>
+      <ul class="roles__list">
+        {j.roles.map(([name, where, text]) => (
+          <li class="role">
+            <h3 class="role__name">{name}</h3>
+            <p class="u-label role__where">{where}</p>
+            <p class="role__text">{text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+  <FormBand lang={lang} title={j.stepsTitle} steps={j.steps} cta={j.cta} soon={j.soon} url={FORMS.jobs} note={j.note} />
+</Base>

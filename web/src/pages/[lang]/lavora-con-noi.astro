@@ -1,0 +1,10 @@
+---
+import JobsPage from '../../components/JobsPage.astro';
+import { TRANSLATED } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+export function getStaticPaths() {
+  return TRANSLATED.map((lang) => ({ params: { lang } }));
+}
+---
+<JobsPage lang={Astro.params.lang as Lang} />

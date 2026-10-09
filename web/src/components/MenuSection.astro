@@ -9,6 +9,7 @@ const { lang } = Astro.props;
 const t = ui[lang].menu;
 ---
 <section class="menu" id="menu">
+  <div class="menu__top">
   <div class="menu__intro">
     <h2 class="menu__title">{t.title}</h2>
     <p class="menu__note">{t.note}</p>
@@ -32,6 +33,7 @@ const t = ui[lang].menu;
     </ul>
     <span class="carta__more">{t.cardMore} <span aria-hidden="true">&rarr;</span></span>
   </a>
+  </div>
 
   <ul class="menu__gallery">
     {Object.entries(t.gallery).map(([slug, [label, line, alt]]) => (

@@ -12,13 +12,17 @@ const links = [
   ...locali.map((l) => ({ label: l.nameShort, meta: l.street, path: `/locali/${l.id}/` })),
   { label: t.nav.menu, meta: t.nav.menuMeta, path: '/menu/' },
   { label: t.nav.lab, meta: t.nav.labMeta, path: '/#laboratorio' },
-  { label: t.nav.smartbox, meta: t.nav.smartboxMeta, path: '/smartbox/' },
+];
+const more = [
+  { label: t.nav.events, path: '/eventi/' },
+  { label: t.nav.smartbox, path: '/smartbox/' },
+  { label: t.nav.jobs, path: '/lavora-con-noi/' },
 ];
 ---
 <header class="site-header">
   <a class="brand" href={lp(lang, '/')} aria-label={t.nav.home}><Logo /></a>
   <div class="site-header__actions">
-    <a class="btn btn--ink" href={lp(lang, '/#firenze')} data-book>{t.nav.book}</a>
+    <a class="btn btn--ink" href={lp(lang, '/#locali')} data-book>{t.nav.book}</a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="nav-overlay" aria-label={t.nav.open}>
       <span></span><span></span><span></span>
     </button>
@@ -29,6 +33,9 @@ const links = [
   <button class="nav-overlay__close" type="button" aria-label={t.nav.close}>&times;</button>
   <ul class="nav-overlay__list">
     {links.map((l) => <li><a href={lp(lang, l.path)}>{l.label}<small>{l.meta}</small></a></li>)}
+  </ul>
+  <ul class="nav-overlay__more">
+    {more.map((l) => <li><a href={lp(lang, l.path)}>{l.label}</a></li>)}
   </ul>
   <span class="nav-overlay__meta u-label">{t.nav.tagline}</span>
 </nav>

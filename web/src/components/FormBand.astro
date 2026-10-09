@@ -1,0 +1,33 @@
+---
+import type { Lang } from '../lib/i18n';
+import { getLocali } from '../lib/locali';
+import { ui } from '../lib/ui';
+import { telHref } from '../lib/contact';
+
+interface Props { lang: Lang; title: string; steps: string[]; cta: string; soon: string; url: string | null; note?: string }
+const { lang, title, steps, cta, soon, url, note } = Astro.props;
+const trattoria = (await getLocali(lang)).find((l) => l.id === 'trattoria-1978');
+---
+<section class="band">
+  <h2 class="band__title">{title}</h2>
+  <ol class="band__steps">
+    {steps.map((s, i) => (
+      <li><span class="band__num" aria-hidden="true">{i + 1}</span><p>{s}</p></li>
+    ))}
+  </ol>
+  <div class="band__action">
+    {url ? (
+      <>
+        <a class="btn btn--cream band__cta" href={url} target="_blank" rel="noopener">
+          {cta} <span aria-hidden="true">&rarr;</span><span class="sr-only"> ({ui[lang].smartbox.newTab})</span>
+        </a>
+        {note && <p class="band__note">{note}</p>}
+      </>
+    ) : (
+      <p class="band__soon">
+        {soon}
+        {trattoria?.phone && <a href={telHref(trattoria.phone)}>{trattoria.phone}</a>}
+      </p>
+    )}
+  </div>
+</section>

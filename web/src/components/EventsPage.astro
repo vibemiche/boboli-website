@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import FormBand from './FormBand.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+import { FORMS } from '../lib/forms';
+import { breadcrumbSchema, socialImage } from '../lib/schema';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const e = t.events;
+const site = Astro.site!;
+const image = await socialImage('locali/al-bargello', site);
+const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: e.kicker, url: lp(lang, '/eventi/') }], site)];
+---
+<Base lang={lang} path="/eventi/" title={e.title} description={e.desc} image={image} jsonLd={jsonLd}>
+  <article class="join">
+    <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+      <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">{e.kicker}</span>
+    </nav>
+    <header class="join__head join__head--wide">
+      <div>
+        <p class="u-label join__kicker">{e.kicker}</p>
+        <h1 class="join__title">{e.h1}</h1>
+        <p class="join__lead">{e.lead}</p>
+      </div>
+    </header>
+
+    {/* Una tavola lunga, con un segnaposto per ogni occasione. */}
+    <section class="table">
+      <h2 class="u-label table__title">{e.occasionsTitle}</h2>
+      <ul class="table__cards">
+        {e.occasions.map((o, i) => <li class="placecard" style={`--i:${i}`}>{o}</li>)}
+      </ul>
+      <div class="table__top" aria-hidden="true"></div>
+    </section>
+
+    <section class="promise">
+      <h2 class="promise__title">{e.promiseTitle}</h2>
+      <p class="promise__text">{e.promise}</p>
+    </section>
+  </article>
+  <FormBand lang={lang} title={e.stepsTitle} steps={e.steps} cta={e.cta} soon={e.soon} url={FORMS.events} />
+</Base>

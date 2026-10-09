@@ -12,6 +12,8 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
+      // Gli indirizzi corti per i QR code rimandano alla home: fuori dalla sitemap.
+      filter: (page) => !/\/locali\/$/.test(page),
       i18n: {
         defaultLocale: 'it',
         locales: { it: 'it-IT', en: 'en', es: 'es', de: 'de', fr: 'fr' },

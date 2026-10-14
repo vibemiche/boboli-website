@@ -1,6 +1,7 @@
 ---
 import Figure from './Figure.astro';
 import BookButton from './BookButton.astro';
+import OrderButton from './OrderButton.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
@@ -23,6 +24,7 @@ const { lang, locale: l, dark = false, bleed = false } = Astro.props;
     </div>
     <div class="format__actions">
       <a class="link-more" href={lp(lang, `/locali/${l.id}/`)}>{ui[lang].format.more} &rarr;</a>
+      <OrderButton lang={lang} locale={l} class="btn--terracotta" />
       <BookButton lang={lang} locale={l} class={dark ? 'btn--cream' : 'btn--ink'} />
     </div>
   </div>

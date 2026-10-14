@@ -26,6 +26,7 @@ const t = ui[lang];
             <p class="locations__addr">{l.street}, {l.postalCode} {l.city} · {l.zone}</p>
             <p class="locations__meta">
               {l.phone && <a href={telHref(l.phone)}>{l.phone}</a>}
+              {l.orderUrl && <a class="locations__order" href={l.orderUrl} target="_blank" rel="noopener">{t.book.order} &#8599;</a>}
               {formatHours(l.hours, t.hours).map((h) => <span>{h}</span>)}
             </p>
           </div>

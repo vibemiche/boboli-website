@@ -61,6 +61,7 @@ export function restaurantSchema(l: Locale, lang: Lang, t: Dict, site: URL, imag
         })),
       },
     },
+    ...(l.orderUrl ? { potentialAction: { '@type': 'OrderAction', target: l.orderUrl } } : {}),
     ...(l.sameAs.length ? { sameAs: l.sameAs } : {}),
     parentOrganization: { '@id': orgId(site) },
   };

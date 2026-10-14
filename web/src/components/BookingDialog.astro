@@ -34,7 +34,8 @@ const widgets = Object.fromEntries(
             </div>
             <div class="book__actions">
               {l.bookable && <a class="btn btn--ink" href={l.bookingUrl} target="_blank" rel="noopener" data-widget={l.id}>{t.book.book}</a>}
-              {l.phone && <a class:list={['btn', l.bookable ? 'btn--ghost' : 'btn--ink']} href={telHref(l.phone)}>{t.book.call}</a>}
+              {l.orderUrl && <a class="btn btn--terracotta btn--order" href={l.orderUrl} target="_blank" rel="noopener">{t.book.order} <span aria-hidden="true">&#8599;</span></a>}
+              {l.phone && <a class:list={['btn', l.bookable || l.orderUrl ? 'btn--ghost' : 'btn--ink']} href={telHref(l.phone)}>{t.book.call}</a>}
             </div>
           </li>
         ))}

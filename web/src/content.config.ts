@@ -37,6 +37,8 @@ const locali = defineCollection({
     bookingUrl: z.string().url().nullable().default(null),
     // Il modulo Google in cui si inserisce il codice Smartbox; senza, il locale non la accetta.
     smartboxUrl: z.string().url().nullable().default(null),
+    // Dove si ordina a domicilio (Glovo): se c'è, accanto a «Chiama» compare «Ordina».
+    orderUrl: z.string().url().nullable().default(null),
     geo: z.object({ lat: z.number(), lng: z.number() }).nullable().default(null),
     // Una riga per fascia; i giorni non coperti risultano chiusi.
     hours: z.array(z.object({ from: day, to: day, opens: z.string(), closes: z.string() })).default([]),

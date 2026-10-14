@@ -113,6 +113,7 @@ const it = {
     sub: 'Quattro locali, tutto il menu senza glutine in ognuno.',
     book: 'Prenota',
     call: 'Chiama',
+    order: 'Ordina su Glovo',
     back: 'Tutti i locali',
     close: 'Chiudi',
     widget: (name: string) => `Prenota da ${name}`,
@@ -158,11 +159,24 @@ const it = {
       ['Camerieri e cameriere di sala', 'Nei nostri locali di Firenze', "Ti piace stare in sala, ricordarti un nome, consigliare il vino giusto. L'esperienza conta, la voglia di imparare di più."],
       ['Candidatura spontanea', 'Sala, cucina, laboratorio', 'Non trovi il ruolo che cerchi? Raccontaci chi sei e cosa sai fare: le persone giuste non arrivano sempre al momento giusto.'],
     ],
-    stepsTitle: 'Come candidarti',
-    steps: ['Compila il modulo e scegli il ruolo che ti interessa.', 'Allega il tuo CV: senza, la candidatura non si può inviare.', 'Se il tuo profilo fa per noi, ti chiamiamo per conoscerci di persona.'],
-    cta: 'Invia la tua candidatura',
-    note: 'Il modulo è su Google: per allegare il CV ti chiederà di accedere con il tuo account Google.',
-    soon: 'Il modulo per candidarti arriva a breve. Nel frattempo puoi chiamarci:',
+    apply: 'Candidati',
+    spont: {
+      kicker: 'Candidatura spontanea',
+      title: 'Raccontaci la tua storia.',
+      lead: 'Non cerchiamo il curriculum perfetto: cerchiamo persone. Scrivici qualche riga su di te, come le racconteresti a qualcuno seduto al tuo tavolo: da dove vieni, cosa ti ha portato in sala o in cucina, perché proprio Boboli.',
+      stepsTitle: 'Come candidarti',
+      steps: ['Scrivi una breve presentazione: chi sei e qual è la tua storia, in poche righe.', 'Allega il tuo CV alla mail di candidatura: è obbligatorio.', "Invia la mail all'indirizzo qui sotto."],
+      to: 'Scrivi a',
+      cv: 'Il CV va allegato alla mail di candidatura: senza CV allegato la candidatura non può essere valutata.',
+      cta: 'Scrivi la tua candidatura',
+      subject: 'Candidatura spontanea — Trattoria Boboli',
+      body: `Ciao Boboli,
+
+[Raccontaci in poche righe chi sei e la tua storia]
+
+In allegato il mio CV.
+`,
+    },
   },
   events: {
     title: 'Gruppi ed eventi — Trattoria Boboli, Firenze',
@@ -319,6 +333,7 @@ const en: Dict = {
     sub: 'Four restaurants, the whole menu gluten free in each.',
     book: 'Book',
     call: 'Call',
+    order: 'Order on Glovo',
     back: 'All restaurants',
     close: 'Close',
     widget: (name) => `Book at ${name}`,
@@ -364,11 +379,24 @@ const en: Dict = {
       ['Waiting staff', 'At our restaurants in Florence', 'You enjoy being on the floor, remembering a name, suggesting the right wine. Experience counts; wanting to learn counts more.'],
       ['Open application', 'Front of house, kitchen, workshop', "Can't find the role you're after? Tell us who you are and what you do: the right people don't always arrive at the right moment."],
     ],
-    stepsTitle: 'How to apply',
-    steps: ["Fill in the form and choose the role you're interested in.", "Attach your CV: without it, the application can't be sent.", "If your profile is right for us, we'll call you to meet in person."],
-    cta: 'Send your application',
-    note: 'The form is on Google: to attach your CV it will ask you to sign in with your Google account.',
-    soon: 'The application form is coming soon. In the meantime you can call us:',
+    apply: 'Apply',
+    spont: {
+      kicker: 'Open application',
+      title: 'Tell us your story.',
+      lead: "We're not looking for the perfect CV: we're looking for people. Write us a few lines about yourself, the way you'd tell them to someone sitting at your table: where you're from, what brought you to the dining room or the kitchen, why Boboli.",
+      stepsTitle: 'How to apply',
+      steps: ['Write a short introduction: who you are and what your story is, in a few lines.', 'Attach your CV to the application email: it is required.', 'Send the email to the address below.'],
+      to: 'Write to',
+      cv: "Your CV must be attached to the application email: without it, we can't consider your application.",
+      cta: 'Write your application',
+      subject: 'Open application — Trattoria Boboli',
+      body: `Hello Boboli,
+
+[Tell us in a few lines who you are and your story]
+
+Please find my CV attached.
+`,
+    },
   },
   events: {
     title: 'Groups & events — Trattoria Boboli, Florence',
@@ -521,6 +549,7 @@ const es: Dict = {
     sub: 'Cuatro locales, toda la carta sin gluten en cada uno.',
     book: 'Reservar',
     call: 'Llamar',
+    order: 'Pide en Glovo',
     back: 'Todos los locales',
     close: 'Cerrar',
     widget: (name) => `Reservar en ${name}`,
@@ -566,11 +595,24 @@ const es: Dict = {
       ['Camareros y camareras de sala', 'En nuestros locales de Florencia', 'Te gusta estar en sala, recordar un nombre, recomendar el vino adecuado. La experiencia cuenta; las ganas de aprender, más.'],
       ['Candidatura espontánea', 'Sala, cocina, obrador', '¿No encuentras el puesto que buscas? Cuéntanos quién eres y qué sabes hacer: las personas adecuadas no siempre llegan en el momento adecuado.'],
     ],
-    stepsTitle: 'Cómo presentarte',
-    steps: ['Rellena el formulario y elige el puesto que te interesa.', 'Adjunta tu CV: sin él, la candidatura no se puede enviar.', 'Si tu perfil encaja, te llamamos para conocernos en persona.'],
-    cta: 'Envía tu candidatura',
-    note: 'El formulario está en Google: para adjuntar el CV te pedirá que inicies sesión con tu cuenta de Google.',
-    soon: 'El formulario estará disponible muy pronto. Mientras tanto puedes llamarnos:',
+    apply: 'Preséntate',
+    spont: {
+      kicker: 'Candidatura espontánea',
+      title: 'Cuéntanos tu historia.',
+      lead: 'No buscamos el currículum perfecto: buscamos personas. Escríbenos unas líneas sobre ti, como se las contarías a alguien sentado a tu mesa: de dónde vienes, qué te llevó a la sala o a la cocina, por qué Boboli.',
+      stepsTitle: 'Cómo presentarte',
+      steps: ['Escribe una breve presentación: quién eres y cuál es tu historia, en pocas líneas.', 'Adjunta tu CV al correo de candidatura: es obligatorio.', 'Envía el correo a la dirección de abajo.'],
+      to: 'Escribe a',
+      cv: 'El CV debe ir adjunto al correo de candidatura: sin CV adjunto no podemos valorar la candidatura.',
+      cta: 'Escribe tu candidatura',
+      subject: 'Candidatura espontánea — Trattoria Boboli',
+      body: `Hola Boboli:
+
+[Cuéntanos en pocas líneas quién eres y tu historia]
+
+Adjunto mi CV.
+`,
+    },
   },
   events: {
     title: 'Grupos y eventos — Trattoria Boboli, Florencia',
@@ -723,6 +765,7 @@ const de: Dict = {
     sub: 'Vier Restaurants, in jedem die ganze Karte glutenfrei.',
     book: 'Reservieren',
     call: 'Anrufen',
+    order: 'Bei Glovo bestellen',
     back: 'Alle Restaurants',
     close: 'Schließen',
     widget: (name) => `Reservieren bei ${name}`,
@@ -768,11 +811,24 @@ const de: Dict = {
       ['Servicekräfte', 'In unseren Restaurants in Florenz', 'Du bist gern im Service, merkst dir Namen, empfiehlst den passenden Wein. Erfahrung zählt, Lust zu lernen noch mehr.'],
       ['Initiativbewerbung', 'Service, Küche, Manufaktur', 'Du findest deine Stelle nicht? Erzähl uns, wer du bist und was du kannst: Die richtigen Menschen kommen nicht immer zum richtigen Zeitpunkt.'],
     ],
-    stepsTitle: 'So bewirbst du dich',
-    steps: ['Füll das Formular aus und wähle die Stelle, die dich interessiert.', 'Häng deinen Lebenslauf an: Ohne ihn lässt sich die Bewerbung nicht absenden.', 'Wenn dein Profil passt, rufen wir dich an, um uns kennenzulernen.'],
-    cta: 'Bewerbung senden',
-    note: 'Das Formular liegt bei Google: Zum Anhängen des Lebenslaufs musst du dich mit deinem Google-Konto anmelden.',
-    soon: 'Das Bewerbungsformular kommt bald. Bis dahin kannst du uns anrufen:',
+    apply: 'Bewerben',
+    spont: {
+      kicker: 'Initiativbewerbung',
+      title: 'Erzähl uns deine Geschichte.',
+      lead: 'Wir suchen nicht den perfekten Lebenslauf, sondern Menschen. Schreib uns ein paar Zeilen über dich, so wie du sie jemandem an deinem Tisch erzählen würdest: woher du kommst, was dich in den Service oder in die Küche gebracht hat, warum Boboli.',
+      stepsTitle: 'So bewirbst du dich',
+      steps: ['Schreib eine kurze Vorstellung: wer du bist und was deine Geschichte ist, in wenigen Zeilen.', 'Häng deinen Lebenslauf an die Bewerbungsmail an: Er ist Pflicht.', 'Schick die Mail an die Adresse unten.'],
+      to: 'Schreib an',
+      cv: 'Der Lebenslauf muss der Bewerbungsmail angehängt sein: Ohne Anhang können wir die Bewerbung nicht berücksichtigen.',
+      cta: 'Bewerbung schreiben',
+      subject: 'Initiativbewerbung — Trattoria Boboli',
+      body: `Hallo Boboli,
+
+[Erzähl uns in wenigen Zeilen, wer du bist und was deine Geschichte ist]
+
+Meinen Lebenslauf findet ihr im Anhang.
+`,
+    },
   },
   events: {
     title: 'Gruppen & Events — Trattoria Boboli, Florenz',
@@ -925,6 +981,7 @@ const fr: Dict = {
     sub: 'Quatre adresses, toute la carte sans gluten dans chacune.',
     book: 'Réserver',
     call: 'Appeler',
+    order: 'Commander sur Glovo',
     back: 'Toutes les adresses',
     close: 'Fermer',
     widget: (name) => `Réserver chez ${name}`,
@@ -970,11 +1027,24 @@ const fr: Dict = {
       ['Serveurs et serveuses', 'Dans nos restaurants à Florence', "Tu aimes être en salle, retenir un prénom, conseiller le bon vin. L'expérience compte, l'envie d'apprendre encore plus."],
       ['Candidature spontanée', 'Salle, cuisine, atelier', "Tu ne trouves pas le poste que tu cherches ? Dis-nous qui tu es et ce que tu sais faire : les bonnes personnes n'arrivent pas toujours au bon moment."],
     ],
-    stepsTitle: 'Comment postuler',
-    steps: ["Remplis le formulaire et choisis le poste qui t'intéresse.", 'Joins ton CV : sans lui, la candidature ne peut pas être envoyée.', "Si ton profil nous correspond, nous t'appelons pour faire connaissance."],
-    cta: 'Envoyer ma candidature',
-    note: 'Le formulaire est sur Google : pour joindre ton CV, il te demandera de te connecter à ton compte Google.',
-    soon: 'Le formulaire de candidature arrive bientôt. En attendant, tu peux nous appeler :',
+    apply: 'Postuler',
+    spont: {
+      kicker: 'Candidature spontanée',
+      title: 'Raconte-nous ton histoire.',
+      lead: "Nous ne cherchons pas le CV parfait : nous cherchons des personnes. Écris-nous quelques lignes sur toi, comme tu les raconterais à quelqu'un assis à ta table : d'où tu viens, ce qui t'a mené en salle ou en cuisine, pourquoi Boboli.",
+      stepsTitle: 'Comment postuler',
+      steps: ['Écris une courte présentation : qui tu es et quelle est ton histoire, en quelques lignes.', "Joins ton CV à l'e-mail de candidature : il est obligatoire.", "Envoie l'e-mail à l'adresse ci-dessous."],
+      to: 'Écris à',
+      cv: "Le CV doit être joint à l'e-mail de candidature : sans CV joint, la candidature ne peut pas être étudiée.",
+      cta: 'Écrire ma candidature',
+      subject: 'Candidature spontanée — Trattoria Boboli',
+      body: `Bonjour Boboli,
+
+[Raconte-nous en quelques lignes qui tu es et ton histoire]
+
+Tu trouveras mon CV en pièce jointe.
+`,
+    },
   },
   events: {
     title: 'Groupes et événements — Trattoria Boboli, Florence',

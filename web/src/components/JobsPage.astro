@@ -1,20 +1,21 @@
 ---
 import Base from '../layouts/Base.astro';
 import Figure from './Figure.astro';
-import FormBand from './FormBand.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { ui } from '../lib/ui';
-import { FORMS } from '../lib/forms';
+import { JOBS_EMAIL } from '../lib/forms';
 import { breadcrumbSchema, socialImage } from '../lib/schema';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = ui[lang];
 const j = t.jobs;
+const sp = j.spont;
 const site = Astro.site!;
 const image = await socialImage('illustrazioni/staff', site);
 const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: j.kicker, url: lp(lang, '/lavora-con-noi/') }], site)];
+const mailto = `mailto:${JOBS_EMAIL}?subject=${encodeURIComponent(sp.subject)}&body=${encodeURIComponent(sp.body)}`;
 ---
 <Base lang={lang} path="/lavora-con-noi/" title={j.title} description={j.desc} image={image} jsonLd={jsonLd}>
   <article class="join">
@@ -38,10 +39,32 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
             <h3 class="role__name">{name}</h3>
             <p class="u-label role__where">{where}</p>
             <p class="role__text">{text}</p>
+            <a class="link-more role__apply" href="#candidatura">{j.apply} &darr;</a>
           </li>
         ))}
       </ul>
     </section>
   </article>
-  <FormBand lang={lang} title={j.stepsTitle} steps={j.steps} cta={j.cta} soon={j.soon} url={FORMS.jobs} note={j.note} />
+
+  <section class="apply" id="candidatura">
+    <div class="apply__intro">
+      <p class="u-label apply__kicker">{sp.kicker}</p>
+      <h2 class="apply__title">{sp.title}</h2>
+      <p class="apply__lead">{sp.lead}</p>
+    </div>
+    <div class="apply__how">
+      <h3 class="u-label apply__steps-title">{sp.stepsTitle}</h3>
+      <ol class="band__steps">
+        {sp.steps.map((s, i) => (
+          <li><span class="band__num" aria-hidden="true">{i + 1}</span><p>{s}</p></li>
+        ))}
+      </ol>
+      <p class="apply__to">
+        <span class="u-label">{sp.to}</span>
+        <a href={mailto}>{JOBS_EMAIL}</a>
+      </p>
+      <p class="apply__cv"><strong>CV</strong> {sp.cv}</p>
+      <a class="btn btn--cream apply__cta" href={mailto}>{sp.cta} <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </section>
 </Base>

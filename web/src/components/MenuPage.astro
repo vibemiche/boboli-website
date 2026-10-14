@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import OrderButton from './OrderButton.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { getLocali } from '../lib/locali';
@@ -65,6 +66,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
             <div class="viewer__bar">
               <span class="u-label viewer__count" data-count>{x.text.length ? m.pages(x.text.length) : ''}</span>
               <div class="viewer__actions">
+                {x.locali.map((l) => <OrderButton lang={lang} locale={l} class="btn--terracotta" />)}
                 <a class="btn btn--ghost" href={x.pdf} target="_blank" rel="noopener">{m.open}<span class="sr-only"> ({t.smartbox.newTab})</span></a>
                 <a class="btn btn--ink" href={x.pdf} download={`boboli-menu-${x.id}.pdf`}>{m.download}</a>
               </div>
@@ -82,10 +84,16 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
           </div>
         ) : x.images.length > 0 ? (
           <div class="viewer">
-            <div class="viewer__pages viewer__pages--images">
+            <div class="viewer__bar">
+              <span class="u-label viewer__count">{m.pages(x.images.length)}</span>
+              <div class="viewer__actions">
+                {x.locali.map((l) => <OrderButton lang={lang} locale={l} class="btn--terracotta" />)}
+              </div>
+            </div>
+            <div class="viewer__pages">
               {x.images.map((p, i) => (
-                <a class="viewer__sheet is-ready" href={p.full} target="_blank" rel="noopener" aria-label={`${m.page(i + 1, x.images.length)} — ${p.label}`}>
-                  <Image src={p.image} widths={[640, 1024]} sizes="(max-width: 760px) 100vw, 46vw" alt={`${x.name} — ${p.label}`} />
+                <a class:list={['viewer__sheet', 'is-ready', { 'is-spread': p.image.width > p.image.height * 1.2 }]} href={p.full} target="_blank" rel="noopener" aria-label={`${m.page(i + 1, x.images.length)} — ${p.label}`}>
+                  <Image src={p.image} widths={[640, 1024, 1600]} sizes="(max-width: 760px) 100vw, 1240px" alt={`${x.name} — ${p.label}`} />
                 </a>
               ))}
             </div>

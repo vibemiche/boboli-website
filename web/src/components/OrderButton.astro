@@ -1,0 +1,13 @@
+---
+import type { Lang } from '../lib/i18n';
+import type { Locale } from '../lib/locali';
+import { ui } from '../lib/ui';
+
+interface Props { lang: Lang; locale: Locale; class: string }
+const { lang, locale: l, class: variant } = Astro.props;
+---
+{l.orderUrl && (
+  <a class:list={['btn', 'btn--order', variant]} href={l.orderUrl} target="_blank" rel="noopener">
+    {ui[lang].book.order} <span aria-hidden="true">&#8599;</span><span class="sr-only"> ({ui[lang].smartbox.newTab})</span>
+  </a>
+)}

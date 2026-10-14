@@ -4,7 +4,7 @@ import FormBand from './FormBand.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { ui } from '../lib/ui';
-import { FORMS } from '../lib/forms';
+import { EVENTS_FORM } from '../lib/forms';
 import { breadcrumbSchema, socialImage } from '../lib/schema';
 
 interface Props { lang: Lang }
@@ -42,5 +42,5 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
       <p class="promise__text">{e.promise}</p>
     </section>
   </article>
-  <FormBand lang={lang} title={e.stepsTitle} steps={e.steps} cta={e.cta} soon={e.soon} url={FORMS.events} />
+  <FormBand lang={lang} title={e.stepsTitle} steps={e.steps} cta={e.cta} soon={e.soon} url={EVENTS_FORM} />
 </Base>

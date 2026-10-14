@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Figure from './Figure.astro';
 import BookButton from './BookButton.astro';
+import OrderButton from './OrderButton.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { getLocali } from '../lib/locali';
@@ -53,6 +54,7 @@ const jsonLd = [
         {l.body.map((p) => <p class="place__text">{p}</p>)}
         <p class="place__text">{t.place.text}</p>
         <div class="place__actions">
+          <OrderButton lang={lang} locale={l} class="btn--terracotta" />
           <BookButton lang={lang} locale={l} class="btn--ink" />
           {l.bookable && l.phone && <a class="btn btn--ghost" href={telHref(l.phone)}>{t.book.call}</a>}
           <a class="btn btn--ghost" href={maps} target="_blank" rel="noopener">{t.place.directions}</a>

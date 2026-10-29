@@ -1,0 +1,38 @@
+---
+import { Picture } from 'astro:assets';
+import { findImage } from '../lib/images';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+
+// I marchi senza glutine, in assets/marchi/. PNG trasparenti: il fallback resta
+// PNG, non JPG, sennò lo sfondo torna bianco.
+interface Props { lang: Lang; class?: string }
+const { lang, class: className } = Astro.props;
+const t = ui[lang].badges;
+
+const marks = [
+  { slot: 'marchi/aic', alt: t.aic },
+  { slot: 'marchi/gluten-free', alt: t.gf },
+].flatMap(({ slot, alt }) => {
+  const image = findImage(slot);
+  return image ? [{ image, alt }] : [];
+});
+---
+{marks.length > 0 && (
+  <ul class:list={['badges', className]} aria-label={t.label}>
+    {marks.map(({ image, alt }) => (
+      <li>
+        <Picture
+          src={image}
+          alt={alt}
+          widths={[120, 240]}
+          sizes="120px"
+          formats={['avif', 'webp']}
+          fallbackFormat="png"
+          loading="lazy"
+          decoding="async"
+        />
+      </li>
+    ))}
+  </ul>
+)}

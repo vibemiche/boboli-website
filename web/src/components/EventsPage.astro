@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import FormBand from './FormBand.astro';
+import Figure from './Figure.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { ui } from '../lib/ui';
@@ -12,7 +13,7 @@ const { lang } = Astro.props;
 const t = ui[lang];
 const e = t.events;
 const site = Astro.site!;
-const image = await socialImage('locali/al-bargello', site);
+const image = await socialImage('eventi', site);
 const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: e.kicker, url: lp(lang, '/eventi/') }], site)];
 ---
 <Base lang={lang} path="/eventi/" title={e.title} description={e.desc} image={image} jsonLd={jsonLd}>
@@ -27,6 +28,9 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
         <p class="join__lead">{e.lead}</p>
       </div>
     </header>
+    <div class="join__media">
+      <Figure slot="eventi" alt={e.alt} label="" widths={[768, 1280, 1920]} sizes="100vw" />
+    </div>
 
     {/* Una tavola lunga, con un segnaposto per ogni occasione. */}
     <section class="table">

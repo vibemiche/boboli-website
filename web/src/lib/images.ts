@@ -14,7 +14,8 @@ export function findImage(slot: string): ImageMetadata | null {
   return match ? files[match].default : null;
 }
 
-/** Le immagini di una serie numerata, in ordine di nome: `menu/to-go` → `to-go-1-…`, `to-go-2-…`. */
+/** Le immagini di una serie numerata, in ordine di nome: `menu/to-go` → `to-go-1-…`, `to-go-2-…`.
+ *  Comprende anche il file senza numero, se c'è (`locali/to-go`). */
 export function findSeries(slot: string): { name: string; image: ImageMetadata }[] {
   const target = `/src/assets/${slot}`;
   return Object.keys(files)

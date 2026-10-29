@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import Badges from './Badges.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
@@ -35,6 +36,7 @@ const columns = [
   <div class="site-footer__brand">
     <Logo class="site-footer__logo" />
     <p class="site-footer__tagline">{t.footer.tagline[0]}<br />{t.footer.tagline[1]}</p>
+    <Badges lang={lang} class="site-footer__badges" />
   </div>
   <nav class="site-footer__col site-footer__locali" aria-label={t.footer.locali}>
     <p class="u-label">{t.footer.locali}</p>

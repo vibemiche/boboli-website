@@ -14,6 +14,8 @@ const text = z.object({
   choiceVerb: z.string(),
   choiceSub: z.string(),
   imageAlt: z.string(),
+  // Le foto in più della pagina del locale (`locali/<id>-2-….jpg`, …): un alt per foto, in ordine.
+  galleryAlt: z.array(z.string()).default([]),
 });
 
 const locali = defineCollection({

@@ -63,7 +63,7 @@ const it = {
       'Perché fare le cose in casa non è solo una questione di tradizione: è il modo che abbiamo scelto per sapere esattamente cosa arriva nel tuo piatto.',
       'Ogni giorno partiamo da ingredienti scelti con cura e da ricette che conosciamo bene. Così possiamo portare in tavola una cucina senza glutine che non ha bisogno di imitare niente.',
     ],
-    alt: 'Il laboratorio di Boboli: la pasta fresca preparata a mano',
+    alt: 'Uno chef di Boboli al lavoro in cucina, con il piatto quasi pronto in primo piano',
   },
   menu: {
     title: 'E tu, oggi, cosa hai voglia di mangiare?',
@@ -192,6 +192,12 @@ In allegato il mio CV.
     steps: ["Raccontaci l'occasione, la data e quante persone sarete.", 'Ti ricontattiamo per scegliere insieme spazio, menu e tempi.', 'Ricevi un preventivo pensato per il tuo evento.'],
     cta: 'Raccontaci il tuo evento',
     soon: 'Il modulo per le richieste arriva a breve. Nel frattempo puoi chiamarci:',
+    alt: 'Burrata con pomodorini e melanzane al pesto con noci, portate in tavola da Boboli',
+  },
+  badges: {
+    label: 'Marchi senza glutine',
+    aic: 'AIC Alimentazione Fuori Casa, Associazione Italiana Celiachia',
+    gf: '100% Gluten Free',
   },
   footer: {
     tagline: ['La libertà di scegliere.', '100% gluten free · Firenze, dal 1978'],
@@ -283,7 +289,7 @@ const en: Dict = {
       "Because making things in-house isn't just about tradition: it's how we've chosen to know exactly what reaches your plate.",
       "Every day we start from carefully chosen ingredients and recipes we know well. That's how we can serve gluten-free cooking that doesn't need to imitate anything.",
     ],
-    alt: "Boboli's workshop: fresh pasta made by hand",
+    alt: 'A Boboli chef at work in the kitchen, with a nearly finished dish in the foreground',
   },
   menu: {
     title: 'So, what do you feel like eating today?',
@@ -412,6 +418,12 @@ Please find my CV attached.
     steps: ['Tell us the occasion, the date and how many of you there will be.', "We'll get back to you to choose the space, menu and timing together.", 'Receive a quote designed for your event.'],
     cta: 'Tell us about your event',
     soon: 'The request form is coming soon. In the meantime you can call us:',
+    alt: 'Burrata with cherry tomatoes and aubergine with pesto and walnuts, served at Boboli',
+  },
+  badges: {
+    label: 'Gluten-free marks',
+    aic: 'AIC Eating Out programme, Italian Coeliac Association',
+    gf: '100% Gluten Free',
   },
   footer: {
     tagline: ['The freedom to choose.', '100% gluten free · Florence, since 1978'],
@@ -499,7 +511,7 @@ const es: Dict = {
       'Porque hacer las cosas en casa no es solo una cuestión de tradición: es la forma que hemos elegido para saber exactamente qué llega a tu plato.',
       'Cada día partimos de ingredientes elegidos con cuidado y de recetas que conocemos bien. Así podemos llevar a la mesa una cocina sin gluten que no necesita imitar nada.',
     ],
-    alt: 'El obrador de Boboli: pasta fresca hecha a mano',
+    alt: 'Un chef de Boboli trabajando en la cocina, con un plato casi listo en primer plano',
   },
   menu: {
     title: 'Y tú, ¿qué te apetece comer hoy?',
@@ -628,6 +640,12 @@ Adjunto mi CV.
     steps: ['Cuéntanos la ocasión, la fecha y cuántas personas seréis.', 'Te contactamos para elegir juntos espacio, menú y horarios.', 'Recibe un presupuesto pensado para tu evento.'],
     cta: 'Cuéntanos tu evento',
     soon: 'El formulario de solicitudes estará disponible muy pronto. Mientras tanto puedes llamarnos:',
+    alt: 'Burrata con tomates cherry y berenjena con pesto y nueces, servidas en Boboli',
+  },
+  badges: {
+    label: 'Sellos sin gluten',
+    aic: 'AIC Alimentazione Fuori Casa, Asociación Italiana de Celiaquía',
+    gf: '100% Gluten Free',
   },
   footer: {
     tagline: ['La libertad de elegir.', '100% sin gluten · Florencia, desde 1978'],
@@ -715,7 +733,7 @@ const de: Dict = {
       'Denn selbst zu machen ist nicht nur eine Frage der Tradition: So wissen wir genau, was auf deinem Teller landet.',
       'Jeden Tag beginnen wir mit sorgfältig ausgewählten Zutaten und Rezepten, die wir gut kennen. So bringen wir eine glutenfreie Küche auf den Tisch, die nichts nachahmen muss.',
     ],
-    alt: 'Die Manufaktur von Boboli: frische Pasta von Hand gemacht',
+    alt: 'Ein Koch von Boboli bei der Arbeit in der Küche, im Vordergrund ein fast fertiger Teller',
   },
   menu: {
     title: 'Und du, worauf hast du heute Lust?',
@@ -844,6 +862,12 @@ Meinen Lebenslauf findet ihr im Anhang.
     steps: ['Erzähl uns Anlass, Datum und wie viele ihr seid.', 'Wir melden uns, um Raum, Menü und Ablauf gemeinsam festzulegen.', 'Du erhältst ein Angebot, das zu deinem Event passt.'],
     cta: 'Erzähl uns von deinem Event',
     soon: 'Das Anfrageformular kommt bald. Bis dahin kannst du uns anrufen:',
+    alt: 'Burrata mit Kirschtomaten und Aubergine mit Pesto und Walnüssen, serviert bei Boboli',
+  },
+  badges: {
+    label: 'Glutenfrei-Siegel',
+    aic: 'AIC Alimentazione Fuori Casa, Italienische Zöliakie-Gesellschaft',
+    gf: '100% Gluten Free',
   },
   footer: {
     tagline: ['Die Freiheit zu wählen.', '100 % glutenfrei · Florenz, seit 1978'],
@@ -931,7 +955,7 @@ const fr: Dict = {
       "Parce que faire maison n'est pas qu'une question de tradition : c'est la façon que nous avons choisie pour savoir exactement ce qui arrive dans ton assiette.",
       "Chaque jour, nous partons d'ingrédients choisis avec soin et de recettes que nous connaissons bien. C'est ainsi que nous servons une cuisine sans gluten qui n'a besoin de rien imiter.",
     ],
-    alt: "L'atelier de Boboli : des pâtes fraîches faites à la main",
+    alt: "Un chef de Boboli au travail en cuisine, avec une assiette presque prête au premier plan",
   },
   menu: {
     title: "Et toi, qu'est-ce qui te fait envie aujourd'hui ?",
@@ -1060,6 +1084,12 @@ Tu trouveras mon CV en pièce jointe.
     steps: ["Dis-nous l'occasion, la date et combien vous serez.", 'Nous te recontactons pour choisir ensemble le lieu, le menu et le déroulé.', 'Reçois un devis pensé pour ton événement.'],
     cta: 'Parle-nous de ton événement',
     soon: 'Le formulaire de demande arrive bientôt. En attendant, tu peux nous appeler :',
+    alt: 'Burrata aux tomates cerises et aubergine au pesto et aux noix, servies chez Boboli',
+  },
+  badges: {
+    label: 'Labels sans gluten',
+    aic: 'AIC Alimentazione Fuori Casa, Association italienne de la maladie cœliaque',
+    gf: '100% Gluten Free',
   },
   footer: {
     tagline: ['La liberté de choisir.', '100 % sans gluten · Florence, depuis 1978'],

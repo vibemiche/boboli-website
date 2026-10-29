@@ -8,6 +8,7 @@ import type { Lang } from '../lib/i18n';
 import { getLocali } from '../lib/locali';
 import { ui } from '../lib/ui';
 import { telHref, formatHours, directionsUrl } from '../lib/contact';
+import { findSeries } from '../lib/images';
 import { restaurantSchema, breadcrumbSchema, socialImage } from '../lib/schema';
 
 interface Props { lang: Lang; id: string }
@@ -21,6 +22,10 @@ const others = locali.filter((x) => x.id !== id);
 const maps = directionsUrl(l);
 const path = `/locali/${l.id}/`;
 const image = await socialImage(`locali/${l.id}`, site);
+// Le foto in più del locale: `locali/<id>-2-….jpg`, `locali/<id>-3-….jpg`, sotto ai dati.
+const gallery = findSeries(`locali/${l.id}`)
+  .filter(({ name }) => name !== l.id)
+  .map(({ name }, i) => ({ slot: `locali/${name}`, alt: l.galleryAlt[i] ?? l.imageAlt }));
 
 const jsonLd = [
   restaurantSchema(l, lang, t, site, image),
@@ -60,12 +65,17 @@ const jsonLd = [
           <a class="btn btn--ghost" href={maps} target="_blank" rel="noopener">{t.place.directions}</a>
         </div>
       </div>
-      <dl class="place__facts">
-        <div><dt class="u-label">{t.place.address}</dt><dd><a href={maps} target="_blank" rel="noopener">{l.street}, {l.postalCode} {l.city}</a><br />{l.zone}</dd></div>
-        {l.phone && <div><dt class="u-label">{t.place.phone}</dt><dd><a href={telHref(l.phone)}>{l.phone}</a></dd></div>}
-        {l.hours.length > 0 && <div><dt class="u-label">{t.place.hours}</dt><dd>{formatHours(l.hours, t.hours).map((h) => <span>{h}<br /></span>)}</dd></div>}
-        <div><dt class="u-label">{t.place.cuisine}</dt><dd>{t.place.cuisineValue}</dd></div>
-      </dl>
+      <div class="place__side">
+        <dl class="place__facts">
+          <div><dt class="u-label">{t.place.address}</dt><dd><a href={maps} target="_blank" rel="noopener">{l.street}, {l.postalCode} {l.city}</a><br />{l.zone}</dd></div>
+          {l.phone && <div><dt class="u-label">{t.place.phone}</dt><dd><a href={telHref(l.phone)}>{l.phone}</a></dd></div>}
+          {l.hours.length > 0 && <div><dt class="u-label">{t.place.hours}</dt><dd>{formatHours(l.hours, t.hours).map((h) => <span>{h}<br /></span>)}</dd></div>}
+          <div><dt class="u-label">{t.place.cuisine}</dt><dd>{t.place.cuisineValue}</dd></div>
+        </dl>
+        {gallery.map((g) => (
+          <Figure class="place__photo" slot={g.slot} alt={g.alt} label="" widths={[480, 800, 1200]} sizes="(max-width: 760px) 100vw, 40vw" />
+        ))}
+      </div>
     </div>
     <nav class="place__others" aria-label={t.place.others}>
       <p class="u-label">{t.place.others}</p>

@@ -1,9 +1,11 @@
 ---
+import Badges from './Badges.astro';
 import type { Lang } from '../lib/i18n';
 import { ui } from '../lib/ui';
 
 interface Props { lang: Lang }
-const t = ui[Astro.props.lang].manifesto;
+const { lang } = Astro.props;
+const t = ui[lang].manifesto;
 ---
 <section class="manifesto" id="manifesto">
   <div class="manifesto__claim">
@@ -11,6 +13,7 @@ const t = ui[Astro.props.lang].manifesto;
     <h2 class="manifesto__title">{t.title}</h2>
   </div>
   <div class="manifesto__side">
+    <Badges lang={lang} class="manifesto__badges" />
     <p class="manifesto__body">{t.body}</p>
     <ul class="manifesto__list" aria-label={t.listLabel}>
       {t.items.map((i) => <li>{i}</li>)}

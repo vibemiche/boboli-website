@@ -8,6 +8,7 @@
   "choiceVerb": "Prendi un panino to go",
   "choiceSub": "Hai poco tempo? Il gusto viene con te.",
   "imageAlt": "Un panino senza glutine di Boboli To-Go, in mano, in Via Romana a Firenze",
+  "galleryAlt": ["L'ingresso di Boboli To-Go al numero 52 di Via Romana, con il menu in vetrina"],
   "seal": "antipasti",
   "street": "Via Romana, 52",
   "civic": "52",
@@ -27,7 +28,8 @@
       "body": ["Naturally, 100% gluten free.", "We make it, you grab it on the go and take it wherever you like."],
       "choiceVerb": "Grab a sandwich to go",
       "choiceSub": "Short on time? The flavour comes with you.",
-      "imageAlt": "A gluten-free Boboli To-Go sandwich, in hand, on Via Romana in Florence"
+      "imageAlt": "A gluten-free Boboli To-Go sandwich, in hand, on Via Romana in Florence",
+      "galleryAlt": ["The entrance of Boboli To-Go at 52 Via Romana, with the menu in the window"]
     },
     "es": {
       "kicker": "Boboli To Go",
@@ -36,7 +38,8 @@
       "body": ["Por supuesto, 100% sin gluten.", "Lo preparamos nosotros, lo coges al vuelo y te lo llevas adonde quieras."],
       "choiceVerb": "Llévate un bocadillo",
       "choiceSub": "¿Tienes poco tiempo? El sabor se va contigo.",
-      "imageAlt": "Un bocadillo sin gluten de Boboli To-Go, en la mano, en Via Romana, Florencia"
+      "imageAlt": "Un bocadillo sin gluten de Boboli To-Go, en la mano, en Via Romana, Florencia",
+      "galleryAlt": ["La entrada de Boboli To-Go en el número 52 de Via Romana, con el menú en el escaparate"]
     },
     "de": {
       "kicker": "Boboli To Go",
@@ -45,7 +48,8 @@
       "body": ["Natürlich 100 % glutenfrei.", "Wir machen es, du nimmst es im Vorbeigehen mit, wohin du willst."],
       "choiceVerb": "Hol dir ein Panino to go",
       "choiceSub": "Wenig Zeit? Der Genuss kommt mit.",
-      "imageAlt": "Ein glutenfreies Panino von Boboli To-Go in der Hand, Via Romana, Florenz"
+      "imageAlt": "Ein glutenfreies Panino von Boboli To-Go in der Hand, Via Romana, Florenz",
+      "galleryAlt": ["Der Eingang von Boboli To-Go in der Via Romana 52, mit der Speisekarte im Fenster"]
     },
     "fr": {
       "kicker": "Boboli To Go",
@@ -54,7 +58,8 @@
       "body": ["Naturellement 100 % sans gluten.", "On le prépare, tu le prends en passant et tu l'emportes où tu veux."],
       "choiceVerb": "Prends un sandwich à emporter",
       "choiceSub": "Peu de temps ? Le goût part avec toi.",
-      "imageAlt": "Un sandwich sans gluten de Boboli To-Go, à la main, via Romana à Florence"
+      "imageAlt": "Un sandwich sans gluten de Boboli To-Go, à la main, via Romana à Florence",
+      "galleryAlt": ["L'entrée de Boboli To-Go au 52 via Romana, avec le menu en vitrine"]
     }
   }
 }

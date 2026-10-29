@@ -7,7 +7,7 @@
   "body": ["A Via Ghibellina la tavola si allunga e la cena prende il suo tempo. Piatti, vino, chiacchiere e tutto quello che serve per trasformare una cena fuori in una bella serata."],
   "choiceVerb": "Cena al Bargello",
   "choiceSub": "Una cena in una delle zone più belle di Firenze, con Boboli nel piatto.",
-  "imageAlt": "Tavolo apparecchiato per la cena da Boboli Al Bargello, in Via Ghibellina a Firenze",
+  "imageAlt": "La sala di Boboli Al Bargello, tra muri in mattoni e quadri, in Via Ghibellina a Firenze",
   "seal": "carne",
   "street": "Via Ghibellina, 147/r",
   "civic": "147/R",
@@ -28,7 +28,7 @@
       "body": ["On Via Ghibellina the table grows longer and dinner takes its time. Food, wine, conversation and everything it takes to turn a dinner out into a lovely evening."],
       "choiceVerb": "Dine at the Bargello",
       "choiceSub": "Dinner in one of the loveliest parts of Florence, with Boboli on your plate.",
-      "imageAlt": "A table set for dinner at Boboli Al Bargello, on Via Ghibellina in Florence"
+      "imageAlt": "The dining room of Boboli Al Bargello, with brick walls and paintings, on Via Ghibellina in Florence"
     },
     "es": {
       "kicker": "Boboli Bargello",
@@ -37,7 +37,7 @@
       "body": ["En Via Ghibellina la mesa se alarga y la cena se toma su tiempo. Platos, vino, charla y todo lo necesario para convertir una cena fuera en una gran noche."],
       "choiceVerb": "Cena en el Bargello",
       "choiceSub": "Una cena en una de las zonas más bonitas de Florencia, con Boboli en el plato.",
-      "imageAlt": "Mesa preparada para la cena en Boboli Al Bargello, en Via Ghibellina, Florencia"
+      "imageAlt": "El comedor de Boboli Al Bargello, entre paredes de ladrillo y cuadros, en Via Ghibellina, Florencia"
     },
     "de": {
       "kicker": "Boboli Bargello",
@@ -46,7 +46,7 @@
       "body": ["In der Via Ghibellina wird die Tafel länger und das Abendessen nimmt sich Zeit. Gerichte, Wein, Gespräche und alles, was aus einem Essen auswärts einen schönen Abend macht."],
       "choiceVerb": "Diniere im Bargello",
       "choiceSub": "Ein Abendessen in einem der schönsten Viertel von Florenz, mit Boboli auf dem Teller.",
-      "imageAlt": "Gedeckter Tisch zum Abendessen im Boboli Al Bargello, Via Ghibellina, Florenz"
+      "imageAlt": "Der Speisesaal von Boboli Al Bargello mit Backsteinwänden und Gemälden, Via Ghibellina, Florenz"
     },
     "fr": {
       "kicker": "Boboli Bargello",
@@ -55,7 +55,7 @@
       "body": ["Via Ghibellina, la table s'allonge et le dîner prend son temps. Des plats, du vin, des conversations et tout ce qu'il faut pour transformer un dîner au restaurant en une belle soirée."],
       "choiceVerb": "Dîne au Bargello",
       "choiceSub": "Un dîner dans l'un des plus beaux quartiers de Florence, avec Boboli dans l'assiette.",
-      "imageAlt": "Table dressée pour le dîner chez Boboli Al Bargello, via Ghibellina à Florence"
+      "imageAlt": "La salle de Boboli Al Bargello, entre murs de briques et tableaux, via Ghibellina à Florence"
     }
   }
 }

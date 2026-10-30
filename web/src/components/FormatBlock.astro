@@ -7,13 +7,25 @@ import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
 import { ui } from '../lib/ui';
 
-interface Props { lang: Lang; locale: Locale; dark?: boolean; bleed?: boolean }
-const { lang, locale: l, dark = false, bleed = false } = Astro.props;
+interface Props { lang: Lang; locale: Locale; dark?: boolean; feature?: boolean }
+const { lang, locale: l, dark = false, feature = false } = Astro.props;
+const t = ui[lang];
+// il bollino del To-Go: il testo gira tutto intorno, come sull'etichetta di un sacchetto
+const stamp = `${l.nameShort} · ${l.street} · ${t.badges.gf} · `;
+const stampId = `bollino-${l.id}`;
 ---
-<section class:list={['format', { 'format--dark': dark, 'format--bleed': bleed }]}>
+<section class:list={['format', { 'format--dark': dark, 'format--feature': feature }]}>
   <div class="format__media">
-    <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[768, 1280, 1920, 2560]} />
-    <span class="format__num" aria-hidden="true">{l.civic}</span>
+    <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={feature ? [640, 960, 1440, 1920] : [768, 1280, 1920, 2560]} sizes={feature ? '(max-width: 760px) 100vw, 60vw' : '100vw'} />
+    {feature && (
+      <div class="stamp" aria-hidden="true">
+        <svg class="stamp__ring" viewBox="0 0 200 200">
+          <defs><path id={stampId} d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+          <text><textPath href={`#${stampId}`} textLength="488">{stamp}</textPath></text>
+        </svg>
+        {l.seal && <Figure class="stamp__seal" slot={`illustrazioni/${l.seal}`} alt="" label="" widths={[120, 240]} sizes="80px" />}
+      </div>
+    )}
   </div>
   <div class="format__body">
     <div class="format__text">
@@ -23,9 +35,9 @@ const { lang, locale: l, dark = false, bleed = false } = Astro.props;
       <p class="u-label format__address">{l.street} · {l.zone}</p>
     </div>
     <div class="format__actions">
-      <a class="link-more" href={lp(lang, `/locali/${l.id}/`)}>{ui[lang].format.more} &rarr;</a>
       <OrderButton lang={lang} locale={l} class="btn--terracotta" />
       <BookButton lang={lang} locale={l} class={dark ? 'btn--cream' : 'btn--ink'} />
+      <a class="link-more" href={lp(lang, `/locali/${l.id}/`)}>{t.format.more} &rarr;</a>
     </div>
   </div>
 </section>

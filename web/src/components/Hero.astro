@@ -18,9 +18,7 @@ const t = ui[Astro.props.lang].hero;
   <div class="hero__bottom">
     <h1 class="hero__word">{t.word}<span class="sr-only"> — {t.h1Hidden}</span></h1>
     <div class="hero__col">
-      <ul class="hero__list" aria-label={t.choicesLabel}>
-        {t.choices.map((c, i) => <li style={`--i:${i}`}>{c}</li>)}
-      </ul>
+      <p class="hero__lead">{t.lead}</p>
       <p class="hero__answer">{t.answer}</p>
       <p class="hero__since u-label">{t.since}</p>
     </div>

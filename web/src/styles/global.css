@@ -12,6 +12,7 @@
   --ink:#201e1d;
   --terracotta:#c67139;
   --sage:#4c5a3b;
+  --gingham:#b23a33;
 
   --ph-bg:#e3dccc;
   --ph-ink:#8c8474;
@@ -85,7 +86,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 }
 
 /* — inquadrature: dove il centro della foto non è il punto giusto — */
-[data-slot="laboratorio"] img{object-position:50% 25%}
+[data-slot="laboratorio"] img{object-position:58% 55%}
 [data-slot="locali/trattoria-1978"] img{object-position:50% 45%}
 [data-slot="locali/al-bargello"] img{object-position:50% 55%}
 [data-slot="eventi"] img{object-position:50% 55%}
@@ -171,7 +172,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .nav-overlay__more a:hover{color:var(--terracotta)}
 .nav-overlay__meta{color:var(--cream-50)}
 
-/* ── hero 100vh: SCEGLI in Heavy, le sei scelte in Thin, la risposta in Heavy ── */
+/* ── hero 100vh: A TAVOLA! in Heavy, l'invito in Thin, la promessa in Heavy ── */
 .hero{position:relative;height:100vh;min-height:600px;overflow:hidden}
 @supports (height:100svh){.hero{height:100svh}}
 .hero__media{position:absolute;inset:0}
@@ -194,23 +195,22 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 }
 .hero__word{
   margin-left:-.06em;
-  font-weight:700;font-size:clamp(78px,16.3vw,268px);line-height:.82;letter-spacing:-.03em;
-  text-transform:uppercase;
+  font-weight:700;font-size:clamp(64px,11.4vw,188px);line-height:.82;letter-spacing:-.03em;
+  text-transform:uppercase;white-space:nowrap;
+  opacity:0;transform:translateY(.12em);animation:hero-in .8s cubic-bezier(.2,.7,.2,1) .1s forwards;
 }
-.hero__col{flex:0 1 auto;max-width:min(44vw,640px)}
-.hero__list{font-weight:100;font-size:clamp(20px,2.4vw,40px);line-height:1.12;letter-spacing:-.01em}
-.hero__list li{
-  opacity:0;transform:translateY(.3em);
-  animation:hero-in .6s cubic-bezier(.2,.7,.2,1) forwards;
-  animation-delay:calc(.25s + var(--i) * .13s);
+.hero__col{flex:0 1 auto;max-width:min(40vw,600px)}
+.hero__lead{
+  font-weight:100;font-size:clamp(20px,2.3vw,38px);line-height:1.18;letter-spacing:-.01em;
+  opacity:0;transform:translateY(.3em);animation:hero-in .7s cubic-bezier(.2,.7,.2,1) .45s forwards;
 }
 .hero__answer{
-  margin-top:.35em;
-  font-weight:700;font-size:clamp(24px,3vw,52px);line-height:1;letter-spacing:-.03em;
+  margin-top:.6em;
+  font-weight:700;font-size:clamp(20px,2.3vw,38px);line-height:1.08;letter-spacing:-.03em;
   opacity:0;transform:translateY(.3em);
-  animation:hero-in .7s cubic-bezier(.2,.7,.2,1) 1.15s forwards;
+  animation:hero-in .7s cubic-bezier(.2,.7,.2,1) .8s forwards;
 }
-.hero__since{margin-top:14px;color:var(--cream-60);opacity:0;animation:hero-in .6s ease 1.4s forwards}
+.hero__since{margin-top:14px;color:var(--cream-60);opacity:0;animation:hero-in .6s ease 1.05s forwards}
 @keyframes hero-in{to{opacity:1;transform:none}}
 
 /* ── l'indice delle scelte ───────────────────────────────────────────────── */
@@ -242,18 +242,11 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .choices__list a:hover{color:var(--terracotta)}
 .choices__list a:hover .choices__arrow{transform:translateX(.25em)}
 
-/* ── i tre format full-bleed: il numerale è il civico ────────────────────── */
+/* ── i tre format: la foto del locale e il suo invito ─────────────────────── */
 .format{background:var(--cream)}
 .format--dark{background:var(--ink)}
 .format__media{position:relative}
-.format__media :is(.ph,picture){height:clamp(220px,33.33vw,520px)}
-.format__num{
-  position:absolute;inset:0;display:flex;align-items:center;
-  padding:0 var(--gutter);
-  font-weight:700;font-size:clamp(64px,11.5vw,184px);line-height:.8;letter-spacing:-.03em;
-  color:var(--ink);opacity:.8;pointer-events:none;text-transform:uppercase;
-}
-.format--dark .format__num{color:var(--cream);opacity:.92}
+.format__media > :is(.ph,picture){height:clamp(220px,33.33vw,520px)}
 .format__body{
   display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;
   padding:var(--gutter);
@@ -274,16 +267,39 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 /* con tre azioni (il To-Go) i pulsanti scendono sotto il testo invece di stringerlo */
 .format__body:has(.btn--order){grid-template-columns:1fr;align-items:start}
 
-/* variante che sfonda: foto più alta, pannello di testo sovrapposto a sinistra */
-.format--bleed .format__media :is(.ph,picture){height:clamp(300px,50vw,760px)}
-.format--bleed .format__num{align-items:flex-start;justify-content:flex-end;padding-top:var(--gutter)}
-/* sulla foto del To-Go (fondo scuro) il civico passa al crema */
-.format--bleed .format__media:has(picture) .format__num{color:var(--cream);opacity:.92}
-.format--bleed .format__body{
-  position:relative;width:min(680px,86%);
-  margin:calc(-1 * clamp(64px,9vw,150px)) 0 0;
-  background:var(--cream);
+/* il To-Go: la foto del panino accanto all'invito, una fascia a quadretti come
+   la carta in cui lo incartiamo, e il bollino che gira come su un sacchetto */
+.format--feature{
+  position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  padding-top:14px;background:var(--paper,#fbf5ea);
 }
+.format--feature::before{
+  content:"";position:absolute;inset:0 0 auto;height:14px;
+  background:repeating-conic-gradient(var(--gingham) 0 25%,#fbf5ea 0 50%) 0 0 / 14px 14px;
+}
+.format--feature .format__media > :is(.ph,picture){height:100%;min-height:clamp(380px,44vw,680px)}
+.format--feature .format__body{
+  grid-template-columns:1fr;align-content:center;gap:clamp(22px,2.6vw,36px);
+  padding:clamp(34px,5vw,84px) clamp(24px,4.4vw,72px);
+}
+.format--feature .format__title{font-size:clamp(34px,4.6vw,76px)}
+.format--feature .format__actions{flex-direction:column;align-items:flex-start;gap:12px}
+.format--feature .format__actions .btn{min-width:min(100%,300px)}
+.format--feature .format__actions .link-more{margin-top:8px}
+
+.stamp{
+  position:absolute;right:clamp(20px,3vw,48px);bottom:clamp(20px,3vw,48px);z-index:1;
+  display:grid;place-items:center;width:clamp(120px,12vw,176px);aspect-ratio:1;
+  border-radius:50%;background:#fbf5ea;color:var(--gingham);
+  box-shadow:0 0 0 1px rgba(32,30,29,.1),0 18px 30px -18px rgba(32,30,29,.55);
+}
+.stamp::after{content:"";position:absolute;inset:7%;border-radius:50%;border:1px dashed currentColor;opacity:.45}
+.stamp__ring{position:absolute;inset:0;width:100%;height:100%;animation:stamp-spin 28s linear infinite}
+.stamp__ring text{
+  fill:currentColor;font-family:inherit;font-weight:700;font-size:15.5px;letter-spacing:.14em;text-transform:uppercase;
+}
+.stamp__seal{width:50%;height:auto;aspect-ratio:1;border-radius:50%;mix-blend-mode:multiply}
+@keyframes stamp-spin{to{transform:rotate(1turn)}}
 
 /* ── fascia salvia: il claim 100% gluten free ────────────────────────────── */
 .manifesto{
@@ -305,12 +321,11 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 
 /* ── il laboratorio: la prova ────────────────────────────────────────────── */
 .lab{
-  display:grid;grid-template-columns:.85fr 1fr;align-items:center;
+  display:grid;grid-template-columns:1.1fr .9fr;align-items:center;
   gap:clamp(24px,4vw,64px);
   padding:clamp(34px,5vw,80px) var(--gutter) clamp(34px,5vw,80px) 0;
 }
 .lab__media{height:clamp(300px,42vw,640px)}
-.lab__media:is(picture){height:auto;aspect-ratio:4/5;max-height:860px}
 .lab__body{display:flex;flex-direction:column;gap:14px;max-width:46ch}
 .lab__kicker{color:var(--kicker)}
 .lab__title{font-weight:700;font-size:clamp(40px,6.5vw,104px);line-height:.9;letter-spacing:-.03em}
@@ -788,10 +803,10 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   @supports (height:100svh){.hero{height:calc(100svh - var(--bar-h))}}
   .hero__media img{object-position:46% 50%}
   .hero__bottom{flex-direction:column;align-items:stretch;gap:10px;padding:70px var(--gutter) 18px}
-  .hero__word{font-size:23.9vw;margin-left:-.05em}
+  .hero__word{font-size:15.6vw;margin-left:-.05em}
   .hero__col{max-width:none}
-  .hero__list{font-size:5.6vw}
-  .hero__answer{font-size:7.4vw}
+  .hero__lead{font-size:5.4vw}
+  .hero__answer{font-size:5.8vw}
   .hero__since{margin-top:10px}
 
   .choices{padding:30px var(--gutter)}
@@ -806,12 +821,15 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .choices__where{font-size:14px;white-space:normal}
   .choices__arrow{font-size:22px;align-self:center}
 
-  .format__media :is(.ph,picture){height:220px}
-  .format__num{font-size:20vw}
+  .format__media > :is(.ph,picture){height:220px}
   .format__body{grid-template-columns:1fr;gap:16px;padding:var(--gutter)}
   .format__title{font-size:26px}
-  .format--bleed .format__media :is(.ph,picture){height:300px}
-  .format--bleed .format__body{width:auto;margin:0}
+  .format--feature{grid-template-columns:1fr}
+  .format--feature .format__media > :is(.ph,picture){min-height:0;height:320px}
+  .format--feature .format__body{padding:28px var(--gutter) 34px}
+  .format--feature .format__title{font-size:34px}
+  .format--feature .format__actions .btn{width:100%}
+  .stamp{right:14px;bottom:-44px;width:112px}
 
   .manifesto{grid-template-columns:1fr;gap:16px;padding:34px var(--gutter)}
   .manifesto__kicker{margin-bottom:14px}
@@ -821,7 +839,6 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 
   .lab{grid-template-columns:1fr;gap:18px;padding:30px 0 30px}
   .lab__media{height:240px;margin-right:var(--gutter)}
-  .lab__media:is(picture){aspect-ratio:1;height:auto}
   .lab__body{padding:0 var(--gutter)}
   .lab__title{font-size:14vw}
   .lab__thin{font-size:18px}
@@ -932,6 +949,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .carta,.ticket,.viewer__sheet,.placecard{transition:none}
   .viewer__status{animation:none}
   html{scroll-behavior:auto}
-  .hero__list li,.hero__answer,.hero__since{animation:none;opacity:1;transform:none}
+  .hero__word,.hero__lead,.hero__answer,.hero__since{animation:none;opacity:1;transform:none}
+  .stamp__ring{animation:none}
   *{transition-duration:.01ms !important}
 }

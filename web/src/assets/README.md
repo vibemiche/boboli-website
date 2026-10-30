@@ -13,11 +13,11 @@ Astro genera da solo AVIF e WebP in tutte le misure e scrive `srcset`: tu carich
 | --- | --- | --- | --- |
 | `hero.webp` | Hero, a tutto schermo | orizzontale 3:2 o 16:9 | *(già caricata)* |
 | `firenze.webp` | Sezione dei locali, sotto la mappa | orizzontale | *(già caricata)* |
-| `locali/trattoria-1978.jpg` | Blocco 45/R + pagina del locale | orizzontale | *(caricata: la sala con la boiserie)* |
-| `locali/al-bargello.jpg` | Blocco 147/R + pagina del locale | orizzontale | *(caricata: la sala con i mattoni)* |
-| `locali/to-go.jpg` | Blocco 52 + pagina del locale | orizzontale, più alto | *(caricata: il panino in mano)* |
+| `locali/trattoria-1978.jpg` | Blocco della Trattoria + pagina del locale | orizzontale | *(caricata: la sala con la boiserie)* |
+| `locali/al-bargello.jpg` | Blocco del Bargello + pagina del locale | orizzontale | *(caricata: la sala con i mattoni)* |
+| `locali/to-go.jpg` | Blocco del To-Go + pagina del locale | orizzontale | *(caricata: il panino in mano)* |
 | `locali/la-cantina.jpg` | Pagina della Cantina | orizzontale | *(caricata: la sala sotto le volte)* |
-| `laboratorio.jpg` | Sezione «Fatto da noi» | verticale 4:5 | *(caricata: lo chef al tagliere)* |
+| `laboratorio.jpg` | Sezione «Fatto da noi» | orizzontale | *(caricata: le focacce in forno)* |
 | `eventi.jpg` | Pagina «Gruppi ed eventi», sotto il titolo | orizzontale | *(caricata: burrata e melanzane servite)* |
 
 ### Altre foto di un locale

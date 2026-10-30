@@ -16,7 +16,7 @@ const rows = [
 ---
 <section class="choices">
   <h2 class="choices__title">{t.title}</h2>
-  <ol class="choices__list">
+  <ol class="choices__list" data-reveal>
     {rows.map((r) => (
       <li>
         <a href={lp(lang, r.path)}>

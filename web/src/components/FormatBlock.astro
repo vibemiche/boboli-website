@@ -7,16 +7,18 @@ import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
 import { ui } from '../lib/ui';
 
-interface Props { lang: Lang; locale: Locale; dark?: boolean; feature?: boolean }
-const { lang, locale: l, dark = false, feature = false } = Astro.props;
+// Foto e invito affiancati; `reverse` mette la foto a destra, `feature` aggiunge
+// la fascia a quadretti e il bollino del To-Go.
+interface Props { lang: Lang; locale: Locale; dark?: boolean; reverse?: boolean; feature?: boolean }
+const { lang, locale: l, dark = false, reverse = false, feature = false } = Astro.props;
 const t = ui[lang];
 // il bollino del To-Go: il testo gira tutto intorno, come sull'etichetta di un sacchetto
 const stamp = `${l.nameShort} · ${l.street} · ${t.badges.gf} · `;
 const stampId = `bollino-${l.id}`;
 ---
-<section class:list={['format', { 'format--dark': dark, 'format--feature': feature }]}>
+<section class:list={['format', { 'format--dark': dark, 'format--reverse': reverse, 'format--feature': feature }]} data-reveal>
   <div class="format__media">
-    <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={feature ? [640, 960, 1440, 1920] : [768, 1280, 1920, 2560]} sizes={feature ? '(max-width: 760px) 100vw, 60vw' : '100vw'} />
+    <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[640, 960, 1440, 1920]} sizes="(max-width: 760px) 100vw, 60vw" transition={`locale-${l.id}`} />
     {feature && (
       <div class="stamp" aria-hidden="true">
         <svg class="stamp__ring" viewBox="0 0 200 200">

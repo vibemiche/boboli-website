@@ -10,7 +10,7 @@ const t = ui[lang].menu;
 ---
 <section class="menu" id="menu">
   <div class="menu__top">
-  <div class="menu__intro">
+  <div class="menu__intro" data-reveal>
     <h2 class="menu__title">{t.title}</h2>
     <p class="menu__note">{t.note}</p>
     <div class="menu__ctas">
@@ -35,7 +35,7 @@ const t = ui[lang].menu;
   </a>
   </div>
 
-  <ul class="menu__gallery">
+  <ul class="menu__gallery" data-reveal>
     {Object.entries(t.gallery).map(([slug, [label, line, alt]]) => (
       <li>
         <figure>

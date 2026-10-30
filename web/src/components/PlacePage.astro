@@ -52,7 +52,7 @@ const jsonLd = [
       </div>
     </header>
     <div class="place__media">
-      <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[768, 1280, 1920]} priority />
+      <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[768, 1280, 1920]} priority transition={`locale-${l.id}`} />
     </div>
     <div class="place__grid">
       <div class="place__body">

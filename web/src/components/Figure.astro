@@ -13,6 +13,8 @@ interface Props {
   sizes?: string;
   /** Solo l'hero: è l'immagine che determina l'LCP. */
   priority?: boolean;
+  /** Nome della view transition: la stessa foto in due pagine scivola da una all'altra. */
+  transition?: string;
 }
 
 const {
@@ -23,6 +25,7 @@ const {
   widths = [640, 1024, 1600, 2400],
   sizes = '100vw',
   priority = false,
+  transition,
 } = Astro.props;
 
 const image = findImage(slot);
@@ -35,7 +38,7 @@ const image = findImage(slot);
     sizes={sizes}
     formats={['avif', 'webp']}
     fallbackFormat="jpg"
-    pictureAttributes={{ class: className || undefined, 'data-slot': slot }}
+    pictureAttributes={{ class: className || undefined, 'data-slot': slot, style: transition ? `view-transition-name:${transition}` : undefined }}
     loading={priority ? 'eager' : 'lazy'}
     decoding={priority ? 'sync' : 'async'}
     fetchpriority={priority ? 'high' : 'auto'}

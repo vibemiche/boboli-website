@@ -3,9 +3,12 @@ import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { ui } from '../lib/ui';
 
+// da telefono, sempre a portata di pollice: cosa si mangia e dove sedersi
 interface Props { lang: Lang }
 const { lang } = Astro.props;
+const t = ui[lang].nav;
 ---
 <div class="mobile-bar">
-  <a class="mobile-bar__main u-label" href={lp(lang, '/#locali')} data-book>{ui[lang].nav.book}</a>
+  <a class="mobile-bar__item" href={lp(lang, '/menu/')}>{t.food}</a>
+  <a class="mobile-bar__item mobile-bar__item--book" href={lp(lang, '/#locali')} data-book>{t.book}</a>
 </div>

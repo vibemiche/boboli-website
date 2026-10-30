@@ -8,11 +8,11 @@ const { lang } = Astro.props;
 const t = ui[lang].manifesto;
 ---
 <section class="manifesto" id="manifesto">
-  <div class="manifesto__claim">
+  <div class="manifesto__claim" data-reveal>
     <p class="u-label manifesto__kicker">{t.kicker}</p>
     <h2 class="manifesto__title">{t.title}</h2>
   </div>
-  <div class="manifesto__side">
+  <div class="manifesto__side" data-reveal>
     <Badges lang={lang} class="manifesto__badges" />
     <p class="manifesto__body">{t.body}</p>
     <ul class="manifesto__list" aria-label={t.listLabel}>

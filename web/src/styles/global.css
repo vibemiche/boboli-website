@@ -13,6 +13,7 @@
   --terracotta:#c67139;
   --sage:#4c5a3b;
   --gingham:#b23a33;
+  --paper:#fbf5ea;
 
   --ph-bg:#e3dccc;
   --ph-ink:#8c8474;
@@ -27,6 +28,8 @@
   --cream-45:rgba(245,234,216,.45);
 
   --bar-h:50px;
+  /* il respiro verticale di ogni sezione della home */
+  --section-y:clamp(48px,6.5vw,110px);
   --gutter:clamp(18px,2.78vw,44px);
   --label:clamp(10px,.83vw,12px);
   --body:clamp(15px,1.2vw,17px);
@@ -85,6 +88,18 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   font-weight:400;font-size:clamp(11px,1.3vw,16px);line-height:1.4;
 }
 
+/* — il passaggio tra le sezioni — */
+/* due sezioni crema di fila: un filetto con i margini, non uno stacco vuoto */
+:is(.lab,.menu,.reviews) + :is(.menu,.reviews){position:relative}
+:is(.lab,.menu,.reviews) + :is(.menu,.reviews)::before{
+  content:"";position:absolute;top:0;left:var(--gutter);right:var(--gutter);height:1px;background:var(--rule);
+}
+/* le ancore si fermano sotto l'header fisso */
+[id]{scroll-margin-top:clamp(72px,7vw,96px)}
+/* le sezioni salgono piano quando entrano in vista (solo con JS e movimento) */
+.reveal-armed [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal-armed [data-reveal].is-in{opacity:1;transform:none}
+
 /* — inquadrature: dove il centro della foto non è il punto giusto — */
 [data-slot="laboratorio"] img{object-position:58% 55%}
 [data-slot="locali/trattoria-1978"] img{object-position:50% 45%}
@@ -125,8 +140,10 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   position:fixed;top:0;left:0;right:0;z-index:20;
   display:flex;align-items:center;justify-content:space-between;
   gap:20px;padding:22px var(--gutter);
-  transition:padding .25s ease,background-color .25s ease,box-shadow .25s ease;
+  transition:padding .25s ease,background-color .25s ease,box-shadow .25s ease,transform .35s cubic-bezier(.2,.7,.2,1);
 }
+/* scendendo l'header si fa da parte, risalendo torna */
+.site-header.is-hidden{transform:translateY(-100%)}
 .site-header.is-solid{
   padding-block:10px;
   background:rgba(245,234,216,.94);
@@ -138,6 +155,21 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .site-header.is-solid .brand svg{height:clamp(30px,2.9vw,42px)}
 .site-header__actions{display:flex;align-items:center;gap:clamp(14px,2.04vw,28px)}
 .site-header .btn{padding:13px 24px}
+/* l'indice delle sezioni della home, al centro della barra */
+.site-header__index{position:absolute;left:50%;transform:translateX(-50%)}
+.site-header__index ul{display:flex;gap:clamp(18px,2.2vw,34px)}
+.site-header__index a{
+  position:relative;display:block;padding:8px 0;
+  font-weight:700;font-size:var(--label);letter-spacing:var(--track);text-transform:uppercase;white-space:nowrap;
+  transition:color .2s ease;
+}
+.site-header__index a::after{
+  content:"";position:absolute;left:0;right:0;bottom:2px;height:2px;background:var(--terracotta);
+  transform:scaleX(0);transform-origin:left center;transition:transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.site-header__index a:hover{color:var(--terracotta)}
+.site-header__index a[aria-current]::after,.site-header__index a:hover::after{transform:none}
+@media (max-width:1100px){.site-header__index{display:none}}
 
 .burger{
   display:flex;flex-direction:column;gap:4px;
@@ -150,27 +182,48 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 
 .nav-overlay{
   position:fixed;inset:0;z-index:30;
-  display:flex;flex-direction:column;justify-content:center;
-  gap:24px;padding:clamp(40px,7vw,90px) var(--gutter);
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
   background:var(--ink);color:var(--cream);
+  animation:overlay-in .35s ease both;
 }
 .nav-overlay[hidden]{display:none}
+@keyframes overlay-in{from{opacity:0}}
 .nav-overlay__close{
-  position:absolute;top:14px;right:var(--gutter);
+  position:absolute;top:14px;right:var(--gutter);z-index:2;
   padding:0 8px;background:none;border:0;cursor:pointer;
   color:var(--cream);font-family:inherit;font-weight:100;font-size:44px;line-height:1;
 }
+.nav-overlay__main{
+  display:flex;flex-direction:column;justify-content:center;gap:24px;
+  padding:clamp(40px,7vw,90px) var(--gutter);overflow-y:auto;
+}
 .nav-overlay__list{display:flex;flex-direction:column;gap:2px}
+/* le voci entrano una dopo l'altra */
+.nav-overlay__list li{animation:overlay-item .5s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.06s + var(--i) * .04s)}
+@keyframes overlay-item{from{opacity:0;transform:translateY(14px)}}
 .nav-overlay__list a{
   display:inline-flex;align-items:baseline;gap:.4em;padding:4px 0;
-  font-weight:700;font-size:clamp(30px,5vw,66px);line-height:1;letter-spacing:-.03em;
+  font-weight:700;font-size:clamp(30px,4.6vw,62px);line-height:1;letter-spacing:-.03em;
+  transition:color .2s ease,transform .3s cubic-bezier(.2,.7,.2,1);
 }
-.nav-overlay__list a:hover{color:var(--terracotta)}
+.nav-overlay__list a:is(:hover,:focus-visible){color:var(--terracotta);transform:translateX(.15em)}
 .nav-overlay__list small{font-weight:100;font-size:.42em;letter-spacing:0;color:var(--cream-60)}
 .nav-overlay__more{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:18px;border-top:1px solid var(--rule-inverse)}
 .nav-overlay__more a{font-weight:400;font-size:clamp(16px,1.6vw,22px);color:var(--cream-60)}
 .nav-overlay__more a:hover{color:var(--terracotta)}
+.nav-overlay__foot{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px}
 .nav-overlay__badges{--badge-h:clamp(64px,6vw,84px)}
+/* a destra, la foto del posto su cui passi */
+.nav-overlay__preview{position:relative;overflow:hidden}
+.nav-overlay__shot{position:absolute;inset:0;opacity:0;transition:opacity .45s ease}
+.nav-overlay__shot.is-active{opacity:1}
+.nav-overlay__shot :is(picture,.ph){width:100%;height:100%}
+.nav-overlay__shot img{transform:scale(1.04);transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.nav-overlay__shot.is-active img{transform:none}
+@media (max-width:900px){
+  .nav-overlay{grid-template-columns:1fr}
+  .nav-overlay__preview{display:none}
+}
 .nav-overlay__meta{color:var(--cream-50)}
 
 /* ── hero 100vh: A TAVOLA! in Heavy, l'invito in Thin, la promessa in Heavy ── */
@@ -215,7 +268,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 @keyframes hero-in{to{opacity:1;transform:none}}
 
 /* ── l'indice delle scelte ───────────────────────────────────────────────── */
-.choices{padding:clamp(40px,5.6vw,84px) var(--gutter) clamp(32px,4.1vw,64px)}
+.choices{padding:var(--section-y) var(--gutter)}
 .choices__title{
   max-width:19ch;margin-bottom:clamp(22px,3.2vw,48px);
   font-weight:700;font-size:clamp(30px,4.3vw,68px);line-height:.96;letter-spacing:-.03em;
@@ -243,21 +296,26 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .choices__list a:hover{color:var(--terracotta)}
 .choices__list a:hover .choices__arrow{transform:translateX(.25em)}
 
-/* ── i tre format: la foto del locale e il suo invito ─────────────────────── */
-.format{background:var(--cream)}
+/* ── i tre locali: un trittico, foto e invito affiancati, a lati alterni ─── */
+.format{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  background:var(--cream);
+}
 .format--dark{background:var(--ink)}
+.format--reverse{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+.format--reverse .format__media{order:2}
 .format__media{position:relative}
-.format__media > :is(.ph,picture){height:clamp(220px,33.33vw,520px)}
+.format__media > :is(.ph,picture){height:100%;min-height:clamp(380px,44vw,680px)}
 .format__body{
-  display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;
-  padding:var(--gutter);
+  display:grid;grid-template-columns:1fr;align-content:center;gap:clamp(22px,2.6vw,36px);
+  padding:var(--section-y) clamp(24px,4.4vw,72px);
 }
 .format__text{display:flex;flex-direction:column;gap:10px}
 .format__kicker{color:var(--kicker)}
 .format--dark .format__kicker{color:var(--cream-60)}
 .format__title{
   max-width:16ch;
-  font-weight:700;font-size:clamp(24px,4.17vw,66px);line-height:.92;letter-spacing:-.03em;
+  font-weight:700;font-size:clamp(34px,4.6vw,76px);line-height:.92;letter-spacing:-.03em;
 }
 .format--dark .format__title{color:var(--cream)}
 .format__copy{max-width:46ch;color:var(--muted);font-size:var(--body-lg);line-height:1.6}
@@ -266,29 +324,17 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .format--dark .format__address{color:var(--cream-50)}
 .format--dark .link-more{color:var(--cream)}
 .format--dark .link-more:hover{color:var(--terracotta)}
-.format__actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
-/* con tre azioni (il To-Go) i pulsanti scendono sotto il testo invece di stringerlo */
-.format__body:has(.btn--order){grid-template-columns:1fr;align-items:start}
+.format__actions{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.format__actions .btn{min-width:min(100%,300px)}
+.format__actions .link-more{margin-top:8px}
 
-/* il To-Go: la foto del panino accanto all'invito, una fascia a quadretti come
-   la carta in cui lo incartiamo, e il bollino che gira come su un sacchetto */
-.format--feature{
-  position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
-  padding-top:14px;background:var(--paper,#fbf5ea);
-}
+/* il To-Go: una fascia a quadretti come la carta in cui incartiamo il panino,
+   e il bollino che gira come su un sacchetto */
+.format--feature{position:relative;padding-top:14px;background:var(--paper)}
 .format--feature::before{
   content:"";position:absolute;inset:0 0 auto;height:14px;
-  background:repeating-conic-gradient(var(--gingham) 0 25%,#fbf5ea 0 50%) 0 0 / 14px 14px;
+  background:repeating-conic-gradient(var(--gingham) 0 25%,var(--paper) 0 50%) 0 0 / 14px 14px;
 }
-.format--feature .format__media > :is(.ph,picture){height:100%;min-height:clamp(380px,44vw,680px)}
-.format--feature .format__body{
-  grid-template-columns:1fr;align-content:center;gap:clamp(22px,2.6vw,36px);
-  padding:clamp(34px,5vw,84px) clamp(24px,4.4vw,72px);
-}
-.format--feature .format__title{font-size:clamp(34px,4.6vw,76px)}
-.format--feature .format__actions{flex-direction:column;align-items:flex-start;gap:12px}
-.format--feature .format__actions .btn{min-width:min(100%,300px)}
-.format--feature .format__actions .link-more{margin-top:8px}
 
 .stamp{
   position:absolute;right:clamp(20px,3vw,48px);bottom:clamp(20px,3vw,48px);z-index:1;
@@ -307,7 +353,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 /* ── fascia salvia: il claim 100% gluten free ────────────────────────────── */
 .manifesto{
   display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:end;
-  padding:clamp(34px,5.93vw,96px) var(--gutter);
+  padding:var(--section-y) var(--gutter);
   background:var(--sage);color:#fff;
 }
 /* da desktop il titolo sta a metà altezza della fascia, non in fondo */
@@ -328,7 +374,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .lab{
   display:grid;grid-template-columns:1.1fr .9fr;align-items:center;
   gap:clamp(24px,4vw,64px);
-  padding:clamp(34px,5vw,80px) var(--gutter) clamp(34px,5vw,80px) 0;
+  padding:var(--section-y) var(--gutter) var(--section-y) 0;
 }
 .lab__media{height:clamp(300px,42vw,640px)}
 .lab__body{display:flex;flex-direction:column;gap:14px;max-width:46ch}
@@ -339,7 +385,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 
 /* ── menu: la carta ──────────────────────────────────────────────────────
    Una carta da trattoria dove al posto del prezzo c'è la promessa. */
-.menu{padding:clamp(40px,6.5vw,110px) var(--gutter) clamp(32px,4.07vw,60px)}
+.menu{padding:var(--section-y) var(--gutter)}
 /* il titolo resta fermo solo accanto alla carta: il blocco che lo contiene
    finisce con lei, così scorrendo non scivola sopra le illustrazioni */
 .menu__top{
@@ -420,7 +466,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .reviews{
   display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;
   gap:16px clamp(24px,5vw,90px);
-  padding:clamp(40px,6vw,96px) var(--gutter);border-top:1px solid var(--rule);
+  padding:var(--section-y) var(--gutter);
 }
 .reviews__intro{grid-row:span 2}
 .reviews__kicker{color:var(--kicker);margin-bottom:14px}
@@ -450,7 +496,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .reviews.is-in .reviews__bar::before{transform:none;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
 
 /* ── i locali: quattro indirizzi ─────────────────────────────────────────── */
-.locations{scroll-margin-top:24px;padding:clamp(30px,5.19vw,80px) var(--gutter);background:var(--ink);color:var(--cream)}
+.locations{padding:var(--section-y) var(--gutter);background:var(--ink);color:var(--cream)}
 .locations__title{
   max-width:16ch;margin-bottom:16px;
   font-weight:700;font-size:clamp(34px,5.19vw,82px);line-height:.94;letter-spacing:-.03em;
@@ -518,7 +564,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .locations__firenze-caption{margin-top:12px;font-weight:100;font-size:clamp(16px,2.2vw,32px);letter-spacing:-.02em;color:var(--cream-60)}
 
 /* ── blocco SEO + FAQ ────────────────────────────────────────────────────── */
-.seo{padding:clamp(30px,4.81vw,74px) var(--gutter)}
+.seo{padding:var(--section-y) var(--gutter)}
 .seo__title{
   max-width:22ch;margin-bottom:20px;
   font-weight:700;font-size:clamp(22px,3.15vw,50px);line-height:1.05;letter-spacing:-.03em;
@@ -829,6 +875,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
     --label:10.5px;
     --body:15px;
     --body-lg:16px;
+    --section-y:40px;
   }
   .site-header{padding:16px var(--gutter)}
   .site-header.is-solid{padding-block:8px}
@@ -847,7 +894,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .hero__answer{font-size:5.8vw}
   .hero__since{margin-top:10px}
 
-  .choices{padding:30px var(--gutter)}
+  .choices{padding:var(--section-y) var(--gutter)}
   .choices__title{font-size:8.6vw;max-width:none}
   .choices__list a{
     grid-template-columns:auto 1fr auto;grid-template-areas:"seal verb arrow" "seal sub arrow" "seal where arrow";
@@ -859,29 +906,27 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .choices__where{font-size:14px;white-space:normal}
   .choices__arrow{font-size:22px;align-self:center}
 
-  .format__media > :is(.ph,picture){height:220px}
-  .format__body{grid-template-columns:1fr;gap:16px;padding:var(--gutter)}
-  .format__title{font-size:26px}
-  .format--feature{grid-template-columns:1fr}
-  .format--feature .format__media > :is(.ph,picture){min-height:0;height:320px}
-  .format--feature .format__body{padding:28px var(--gutter) 34px}
-  .format--feature .format__title{font-size:34px}
-  .format--feature .format__actions .btn{width:100%}
+  .format,.format--reverse{grid-template-columns:1fr}
+  .format--reverse .format__media{order:0}
+  .format__media > :is(.ph,picture){min-height:0;height:300px}
+  .format__body{gap:18px;padding:28px var(--gutter) 36px}
+  .format__title{font-size:34px}
+  .format__actions .btn{width:100%}
   .stamp{right:14px;bottom:-44px;width:112px}
 
-  .manifesto{grid-template-columns:1fr;gap:16px;padding:34px var(--gutter)}
+  .manifesto{grid-template-columns:1fr;gap:16px;padding:var(--section-y) var(--gutter)}
   .manifesto__kicker{margin-bottom:14px}
   .manifesto__title{font-size:11.1vw}
   .manifesto__side{gap:14px}
   .manifesto__list{font-size:22px}
 
-  .lab{grid-template-columns:1fr;gap:18px;padding:30px 0 30px}
+  .lab{grid-template-columns:1fr;gap:18px;padding:var(--section-y) 0}
   .lab__media{height:240px;margin-right:var(--gutter)}
   .lab__body{padding:0 var(--gutter)}
   .lab__title{font-size:14vw}
   .lab__thin{font-size:18px}
 
-  .reviews{grid-template-columns:1fr;gap:22px;padding:34px var(--gutter)}
+  .reviews{grid-template-columns:1fr;gap:22px;padding:var(--section-y) var(--gutter)}
   .reviews__title{font-size:10vw;max-width:none}
   .reviews__sub{margin-top:10px;font-size:19px;max-width:none}
   .reviews__intro{grid-row:auto}
@@ -889,7 +934,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .reviews__score{font-size:48px}
   .reviews__note{grid-column:1;margin-top:0}
 
-  .menu{padding:34px var(--gutter)}
+  .menu{padding:var(--section-y) var(--gutter)}
   .menu__top{grid-template-columns:1fr;gap:26px}
   .menu__shop{margin-top:24px}
   .menu__intro{position:static}
@@ -939,7 +984,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .ticket__seal{width:64px;height:64px;top:14px;right:14px}
   .ticket__name{font-size:26px;padding-right:62px}
 
-  .locations{padding:30px var(--gutter)}
+  .locations{padding:var(--section-y) var(--gutter)}
   .locations__title{max-width:none;font-size:9.4vw;margin-bottom:10px}
   .locations__sub{margin-bottom:18px;font-size:15px}
   .locations__grid{grid-template-columns:1fr;gap:8px}
@@ -952,7 +997,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .locations__firenze-img :is(.ph,picture){height:180px}
   .locations__firenze-caption{font-size:15px}
 
-  .seo{padding:26px var(--gutter) 30px}
+  .seo{padding:var(--section-y) var(--gutter)}
   .seo__title{font-size:22px;line-height:1.1;margin-bottom:12px}
   .seo__grid{grid-template-columns:1fr;gap:22px}
   .seo__copy{font-size:15px}
@@ -984,14 +1029,25 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
     position:sticky;bottom:0;z-index:15;
     display:flex;min-height:var(--bar-h);background:var(--ink);
   }
-  .mobile-bar__main{
-    flex:1;display:flex;align-items:center;justify-content:center;padding:17px;
+  .mobile-bar__item{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:.6em;padding:17px 10px;
     color:var(--cream);font-weight:700;font-size:11px;
     letter-spacing:var(--track);text-transform:uppercase;
   }
+  .mobile-bar__item + .mobile-bar__item{box-shadow:inset 1px 0 0 var(--rule-inverse)}
+  .mobile-bar__item--book{flex:1.4;background:var(--terracotta);color:#fff}
+}
+
+/* ── tra una pagina e l'altra: la pagina sfuma, la foto del locale scivola ── */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:.35s}
+  ::view-transition-group(*){animation-duration:.55s;animation-timing-function:cubic-bezier(.2,.7,.2,1)}
 }
 
 @media (prefers-reduced-motion:reduce){
+  .nav-overlay,.nav-overlay__list li{animation:none}
+  .site-header{transition:none}
   .reviews__bar::before{transition:none}
   .carta,.ticket,.viewer__sheet,.placecard{transition:none}
   .viewer__status{animation:none}

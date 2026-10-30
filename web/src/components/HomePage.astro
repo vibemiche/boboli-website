@@ -6,6 +6,7 @@ import FormatBlock from './FormatBlock.astro';
 import Manifesto from './Manifesto.astro';
 import Laboratorio from './Laboratorio.astro';
 import MenuSection from './MenuSection.astro';
+import Reviews from './Reviews.astro';
 import Locations from './Locations.astro';
 import SeoFaq from './SeoFaq.astro';
 import type { Lang } from '../lib/i18n';
@@ -37,6 +38,7 @@ const jsonLd = [
   <Manifesto lang={lang} />
   <Laboratorio lang={lang} />
   <MenuSection lang={lang} />
+  <Reviews lang={lang} />
   <Locations lang={lang} locali={locali} />
   <SeoFaq lang={lang} faq={faq} />
 </Base>

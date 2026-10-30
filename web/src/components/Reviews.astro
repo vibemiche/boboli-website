@@ -1,0 +1,65 @@
+---
+import type { Lang } from '../lib/i18n';
+import { OG_LOCALE } from '../lib/i18n';
+import { ui } from '../lib/ui';
+import { platforms, totalReviewsFloor, REVIEWS_AS_OF } from '../lib/reviews';
+
+// La riprova sociale: quante persone ci hanno raccontato, piattaforma per
+// piattaforma. Solo numeri, niente loghi: il nome della piattaforma basta.
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang].reviews;
+const locale = OG_LOCALE[lang].replace('_', '-');
+const int = new Intl.NumberFormat(locale);
+const dec = new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const date = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' })
+  .format(new Date(REVIEWS_AS_OF.year, REVIEWS_AS_OF.month - 1, 1));
+---
+<section class="reviews" data-reviews>
+  <div class="reviews__intro">
+    <p class="u-label reviews__kicker">{t.kicker}</p>
+    <h2 class="reviews__title">{t.title(int.format(totalReviewsFloor))}</h2>
+    <p class="reviews__sub">{t.sub}</p>
+  </div>
+  <ul class="reviews__list">
+    {platforms.map((p) => (
+      <li class="reviews__row" style={`--score:${p.rating / p.scale}`}>
+        <span class="u-label reviews__name">{p.name}</span>
+        <span class="reviews__rating">
+          <span class="reviews__score">{dec.format(p.rating)}</span>
+          <span class="reviews__scale">{t.outOf(int.format(p.scale))}</span>
+        </span>
+        <span class="reviews__bar" aria-hidden="true"></span>
+        <span class="reviews__count">
+          <span data-count={p.count}>{int.format(p.count)}</span> {t.count} · {t.locali(p.locali)}
+        </span>
+      </li>
+    ))}
+  </ul>
+  <p class="reviews__note">{t.asOf(date)}</p>
+</section>
+
+<script>
+  // Quando la fascia entra in vista i conteggi salgono da zero e le barre si
+  // riempiono. Senza JS, o con il movimento ridotto, è tutto già al suo posto.
+  const root = document.querySelector<HTMLElement>('[data-reviews]');
+  if (root && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const counters = [...root.querySelectorAll<HTMLElement>('[data-count]')];
+    const fmt = new Intl.NumberFormat(document.documentElement.lang);
+    root.classList.add('is-armed');
+    const io = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      root.classList.add('is-in');
+      const start = performance.now();
+      const tick = (now: number) => {
+        const k = Math.min(1, (now - start) / 1400);
+        const ease = 1 - Math.pow(1 - k, 3);
+        counters.forEach((el) => { el.textContent = fmt.format(Math.round(Number(el.dataset.count) * ease)); });
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.35 });
+    io.observe(root);
+  }
+</script>

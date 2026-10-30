@@ -170,6 +170,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .nav-overlay__more{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:18px;border-top:1px solid var(--rule-inverse)}
 .nav-overlay__more a{font-weight:400;font-size:clamp(16px,1.6vw,22px);color:var(--cream-60)}
 .nav-overlay__more a:hover{color:var(--terracotta)}
+.nav-overlay__badges{--badge-h:clamp(64px,6vw,84px)}
 .nav-overlay__meta{color:var(--cream-50)}
 
 /* ── hero 100vh: A TAVOLA! in Heavy, l'invito in Thin, la promessa in Heavy ── */
@@ -263,6 +264,8 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .format--dark .format__copy{color:rgba(245,234,216,.75)}
 .format__address{color:var(--address)}
 .format--dark .format__address{color:var(--cream-50)}
+.format--dark .link-more{color:var(--cream)}
+.format--dark .link-more:hover{color:var(--terracotta)}
 .format__actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
 /* con tre azioni (il To-Go) i pulsanti scendono sotto il testo invece di stringerlo */
 .format__body:has(.btn--order){grid-template-columns:1fr;align-items:start}
@@ -307,6 +310,8 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   padding:clamp(34px,5.93vw,96px) var(--gutter);
   background:var(--sage);color:#fff;
 }
+/* da desktop il titolo sta a metà altezza della fascia, non in fondo */
+@media (min-width:761px){.manifesto__claim{align-self:center}}
 .manifesto__kicker{color:rgba(255,255,255,.7);margin-bottom:18px}
 .manifesto__title{font-weight:700;font-size:clamp(40px,7.04vw,112px);line-height:.9;letter-spacing:-.03em}
 .manifesto__side{display:flex;flex-direction:column;gap:18px}

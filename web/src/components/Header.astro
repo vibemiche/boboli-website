@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import Badges from './Badges.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
@@ -37,6 +38,7 @@ const more = [
   <ul class="nav-overlay__more">
     {more.map((l) => <li><a href={lp(lang, l.path)}>{l.label}</a></li>)}
   </ul>
+  <Badges lang={lang} class="nav-overlay__badges" />
   <span class="nav-overlay__meta u-label">{t.nav.tagline}</span>
 </nav>
 

@@ -7,18 +7,33 @@ import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
 import { ui } from '../lib/ui';
 
-// Foto e invito affiancati; `reverse` mette la foto a destra, `feature` aggiunge
-// la fascia a quadretti e il bollino del To-Go.
-interface Props { lang: Lang; locale: Locale; dark?: boolean; reverse?: boolean; feature?: boolean }
-const { lang, locale: l, dark = false, reverse = false, feature = false } = Astro.props;
+// Foto e invito affiancati, in home e in apertura della pagina del locale.
+// `reverse` mette la foto a destra, `feature` aggiunge la fascia a quadretti e il
+// bollino del To-Go. Nella pagina il titolo è l'h1, sopra c'è il percorso (slot
+// `crumb`) e accanto ai bottoni quelli in più (slot `actions`).
+interface Props {
+  lang: Lang;
+  locale: Locale;
+  dark?: boolean;
+  reverse?: boolean;
+  feature?: boolean;
+  level?: 'h1' | 'h2';
+  kicker?: string;
+  /** Il link «Dai un'occhiata»: non serve quando sei già nella pagina del locale. */
+  more?: boolean;
+  priority?: boolean;
+}
+const { lang, locale: l, dark = false, reverse = false, feature = false, level = 'h2', kicker = l.kicker, more = true, priority = false } = Astro.props;
 const t = ui[lang];
+const Title = level;
 // il bollino del To-Go: il testo gira tutto intorno, come sull'etichetta di un sacchetto
 const stamp = `${l.nameShort} · ${l.street} · ${t.badges.gf} · `;
 const stampId = `bollino-${l.id}`;
 ---
-<section class:list={['format', { 'format--dark': dark, 'format--reverse': reverse, 'format--feature': feature }]} data-reveal>
+<section class:list={['format', { 'format--dark': dark, 'format--reverse': reverse, 'format--feature': feature, 'format--page': level === 'h1' }]} data-reveal={level === 'h2' ? '' : undefined}>
   <div class="format__media">
-    <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[640, 960, 1440, 1920]} sizes="(max-width: 760px) 100vw, 60vw" transition={`locale-${l.id}`} />
+    {/* la foto riempie un riquadro alto quanto il blocco: larga circa 1,5 volte quell'altezza */}
+    <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[640, 960, 1280, 1600, 2000]} sizes="(max-width: 760px) max(100vw, 760px), max(60vw, 160vh)" transition={`locale-${l.id}`} priority={priority} />
     {feature && (
       <div class="stamp" aria-hidden="true">
         <svg class="stamp__ring" viewBox="0 0 200 200">
@@ -30,16 +45,18 @@ const stampId = `bollino-${l.id}`;
     )}
   </div>
   <div class="format__body">
+    <slot name="crumb" />
     <div class="format__text">
-      <p class="u-label format__kicker">{l.kicker}</p>
-      <h2 class="format__title">{l.title}</h2>
+      <p class="u-label format__kicker">{kicker}</p>
+      <Title class="format__title">{l.title}</Title>
       {l.body.map((p) => <p class="format__copy">{p}</p>)}
       <p class="u-label format__address">{l.street} · {l.zone}</p>
     </div>
     <div class="format__actions">
       <OrderButton lang={lang} locale={l} class="btn--terracotta" />
       <BookButton lang={lang} locale={l} class={dark ? 'btn--cream' : 'btn--ink'} />
-      <a class="link-more" href={lp(lang, `/locali/${l.id}/`)}>{t.format.more} &rarr;</a>
+      <slot name="actions" />
+      {more && <a class="link-more" href={lp(lang, `/locali/${l.id}/`)}>{t.format.more} &rarr;</a>}
     </div>
   </div>
 </section>

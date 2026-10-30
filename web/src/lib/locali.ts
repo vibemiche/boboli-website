@@ -16,3 +16,15 @@ export async function getLocali(lang: Lang): Promise<Locale[]> {
       bookable: d.bookingUrl !== null,
     }));
 }
+
+export interface Tone { dark: boolean; reverse: boolean; feature: boolean }
+
+/** Il carattere di ogni locale, uguale in home e nella sua pagina: il Bargello è la
+ *  sera (fondo scuro, foto a destra), il To-Go ha la carta a quadretti e il bollino. */
+export function toneOf(id: string): Tone {
+  return {
+    dark: id === 'al-bargello',
+    reverse: id === 'al-bargello',
+    feature: id === 'to-go',
+  };
+}

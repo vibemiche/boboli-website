@@ -24,18 +24,22 @@ const widgets = Object.fromEntries(
     <div class="book__list-pane">
       <p class="book__sub">{t.book.sub}</p>
       <ul class="book__list">
+        {/* Una scheda per locale, con una sola azione principale: si prenota il
+            tavolo, oppure (il To-Go) si ordina su Glovo. Chiamare resta un link. */}
         {locali.map((l) => (
           <li data-locale={l.id}>
-            <span class="book__civic" aria-hidden="true">{l.civic}</span>
-            <div>
+            <div class="book__info">
               <p class="book__name">{l.nameShort}</p>
               <p class="u-label book__addr">{l.street} · {l.zone}</p>
               {l.hours.length > 0 && <p class="book__hours">{formatHours(l.hours, t.hours).join(' · ')}</p>}
             </div>
             <div class="book__actions">
-              {l.bookable && <a class="btn btn--ink" href={l.bookingUrl} target="_blank" rel="noopener" data-widget={l.id}>{t.book.book}</a>}
-              {l.orderUrl && <a class="btn btn--terracotta btn--order" href={l.orderUrl} target="_blank" rel="noopener">{t.book.order} <span aria-hidden="true">&#8599;</span></a>}
-              {l.phone && <a class:list={['btn', l.bookable || l.orderUrl ? 'btn--ghost' : 'btn--ink']} href={telHref(l.phone)}>{t.book.call}</a>}
+              {l.bookable ? (
+                <a class="btn btn--ink" href={l.bookingUrl} target="_blank" rel="noopener" data-widget={l.id}>{t.book.book}</a>
+              ) : l.orderUrl ? (
+                <a class="btn btn--terracotta btn--order" href={l.orderUrl} target="_blank" rel="noopener">{t.book.order} <span aria-hidden="true">&#8599;</span></a>
+              ) : null}
+              {l.phone && <a class="book__call" href={telHref(l.phone)}>{t.book.call} · {l.phone}</a>}
             </div>
           </li>
         ))}
@@ -92,6 +96,7 @@ const widgets = Object.fromEntries(
         if (id && widgets[id]) showWidget(id);
         else showList(id);
         dlg.showModal();
+        document.documentElement.classList.add('is-locked');
       });
     });
     dlg.querySelectorAll<HTMLElement>('[data-widget]').forEach((el) => {
@@ -101,6 +106,7 @@ const widgets = Object.fromEntries(
         showWidget(el.dataset.widget!);
       });
     });
+    dlg.addEventListener('close', () => document.documentElement.classList.remove('is-locked'));
     back.addEventListener('click', () => showList(null));
     dlg.querySelector('.book__close')?.addEventListener('click', () => dlg.close());
     dlg.addEventListener('click', (e) => {

@@ -1,0 +1,14 @@
+---
+// Le sezioni con `data-reveal` salgono piano quando entrano in vista. Senza JS,
+// o con il movimento ridotto, sono già al loro posto.
+---
+<script>
+  const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
+  if (items.length && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('reveal-armed');
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    }, { rootMargin: '0px 0px -10% 0px' });
+    items.forEach((el) => io.observe(el));
+  }
+</script>

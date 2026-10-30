@@ -7,8 +7,9 @@ import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
 import { ui } from '../lib/ui';
 
-interface Props { lang: Lang; locali: Locale[] }
-const { lang, locali } = Astro.props;
+// `overHero`: solo la home apre su una foto e l'header parte trasparente
+interface Props { lang: Lang; locali: Locale[]; overHero?: boolean }
+const { lang, locali, overHero = false } = Astro.props;
 const t = ui[lang];
 // `preview` è la foto che il menu mostra a destra quando passi sulla voce
 const links = [
@@ -30,7 +31,7 @@ const index = [
   { label: t.nav.reviews, hash: 'recensioni' },
 ];
 ---
-<header class="site-header">
+<header class:list={['site-header', { 'is-solid': !overHero }]} data-over-hero={overHero ? '' : undefined}>
   <a class="brand" href={lp(lang, '/')} aria-label={t.nav.home}><Logo /></a>
   <nav class="site-header__index" aria-label={t.nav.sections}>
     <ul>
@@ -39,7 +40,7 @@ const index = [
   </nav>
   <div class="site-header__actions">
     <a class="btn btn--ink" href={lp(lang, '/#locali')} data-book>{t.nav.book}</a>
-    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-overlay" aria-label={t.nav.open}>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav-overlay" aria-label={t.nav.open} data-open={t.nav.open} data-close={t.nav.close}>
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -65,7 +66,7 @@ const index = [
   <div class="nav-overlay__preview" aria-hidden="true">
     {previews.map((p, i) => (
       <div class:list={['nav-overlay__shot', { 'is-active': i === 0 }]} data-shot={p.slot}>
-        <Figure slot={p.slot} alt="" label="" widths={[480, 800, 1200]} sizes="38vw" />
+        <Figure slot={p.slot} alt="" label="" widths={[960, 1440, 1920]} sizes="(min-width: 901px) 150vh, 1px" />
       </div>
     ))}
   </div>
@@ -78,12 +79,14 @@ const index = [
   const closeBtn = overlay?.querySelector<HTMLButtonElement>('.nav-overlay__close');
 
   // Sopra l'hero l'header è trasparente; appena la pagina scorre diventa una
-  // barra piena. Scendendo si fa da parte per lasciare spazio, risalendo torna.
+  // barra piena, e nelle pagine senza hero lo è da subito. Scendendo si fa da
+  // parte per lasciare spazio, risalendo torna.
   if (header) {
+    const always = !header.hasAttribute('data-over-hero');
     let last = window.scrollY;
     const update = () => {
       const y = window.scrollY;
-      header.classList.toggle('is-solid', y > 24);
+      header.classList.toggle('is-solid', always || y > 24);
       if (y < 140 || y < last - 6) header.classList.remove('is-hidden');
       else if (y > last + 6) header.classList.add('is-hidden');
       if (Math.abs(y - last) > 6) last = y;
@@ -108,10 +111,15 @@ const index = [
   }
 
   if (burger && overlay) {
+    // Col menu aperto il resto del sito è inerte: Tab resta nel menu, lo screen
+    // reader legge solo il menu e la pagina sotto non scorre, anche su iOS.
+    const rest = [...document.querySelectorAll<HTMLElement>('main, footer, .mobile-bar, .site-header__index, .site-header .brand, .site-header .btn')];
     const setOpen = (open: boolean) => {
       overlay.hidden = !open;
       burger.setAttribute('aria-expanded', String(open));
-      document.body.style.overflow = open ? 'hidden' : '';
+      burger.setAttribute('aria-label', open ? burger.dataset.close! : burger.dataset.open!);
+      document.documentElement.classList.toggle('is-locked', open);
+      rest.forEach((el) => (el.inert = open));
       if (open) overlay.querySelector('a')?.focus();
       else burger.focus();
     };

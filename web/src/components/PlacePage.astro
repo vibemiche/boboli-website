@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import Figure from './Figure.astro';
-import BookButton from './BookButton.astro';
-import OrderButton from './OrderButton.astro';
+import FormatBlock from './FormatBlock.astro';
+import Badges from './Badges.astro';
+import Reveal from './Reveal.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
-import { getLocali } from '../lib/locali';
+import { getLocali, toneOf } from '../lib/locali';
 import { ui } from '../lib/ui';
 import { telHref, formatHours, directionsUrl } from '../lib/contact';
 import { findSeries } from '../lib/images';
@@ -19,10 +20,11 @@ const site = Astro.site!;
 const locali = await getLocali(lang);
 const l = locali.find((x) => x.id === id)!;
 const others = locali.filter((x) => x.id !== id);
+const tone = toneOf(l.id);
 const maps = directionsUrl(l);
 const path = `/locali/${l.id}/`;
 const image = await socialImage(`locali/${l.id}`, site);
-// Le foto in più del locale: `locali/<id>-2-….jpg`, `locali/<id>-3-….jpg`, sotto ai dati.
+// Le foto in più del locale: `locali/<id>-2-….jpg`, `locali/<id>-3-….jpg`, accanto alle informazioni.
 const gallery = findSeries(`locali/${l.id}`)
   .filter(({ name }) => name !== l.id)
   .map(({ name }, i) => ({ slot: `locali/${name}`, alt: l.galleryAlt[i] ?? l.imageAlt }));
@@ -41,57 +43,51 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <article class="place">
-    <nav class="u-label place__crumb" aria-label={t.place.crumb}>
-      <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">{l.nameShort}</span>
-    </nav>
-    <header class="place__head">
-      <span class="place__civic" aria-hidden="true">{l.civic}</span>
-      <div>
-        <p class="u-label place__kicker">{l.nameLegal}</p>
-        <h1 class="place__title">{l.title}</h1>
-      </div>
-    </header>
-    <div class="place__media">
-      <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[768, 1280, 1920]} priority transition={`locale-${l.id}`} />
-    </div>
-    <div class="place__grid">
-      <div class="place__body">
-        {l.body.map((p) => <p class="place__text">{p}</p>)}
-        <p class="place__text">{t.place.text}</p>
-        <div class="place__actions">
-          <OrderButton lang={lang} locale={l} class="btn--terracotta" />
-          <BookButton lang={lang} locale={l} class="btn--ink" />
-          {l.bookable && l.phone && <a class="btn btn--ghost" href={telHref(l.phone)}>{t.book.call}</a>}
-          <a class="btn btn--ghost" href={maps} target="_blank" rel="noopener">{t.place.directions}</a>
-        </div>
-      </div>
-      <div class="place__side">
+    <FormatBlock lang={lang} locale={l} {...tone} level="h1" kicker={l.nameLegal} more={false} priority>
+      <nav slot="crumb" class="u-label place__crumb" aria-label={t.place.crumb}>
+        <a href={lp(lang, '/')}>Boboli</a> <span aria-hidden="true">›</span> <span aria-current="page">{l.nameShort}</span>
+      </nav>
+      <Fragment slot="actions">
+        {l.bookable && l.phone && <a class="btn btn--ghost" href={telHref(l.phone)}>{t.book.call}</a>}
+        <a class="btn btn--ghost" href={maps} target="_blank" rel="noopener">{t.place.directions}</a>
+      </Fragment>
+    </FormatBlock>
+
+    <section class:list={['place__info', { 'place__info--photo': gallery.length > 0 }]}>
+      <div class="place__info-text" data-reveal>
         <dl class="place__facts">
           <div><dt class="u-label">{t.place.address}</dt><dd><a href={maps} target="_blank" rel="noopener">{l.street}, {l.postalCode} {l.city}</a><br />{l.zone}</dd></div>
           {l.phone && <div><dt class="u-label">{t.place.phone}</dt><dd><a href={telHref(l.phone)}>{l.phone}</a></dd></div>}
           {l.hours.length > 0 && <div><dt class="u-label">{t.place.hours}</dt><dd>{formatHours(l.hours, t.hours).map((h) => <span>{h}<br /></span>)}</dd></div>}
           <div><dt class="u-label">{t.place.cuisine}</dt><dd>{t.place.cuisineValue}</dd></div>
         </dl>
-        {gallery.map((g) => (
-          <Figure class="place__photo" slot={g.slot} alt={g.alt} label="" widths={[480, 800, 1200]} sizes="(max-width: 760px) 100vw, 40vw" />
-        ))}
+        <div class="place__promise">
+          <Badges lang={lang} class="place__badges" />
+          <p>{t.place.text}</p>
+        </div>
       </div>
-    </div>
+      {gallery.map((g) => (
+        <div class="place__photo" data-reveal>
+          <Figure slot={g.slot} alt={g.alt} label="" widths={[480, 800, 1200, 1600]} sizes="(max-width: 760px) 100vw, 42vw" />
+        </div>
+      ))}
+    </section>
+
     <nav class="place__others" aria-label={t.place.others}>
-      <p class="u-label">{t.place.others}</p>
-      <ol class="choices__list">
+      <h2 class="place__others-title">{t.place.others}</h2>
+      <ul class="others" data-reveal>
         {others.map((o) => (
           <li>
-            <a href={lp(lang, `/locali/${o.id}/`)}>
-              {o.seal && <Figure class="choices__seal" slot={`illustrazioni/${o.seal}`} alt="" label="" widths={[120, 240]} sizes="104px" />}
-              <span class="choices__verb">{o.choiceVerb}</span>
-              <span class="choices__sub">{o.choiceSub}</span>
-              <span class="choices__where">{o.street}</span>
-              <span class="choices__arrow" aria-hidden="true">&rarr;</span>
+            <a class="others__card" href={lp(lang, `/locali/${o.id}/`)}>
+              <Figure class="others__photo" slot={`locali/${o.id}`} alt="" label="" widths={[480, 800, 1200, 1600]} sizes="(max-width: 760px) max(100vw, 500px), 40vw" transition={`locale-${o.id}`} />
+              <span class="u-label others__kicker">{o.street}</span>
+              <span class="others__verb">{o.choiceVerb} <span class="others__arrow" aria-hidden="true">&rarr;</span></span>
+              <span class="others__sub">{o.choiceSub}</span>
             </a>
           </li>
         ))}
-      </ol>
+      </ul>
     </nav>
   </article>
+  <Reveal />
 </Base>

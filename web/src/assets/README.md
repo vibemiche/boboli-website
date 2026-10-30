@@ -93,9 +93,9 @@ Quale illustrazione va accanto a quale locale si decide nel campo `seal` di
 - **I nomi devono essere esatti**, minuscoli, senza spazi né accenti. Un nome sbagliato non
   rompe niente: quel riquadro resta grigio. Rinomini e ricarichi.
 - **Niente desaturazione**: sul cibo saturazione e contrasto restano pieni.
-- **Lo stesso tono per tutte**: le foto caricate finora sono passate da `foto-originali/uniforma.py`
-  (bilanciamento del bianco verso un neutro caldo, leggera curva a S, neri verso l'inchiostro del
-  sito). Gli originali restano in `foto-originali/`, così si può rifare il trattamento.
+- **Lo stesso tono per tutte**: le foto caricate finora hanno un bilanciamento del bianco verso un
+  neutro caldo, una leggera curva a S e i neri verso l'inchiostro del sito. Una foto nuova va
+  trattata allo stesso modo, così resta coerente con le altre.
 - Per un brand 100% gluten free: controlla che nell'inquadratura non ci sia niente che legga
   come *grano* — un sacco di farina con la spiga, un pacco di semola.
 

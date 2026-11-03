@@ -115,7 +115,7 @@ const index = [
   if (burger && overlay) {
     // Col menu aperto il resto del sito è inerte: Tab resta nel menu, lo screen
     // reader legge solo il menu e la pagina sotto non scorre, anche su iOS.
-    const rest = [...document.querySelectorAll<HTMLElement>('main, footer, .mobile-bar, .site-header__index, .site-header .brand, .site-header .btn')];
+    const rest = [...document.querySelectorAll<HTMLElement>('main, footer, .mobile-bar, .whatsapp, .site-header__index, .site-header .brand, .site-header .btn')];
     const setOpen = (open: boolean) => {
       overlay.hidden = !open;
       burger.setAttribute('aria-expanded', String(open));

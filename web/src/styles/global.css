@@ -8,14 +8,19 @@
 @import '@fontsource/cooper-hewitt/700.css';
 
 :root{
-  --cream:#f5ead8;
-  /* lo sfondo del sito: bianco. Il crema resta solo per le scritte sui fondi scuri */
+  /* le scritte sui fondi scuri: bianco puro, niente panna */
+  --cream:#fff;
+  /* lo sfondo del sito: bianco */
   --bg:#fff;
   --ink:#201e1d;
   --terracotta:#c67139;
+  /* la terracotta dei fondi pieni con scritte bianche: più profonda, contrasto 4,9:1 */
+  --terracotta-deep:#ad5a25;
   --sage:#4c5a3b;
   --gingham:#b23a33;
   --wine:#5e1c27;
+  /* il fondo della parte finale della home: dai locali alle domande frequenti */
+  --porpora:#5c1a48;
   --paper:var(--bg);
 
   --ph-bg:#e3dccc;
@@ -25,10 +30,10 @@
   --address:#a9a196;
 
   --rule:rgba(32,30,29,.18);
-  --rule-inverse:rgba(245,234,216,.22);
-  --cream-60:rgba(245,234,216,.6);
-  --cream-50:rgba(245,234,216,.5);
-  --cream-45:rgba(245,234,216,.45);
+  --rule-inverse:rgba(255,255,255,.22);
+  --cream-60:rgba(255,255,255,.6);
+  --cream-50:rgba(255,255,255,.64);
+  --cream-45:rgba(255,255,255,.64);
 
   --bar-h:50px;
   /* il respiro verticale di ogni sezione della home */
@@ -95,11 +100,6 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 }
 
 /* — il passaggio tra le sezioni — */
-/* due sezioni crema di fila: un filetto con i margini, non uno stacco vuoto */
-:is(.trust,.menu,.reviews) + :is(.reviews){position:relative}
-:is(.trust,.menu,.reviews) + :is(.reviews)::before{
-  content:"";position:absolute;top:0;left:var(--gutter);right:var(--gutter);height:1px;background:var(--rule);
-}
 /* le ancore si fermano sotto l'header fisso */
 [id]{scroll-margin-top:clamp(72px,7vw,96px)}
 /* le sezioni salgono piano quando entrano in vista (solo con JS e movimento) */
@@ -126,10 +126,10 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   transition:background-color .18s ease,color .18s ease;
 }
 .btn--ink{background:var(--ink);color:var(--cream)}
-.btn--ink:hover{background:var(--terracotta);color:#fff}
+.btn--ink:hover{background:var(--terracotta-deep);color:#fff}
 .btn--cream{background:var(--bg);color:var(--ink)}
-.btn--cream:hover{background:var(--terracotta);color:#fff}
-.btn--terracotta{background:var(--terracotta);color:#fff}
+.btn--cream:hover{background:var(--terracotta-deep);color:#fff}
+.btn--terracotta{background:var(--terracotta-deep);color:#fff}
 .btn--terracotta:hover{background:var(--bg);color:var(--ink)}
 .btn--ghost{background:none;color:inherit;box-shadow:inset 0 0 0 1px currentColor}
 .btn--ghost:hover{background:var(--ink);color:var(--cream);box-shadow:none}
@@ -209,13 +209,15 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 /* le voci entrano una dopo l'altra */
 .nav-overlay__list li{animation:overlay-item .5s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.06s + var(--i) * .04s)}
 @keyframes overlay-item{from{opacity:0;transform:translateY(14px)}}
+.nav-overlay__list{gap:6px}
+/* il nome sopra, la via sotto: con i nomi lunghi dei locali la riga non si spezza a caso */
 .nav-overlay__list a{
-  display:inline-flex;align-items:baseline;gap:.4em;padding:4px 0;
-  font-weight:700;font-size:clamp(30px,4.6vw,62px);line-height:1;letter-spacing:-.03em;
+  display:inline-flex;flex-direction:column;align-items:flex-start;gap:2px;padding:6px 0;
+  font-weight:700;font-size:clamp(22px,2.7vw,38px);line-height:1.02;letter-spacing:-.03em;
   transition:color .2s ease,transform .3s cubic-bezier(.2,.7,.2,1);
 }
 @media (hover:hover){.nav-overlay__list a:is(:hover,:focus-visible){color:var(--terracotta);transform:translateX(.15em)}}
-.nav-overlay__list small{font-weight:100;font-size:.42em;letter-spacing:0;color:var(--cream-60)}
+.nav-overlay__list small{font-weight:400;font-size:clamp(13px,1vw,15px);letter-spacing:0;color:var(--cream-60)}
 .nav-overlay__more{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:18px;border-top:1px solid var(--rule-inverse)}
 .nav-overlay__more a{font-weight:400;font-size:clamp(16px,1.6vw,22px);color:var(--cream-60)}
 .nav-overlay__more a:hover{color:var(--terracotta)}
@@ -229,10 +231,13 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .nav-overlay__shot img{transform:scale(1.04);transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
 .nav-overlay__shot.is-active img{transform:none}
 @media (max-height:500px){
-  .nav-overlay__list a{font-size:clamp(22px,6vh,34px)}
+  .nav-overlay__list a{font-size:clamp(20px,5vh,30px)}
   .nav-overlay__main{gap:14px}
 }
 @media (max-width:900px){
+  .nav-overlay__list a{font-size:24px}
+  /* la X di chiusura sta in alto a destra: l'elenco parte sotto */
+  .nav-overlay__main{justify-content:flex-start;padding-top:max(84px,calc(env(safe-area-inset-top) + 72px))}
   .nav-overlay{grid-template-columns:1fr}
   .nav-overlay__preview{display:none}
 }
@@ -307,7 +312,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 }
 .format--dark .format__title{color:var(--cream)}
 .format__copy{max-width:46ch;color:var(--muted);font-size:var(--body-lg);line-height:1.6}
-.format--dark .format__copy{color:rgba(245,234,216,.75)}
+.format--dark .format__copy{color:rgba(255,255,255,.75)}
 .format__address{color:var(--address)}
 .format--dark .format__address{color:var(--cream-50)}
 .format--dark .link-more{color:var(--cream)}
@@ -364,10 +369,6 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   .trust{grid-template-columns:1fr}
   .trust__media{order:-1;min-height:0;aspect-ratio:16/9}
   .trust__body{padding:var(--section-y) var(--gutter)}
-}
-.trust__caption{
-  position:absolute;left:clamp(16px,2vw,28px);bottom:clamp(16px,2vw,28px);
-  padding:8px 12px;background:rgba(32,30,29,.72);color:var(--cream);
 }
 
 /* ── menu: la carta ──────────────────────────────────────────────────────
@@ -480,7 +481,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .reviews.is-in .reviews__bar::before{transform:none;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
 
 /* ── i locali: quattro indirizzi ─────────────────────────────────────────── */
-.locations{padding:var(--section-y) var(--gutter);background:var(--ink);color:var(--cream)}
+.locations{padding:var(--section-y) var(--gutter);background:var(--porpora);color:var(--cream)}
 .locations__title{
   max-width:16ch;margin-bottom:16px;
   font-weight:700;font-size:clamp(34px,5.19vw,82px);line-height:.94;letter-spacing:-.03em;
@@ -493,7 +494,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:10px;
   padding:24px;font-size:var(--body);
 }
-.map__fallback b{margin-right:.4em;color:var(--terracotta)}
+.map__fallback b{margin-right:.4em;color:#8a4318}
 /* leaflet.css arriva dopo questo file: ogni regola qui sotto parte da
    `.map.leaflet-container` per vincere per specificità, non per ordine */
 .map.leaflet-container{font-family:inherit;background:#e6dfd3}
@@ -507,7 +508,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .map__pin,.map__mark{width:0;height:0}
 .map__pin span{
   position:absolute;left:0;bottom:calc(10px + var(--lift,0px));transform:translateX(-50%);
-  padding:6px 8px;background:var(--terracotta);color:#fff;
+  padding:6px 8px;background:var(--terracotta-deep);color:#fff;
   font-weight:700;font-size:15px;line-height:1;letter-spacing:-.02em;white-space:nowrap;
   box-shadow:0 2px 8px rgba(32,30,29,.25);transition:background .15s;
 }
@@ -551,20 +552,20 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
 .locations__firenze-caption{margin-top:12px;font-weight:100;font-size:clamp(16px,2.2vw,32px);letter-spacing:-.02em;color:var(--cream-60)}
 
 /* ── blocco SEO + FAQ ────────────────────────────────────────────────────── */
-.seo{padding:var(--section-y) var(--gutter)}
+.seo{padding:var(--section-y) var(--gutter);background:var(--porpora);color:var(--cream);box-shadow:inset 0 1px 0 var(--rule-inverse)}
 .seo__title{
   max-width:22ch;margin-bottom:20px;
   font-weight:700;font-size:clamp(22px,3.15vw,50px);line-height:1.05;letter-spacing:-.03em;
 }
 .seo__grid{display:grid;grid-template-columns:1.2fr 1fr;gap:34px}
-.seo__copy{display:flex;flex-direction:column;gap:14px;color:var(--muted);font-size:var(--body-lg);line-height:1.65}
-.seo__copy a{color:var(--ink);border-bottom:1px solid var(--rule)}
+.seo__copy{display:flex;flex-direction:column;gap:14px;color:rgba(255,255,255,.8);font-size:var(--body-lg);line-height:1.65}
+.seo__copy a{color:var(--cream);border-bottom:1px solid var(--rule-inverse)}
 .seo__copy a:hover{color:var(--terracotta);border-color:currentColor}
 
 .faq{display:flex;flex-direction:column}
-.faq__title{color:var(--kicker);margin-bottom:6px}
-.faq details{border-top:1px solid var(--rule)}
-.faq details:last-child{border-bottom:1px solid var(--rule)}
+.faq__title{color:var(--cream-60);margin-bottom:6px}
+.faq details{border-top:1px solid var(--rule-inverse)}
+.faq details:last-child{border-bottom:1px solid var(--rule-inverse)}
 .faq summary{
   display:flex;justify-content:space-between;align-items:center;gap:12px;
   padding:14px 0;cursor:pointer;list-style:none;
@@ -577,7 +578,7 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   transition:transform .2s ease;
 }
 .faq details[open] .faq__sign{transform:rotate(45deg)}
-.faq details p{padding:0 26px 16px 0;color:var(--muted);font-size:var(--body);line-height:1.6}
+.faq details p{padding:0 26px 16px 0;color:rgba(255,255,255,.75);font-size:var(--body);line-height:1.6}
 
 /* ── pagina del locale ───────────────────────────────────────────────────── */
 /* l'apertura è il blocco della home: sotto l'header, alto quasi quanto lo schermo */
@@ -690,7 +691,7 @@ html.is-locked{overflow:hidden}
 .site-footer__badges{--badge-h:72px;margin-top:18px}
 .site-footer__col{display:flex;flex-direction:column;gap:9px}
 .site-footer__col .u-label{color:var(--cream-45)}
-.site-footer__col a{color:rgba(245,234,216,.8);font-size:clamp(12px,1.2vw,16px);line-height:1.3}
+.site-footer__col a{color:rgba(255,255,255,.8);font-size:clamp(12px,1.2vw,16px);line-height:1.3}
 .site-footer__col a:hover{color:var(--terracotta)}
 .site-footer__addr{display:block;color:var(--cream-50);font-size:clamp(11px,1.02vw,13px);line-height:1.4}
 
@@ -736,6 +737,30 @@ html.is-locked{overflow:hidden}
 .lang-switch a[aria-current]{color:var(--cream);text-decoration:underline;text-decoration-color:var(--terracotta);text-decoration-thickness:2px;text-underline-offset:6px}
 .site-footer__lang{margin:14px 0 0 -12px}
 .nav-overlay__lang{margin-left:-12px}
+
+/* ── WhatsApp: il pulsante fluttuante in basso a destra ─────────────────── */
+.whatsapp{
+  position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(22px,env(safe-area-inset-bottom));z-index:14;
+  display:flex;align-items:center;height:58px;padding:0 13px;border-radius:29px;
+  background:#25d366;color:#fff;box-shadow:0 10px 24px -8px rgba(32,30,29,.45);
+  transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s ease;
+}
+.whatsapp svg{width:32px;height:32px;flex:none}
+/* da computer, al passaggio, si apre l'etichetta «Scrivici su WhatsApp» */
+.whatsapp__label{
+  max-width:0;overflow:hidden;white-space:nowrap;
+  font-weight:700;font-size:13px;letter-spacing:.02em;
+  transition:max-width .35s cubic-bezier(.2,.7,.2,1),margin .35s cubic-bezier(.2,.7,.2,1);
+}
+@media (hover:hover){
+  .whatsapp:hover{transform:translateY(-2px);box-shadow:0 14px 28px -8px rgba(32,30,29,.5)}
+  .whatsapp:hover .whatsapp__label{max-width:240px;margin:0 6px 0 10px}
+}
+.whatsapp:focus-visible .whatsapp__label{max-width:240px;margin:0 6px 0 10px}
+/* da telefono sta sopra la barra con il menu e la prenotazione */
+@media (max-width:760px){
+  .whatsapp{bottom:calc(var(--bar-h) + 12px + env(safe-area-inset-bottom));height:54px;padding:0 11px}
+}
 
 /* ── barra fissa mobile ──────────────────────────────────────────────────── */
 .mobile-bar{display:none}
@@ -834,7 +859,7 @@ html.is-locked{overflow:hidden}
 @media (hover:hover){.ticket:hover{transform:translateY(-4px) rotate(-.4deg)}}
 .ticket__stub{
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-  padding:20px 8px;background:var(--terracotta);color:var(--cream);
+  padding:20px 8px;background:var(--terracotta-deep);color:var(--cream);
   border-right:2px dashed rgba(32,30,29,.55);
 }
 .ticket__civic{font-weight:700;font-size:clamp(28px,3.4vw,52px);line-height:.9;letter-spacing:-.03em}
@@ -886,7 +911,7 @@ html.is-locked{overflow:hidden}
 .band__steps p{font-size:var(--body-lg);line-height:1.5}
 .band__action{grid-column:2;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 .band__cta{gap:.7em;padding:18px 30px}
-.band__cta:hover{background:var(--terracotta);color:#fff}
+.band__cta:hover{background:var(--terracotta-deep);color:#fff}
 .band__soon{font-size:var(--body-lg);line-height:1.5}
 .band__soon a{margin-left:.4em;font-weight:700;border-bottom:1px solid currentColor}
 
@@ -916,7 +941,7 @@ html.is-locked{overflow:hidden}
   font-size:11px;letter-spacing:var(--track);
 }
 .apply__cta{gap:.7em;margin-top:22px;padding:18px 30px}
-.apply__cta:hover{background:var(--terracotta);color:#fff}
+.apply__cta:hover{background:var(--terracotta-deep);color:#fff}
 
 /* la tavola lunga: un segnaposto per ogni occasione */
 .table{margin-top:clamp(44px,7vw,110px)}
@@ -944,6 +969,7 @@ html.is-locked{overflow:hidden}
     --body:15px;
     --body-lg:16px;
     --section-y:40px;
+    --bar-h:64px;
   }
   .site-header{padding:16px var(--gutter)}
   .site-header.is-solid{padding-block:8px}
@@ -1095,17 +1121,24 @@ html.is-locked{overflow:hidden}
   .site-footer__col{gap:7px}
   .site-footer__col a{font-size:13px}
 
+  /* due pulsanti veri dentro una barra chiara: il menu disegnato a filo,
+     la prenotazione piena in terracotta, ognuno con la sua icona */
   .mobile-bar{
     position:sticky;bottom:0;z-index:15;
-    display:flex;min-height:var(--bar-h);padding-bottom:env(safe-area-inset-bottom);background:var(--ink);
+    display:flex;gap:8px;padding:8px var(--gutter) calc(8px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    box-shadow:0 -1px 0 var(--rule),0 -10px 24px -18px rgba(32,30,29,.45);
   }
   .mobile-bar__item{
-    flex:1;display:flex;align-items:center;justify-content:center;gap:.6em;padding:17px 10px;
-    color:var(--cream);font-weight:700;font-size:11px;
-    letter-spacing:var(--track);text-transform:uppercase;
+    flex:1;display:flex;align-items:center;justify-content:center;gap:.6em;min-height:48px;padding:0 10px;
+    font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
+    transition:background-color .2s ease,color .2s ease;
   }
-  .mobile-bar__item + .mobile-bar__item{box-shadow:inset 1px 0 0 var(--rule-inverse)}
-  .mobile-bar__item--book{flex:1.4;background:var(--terracotta);color:#fff}
+  .mobile-bar__item svg{width:18px;height:18px;flex:none}
+  .mobile-bar__item--menu{color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+  .mobile-bar__item--menu:active{background:var(--ink);color:#fff}
+  .mobile-bar__item--book{flex:1.5;background:var(--terracotta-deep);color:#fff}
+  .mobile-bar__item--book:active{background:var(--ink)}
 }
 
 /* ── tra una pagina e l'altra: la pagina sfuma, la foto del locale scivola ── */

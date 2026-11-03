@@ -9,6 +9,12 @@ const { lang } = Astro.props;
 const t = ui[lang].nav;
 ---
 <div class="mobile-bar">
-  <a class="mobile-bar__item" href={lp(lang, '/menu/')}>{t.food}</a>
-  <a class="mobile-bar__item mobile-bar__item--book" href={lp(lang, '/#locali')} data-book>{t.book}</a>
+  <a class="mobile-bar__item mobile-bar__item--menu" href={lp(lang, '/menu/')}>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Zm0 14a2 2 0 0 1 2-2h12V4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8h4M9 11h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    {t.food}
+  </a>
+  <a class="mobile-bar__item mobile-bar__item--book" href={lp(lang, '/#locali')} data-book>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    {t.book}
+  </a>
 </div>

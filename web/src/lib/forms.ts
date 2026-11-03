@@ -1,3 +1,6 @@
+// WhatsApp: il numero in formato internazionale, senza + né spazi.
+export const WHATSAPP = '393775726708';
+
 // Le candidature arrivano per mail, con il CV allegato.
 export const JOBS_EMAIL = 'myacademysrl@gmail.com';
 

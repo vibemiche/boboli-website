@@ -32,6 +32,7 @@ const it = {
     reviews: 'Le recensioni',
     gf: 'Senza glutine',
     language: 'Lingua',
+    whatsapp: 'Scrivici su WhatsApp',
   },
   hero: {
     word: 'A tavola!',
@@ -273,6 +274,7 @@ const en: Dict = {
     reviews: 'Reviews',
     gf: 'Gluten free',
     language: 'Language',
+    whatsapp: 'Message us on WhatsApp',
   },
   hero: {
     word: 'A tavola!',
@@ -509,6 +511,7 @@ const es: Dict = {
     reviews: 'Reseñas',
     gf: 'Sin gluten',
     language: 'Idioma',
+    whatsapp: 'Escríbenos por WhatsApp',
   },
   hero: {
     word: 'A tavola!',
@@ -745,6 +748,7 @@ const de: Dict = {
     reviews: 'Bewertungen',
     gf: 'Glutenfrei',
     language: 'Sprache',
+    whatsapp: 'Schreib uns auf WhatsApp',
   },
   hero: {
     word: 'A tavola!',
@@ -981,6 +985,7 @@ const fr: Dict = {
     reviews: 'Les avis',
     gf: 'Sans gluten',
     language: 'Langue',
+    whatsapp: 'Écris-nous sur WhatsApp',
   },
   hero: {
     word: 'A tavola!',

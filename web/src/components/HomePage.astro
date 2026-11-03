@@ -32,12 +32,12 @@ const jsonLd = [
 ---
 <Base lang={lang} path="/" title={t.meta.homeTitle} description={t.meta.homeDesc} image={image} jsonLd={jsonLd} overHero>
   <Hero lang={lang} />
+  <Reviews lang={lang} />
   <div id="i-nostri-locali">
     {formats.map((l) => <FormatBlock lang={lang} locale={l} {...toneOf(l.id)} />)}
   </div>
   <Trust lang={lang} />
   <MenuSection lang={lang} />
-  <Reviews lang={lang} />
   <Locations lang={lang} locali={locali} />
   <SeoFaq lang={lang} faq={faq} />
   <Reveal />

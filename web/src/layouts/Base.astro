@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
+import WhatsApp from '../components/WhatsApp.astro';
 import BookingDialog from '../components/BookingDialog.astro';
 import { indexable } from '../lib/site';
 import { LANGS, FALLBACK, OG_LOCALE, lp } from '../lib/i18n';
@@ -92,5 +93,6 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
   <Footer lang={lang} locali={locali} path={path} />
   <BookingDialog lang={lang} locali={locali} />
   <MobileBar lang={lang} />
+  <WhatsApp lang={lang} />
 </body>
 </html>

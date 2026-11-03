@@ -21,6 +21,8 @@
   --wine:#5e1c27;
   /* il fondo della parte finale della home: dai locali alle domande frequenti */
   --porpora:#5c1a48;
+  /* l'arancio acceso dei bottoni sul porpora: 5:1 contro il fondo, scritta porpora sopra */
+  --arancio:#f08c45;
   --paper:var(--bg);
 
   --ph-bg:#e3dccc;
@@ -304,6 +306,8 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   padding:var(--section-y) clamp(24px,4.4vw,72px);
 }
 .format__text{display:flex;flex-direction:column;gap:10px}
+.format__heading{display:flex;flex-direction:column;gap:10px}
+.format__heading > span{display:block}
 .format__kicker{color:var(--kicker)}
 .format--dark .format__kicker{color:var(--cream-60)}
 .format__title{
@@ -578,6 +582,15 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   transition:transform .2s ease;
 }
 .faq details[open] .faq__sign{transform:rotate(45deg)}
+
+/* sul porpora la terracotta si spegne (2,5:1): bottoni, numeri e passaggi del mouse
+   diventano arancio acceso, con la scritta porpora, e si staccano netti dal fondo */
+:is(.locations,.seo) .btn--terracotta{background:var(--arancio);color:var(--porpora)}
+:is(.locations,.seo) .btn--terracotta:hover{background:#fff;color:var(--porpora)}
+.locations__civic,
+.locations__list li.is-active .locations__name,
+:is(.locations,.seo) :is(.locations__name,.locations__meta a,.seo__copy a,.faq summary):hover{color:var(--arancio)}
+:is(.locations,.seo) :focus-visible{outline-color:var(--arancio)}
 .faq details p{padding:0 26px 16px 0;color:rgba(255,255,255,.75);font-size:var(--body);line-height:1.6}
 
 /* ── pagina del locale ───────────────────────────────────────────────────── */

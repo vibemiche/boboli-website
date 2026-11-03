@@ -6,6 +6,10 @@ import type { Dict } from './ui';
 import { findImage } from './images';
 import { openingHoursSpecification } from './contact';
 
+/** La scheda del locale su Google Maps, cercata per nome e indirizzo: gli stessi del NAP. */
+const mapsUrl = (l: Locale) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${l.nameLegal}, ${l.street}, ${l.postalCode} ${l.city}`)}`;
+
 const abs = (path: string, site: URL) => new URL(path, site).href;
 const orgId = (site: URL) => abs(lp('it', '/'), site) + '#organization';
 
@@ -41,6 +45,7 @@ export function restaurantSchema(l: Locale, lang: Lang, t: Dict, site: URL, imag
       addressCountry: 'IT',
     },
     ...(l.geo ? { geo: { '@type': 'GeoCoordinates', latitude: l.geo.lat, longitude: l.geo.lng } } : {}),
+    hasMap: mapsUrl(l),
     ...(l.phone ? { telephone: l.phone } : {}),
     ...(l.hours.length ? { openingHoursSpecification: openingHoursSpecification(l.hours) } : {}),
     servesCuisine: t.meta.cuisine,

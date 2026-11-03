@@ -24,10 +24,11 @@ interface Props {
   more?: boolean;
   priority?: boolean;
 }
-const { lang, locale: l, dark = false, wine = false, reverse = false, feature = false, level = 'h2', kicker = l.kicker, more = true, priority = false } = Astro.props;
+const { lang, locale: l, dark = false, wine = false, reverse = false, feature = false, level = 'h2', kicker = l.nameLegal, more = true, priority = false } = Astro.props;
 const t = ui[lang];
 const Title = level;
-// il bollino del To-Go: il testo gira tutto intorno, come sull'etichetta di un sacchetto
+// il bollino del To-Go: il testo gira tutto intorno, come sull'etichetta di un sacchetto.
+// Qui basta il nome breve (`kicker` nei dati): quello completo non ci starebbe nel giro.
 const stamp = `${l.kicker} · ${l.street} · ${t.badges.gf} · `;
 const stampId = `bollino-${l.id}`;
 ---
@@ -48,8 +49,12 @@ const stampId = `bollino-${l.id}`;
   <div class="format__body">
     <slot name="crumb" />
     <div class="format__text">
-      <p class="u-label format__kicker">{kicker}</p>
-      <Title class="format__title">{l.title}</Title>
+      {/* il nome del locale sta dentro il titolo: Google legge «Trattoria Boboli … Gluten Free»
+          come parte dell'intestazione, non come un'etichetta staccata */}
+      <Title class="format__heading">
+        <span class="u-label format__kicker">{kicker}</span>
+        <span class="format__title">{l.title}</span>
+      </Title>
       {l.body.map((p) => <p class="format__copy">{p}</p>)}
       <p class="u-label format__address">{l.street} · {l.zone}</p>
     </div>

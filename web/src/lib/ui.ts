@@ -3,7 +3,7 @@ const it = {
     homeTitle: 'Boboli — Ristoranti 100% senza glutine a Firenze, dal 1978',
     homeDesc:
       'Boboli a Firenze: quattro locali e un laboratorio, tutta la cucina senza glutine. Trattoria, Bargello, To-Go e Cantina in Via Romana e Via Ghibellina. Prenota online.',
-    placeTitle: (name: string, street: string) => `${name} — ristorante senza glutine a Firenze · ${street}`,
+    placeTitle: (name: string, street: string) => `${name} · ${street}, Firenze`,
     placeDesc: (legal: string, blurb: string, addr: string, zone: string) =>
       `${legal}: ${blurb} ${addr}, ${zone}, Firenze. Tutto il menu è senza glutine.`,
     skip: 'Vai al contenuto',
@@ -112,7 +112,7 @@ const it = {
     faqTitle: 'Domande che ci fanno spesso',
     faq: [
       ['Tutto il menu è senza glutine?', 'Sì, in tutti e quattro i locali. Il senza glutine è il punto di partenza della cucina: pasta, pane, panini, sughi e dolci nascono nel nostro laboratorio.'],
-      ['Dove mangiare gluten free a Firenze?', 'In Oltrarno alla Trattoria di Via Romana 45/R, da Boboli To-Go al 52 e alla Cantina al 60R; a Santa Croce al Bargello, in Via Ghibellina 147/r.'],
+      ['Dove mangiare gluten free a Firenze?', 'In Oltrarno, in Via Romana, ci sono Trattoria Boboli 1978 Gluten Free al 45/R, Trattoria Boboli La Cantina Gluten Free al 60/R e Trattoria Boboli To-Go Gluten Free al 52. A Santa Croce c\'è Trattoria Boboli Al Bargello Gluten Free, in Via Ghibellina 147/R. In tutti e quattro il menu è interamente senza glutine.'],
       ['Serve prenotare?', 'È consigliato, soprattutto a cena e nel fine settimana. Trattoria, Bargello e Cantina si prenotano online dal pulsante Prenota; ogni locale risponde anche al telefono.'],
       ['Fate asporto e prodotti da portare a casa?', "Sì: Boboli To-Go in Via Romana 52 è il locale per l'asporto, e i prodotti del laboratorio — pasta, sughi, pane — si comprano nei locali."],
     ] as [string, string][],
@@ -247,7 +247,7 @@ const en: Dict = {
     homeTitle: 'Boboli — Gluten-free restaurants in Florence since 1978',
     homeDesc:
       'Boboli in Florence: four restaurants and our own workshop, the whole kitchen 100% gluten free. Trattoria, Bargello, To-Go and Cantina on Via Romana and Via Ghibellina. Book online.',
-    placeTitle: (name, street) => `${name} — gluten-free restaurant in Florence · ${street}`,
+    placeTitle: (name, street) => `${name} · ${street}, Florence`,
     placeDesc: (legal, blurb, addr, zone) => `${legal}: ${blurb} ${addr}, ${zone}, Florence. The whole menu is gluten free.`,
     skip: 'Skip to content',
     orgDesc: 'Florentine restaurant group with four restaurants and its own production workshop: the whole kitchen is gluten free.',
@@ -353,7 +353,7 @@ const en: Dict = {
     faqTitle: 'Questions we often get',
     faq: [
       ['Is the whole menu gluten free?', 'Yes, at all four restaurants. Gluten free is where our cooking starts: pasta, bread, sandwiches, sauces and desserts are all made in our own workshop.'],
-      ['Where can I eat gluten free in Florence?', 'In the Oltrarno at the Trattoria on Via Romana 45/R, at Boboli To-Go at number 52 and at the Cantina at 60R; in Santa Croce at the Bargello, Via Ghibellina 147/r.'],
+      ['Where can I eat gluten free in Florence?', 'In the Oltrarno, on Via Romana: Trattoria Boboli 1978 Gluten Free at 45/R, Trattoria Boboli La Cantina Gluten Free at 60/R and Trattoria Boboli To-Go Gluten Free at 52. In Santa Croce: Trattoria Boboli Al Bargello Gluten Free, Via Ghibellina 147/R. In all four the whole menu is gluten free.'],
       ['Do I need to book?', 'It is recommended, especially for dinner and at weekends. You can book the Trattoria, the Bargello and the Cantina online with the Book button, or call any of the restaurants.'],
       ['Do you do takeaway and products to take home?', 'Yes: Boboli To-Go on Via Romana 52 is our takeaway spot, and products from the workshop — pasta, sauces, bread — are sold in the restaurants.'],
     ],
@@ -484,7 +484,7 @@ const es: Dict = {
     homeTitle: 'Boboli — Restaurantes sin gluten en Florencia desde 1978',
     homeDesc:
       'Boboli en Florencia: cuatro locales y obrador propio, toda la cocina 100% sin gluten. Trattoria, Bargello, To-Go y Cantina en Via Romana y Via Ghibellina. Reserva online.',
-    placeTitle: (name, street) => `${name} — restaurante sin gluten en Florencia · ${street}`,
+    placeTitle: (name, street) => `${name} · ${street}, Florencia`,
     placeDesc: (legal, blurb, addr, zone) => `${legal}: ${blurb} ${addr}, ${zone}, Florencia. Toda la carta es sin gluten.`,
     skip: 'Ir al contenido',
     orgDesc: 'Grupo de restauración florentino con cuatro locales y obrador propio: toda la cocina es sin gluten.',
@@ -590,7 +590,7 @@ const es: Dict = {
     faqTitle: 'Preguntas frecuentes',
     faq: [
       ['¿Toda la carta es sin gluten?', 'Sí, en los cuatro locales. El sin gluten es el punto de partida de la cocina: pasta, pan, bocadillos, salsas y postres nacen en nuestro obrador.'],
-      ['¿Dónde comer sin gluten en Florencia?', 'En el Oltrarno, en la Trattoria de Via Romana 45/R, en Boboli To-Go en el 52 y en la Cantina en el 60R; en Santa Croce, en el Bargello, Via Ghibellina 147/r.'],
+      ['¿Dónde comer sin gluten en Florencia?', 'En el Oltrarno, en Via Romana: Trattoria Boboli 1978 Gluten Free en el 45/R, Trattoria Boboli La Cantina Gluten Free en el 60/R y Trattoria Boboli To-Go Gluten Free en el 52. En Santa Croce: Trattoria Boboli Al Bargello Gluten Free, Via Ghibellina 147/R. En los cuatro, toda la carta es sin gluten.'],
       ['¿Hace falta reservar?', 'Es recomendable, sobre todo para cenar y los fines de semana. La Trattoria, el Bargello y la Cantina se reservan online con el botón Reservar; también puedes llamar a cualquier local.'],
       ['¿Tenéis comida para llevar y productos para casa?', 'Sí: Boboli To-Go en Via Romana 52 es nuestro local para llevar, y los productos del obrador — pasta, salsas, pan — se venden en los locales.'],
     ],
@@ -721,7 +721,7 @@ const de: Dict = {
     homeTitle: 'Boboli — Glutenfreie Restaurants in Florenz seit 1978',
     homeDesc:
       'Boboli in Florenz: vier Restaurants und eine eigene Manufaktur, die ganze Küche 100 % glutenfrei. Trattoria, Bargello, To-Go und Cantina in der Via Romana und Via Ghibellina. Online reservieren.',
-    placeTitle: (name, street) => `${name} — glutenfreies Restaurant in Florenz · ${street}`,
+    placeTitle: (name, street) => `${name} · ${street}, Florenz`,
     placeDesc: (legal, blurb, addr, zone) => `${legal}: ${blurb} ${addr}, ${zone}, Florenz. Die ganze Karte ist glutenfrei.`,
     skip: 'Zum Inhalt',
     orgDesc: 'Florentiner Gastronomiegruppe mit vier Restaurants und eigener Manufaktur: die ganze Küche ist glutenfrei.',
@@ -827,7 +827,7 @@ const de: Dict = {
     faqTitle: 'Häufige Fragen',
     faq: [
       ['Ist die ganze Karte glutenfrei?', 'Ja, in allen vier Restaurants. Glutenfrei ist der Ausgangspunkt unserer Küche: Pasta, Brot, Panini, Saucen und Desserts entstehen in unserer eigenen Manufaktur.'],
-      ['Wo kann man in Florenz glutenfrei essen?', 'Im Oltrarno in der Trattoria in der Via Romana 45/R, bei Boboli To-Go in Nr. 52 und in der Cantina in Nr. 60R; in Santa Croce im Bargello, Via Ghibellina 147/r.'],
+      ['Wo kann man in Florenz glutenfrei essen?', 'Im Oltrarno, in der Via Romana: Trattoria Boboli 1978 Gluten Free in Nr. 45/R, Trattoria Boboli La Cantina Gluten Free in Nr. 60/R und Trattoria Boboli To-Go Gluten Free in Nr. 52. In Santa Croce: Trattoria Boboli Al Bargello Gluten Free, Via Ghibellina 147/R. In allen vier ist die ganze Karte glutenfrei.'],
       ['Muss ich reservieren?', 'Empfehlenswert, vor allem abends und am Wochenende. Trattoria, Bargello und Cantina reservierst du online über den Button Reservieren; jedes Restaurant ist auch telefonisch erreichbar.'],
       ['Gibt es Essen zum Mitnehmen und Produkte für zu Hause?', 'Ja: Boboli To-Go in der Via Romana 52 ist unser Take-away, und die Produkte der Manufaktur — Pasta, Saucen, Brot — gibt es in den Restaurants.'],
     ],
@@ -958,7 +958,7 @@ const fr: Dict = {
     homeTitle: 'Boboli — Restaurants sans gluten à Florence depuis 1978',
     homeDesc:
       'Boboli à Florence : quatre adresses et notre propre atelier, toute la cuisine 100 % sans gluten. Trattoria, Bargello, To-Go et Cantina via Romana et via Ghibellina. Réservation en ligne.',
-    placeTitle: (name, street) => `${name} — restaurant sans gluten à Florence · ${street}`,
+    placeTitle: (name, street) => `${name} · ${street}, Florence`,
     placeDesc: (legal, blurb, addr, zone) => `${legal} : ${blurb} ${addr}, ${zone}, Florence. Toute la carte est sans gluten.`,
     skip: 'Aller au contenu',
     orgDesc: 'Groupe de restauration florentin avec quatre adresses et son propre atelier de production : toute la cuisine est sans gluten.',
@@ -1064,7 +1064,7 @@ const fr: Dict = {
     faqTitle: 'Questions fréquentes',
     faq: [
       ['Toute la carte est-elle sans gluten ?', "Oui, dans nos quatre adresses. Le sans gluten est le point de départ de notre cuisine : pâtes, pain, sandwichs, sauces et desserts naissent dans notre atelier."],
-      ['Où manger sans gluten à Florence ?', "Dans l'Oltrarno, à la Trattoria au 45/R de la via Romana, chez Boboli To-Go au 52 et à la Cantina au 60R ; à Santa Croce, au Bargello, via Ghibellina 147/r."],
+      ['Où manger sans gluten à Florence ?', "Dans l'Oltrarno, via Romana : Trattoria Boboli 1978 Gluten Free au 45/R, Trattoria Boboli La Cantina Gluten Free au 60/R et Trattoria Boboli To-Go Gluten Free au 52. À Santa Croce : Trattoria Boboli Al Bargello Gluten Free, via Ghibellina 147/R. Dans les quatre, toute la carte est sans gluten."],
       ['Faut-il réserver ?', "C'est conseillé, surtout le soir et le week-end. La Trattoria, le Bargello et la Cantina se réservent en ligne avec le bouton Réserver ; chaque adresse répond aussi au téléphone."],
       ['Faites-vous de la vente à emporter et des produits à rapporter ?', "Oui : Boboli To-Go, au 52 de la via Romana, est notre adresse à emporter, et les produits de l'atelier — pâtes, sauces, pain — sont en vente dans nos adresses."],
     ],

@@ -71,10 +71,19 @@ const it = {
     cta: 'Guarda cosa si mangia',
     ctaToGo: 'Il menu da portare via',
     cardMore: 'Tutta la carta',
-    dishes: [
-      ['Antipasti', 'Burrata, pomodorini e melanzane al pesto con noci.'],
-      ['Il tagliere', 'Salumi, pecorino e crostini, con un bicchiere di Chianti.'],
-    ] as [string, string][],
+    // la galleria dei piatti: solo foto, i testi servono a screen reader e Google
+    gallery: {
+      label: 'Piatti di Boboli',
+      slide: (n: number, tot: number) => `Foto ${n} di ${tot}`,
+      alts: [
+        'Bistecca alla brace servita in tavola da Boboli',
+        'Burrata con pomodorini e melanzane al pesto, portate in tavola',
+        "Pasta lunga con crema d'uovo, guanciale e rosmarino",
+        'Tagliere di salumi, pecorino e crostini con un bicchiere di Chianti',
+        'Carne in umido al pomodoro con prezzemolo, accanto a un calice di vino rosso',
+        'Cheesecake, torta al cioccolato e biscotti con un bicchierino di vino dolce, serviti in sala',
+      ],
+    },
   },
   reviews: {
     kicker: 'Lo dicono a tavola',
@@ -303,10 +312,18 @@ const en: Dict = {
     cta: "See what's cooking",
     ctaToGo: 'The takeaway menu',
     cardMore: 'The whole menu',
-    dishes: [
-      ['Starters', 'Burrata, cherry tomatoes and aubergine with pesto and walnuts.'],
-      ['The tagliere', 'Cured meats, pecorino and crostini, with a glass of Chianti.'],
-    ],
+    gallery: {
+      label: 'Dishes at Boboli',
+      slide: (n, tot) => `Photo ${n} of ${tot}`,
+      alts: [
+        'Grilled steak served at the table at Boboli',
+        'Burrata with cherry tomatoes and aubergine with pesto, served at the table',
+        'Long pasta with egg cream, guanciale and rosemary',
+        'A board of cured meats, pecorino and crostini with a glass of Chianti',
+        'Meat stewed in tomato with parsley, next to a glass of red wine',
+        'Cheesecake, chocolate cake and biscuits with a small glass of dessert wine, served in the dining room',
+      ],
+    },
   },
   reviews: {
     kicker: 'Word from the table',
@@ -531,10 +548,18 @@ const es: Dict = {
     cta: 'Mira lo que se come',
     ctaToGo: 'El menú para llevar',
     cardMore: 'Toda la carta',
-    dishes: [
-      ['Entrantes', 'Burrata, tomates cherry y berenjena con pesto y nueces.'],
-      ['La tabla', 'Embutidos, pecorino y crostini, con una copa de Chianti.'],
-    ],
+    gallery: {
+      label: 'Platos de Boboli',
+      slide: (n, tot) => `Foto ${n} de ${tot}`,
+      alts: [
+        'Chuletón a la brasa servido en la mesa en Boboli',
+        'Burrata con tomates cherry y berenjena con pesto, servidas en la mesa',
+        'Pasta larga con crema de huevo, guanciale y romero',
+        'Tabla de embutidos, pecorino y crostini con una copa de Chianti',
+        'Carne guisada con tomate y perejil, junto a una copa de vino tinto',
+        'Tarta de queso, tarta de chocolate y galletas con una copita de vino dulce, servidas en la sala',
+      ],
+    },
   },
   reviews: {
     kicker: 'Lo dicen en la mesa',
@@ -759,10 +784,18 @@ const de: Dict = {
     cta: 'Schau, was es gibt',
     ctaToGo: 'Die Karte zum Mitnehmen',
     cardMore: 'Die ganze Karte',
-    dishes: [
-      ['Vorspeisen', 'Burrata, Kirschtomaten und Aubergine mit Pesto und Walnüssen.'],
-      ['Das Tagliere', 'Wurst, Pecorino und Crostini, dazu ein Glas Chianti.'],
-    ],
+    gallery: {
+      label: 'Gerichte bei Boboli',
+      slide: (n, tot) => `Foto ${n} von ${tot}`,
+      alts: [
+        'Gegrilltes Steak, bei Boboli am Tisch serviert',
+        'Burrata mit Kirschtomaten und Aubergine mit Pesto, am Tisch serviert',
+        'Lange Pasta mit Eiercreme, Guanciale und Rosmarin',
+        'Brett mit Wurst, Pecorino und Crostini zu einem Glas Chianti',
+        'In Tomate geschmortes Fleisch mit Petersilie, daneben ein Glas Rotwein',
+        'Käsekuchen, Schokoladenkuchen und Kekse mit einem Gläschen Dessertwein, im Speisesaal serviert',
+      ],
+    },
   },
   reviews: {
     kicker: 'Am Tisch erzählt',
@@ -987,10 +1020,18 @@ const fr: Dict = {
     cta: 'Voir ce qu’on mange',
     ctaToGo: 'Le menu à emporter',
     cardMore: 'Toute la carte',
-    dishes: [
-      ['Entrées', 'Burrata, tomates cerises et aubergine au pesto et aux noix.'],
-      ['La planche', 'Charcuterie, pecorino et crostini, avec un verre de Chianti.'],
-    ],
+    gallery: {
+      label: 'Plats de Boboli',
+      slide: (n, tot) => `Photo ${n} sur ${tot}`,
+      alts: [
+        'Steak grillé servi à table chez Boboli',
+        'Burrata aux tomates cerises et aubergine au pesto, servies à table',
+        "Pâtes longues à la crème d'œuf, guanciale et romarin",
+        'Planche de charcuterie, pecorino et crostini avec un verre de Chianti',
+        'Viande mijotée à la tomate et au persil, à côté d’un verre de vin rouge',
+        'Cheesecake, gâteau au chocolat et biscuits avec un petit verre de vin doux, servis en salle',
+      ],
+    },
   },
   reviews: {
     kicker: 'Ça se raconte à table',

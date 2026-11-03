@@ -441,16 +441,17 @@ picture img{display:block;width:100%;height:100%;object-fit:cover}
   padding:var(--section-y) var(--gutter);
 }
 
-/* i piatti: foto vere, grandi, con la didascalia come in un menu */
-.menu__dishes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,28px);margin-top:clamp(34px,5vw,80px)}
-.menu__dishes figure{margin:0}
-.menu__dishes :is(picture,.ph){aspect-ratio:4/3;overflow:hidden}
-.menu__dishes img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
-@media (hover:hover){.menu__dishes li:hover img{transform:scale(1.03)}}
-.menu__dishes figcaption{display:flex;flex-direction:column;gap:4px;margin-top:12px;color:var(--muted);font-size:var(--body);line-height:1.45}
-.menu__dishes figcaption .u-label{color:var(--kicker)}
-/* il tagliere sta in basso nella foto verticale: il ritaglio orizzontale lo segue */
-.menu__dishes [data-slot="locali/trattoria-1978-2-tagliere"] img{object-position:50% 88%}
+/* i piatti: solo foto. Da computer una griglia 3×2, da telefono un carosello */
+.dishes{margin-top:clamp(34px,5vw,80px)}
+.dishes__track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.4vw,20px)}
+.dishes__item :is(picture,.ph){aspect-ratio:1;overflow:hidden}
+.dishes__item img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover){.dishes__item:hover img{transform:scale(1.04)}}
+.dishes__dots{display:none}
+/* le foto verticali, ritagliate in quadrato, tengono il piatto al centro */
+.dishes [data-slot="locali/trattoria-1978-2-tagliere"] img{object-position:50% 82%}
+.dishes [data-slot="piatti/3-umido"] img{object-position:50% 62%}
+.dishes [data-slot="piatti/1-bistecca"] img{object-position:40% 55%}
 .reviews__intro{grid-row:span 2}
 .reviews__kicker{color:var(--kicker);margin-bottom:14px}
 .reviews__title{max-width:12ch;font-weight:700;font-size:clamp(34px,4.81vw,76px);line-height:.95;letter-spacing:-.03em}
@@ -990,7 +991,25 @@ html.is-locked{overflow:hidden}
   .trust__badges{grid-column:1}
 
   .menu{padding:var(--section-y) var(--gutter)}
-  .menu__dishes{grid-template-columns:1fr}
+  /* il carosello: una foto alla volta, si scorre col dito e si ferma al centro;
+     esce dai margini fino al bordo, così si intravede la foto successiva */
+  .dishes{margin-inline:calc(-1 * var(--gutter))}
+  .dishes__track{
+    display:flex;gap:10px;overflow-x:auto;overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;scroll-padding-inline:var(--gutter);padding-inline:var(--gutter);
+    scrollbar-width:none;
+  }
+  .dishes__track::-webkit-scrollbar{display:none}
+  .dishes__item{flex:0 0 86%;scroll-snap-align:center}
+  .dishes__dots{display:flex;justify-content:center;margin-top:6px}
+  .dishes__dot{
+    display:grid;place-items:center;width:44px;height:44px;padding:0;background:none;border:0;cursor:pointer;
+  }
+  .dishes__dot::before{
+    content:"";width:8px;height:8px;border-radius:50%;background:var(--rule);
+    transition:width .3s ease,background-color .3s ease,border-radius .3s ease;
+  }
+  .dishes__dot[aria-current]::before{width:22px;border-radius:4px;background:var(--terracotta)}
   .menu__top{grid-template-columns:1fr;gap:26px}
   .menu__intro{position:static}
   .menu__title{font-size:9.4vw;max-width:none}

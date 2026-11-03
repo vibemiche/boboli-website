@@ -7,9 +7,10 @@ import { ui } from '../lib/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = ui[lang].menu;
-// le foto dei piatti, nello stesso ordine delle didascalie in `menu.dishes`
-const slots = ['eventi', 'locali/trattoria-1978-2-tagliere'];
-const dishes = t.dishes.map(([label, line], i) => ({ slot: slots[i], label, line, alt: `${label}: ${line}` }));
+// le foto dei piatti, nello stesso ordine dei testi alternativi in `menu.gallery.alts`:
+// carne, antipasto, pasta, tagliere, umido, dolci
+const slots = ['piatti/1-bistecca', 'eventi', 'piatti/2-pasta', 'locali/trattoria-1978-2-tagliere', 'piatti/3-umido', 'piatti/4-dolci'];
+const dishes = slots.map((slot, i) => ({ slot, alt: t.gallery.alts[i] }));
 ---
 <section class="menu" id="menu">
   <div class="menu__top">
@@ -38,17 +39,23 @@ const dishes = t.dishes.map(([label, line], i) => ({ slot: slots[i], label, line
   </a>
   </div>
 
-  {/* i piatti veri, fotografati nei nostri locali */}
-  <ul class="menu__dishes" data-reveal>
-    {dishes.map((d) => (
-      <li>
-        <figure>
-          <Figure slot={d.slot} alt={d.alt} label={d.label} widths={[640, 960, 1280, 1600]} sizes="(max-width: 760px) 100vw, 50vw" />
-          <figcaption><span class="u-label">{d.label}</span>{d.line}</figcaption>
-        </figure>
-      </li>
-    ))}
-  </ul>
+  {/* I piatti veri, fotografati nei nostri locali: da computer una griglia,
+      da telefono un carosello che si scorre col dito e avanza da solo. */}
+  <div class="dishes" data-dishes data-reveal>
+    <ul class="dishes__track" aria-label={t.gallery.label} data-dishes-track>
+      {dishes.map((d) => (
+        <li class="dishes__item">
+          {/* riquadro quadrato: le foto orizzontali servono larghe 1,5 volte il lato */}
+          <Figure slot={d.slot} alt={d.alt} label="" widths={[480, 800, 1200, 1600]} sizes="(max-width: 760px) 130vw, 50vw" />
+        </li>
+      ))}
+    </ul>
+    <div class="dishes__dots">
+      {dishes.map((_, i) => (
+        <button class="dishes__dot" type="button" aria-label={t.gallery.slide(i + 1, dishes.length)} aria-current={i === 0 ? 'true' : undefined} data-dish={i}></button>
+      ))}
+    </div>
+  </div>
 </section>
 
 <script>
@@ -64,5 +71,65 @@ const dishes = t.dishes.map(([label, line], i) => ({ slot: slots[i], label, line
       }
     }, { threshold: 0.35 });
     io.observe(carta);
+  }
+
+  // Il carosello dei piatti, solo da telefono (da computer è una griglia e i
+  // puntini sono nascosti). Scorrere col dito è nativo (scroll-snap); qui si
+  // tengono allineati i puntini e si avanza da soli ogni 4 secondi, finché chi
+  // guarda non tocca: da quel momento decide lui.
+  const root = document.querySelector<HTMLElement>('[data-dishes]');
+  const track = root?.querySelector<HTMLElement>('[data-dishes-track]');
+  if (root && track) {
+    const items = [...track.children] as HTMLElement[];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-dish]')];
+    const mobile = matchMedia('(max-width: 760px)');
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    let current = 0;
+    let manual = false;
+    let visible = false;
+    let timer: number | undefined;
+
+    const mark = (i: number) => {
+      current = i;
+      dots.forEach((d, k) => (k === i ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current')));
+    };
+    const go = (i: number) => {
+      const item = items[i];
+      track.scrollTo({ left: item.offsetLeft - track.offsetLeft - (track.clientWidth - item.clientWidth) / 2, behavior: still.matches ? 'auto' : 'smooth' });
+    };
+
+    // il puntino segue la foto più vicina al centro
+    let frame = 0;
+    track.addEventListener('scroll', () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const mid = track.scrollLeft + track.clientWidth / 2;
+        let best = 0;
+        items.forEach((it, k) => {
+          const c = it.offsetLeft - track.offsetLeft + it.clientWidth / 2;
+          if (Math.abs(c - mid) < Math.abs(items[best].offsetLeft - track.offsetLeft + items[best].clientWidth / 2 - mid)) best = k;
+        });
+        mark(best);
+      });
+    }, { passive: true });
+
+    const stop = () => { window.clearInterval(timer); timer = undefined; };
+    const start = () => {
+      stop();
+      if (manual || still.matches || !mobile.matches || !visible || document.hidden) return;
+      timer = window.setInterval(() => go((current + 1) % items.length), 4000);
+    };
+    // basta un tocco, uno scorrimento o un puntino: l'avanzamento automatico si ferma
+    const takeOver = () => { manual = true; stop(); };
+    track.addEventListener('pointerdown', takeOver, { passive: true });
+    track.addEventListener('touchstart', takeOver, { passive: true });
+    track.addEventListener('wheel', takeOver, { passive: true });
+    dots.forEach((d, i) => d.addEventListener('click', () => { takeOver(); go(i); }));
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => { visible = entries.some((e) => e.isIntersecting); start(); }, { threshold: 0.5 }).observe(track);
+    }
+    document.addEventListener('visibilitychange', start);
+    mobile.addEventListener('change', start);
   }
 </script>

@@ -1,0 +1,33 @@
+---
+import Figure from './Figure.astro';
+import Badges from './Badges.astro';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+
+// Perché fidarsi: il senza glutine e il laboratorio sono la stessa promessa, qui
+// insieme. Solo affermazioni che il sito già fa: niente di nuovo senza conferma.
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const tr = t.trust;
+---
+<section class="trust" id="manifesto">
+  <div class="trust__body" data-reveal>
+    <p class="u-label trust__kicker">{tr.kicker}</p>
+    <h2 class="trust__title">{tr.title}</h2>
+    <p class="trust__text">{tr.body}</p>
+    <ol class="trust__proofs">
+      {tr.proofs.map(([title, text], i) => (
+        <li>
+          <h3 class="trust__proof-title">{title}</h3>
+          <p>{text}</p>
+          {i === tr.proofs.length - 1 && <Badges lang={lang} class="trust__badges" />}
+        </li>
+      ))}
+    </ol>
+  </div>
+  <div class="trust__media" id="laboratorio">
+    <Figure slot="laboratorio" alt={t.lab.alt} label="IMG — laboratorio" widths={[640, 1024, 1600, 2000]} sizes="(max-width: 760px) 135vw, (max-width: 1024px) 100vw, max(50vw, 200vh)" />
+    <p class="u-label trust__caption">{t.lab.kicker} <span aria-hidden="true">·</span> {t.lab.title}</p>
+  </div>
+</section>

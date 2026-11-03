@@ -4,6 +4,7 @@ import Figure from './Figure.astro';
 import FormatBlock from './FormatBlock.astro';
 import Badges from './Badges.astro';
 import Reveal from './Reveal.astro';
+import OpenNow from './OpenNow.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { getLocali, toneOf } from '../lib/locali';
@@ -58,7 +59,7 @@ const jsonLd = [
         <dl class="place__facts">
           <div><dt class="u-label">{t.place.address}</dt><dd><a href={maps} target="_blank" rel="noopener">{l.street}, {l.postalCode} {l.city}</a><br />{l.zone}</dd></div>
           {l.phone && <div><dt class="u-label">{t.place.phone}</dt><dd><a href={telHref(l.phone)}>{l.phone}</a></dd></div>}
-          {l.hours.length > 0 && <div><dt class="u-label">{t.place.hours}</dt><dd>{formatHours(l.hours, t.hours).map((h) => <span>{h}<br /></span>)}</dd></div>}
+          {l.hours.length > 0 && <div><dt class="u-label">{t.place.hours}</dt><dd><OpenNow lang={lang} locale={l} class="place__now" />{formatHours(l.hours, t.hours).map((h) => <span>{h}<br /></span>)}</dd></div>}
           <div><dt class="u-label">{t.place.cuisine}</dt><dd>{t.place.cuisineValue}</dd></div>
         </dl>
         <div class="place__promise">

@@ -18,7 +18,7 @@
   "orderUrl": "https://glovoapp.com/it/it/firenze/stores/trattoria-boboli-to-go-fir",
   "geo": { "lat": 43.764276, "lng": 11.246334 },
   "hours": [{ "from": "Tu", "to": "Su", "opens": "09:00", "closes": "16:00" }],
-  "formatOrder": 3,
+  "formatOrder": 4,
   "listOrder": 4,
   "tr": {
     "en": {

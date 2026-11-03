@@ -7,6 +7,9 @@ import { ui } from '../lib/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = ui[lang].menu;
+// le foto dei piatti, nello stesso ordine delle didascalie in `menu.dishes`
+const slots = ['eventi', 'locali/trattoria-1978-2-tagliere'];
+const dishes = t.dishes.map(([label, line], i) => ({ slot: slots[i], label, line, alt: `${label}: ${line}` }));
 ---
 <section class="menu" id="menu">
   <div class="menu__top">
@@ -35,20 +38,17 @@ const t = ui[lang].menu;
   </a>
   </div>
 
-  <ul class="menu__gallery" data-reveal>
-    {Object.entries(t.gallery).map(([slug, [label, line, alt]]) => (
+  {/* i piatti veri, fotografati nei nostri locali */}
+  <ul class="menu__dishes" data-reveal>
+    {dishes.map((d) => (
       <li>
         <figure>
-          <Figure slot={`illustrazioni/${slug}`} alt={alt} label={label} widths={[300, 600]} sizes="(max-width: 760px) 62vw, 25vw" />
-          <figcaption><span class="u-label">{label}</span>{line}</figcaption>
+          <Figure slot={d.slot} alt={d.alt} label={d.label} widths={[640, 960, 1280, 1600]} sizes="(max-width: 760px) 100vw, 50vw" />
+          <figcaption><span class="u-label">{d.label}</span>{d.line}</figcaption>
         </figure>
       </li>
     ))}
   </ul>
-
-  <div class="menu__shop" id="prodotti">
-    <p><strong>{t.shopStrong}</strong> {t.shopText}</p>
-  </div>
 </section>
 
 <script>

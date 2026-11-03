@@ -1,6 +1,6 @@
 const it = {
   meta: {
-    homeTitle: 'Boboli — Scegli · Ristoranti 100% senza glutine a Firenze, dal 1978',
+    homeTitle: 'Boboli — Ristoranti 100% senza glutine a Firenze, dal 1978',
     homeDesc:
       'Boboli a Firenze: quattro locali e un laboratorio, tutta la cucina senza glutine. Trattoria, Bargello, To-Go e Cantina in Via Romana e Via Ghibellina. Prenota online.',
     placeTitle: (name: string, street: string) => `${name} — ristorante senza glutine a Firenze · ${street}`,
@@ -30,6 +30,8 @@ const it = {
     places: 'I locali',
     food: 'Il menu',
     reviews: 'Le recensioni',
+    gf: 'Senza glutine',
+    language: 'Lingua',
   },
   hero: {
     word: 'A tavola!',
@@ -39,19 +41,16 @@ const it = {
     since: 'Firenze, dal 1978.',
     alt: 'Una cuoca di Boboli stende a mano la pasta fresca senza glutine nel laboratorio',
   },
-  choices: {
-    title: 'Cinque modi di vivere Boboli',
-    homeVerb: 'Porta Boboli a casa',
-    homeWhere: 'I prodotti del laboratorio',
-    homeSub: 'Quella voglia di Boboli può continuare anche quando sei già rientrato.',
-  },
   format: { more: "Dai un'occhiata" },
-  manifesto: {
-    kicker: '100% gluten free',
-    title: 'Scegli quello che hai voglia di mangiare.',
-    body: 'Una pasta fumante. Un panino appena fatto. Un dolce da dividere. Il pane da mettere al centro del tavolo. Da Boboli tutto è senza glutine, così a scegliere resta solo quello che ti va davvero.',
-    items: ['Pasta', 'Pane', 'Panini', 'Sughi', 'Dolci', 'Carne'],
-    listLabel: 'Quello che trovi in tavola',
+  trust: {
+    kicker: '100% senza glutine',
+    title: 'A tavola, senza pensieri.',
+    body: "Da Boboli tutto è senza glutine, in tutti e quattro i locali. Non c'è un menu a parte e non c'è niente da evitare: ti siedi e scegli quello che ti va.",
+    proofs: [
+      ['Tutto il menu, in ogni locale', 'Dal pane ai dolci, alla Trattoria, al Bargello, alla Cantina e al To-Go.'],
+      ['Fatto nel nostro laboratorio', 'Pane, pasta, sughi e dolci nascono da noi: sappiamo esattamente cosa arriva nel tuo piatto.'],
+      ['Il marchio AIC', "Alimentazione Fuori Casa è il programma dell'Associazione Italiana Celiachia per chi mangia fuori casa."],
+    ] as [string, string][],
   },
   lab: {
     kicker: 'Il laboratorio',
@@ -72,14 +71,10 @@ const it = {
     cta: 'Guarda cosa si mangia',
     ctaToGo: 'Il menu da portare via',
     cardMore: 'Tutta la carta',
-    gallery: {
-      antipasti: ['Antipasti', 'Da mettere al centro e condividere.', 'Tagliere toscano con bruschette, salumi, olive e formaggio, tutto senza glutine'],
-      pasta: ['Pasta', 'Quella che vorresti trovare nel piatto.', 'Tagliatelle al ragù senza glutine, fatte nel laboratorio Boboli'],
-      carne: ['Carne', 'Per quando hai proprio fame.', 'Bistecca alla fiorentina con un bicchiere di vino rosso'],
-      dolci: ['Dolci', 'Per chiudere come si deve.', 'Tiramisù senza glutine di Boboli'],
-    },
-    shopStrong: 'Porta Boboli a casa.',
-    shopText: 'Pasta, sughi e pane del laboratorio si comprano nei locali. Lo shop online arriva.',
+    dishes: [
+      ['Antipasti', 'Burrata, pomodorini e melanzane al pesto con noci.'],
+      ['Il tagliere', 'Salumi, pecorino e crostini, con un bicchiere di Chianti.'],
+    ] as [string, string][],
   },
   reviews: {
     kicker: 'Lo dicono a tavola',
@@ -102,9 +97,7 @@ const it = {
   seo: {
     title: 'Boboli a Firenze: cucina 100% senza glutine dal 1978',
     copy: (a: Link) => [
-      'Dal 1978 Boboli porta a Firenze una cucina pensata per essere condivisa, scelta e vissuta senza compromessi.',
       `Oggi puoi trovarci in Via Romana e in Via Ghibellina, per ${a('al-bargello', 'una cena')}, ${a('trattoria-1978', 'un pranzo in trattoria')}, ${a('la-cantina', 'un bicchiere in cantina')}, ${a('to-go', 'un panino da portare via')} o ${a('prodotti', 'qualcosa di buono da portare a casa')}.`,
-      'La nostra cucina è 100% senza glutine, ma non è questo che vogliamo farti ricordare. Vogliamo che tu ricordi cosa hai mangiato, con chi eri e quanto ti sei goduto il momento.',
     ],
     faqTitle: 'Domande che ci fanno spesso',
     faq: [
@@ -207,7 +200,7 @@ In allegato il mio CV.
     gf: '100% Gluten Free',
   },
   footer: {
-    tagline: ['La libertà di scegliere.', '100% gluten free · Firenze, dal 1978'],
+    tagline: ['A tavola, dal 1978.', '100% gluten free · Firenze'],
     locali: 'I locali',
     discover: 'Scopri',
     links: { lab: 'Il laboratorio', manifesto: '100% gluten free', menu: 'Il menu', shop: 'I prodotti', smartbox: 'Smartbox', jobs: 'Lavora con noi', events: 'Gruppi ed eventi' },
@@ -226,6 +219,7 @@ In allegato il mio CV.
     others: 'Gli altri locali',
   },
   hours: {
+    now: { open: 'Aperto ora · fino alle {t}', closed: 'Chiuso ora', today: 'apre alle {t}', tomorrow: 'apre domani alle {t}', on: 'apre {d} alle {t}' },
     short: { Mo: 'Lun', Tu: 'Mar', We: 'Mer', Th: 'Gio', Fr: 'Ven', Sa: 'Sab', Su: 'Dom' } as Record<Day, string>,
     long: { Mo: 'lunedì', Tu: 'martedì', We: 'mercoledì', Th: 'giovedì', Fr: 'venerdì', Sa: 'sabato', Su: 'domenica' } as Record<Day, string>,
     everyday: 'Tutti i giorni',
@@ -268,6 +262,8 @@ const en: Dict = {
     places: 'Our restaurants',
     food: 'The menu',
     reviews: 'Reviews',
+    gf: 'Gluten free',
+    language: 'Language',
   },
   hero: {
     word: 'A tavola!',
@@ -277,19 +273,16 @@ const en: Dict = {
     since: 'Florence, since 1978.',
     alt: 'A Boboli cook rolling out fresh gluten-free pasta by hand in the workshop',
   },
-  choices: {
-    title: 'Five ways to experience Boboli',
-    homeVerb: 'Take Boboli home',
-    homeWhere: 'Products from the workshop',
-    homeSub: "That Boboli craving can carry on even once you're back home.",
-  },
   format: { more: 'Take a look' },
-  manifesto: {
+  trust: {
     kicker: '100% gluten free',
-    title: 'Choose what you feel like eating.',
-    body: "A steaming plate of pasta. A freshly made sandwich. A dessert to share. Bread for the middle of the table. At Boboli everything is gluten free, so all that's left to choose is what you really want.",
-    items: ['Pasta', 'Bread', 'Sandwiches', 'Sauces', 'Desserts', 'Meat'],
-    listLabel: "What you'll find on the table",
+    title: 'At the table, without a worry.',
+    body: "At Boboli everything is gluten free, in all four restaurants. There's no separate menu and nothing to avoid: just sit down and choose what you fancy.",
+    proofs: [
+      ['The whole menu, everywhere', 'From bread to desserts, at the Trattoria, the Bargello, the Cantina and To-Go.'],
+      ['Made in our own workshop', 'Bread, pasta, sauces and desserts are made by us: we know exactly what reaches your plate.'],
+      ['The AIC mark', "Alimentazione Fuori Casa is the Italian Coeliac Association's programme for eating out."],
+    ],
   },
   lab: {
     kicker: 'The workshop',
@@ -310,14 +303,10 @@ const en: Dict = {
     cta: "See what's cooking",
     ctaToGo: 'The takeaway menu',
     cardMore: 'The whole menu',
-    gallery: {
-      antipasti: ['Starters', 'For the middle of the table, to share.', 'Tuscan board with bruschetta, cured meats, olives and cheese, all gluten free'],
-      pasta: ['Pasta', 'The kind you hope to find on your plate.', 'Gluten-free tagliatelle with ragù, made in the Boboli workshop'],
-      carne: ['Meat', "For when you're really hungry.", 'Florentine T-bone steak with a glass of red wine'],
-      dolci: ['Desserts', 'The proper way to finish.', "Boboli's gluten-free tiramisù"],
-    },
-    shopStrong: 'Take Boboli home.',
-    shopText: 'Pasta, sauces and bread from the workshop are sold in our restaurants. The online shop is on its way.',
+    dishes: [
+      ['Starters', 'Burrata, cherry tomatoes and aubergine with pesto and walnuts.'],
+      ['The tagliere', 'Cured meats, pecorino and crostini, with a glass of Chianti.'],
+    ],
   },
   reviews: {
     kicker: 'Word from the table',
@@ -340,9 +329,7 @@ const en: Dict = {
   seo: {
     title: 'Boboli in Florence: 100% gluten-free cooking since 1978',
     copy: (a) => [
-      'Since 1978 Boboli has brought Florence a kind of cooking made to be shared, chosen and enjoyed without compromise.',
       `Today you'll find us on Via Romana and Via Ghibellina, for ${a('al-bargello', 'dinner')}, ${a('trattoria-1978', 'lunch at the trattoria')}, ${a('la-cantina', 'a glass at the cantina')}, ${a('to-go', 'a sandwich to go')} or ${a('prodotti', 'something good to take home')}.`,
-      "Our cooking is 100% gluten free, but that's not what we want you to remember. We want you to remember what you ate, who you were with and how much you enjoyed the moment.",
     ],
     faqTitle: 'Questions we often get',
     faq: [
@@ -445,7 +432,7 @@ Please find my CV attached.
     gf: '100% Gluten Free',
   },
   footer: {
-    tagline: ['The freedom to choose.', '100% gluten free · Florence, since 1978'],
+    tagline: ['At the table since 1978.', '100% gluten free · Florence'],
     locali: 'Our restaurants',
     discover: 'Discover',
     links: { lab: 'The workshop', manifesto: '100% gluten free', menu: 'The menu', shop: 'Products', smartbox: 'Smartbox', jobs: 'Work with us', events: 'Groups & events' },
@@ -464,6 +451,7 @@ Please find my CV attached.
     others: 'Our other restaurants',
   },
   hours: {
+    now: { open: 'Open now · until {t}', closed: 'Closed now', today: 'opens at {t}', tomorrow: 'opens tomorrow at {t}', on: 'opens {d} at {t}' },
     short: { Mo: 'Mon', Tu: 'Tue', We: 'Wed', Th: 'Thu', Fr: 'Fri', Sa: 'Sat', Su: 'Sun' },
     long: { Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday', Fr: 'Friday', Sa: 'Saturday', Su: 'Sunday' },
     everyday: 'Every day',
@@ -502,6 +490,8 @@ const es: Dict = {
     places: 'Los locales',
     food: 'La carta',
     reviews: 'Reseñas',
+    gf: 'Sin gluten',
+    language: 'Idioma',
   },
   hero: {
     word: 'A tavola!',
@@ -511,19 +501,16 @@ const es: Dict = {
     since: 'Florencia, desde 1978.',
     alt: 'Una cocinera de Boboli estira a mano pasta fresca sin gluten en el obrador',
   },
-  choices: {
-    title: 'Cinco formas de vivir Boboli',
-    homeVerb: 'Llévate Boboli a casa',
-    homeWhere: 'Los productos del obrador',
-    homeSub: 'Esas ganas de Boboli pueden seguir incluso cuando ya has vuelto a casa.',
-  },
   format: { more: 'Echa un vistazo' },
-  manifesto: {
+  trust: {
     kicker: '100% sin gluten',
-    title: 'Elige lo que te apetece comer.',
-    body: 'Un plato de pasta humeante. Un bocadillo recién hecho. Un postre para compartir. El pan en el centro de la mesa. En Boboli todo es sin gluten, así que solo te queda elegir lo que de verdad te apetece.',
-    items: ['Pasta', 'Pan', 'Bocadillos', 'Salsas', 'Postres', 'Carne'],
-    listLabel: 'Lo que encuentras en la mesa',
+    title: 'A la mesa, sin preocupaciones.',
+    body: 'En Boboli todo es sin gluten, en los cuatro locales. No hay una carta aparte ni nada que evitar: te sientas y eliges lo que te apetece.',
+    proofs: [
+      ['Toda la carta, en cada local', 'Del pan a los postres, en la Trattoria, el Bargello, la Cantina y el To-Go.'],
+      ['Hecho en nuestro obrador', 'Pan, pasta, salsas y postres los hacemos nosotros: sabemos exactamente qué llega a tu plato.'],
+      ['El sello AIC', 'Alimentazione Fuori Casa es el programa de la Asociación Italiana de Celiaquía para quien come fuera de casa.'],
+    ],
   },
   lab: {
     kicker: 'El obrador',
@@ -544,14 +531,10 @@ const es: Dict = {
     cta: 'Mira lo que se come',
     ctaToGo: 'El menú para llevar',
     cardMore: 'Toda la carta',
-    gallery: {
-      antipasti: ['Entrantes', 'Para poner en el centro y compartir.', 'Tabla toscana con bruschettas, embutidos, aceitunas y queso, todo sin gluten'],
-      pasta: ['Pasta', 'La que te gustaría encontrar en el plato.', 'Tagliatelle al ragù sin gluten, hechas en el obrador de Boboli'],
-      carne: ['Carne', 'Para cuando tienes hambre de verdad.', 'Bistecca alla fiorentina con una copa de vino tinto'],
-      dolci: ['Postres', 'Para terminar como se debe.', 'Tiramisú sin gluten de Boboli'],
-    },
-    shopStrong: 'Llévate Boboli a casa.',
-    shopText: 'La pasta, las salsas y el pan del obrador se venden en los locales. La tienda online está en camino.',
+    dishes: [
+      ['Entrantes', 'Burrata, tomates cherry y berenjena con pesto y nueces.'],
+      ['La tabla', 'Embutidos, pecorino y crostini, con una copa de Chianti.'],
+    ],
   },
   reviews: {
     kicker: 'Lo dicen en la mesa',
@@ -574,9 +557,7 @@ const es: Dict = {
   seo: {
     title: 'Boboli en Florencia: cocina 100% sin gluten desde 1978',
     copy: (a) => [
-      'Desde 1978 Boboli trae a Florencia una cocina pensada para compartir, elegir y disfrutar sin concesiones.',
       `Hoy nos encuentras en Via Romana y en Via Ghibellina, para ${a('al-bargello', 'una cena')}, ${a('trattoria-1978', 'una comida en la trattoria')}, ${a('la-cantina', 'una copa en la cantina')}, ${a('to-go', 'un bocadillo para llevar')} o ${a('prodotti', 'algo rico para llevarte a casa')}.`,
-      'Nuestra cocina es 100% sin gluten, pero no es eso lo que queremos que recuerdes. Queremos que recuerdes lo que comiste, con quién estabas y cuánto disfrutaste el momento.',
     ],
     faqTitle: 'Preguntas frecuentes',
     faq: [
@@ -679,7 +660,7 @@ Adjunto mi CV.
     gf: '100% Gluten Free',
   },
   footer: {
-    tagline: ['La libertad de elegir.', '100% sin gluten · Florencia, desde 1978'],
+    tagline: ['A la mesa desde 1978.', '100% sin gluten · Florencia'],
     locali: 'Los locales',
     discover: 'Descubre',
     links: { lab: 'El obrador', manifesto: '100% sin gluten', menu: 'La carta', shop: 'Los productos', smartbox: 'Smartbox', jobs: 'Trabaja con nosotros', events: 'Grupos y eventos' },
@@ -698,6 +679,7 @@ Adjunto mi CV.
     others: 'Los otros locales',
   },
   hours: {
+    now: { open: 'Abierto ahora · hasta las {t}', closed: 'Cerrado ahora', today: 'abre a las {t}', tomorrow: 'abre mañana a las {t}', on: 'abre el {d} a las {t}' },
     short: { Mo: 'Lun', Tu: 'Mar', We: 'Mié', Th: 'Jue', Fr: 'Vie', Sa: 'Sáb', Su: 'Dom' },
     long: { Mo: 'lunes', Tu: 'martes', We: 'miércoles', Th: 'jueves', Fr: 'viernes', Sa: 'sábado', Su: 'domingo' },
     everyday: 'Todos los días',
@@ -736,6 +718,8 @@ const de: Dict = {
     places: 'Die Lokale',
     food: 'Die Karte',
     reviews: 'Bewertungen',
+    gf: 'Glutenfrei',
+    language: 'Sprache',
   },
   hero: {
     word: 'A tavola!',
@@ -745,19 +729,16 @@ const de: Dict = {
     since: 'Florenz, seit 1978.',
     alt: 'Eine Köchin von Boboli rollt in der Manufaktur frische glutenfreie Pasta von Hand aus',
   },
-  choices: {
-    title: 'Fünf Arten, Boboli zu erleben',
-    homeVerb: 'Nimm Boboli mit nach Hause',
-    homeWhere: 'Produkte aus der Manufaktur',
-    homeSub: 'Die Lust auf Boboli darf weitergehen, auch wenn du schon wieder zu Hause bist.',
-  },
   format: { more: 'Schau mal rein' },
-  manifesto: {
+  trust: {
     kicker: '100 % glutenfrei',
-    title: 'Wähle, worauf du Lust hast.',
-    body: 'Dampfende Pasta. Ein frisch gemachtes Panino. Ein Dessert zum Teilen. Brot für die Mitte des Tisches. Bei Boboli ist alles glutenfrei, also bleibt nur zu wählen, worauf du wirklich Lust hast.',
-    items: ['Pasta', 'Brot', 'Panini', 'Saucen', 'Desserts', 'Fleisch'],
-    listLabel: 'Was auf den Tisch kommt',
+    title: 'Zu Tisch, ganz ohne Sorgen.',
+    body: 'Bei Boboli ist alles glutenfrei, in allen vier Restaurants. Es gibt keine separate Karte und nichts zu meiden: Setz dich hin und wähle, worauf du Lust hast.',
+    proofs: [
+      ['Die ganze Karte, überall', 'Vom Brot bis zum Dessert, in der Trattoria, im Bargello, in der Cantina und im To-Go.'],
+      ['Aus unserer Manufaktur', 'Brot, Pasta, Saucen und Desserts machen wir selbst: Wir wissen genau, was auf deinen Teller kommt.'],
+      ['Das AIC-Siegel', 'Alimentazione Fuori Casa ist das Programm der Italienischen Zöliakie-Gesellschaft für alle, die auswärts essen.'],
+    ],
   },
   lab: {
     kicker: 'Die Manufaktur',
@@ -778,14 +759,10 @@ const de: Dict = {
     cta: 'Schau, was es gibt',
     ctaToGo: 'Die Karte zum Mitnehmen',
     cardMore: 'Die ganze Karte',
-    gallery: {
-      antipasti: ['Antipasti', 'Für die Mitte des Tisches, zum Teilen.', 'Toskanisches Brett mit Bruschetta, Wurst, Oliven und Käse, alles glutenfrei'],
-      pasta: ['Pasta', 'So, wie du sie dir auf dem Teller wünschst.', 'Glutenfreie Tagliatelle mit Ragù aus der Boboli-Manufaktur'],
-      carne: ['Fleisch', 'Für den richtig großen Hunger.', 'Bistecca alla fiorentina mit einem Glas Rotwein'],
-      dolci: ['Desserts', 'Ein Abschluss, wie er sein soll.', 'Glutenfreies Tiramisù von Boboli'],
-    },
-    shopStrong: 'Nimm Boboli mit nach Hause.',
-    shopText: 'Pasta, Saucen und Brot aus der Manufaktur gibt es in unseren Restaurants. Der Onlineshop kommt bald.',
+    dishes: [
+      ['Vorspeisen', 'Burrata, Kirschtomaten und Aubergine mit Pesto und Walnüssen.'],
+      ['Das Tagliere', 'Wurst, Pecorino und Crostini, dazu ein Glas Chianti.'],
+    ],
   },
   reviews: {
     kicker: 'Am Tisch erzählt',
@@ -808,9 +785,7 @@ const de: Dict = {
   seo: {
     title: 'Boboli in Florenz: 100 % glutenfreie Küche seit 1978',
     copy: (a) => [
-      'Seit 1978 bringt Boboli eine Küche nach Florenz, die gemacht ist, um geteilt, gewählt und ohne Kompromisse genossen zu werden.',
       `Heute findest du uns in der Via Romana und in der Via Ghibellina: für ${a('al-bargello', 'ein Abendessen')}, ${a('trattoria-1978', 'ein Mittagessen in der Trattoria')}, ${a('la-cantina', 'ein Glas in der Cantina')}, ${a('to-go', 'ein Panino zum Mitnehmen')} oder ${a('prodotti', 'etwas Gutes für zu Hause')}.`,
-      'Unsere Küche ist 100 % glutenfrei, aber das ist nicht das, woran du dich erinnern sollst. Wir wollen, dass du dich daran erinnerst, was du gegessen hast, mit wem du da warst und wie sehr du den Moment genossen hast.',
     ],
     faqTitle: 'Häufige Fragen',
     faq: [
@@ -913,7 +888,7 @@ Meinen Lebenslauf findet ihr im Anhang.
     gf: '100% Gluten Free',
   },
   footer: {
-    tagline: ['Die Freiheit zu wählen.', '100 % glutenfrei · Florenz, seit 1978'],
+    tagline: ['Zu Tisch seit 1978.', '100 % glutenfrei · Florenz'],
     locali: 'Unsere Restaurants',
     discover: 'Entdecken',
     links: { lab: 'Die Manufaktur', manifesto: '100 % glutenfrei', menu: 'Die Speisekarte', shop: 'Produkte', smartbox: 'Smartbox', jobs: 'Arbeite bei uns', events: 'Gruppen & Events' },
@@ -932,6 +907,7 @@ Meinen Lebenslauf findet ihr im Anhang.
     others: 'Unsere anderen Restaurants',
   },
   hours: {
+    now: { open: 'Jetzt geöffnet · bis {t} Uhr', closed: 'Jetzt geschlossen', today: 'öffnet um {t} Uhr', tomorrow: 'öffnet morgen um {t} Uhr', on: 'öffnet {d} um {t} Uhr' },
     short: { Mo: 'Mo', Tu: 'Di', We: 'Mi', Th: 'Do', Fr: 'Fr', Sa: 'Sa', Su: 'So' },
     long: { Mo: 'Montag', Tu: 'Dienstag', We: 'Mittwoch', Th: 'Donnerstag', Fr: 'Freitag', Sa: 'Samstag', Su: 'Sonntag' },
     everyday: 'Täglich',
@@ -970,6 +946,8 @@ const fr: Dict = {
     places: 'Nos adresses',
     food: 'La carte',
     reviews: 'Les avis',
+    gf: 'Sans gluten',
+    language: 'Langue',
   },
   hero: {
     word: 'A tavola!',
@@ -979,19 +957,16 @@ const fr: Dict = {
     since: 'Florence, depuis 1978.',
     alt: "Une cuisinière de Boboli étale à la main des pâtes fraîches sans gluten dans l'atelier",
   },
-  choices: {
-    title: 'Cinq façons de vivre Boboli',
-    homeVerb: 'Emporte Boboli chez toi',
-    homeWhere: "Les produits de l'atelier",
-    homeSub: "L'envie de Boboli peut continuer même une fois rentré chez toi.",
-  },
   format: { more: 'Jette un œil' },
-  manifesto: {
+  trust: {
     kicker: '100 % sans gluten',
-    title: 'Choisis ce que tu as envie de manger.',
-    body: "Des pâtes fumantes. Un sandwich tout juste préparé. Un dessert à partager. Le pain à poser au milieu de la table. Chez Boboli, tout est sans gluten : il ne reste plus qu'à choisir ce qui te fait vraiment envie.",
-    items: ['Pâtes', 'Pain', 'Sandwichs', 'Sauces', 'Desserts', 'Viande'],
-    listLabel: "Ce que tu trouves à table",
+    title: 'À table, sans souci.',
+    body: "Chez Boboli, tout est sans gluten, dans nos quatre adresses. Pas de carte à part, rien à éviter : tu t'assieds et tu choisis ce qui te fait envie.",
+    proofs: [
+      ['Toute la carte, partout', 'Du pain aux desserts, à la Trattoria, au Bargello, à la Cantina et au To-Go.'],
+      ['Fait dans notre atelier', 'Pain, pâtes, sauces et desserts sont faits chez nous : nous savons exactement ce qui arrive dans ton assiette.'],
+      ['Le label AIC', "Alimentazione Fuori Casa est le programme de l'Association italienne de la maladie cœliaque pour manger hors de chez soi."],
+    ],
   },
   lab: {
     kicker: "L'atelier",
@@ -1012,14 +987,10 @@ const fr: Dict = {
     cta: 'Voir ce qu’on mange',
     ctaToGo: 'Le menu à emporter',
     cardMore: 'Toute la carte',
-    gallery: {
-      antipasti: ['Antipasti', 'À poser au milieu et à partager.', 'Planche toscane avec bruschettas, charcuterie, olives et fromage, tout sans gluten'],
-      pasta: ['Pâtes', 'Celles que tu aimerais trouver dans ton assiette.', "Tagliatelles au ragù sans gluten, faites à l'atelier Boboli"],
-      carne: ['Viande', 'Pour quand tu as vraiment faim.', "Bistecca alla fiorentina avec un verre de vin rouge"],
-      dolci: ['Desserts', 'Pour finir comme il se doit.', 'Tiramisù sans gluten de Boboli'],
-    },
-    shopStrong: 'Emporte Boboli chez toi.',
-    shopText: "Pâtes, sauces et pain de l'atelier sont en vente dans nos adresses. La boutique en ligne arrive.",
+    dishes: [
+      ['Entrées', 'Burrata, tomates cerises et aubergine au pesto et aux noix.'],
+      ['La planche', 'Charcuterie, pecorino et crostini, avec un verre de Chianti.'],
+    ],
   },
   reviews: {
     kicker: 'Ça se raconte à table',
@@ -1042,9 +1013,7 @@ const fr: Dict = {
   seo: {
     title: 'Boboli à Florence : cuisine 100 % sans gluten depuis 1978',
     copy: (a) => [
-      'Depuis 1978, Boboli offre à Florence une cuisine pensée pour être partagée, choisie et savourée sans compromis.',
       `Aujourd'hui, tu nous trouves via Romana et via Ghibellina, pour ${a('al-bargello', 'un dîner')}, ${a('trattoria-1978', 'un déjeuner à la trattoria')}, ${a('la-cantina', 'un verre à la cantina')}, ${a('to-go', 'un sandwich à emporter')} ou ${a('prodotti', 'quelque chose de bon à rapporter chez toi')}.`,
-      "Notre cuisine est 100 % sans gluten, mais ce n'est pas ce que nous voulons que tu retiennes. Nous voulons que tu te souviennes de ce que tu as mangé, de qui était avec toi et du plaisir que tu as pris.",
     ],
     faqTitle: 'Questions fréquentes',
     faq: [
@@ -1147,7 +1116,7 @@ Tu trouveras mon CV en pièce jointe.
     gf: '100% Gluten Free',
   },
   footer: {
-    tagline: ['La liberté de choisir.', '100 % sans gluten · Florence, depuis 1978'],
+    tagline: ['À table depuis 1978.', '100 % sans gluten · Florence'],
     locali: 'Nos adresses',
     discover: 'Découvrir',
     links: { lab: "L'atelier", manifesto: '100 % sans gluten', menu: 'La carte', shop: 'Les produits', smartbox: 'Smartbox', jobs: 'Travailler avec nous', events: 'Groupes et événements' },
@@ -1166,6 +1135,7 @@ Tu trouveras mon CV en pièce jointe.
     others: 'Nos autres adresses',
   },
   hours: {
+    now: { open: "Ouvert · jusqu'à {t}", closed: 'Fermé', today: 'ouvre à {t}', tomorrow: 'ouvre demain à {t}', on: 'ouvre {d} à {t}' },
     short: { Mo: 'Lun', Tu: 'Mar', We: 'Mer', Th: 'Jeu', Fr: 'Ven', Sa: 'Sam', Su: 'Dim' },
     long: { Mo: 'lundi', Tu: 'mardi', We: 'mercredi', Th: 'jeudi', Fr: 'vendredi', Sa: 'samedi', Su: 'dimanche' },
     everyday: 'Tous les jours',

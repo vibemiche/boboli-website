@@ -14,7 +14,8 @@ export function buildFaq(lang: Lang, locali: Locale[]): [string, string][] {
 /** I link interni del testo SEO, nella lingua della pagina. */
 export function seoLink(lang: Lang) {
   return (key: string, text: string) => {
-    const path = key === 'prodotti' ? '/#prodotti' : `/locali/${key}/`;
+    // i prodotti si comprano nei locali: la risposta è nelle domande frequenti
+    const path = key === 'prodotti' ? '/#faq' : `/locali/${key}/`;
     return `<a href="${lp(lang, path)}">${text}</a>`;
   };
 }

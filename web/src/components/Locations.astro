@@ -2,6 +2,7 @@
 import Figure from './Figure.astro';
 import LocalMap from './LocalMap.astro';
 import BookButton from './BookButton.astro';
+import OpenNow from './OpenNow.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
@@ -24,6 +25,7 @@ const t = ui[lang];
           <div>
             <a class="locations__name" href={lp(lang, `/locali/${l.id}/`)}>{l.nameShort}</a>
             <p class="locations__addr">{l.street}, {l.postalCode} {l.city} · {l.zone}</p>
+            <OpenNow lang={lang} locale={l} class="locations__now" />
             <p class="locations__meta">
               {l.phone && <a href={telHref(l.phone)}>{l.phone}</a>}
               {l.orderUrl && <a class="locations__order" href={l.orderUrl} target="_blank" rel="noopener">{t.book.order} &#8599;</a>}
@@ -35,6 +37,12 @@ const t = ui[lang];
       ))}
     </ul>
   </div>
+  <a class="events-teaser" href={lp(lang, '/eventi/')} data-reveal>
+    <span class="u-label events-teaser__kicker">{t.events.kicker}</span>
+    <span class="events-teaser__title">{t.events.h1}</span>
+    <span class="events-teaser__text">{t.events.occasions.join(' · ')}</span>
+    <span class="link-more events-teaser__cta">{t.events.cta} &rarr;</span>
+  </a>
   <figure class="locations__firenze">
     <Figure
       slot="firenze"

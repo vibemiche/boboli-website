@@ -51,10 +51,16 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
       try {
         if (/bot|crawl|spider|slurp|lighthouse|pagespeed|preview|facebookexternalhit|whatsapp|headless/i.test(navigator.userAgent)) return;
         var want = fallback;
-        var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
-        for (var i = 0; i < prefs.length; i++) {
-          var code = String(prefs[i]).slice(0, 2).toLowerCase();
-          if (langs.indexOf(code) > -1) { want = code; break; }
+        // la lingua scelta a mano dal selettore vince su quella del browser
+        var saved = null;
+        try { saved = localStorage.getItem('boboli-lang'); } catch (e) {}
+        if (saved && langs.indexOf(saved) > -1) want = saved;
+        else {
+          var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+          for (var i = 0; i < prefs.length; i++) {
+            var code = String(prefs[i]).slice(0, 2).toLowerCase();
+            if (langs.indexOf(code) > -1) { want = code; break; }
+          }
         }
         if (want === document.documentElement.lang) return;
         var alt = document.querySelector('link[rel="alternate"][hreflang="' + want + '"]');
@@ -79,11 +85,11 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
 </head>
 <body>
   <a class="skip-link" href="#contenuto">{t.meta.skip}</a>
-  <Header lang={lang} locali={locali} overHero={overHero} />
+  <Header lang={lang} locali={locali} overHero={overHero} path={path} />
   <main id="contenuto">
     <slot />
   </main>
-  <Footer lang={lang} locali={locali} />
+  <Footer lang={lang} locali={locali} path={path} />
   <BookingDialog lang={lang} locali={locali} />
   <MobileBar lang={lang} />
 </body>

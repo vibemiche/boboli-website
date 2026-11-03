@@ -2,14 +2,15 @@
 import Logo from './Logo.astro';
 import Badges from './Badges.astro';
 import Figure from './Figure.astro';
+import LangSwitch from './LangSwitch.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
 import { ui } from '../lib/ui';
 
 // `overHero`: solo la home apre su una foto e l'header parte trasparente
-interface Props { lang: Lang; locali: Locale[]; overHero?: boolean }
-const { lang, locali, overHero = false } = Astro.props;
+interface Props { lang: Lang; locali: Locale[]; overHero?: boolean; path: string }
+const { lang, locali, overHero = false, path } = Astro.props;
 const t = ui[lang];
 // `preview` è la foto che il menu mostra a destra quando passi sulla voce
 const links = [
@@ -25,9 +26,9 @@ const more = [
 ];
 // l'indice al centro dell'header: le sezioni della home, da qualunque pagina
 const index = [
-  { label: t.nav.places, hash: 'locali' },
+  { label: t.nav.places, hash: 'i-nostri-locali' },
   { label: t.nav.food, hash: 'menu' },
-  { label: t.nav.lab, hash: 'laboratorio' },
+  { label: t.nav.gf, hash: 'manifesto' },
   { label: t.nav.reviews, hash: 'recensioni' },
 ];
 ---
@@ -61,6 +62,7 @@ const index = [
       <a class="btn btn--terracotta" href={lp(lang, '/#locali')} data-book>{t.nav.book}</a>
       <Badges lang={lang} class="nav-overlay__badges" />
     </div>
+    <LangSwitch lang={lang} path={path} class="nav-overlay__lang" />
     <span class="nav-overlay__meta u-label">{t.nav.tagline}</span>
   </div>
   <div class="nav-overlay__preview" aria-hidden="true">

@@ -15,6 +15,7 @@ interface Props {
   lang: Lang;
   locale: Locale;
   dark?: boolean;
+  wine?: boolean;
   reverse?: boolean;
   feature?: boolean;
   level?: 'h1' | 'h2';
@@ -23,14 +24,14 @@ interface Props {
   more?: boolean;
   priority?: boolean;
 }
-const { lang, locale: l, dark = false, reverse = false, feature = false, level = 'h2', kicker = l.kicker, more = true, priority = false } = Astro.props;
+const { lang, locale: l, dark = false, wine = false, reverse = false, feature = false, level = 'h2', kicker = l.kicker, more = true, priority = false } = Astro.props;
 const t = ui[lang];
 const Title = level;
 // il bollino del To-Go: il testo gira tutto intorno, come sull'etichetta di un sacchetto
 const stamp = `${l.nameShort} · ${l.street} · ${t.badges.gf} · `;
 const stampId = `bollino-${l.id}`;
 ---
-<section class:list={['format', { 'format--dark': dark, 'format--reverse': reverse, 'format--feature': feature, 'format--page': level === 'h1' }]} data-reveal={level === 'h2' ? '' : undefined}>
+<section class:list={['format', { 'format--dark': dark, 'format--wine': wine, 'format--reverse': reverse, 'format--feature': feature, 'format--page': level === 'h1' }]} data-reveal={level === 'h2' ? '' : undefined}>
   <div class="format__media">
     {/* la foto riempie un riquadro alto quanto il blocco: larga circa 1,5 volte quell'altezza */}
     <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label={`IMG — ${l.imageAlt}`} widths={[640, 960, 1280, 1600, 2000]} sizes="(max-width: 760px) max(100vw, 760px), max(60vw, 160vh)" transition={`locale-${l.id}`} priority={priority} />

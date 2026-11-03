@@ -1,0 +1,62 @@
+---
+import type { Lang } from '../lib/i18n';
+import type { Locale } from '../lib/locali';
+import { ui } from '../lib/ui';
+
+// «Aperto ora · fino alle 22» oppure «Chiuso ora · apre domani alle 9».
+// Si calcola nel browser sull'ora di Firenze, dagli orari del locale: la pagina
+// è statica, quindi l'HTML non può saperlo. Senza JS non compare niente.
+interface Props { lang: Lang; locale: Locale; class?: string }
+const { lang, locale: l, class: className } = Astro.props;
+const t = ui[lang].hours;
+// stesso formato degli orari scritti: «22», «22:30», in francese «22h30»
+const time = Object.fromEntries(l.hours.flatMap((h) => [[h.opens, t.time(h.opens)], [h.closes, t.time(h.closes)]]));
+const data = { hours: l.hours, now: t.now, days: t.long, time };
+---
+{l.hours.length > 0 && <span class:list={['open-now', className]} data-open-now={JSON.stringify(data)} hidden></span>}
+
+<script>
+  type Day = 'Mo' | 'Tu' | 'We' | 'Th' | 'Fr' | 'Sa' | 'Su';
+  type Data = {
+    hours: { from: Day; to: Day; opens: string; closes: string }[];
+    now: Record<'open' | 'closed' | 'today' | 'tomorrow' | 'on', string>;
+    days: Record<Day, string>;
+    time: Record<string, string>;
+  };
+  const DAYS: Day[] = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  const minutes = (hhmm: string) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; };
+
+  // giorno e minuto di adesso, a Firenze, qualunque sia il fuso di chi guarda
+  const parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Rome', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+    .formatToParts(new Date());
+  const get = (type: string) => parts.find((p) => p.type === type)!.value;
+  const today = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(get('weekday'));
+  const nowMin = Number(get('hour')) * 60 + Number(get('minute'));
+
+  document.querySelectorAll<HTMLElement>('[data-open-now]').forEach((el) => {
+    const d: Data = JSON.parse(el.dataset.openNow!);
+    // le fasce di un giorno (0 = lunedì)
+    const slots = (day: number) => d.hours.filter((h) => {
+      const a = DAYS.indexOf(h.from), b = DAYS.indexOf(h.to);
+      return a <= b ? day >= a && day <= b : day >= a || day <= b;
+    });
+    const fill = (s: string, t = '', day = '') => s.replace('{t}', d.time[t] ?? t).replace('{d}', day);
+
+    const open = slots(today).find((h) => nowMin >= minutes(h.opens) && nowMin < minutes(h.closes));
+    if (open) {
+      el.textContent = fill(d.now.open, open.closes);
+      el.classList.add('is-open');
+    } else {
+      // la prossima apertura: più tardi oggi, domani o uno dei giorni dopo
+      let next = '';
+      for (let i = 0; i < 7 && !next; i++) {
+        const day = (today + i) % 7;
+        const h = slots(day).map((s) => s.opens).sort().find((o) => i > 0 || minutes(o) > nowMin);
+        if (h) next = i === 0 ? fill(d.now.today, h) : i === 1 ? fill(d.now.tomorrow, h) : fill(d.now.on, h, d.days[DAYS[day]]);
+      }
+      el.textContent = next ? `${d.now.closed} · ${next}` : d.now.closed;
+      el.classList.add('is-closed');
+    }
+    el.hidden = false;
+  });
+</script>

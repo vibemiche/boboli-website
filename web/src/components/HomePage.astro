@@ -1,10 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from './Hero.astro';
-import ChoiceIndex from './ChoiceIndex.astro';
 import FormatBlock from './FormatBlock.astro';
-import Manifesto from './Manifesto.astro';
-import Laboratorio from './Laboratorio.astro';
+import Trust from './Trust.astro';
 import MenuSection from './MenuSection.astro';
 import Reviews from './Reviews.astro';
 import Locations from './Locations.astro';
@@ -34,10 +32,10 @@ const jsonLd = [
 ---
 <Base lang={lang} path="/" title={t.meta.homeTitle} description={t.meta.homeDesc} image={image} jsonLd={jsonLd} overHero>
   <Hero lang={lang} />
-  <ChoiceIndex lang={lang} locali={locali} />
-  {formats.map((l) => <FormatBlock lang={lang} locale={l} {...toneOf(l.id)} />)}
-  <Manifesto lang={lang} />
-  <Laboratorio lang={lang} />
+  <div id="i-nostri-locali">
+    {formats.map((l) => <FormatBlock lang={lang} locale={l} {...toneOf(l.id)} />)}
+  </div>
+  <Trust lang={lang} />
   <MenuSection lang={lang} />
   <Reviews lang={lang} />
   <Locations lang={lang} locali={locali} />

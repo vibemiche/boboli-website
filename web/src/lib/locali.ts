@@ -19,12 +19,12 @@ export async function getLocali(lang: Lang): Promise<Locale[]> {
 
 export interface Tone { dark: boolean; wine: boolean; reverse: boolean; feature: boolean }
 
-/** Il carattere di ogni locale, uguale in home e nella sua pagina: il Bargello è la
- *  sera (fondo scuro), la Cantina il vino (fondo bordeaux), il To-Go ha la carta a
- *  quadretti e il bollino. In home le foto si alternano a sinistra e a destra. */
+/** Il carattere di ogni locale, uguale in home e nella sua pagina: Trattoria e
+ *  Bargello su fondo bianco, la Cantina il vino (fondo bordeaux), il To-Go ha la
+ *  carta a quadretti e il bollino. In home le foto si alternano a sinistra e a destra. */
 export function toneOf(id: string): Tone {
   return {
-    dark: id === 'al-bargello' || id === 'la-cantina',
+    dark: id === 'la-cantina',
     wine: id === 'la-cantina',
     reverse: id === 'al-bargello' || id === 'to-go',
     feature: id === 'to-go',

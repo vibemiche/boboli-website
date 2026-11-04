@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import Figure from '../../components/Figure.astro';
+import { lp } from '../../lib/i18n';
+import { ui } from '../../lib/ui';
+import { getPosts, dateIt, isoDay, minutesOf } from '../../lib/blog';
+import { breadcrumbSchema, socialImage } from '../../lib/schema';
+
+// L'elenco degli articoli. Il blog è solo in italiano: niente versioni nelle altre lingue.
+const t = ui.it;
+const site = Astro.site!;
+const posts = await getPosts();
+const image = await socialImage('firenze', site);
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    '@id': new URL(lp('it', '/blog/'), site).href + '#blog',
+    name: 'Il blog di Trattoria Boboli',
+    url: new URL(lp('it', '/blog/'), site).href,
+    inLanguage: 'it-IT',
+    blogPost: posts.map((p) => ({ '@id': new URL(lp('it', `/blog/${p.id}/`), site).href + '#article' })),
+  },
+  breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp('it', '/') }, { name: 'Blog', url: lp('it', '/blog/') }], site),
+];
+---
+<Base
+  lang="it"
+  path="/blog/"
+  langs={['it']}
+  title="Blog di Trattoria Boboli: cucina fiorentina senza glutine"
+  description="Piatti tipici fiorentini, ricette storiche di famiglia e itinerari tra arte e sapori: il blog di Trattoria Boboli, a Firenze, dove tutta la cucina è senza glutine."
+  image={image}
+  jsonLd={jsonLd}
+>
+  <div class="blog">
+    <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+      <a href={lp('it', '/')}>Boboli</a> <span aria-hidden="true">›</span> <span aria-current="page">Blog</span>
+    </nav>
+    <header class="blog__head">
+      <p class="u-label blog__kicker">Il blog</p>
+      <h1 class="blog__title">Storie da tavola.</h1>
+      <p class="blog__lead">Piatti tipici fiorentini, ricette di famiglia e Firenze da girare a piedi, con le soste giuste per mangiare. Tutto senza glutine.</p>
+    </header>
+    <ul class="blog__list">
+      {posts.map((p, i) => (
+        <li class="card">
+          <a class="card__link" href={lp('it', `/blog/${p.id}/`)}>
+            <div class="card__media">
+              <Figure slot={p.data.image} alt={p.data.imageAlt} label="" widths={[480, 800, 1200]} sizes="(max-width: 760px) 100vw, 33vw" priority={i === 0} />
+            </div>
+            <p class="u-label card__kicker">{p.data.kicker}</p>
+            <h2 class="card__title">{p.data.title}</h2>
+            <p class="card__desc">{p.data.description}</p>
+            <p class="card__meta"><time datetime={isoDay(p.data.date)}>{dateIt(p.data.date)}</time> · {minutesOf(p)} min di lettura</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Base>

@@ -51,4 +51,28 @@ const locali = defineCollection({
   }),
 });
 
-export const collections = { locali };
+// Il blog, solo in italiano. Un file Markdown per articolo: il nome del file è
+// l'indirizzo (/blog/<nome>/), uguale a quello del vecchio sito senza /it/.
+const blog = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/blog' }),
+  schema: z.object({
+    // il titolo in pagina (h1) e quello per Google (<title>, ≤ 60 caratteri)
+    title: z.string(),
+    seoTitle: z.string().max(60),
+    // la descrizione per Google, 120–160 caratteri
+    description: z.string().min(110).max(160),
+    // l'apertura sotto il titolo: risponde subito alla domanda di chi cerca
+    lead: z.string(),
+    kicker: z.string(),
+    date: z.coerce.date(),
+    updated: z.coerce.date().optional(),
+    // la foto: un file in src/assets/ (vedi assets/README.md)
+    image: z.string(),
+    imageAlt: z.string(),
+    // il gruppo di parole chiave dell'articolo: la prima è quella principale
+    keywords: z.array(z.string()).min(1),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+  }),
+});
+
+export const collections = { locali, blog };

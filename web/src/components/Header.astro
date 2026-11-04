@@ -9,8 +9,8 @@ import type { Locale } from '../lib/locali';
 import { ui } from '../lib/ui';
 
 // `overHero`: solo la home apre su una foto e l'header parte trasparente
-interface Props { lang: Lang; locali: Locale[]; overHero?: boolean; path: string }
-const { lang, locali, overHero = false, path } = Astro.props;
+interface Props { lang: Lang; locali: Locale[]; overHero?: boolean; path: string; langs?: readonly Lang[] }
+const { lang, locali, overHero = false, path, langs } = Astro.props;
 const t = ui[lang];
 // `preview` è la foto che il menu mostra a destra quando passi sulla voce
 const links = [
@@ -23,6 +23,8 @@ const more = [
   { label: t.nav.events, path: '/eventi/' },
   { label: t.nav.smartbox, path: '/smartbox/' },
   { label: t.nav.jobs, path: '/lavora-con-noi/' },
+  // il blog esiste solo in italiano
+  ...(lang === 'it' ? [{ label: 'Blog', path: '/blog/' }] : []),
 ];
 // l'indice al centro dell'header: le sezioni della home, da qualunque pagina
 const index = [
@@ -62,7 +64,7 @@ const index = [
       <a class="btn btn--terracotta" href={lp(lang, '/#locali')} data-book>{t.nav.book}</a>
       <Badges lang={lang} class="nav-overlay__badges" />
     </div>
-    <LangSwitch lang={lang} path={path} class="nav-overlay__lang" />
+    <LangSwitch lang={lang} path={path} langs={langs} class="nav-overlay__lang" />
     <span class="nav-overlay__meta u-label">{t.nav.tagline}</span>
   </div>
   <div class="nav-overlay__preview" aria-hidden="true">

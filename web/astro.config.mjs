@@ -10,6 +10,13 @@ export default defineConfig({
   site: SITE,
   base: BASE,
   trailingSlash: 'always',
+  // Gli articoli del vecchio sito stavano sotto /it/blog/: chi arriva da Google o
+  // da un link salvato finisce sull'articolo nuovo, con lo stesso nome.
+  // Qui sono pagine di rimando; su Vercel valgono i 301 veri di vercel.json.
+  redirects: {
+    '/it/blog/[slug]': '/blog/[slug]',
+    '/it/blog': '/blog',
+  },
   integrations: [
     sitemap({
       // Gli indirizzi corti per i QR code rimandano alla home: fuori dalla sitemap.

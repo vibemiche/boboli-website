@@ -3,6 +3,7 @@ import { TRANSLATED, lp } from '../lib/i18n';
 import { getLocali } from '../lib/locali';
 import { ui } from '../lib/ui';
 import { formatHours } from '../lib/contact';
+import { getPosts } from '../lib/blog';
 
 /**
  * Indice in chiaro per i motori generativi: fatti autosufficienti, senza
@@ -31,6 +32,8 @@ export const GET: APIRoute = async ({ site }) => {
     )
     .join('\n\n');
 
+  const articoli = (await getPosts()).map((p) => `- [${p.data.title}](${url(`/blog/${p.id}/`)}): ${p.data.description}`).join('\n');
+
   const body = `# Trattoria Boboli — 100% gluten free, Firenze
 
 > Gruppo di ristorazione fiorentino attivo dal 1978 con quattro locali e un
@@ -54,6 +57,10 @@ ${schede}
 - Gruppi ed eventi, spazi privatizzabili: ${url('/eventi/')}
 - Smartbox: ${url('/smartbox/')}
 - Lavora con noi: ${url('/lavora-con-noi/')}
+
+## Blog
+
+${articoli}
 
 ## Altre lingue
 

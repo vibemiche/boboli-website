@@ -109,3 +109,33 @@ export function breadcrumbSchema(items: { name: string; url: string }[], site: U
     })),
   };
 }
+
+/**
+ * L'articolo del blog per Google: titolo, date, foto e chi lo pubblica. Autore ed
+ * editore sono Trattoria Boboli, lo stesso `@id` dell'organizzazione nella home.
+ */
+export function blogPostingSchema(
+  p: { title: string; description: string; date: Date; updated?: Date; keywords: string[]; wordCount: number },
+  url: string,
+  image: string | null,
+  site: URL,
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': abs(url, site) + '#article',
+    headline: p.title,
+    description: p.description,
+    inLanguage: 'it-IT',
+    mainEntityOfPage: abs(url, site),
+    url: abs(url, site),
+    ...(image ? { image } : {}),
+    datePublished: p.date.toISOString().slice(0, 10),
+    dateModified: (p.updated ?? p.date).toISOString().slice(0, 10),
+    keywords: p.keywords.join(', '),
+    wordCount: p.wordCount,
+    author: { '@id': orgId(site) },
+    publisher: { '@id': orgId(site) },
+    isPartOf: { '@type': 'Blog', '@id': abs(lp('it', '/blog/'), site) + '#blog', name: 'Il blog di Trattoria Boboli' },
+  };
+}

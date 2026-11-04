@@ -5,14 +5,15 @@ import { ui } from '../lib/ui';
 
 // La lingua si sceglie anche a mano: la scelta resta in memoria e il
 // reindirizzamento automatico (in Base.astro) da quel momento la rispetta.
-interface Props { lang: Lang; path: string; class?: string }
-const { lang, path, class: className } = Astro.props;
+// Se la pagina non esiste in una lingua (il blog è solo in italiano), il link porta alla home di quella lingua.
+interface Props { lang: Lang; path: string; langs?: readonly Lang[]; class?: string }
+const { lang, path, langs = LANGS, class: className } = Astro.props;
 ---
 <nav class:list={['lang-switch', className]} aria-label={ui[lang].nav.language}>
   <ul>
     {LANGS.map((l) => (
       <li>
-        <a href={lp(l, path)} hreflang={l} lang={l} data-lang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
+        <a href={lp(l, langs.includes(l) ? path : '/')} hreflang={l} lang={l} data-lang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
       </li>
     ))}
   </ul>

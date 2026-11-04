@@ -1183,3 +1183,99 @@ html.is-locked{overflow:hidden}
   .stamp__ring{animation:none}
   *{transition-duration:.01ms !important}
 }
+
+/* ── blog: elenco e articolo ─────────────────────────────────────────────── */
+.blog,.post{padding:calc(var(--header-h) + clamp(28px,4vw,60px)) var(--gutter) 0}
+.blog{padding-bottom:var(--section-y)}
+.blog__head{max-width:900px;margin:18px 0 clamp(30px,4vw,56px)}
+.blog__kicker,.post__kicker,.card__kicker{color:var(--terracotta-deep)}
+.blog__title{margin:12px 0 0;font-weight:700;font-size:clamp(48px,7.6vw,128px);line-height:.88;letter-spacing:-.04em}
+.blog__lead{max-width:40ch;margin-top:20px;font-weight:100;font-size:clamp(19px,2.2vw,32px);line-height:1.22}
+.blog__list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,44px)}
+.card__link{display:flex;flex-direction:column;gap:10px;height:100%;color:inherit;text-decoration:none}
+.card__media{margin-bottom:8px;overflow:hidden}
+.card__media :is(picture,.ph){aspect-ratio:4/3}
+.card__media img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.card__title{margin:0;font-weight:700;font-size:clamp(22px,2vw,30px);line-height:1.05;letter-spacing:-.03em}
+.card__desc{margin:0;color:var(--muted);font-size:var(--body);line-height:1.55}
+.card__meta{margin:auto 0 0;color:var(--muted);font-size:13px}
+@media (hover:hover){
+  .card__link:hover img{transform:scale(1.04)}
+  .card__link:hover .card__title{color:var(--terracotta-deep)}
+}
+
+.post__head{max-width:980px}
+.post__kicker{margin-top:22px}
+.post__title{margin:14px 0 0;font-weight:700;font-size:clamp(38px,5.4vw,88px);line-height:.95;letter-spacing:-.035em}
+.post__lead{max-width:46ch;margin:22px 0 0;font-weight:100;font-size:clamp(19px,2vw,28px);line-height:1.3}
+.post__meta{display:flex;flex-wrap:wrap;gap:4px 8px;margin:20px 0 0;color:var(--muted);font-size:14px}
+.post__media{max-width:1040px;margin:clamp(28px,4vw,56px) 0 0}
+.post__media :is(picture,.ph){aspect-ratio:3/2;max-height:76vh}
+/* le foto verticali, ritagliate in orizzontale, tengono il piatto al centro */
+:is(.post__media,.card__media) [data-slot="piatti/1-bistecca"] img{object-position:40% 55%}
+:is(.post__media,.card__media) [data-slot="piatti/3-umido"] img{object-position:50% 62%}
+
+.post__grid{
+  display:grid;grid-template-columns:minmax(200px,280px) minmax(0,720px);justify-content:center;
+  gap:clamp(30px,6vw,110px);padding:clamp(36px,5vw,80px) 0 var(--section-y);
+}
+.post__toc{position:sticky;top:calc(var(--header-h) + 24px);align-self:start;font-size:14px;line-height:1.4}
+.post__toc .u-label{color:var(--muted);margin:0 0 14px}
+.post__toc ol{margin:0;padding:0;list-style:none;border-left:1px solid var(--rule)}
+.post__toc a{display:block;padding:7px 0 7px 16px;color:var(--ink);text-decoration:none}
+.post__toc a:hover{color:var(--terracotta-deep)}
+.post__grid:not(:has(.post__toc)){grid-template-columns:minmax(0,720px)}
+
+/* il testo dell'articolo: righe da libro, titoli che si vedono a colpo d'occhio */
+.prose{min-width:0;font-size:clamp(17px,1.3vw,19px);line-height:1.7;color:#33302d}
+.prose > :first-child{margin-top:0}
+.prose :is(h2,h3){color:var(--ink);scroll-margin-top:calc(var(--header-h) + 20px);letter-spacing:-.025em}
+.prose h2{margin:2.2em 0 .6em;font-weight:700;font-size:clamp(26px,2.6vw,38px);line-height:1.08}
+.prose h3{margin:1.8em 0 .4em;font-weight:700;font-size:clamp(20px,1.7vw,25px);line-height:1.2}
+.prose p{margin:0 0 1em}
+.prose :is(ul,ol){margin:0 0 1.2em;padding-left:1.3em}
+.prose li{margin:.35em 0;padding-left:.2em}
+.prose li::marker{color:var(--terracotta-deep);font-weight:700}
+.prose strong{color:var(--ink)}
+.prose a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--terracotta);text-decoration-thickness:2px;text-underline-offset:3px}
+.prose a:hover{color:var(--terracotta-deep)}
+
+.post__faq{margin-top:2.4em}
+.post__faq details{border-top:1px solid var(--rule)}
+.post__faq details:last-child{border-bottom:1px solid var(--rule)}
+.post__faq summary{
+  display:flex;justify-content:space-between;align-items:center;gap:14px;min-height:44px;padding:14px 0;
+  cursor:pointer;list-style:none;font-weight:700;color:var(--ink);line-height:1.35;
+}
+.post__faq summary::-webkit-details-marker{display:none}
+.post__faq summary span{font-size:1.3em;transition:transform .2s ease}
+.post__faq details[open] summary span{transform:rotate(45deg)}
+.post__faq details p{margin:0 0 18px;color:var(--muted)}
+
+/* in fondo all'articolo: la tavola apparecchiata, sul vino come la fascia finale della home */
+.post__cta{margin-top:2.6em;padding:clamp(26px,3.4vw,44px);background:var(--wine);color:#fff}
+.post__cta p{margin:0 0 6px;color:rgba(255,255,255,.8)}
+.post__cta .post__cta-title{color:#fff;font-weight:700;font-size:clamp(30px,3.4vw,48px);line-height:1;letter-spacing:-.03em;margin-bottom:10px}
+.post__cta-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.post__cta .btn--terracotta{background:var(--arancio);color:var(--wine);text-decoration:none}
+.post__cta .btn--terracotta:hover{background:#fff;color:var(--wine)}
+.post__cta .btn--ghost{color:#fff;text-decoration:none}
+.post__cta .btn--ghost:hover{background:#fff;color:var(--wine)}
+
+.post__more{padding:var(--section-y) var(--gutter);border-top:1px solid var(--rule)}
+.post__more > .u-label{margin:0 0 clamp(20px,3vw,36px);color:var(--muted)}
+
+@media (max-width:900px){
+  .post__grid{grid-template-columns:minmax(0,1fr)}
+  .post__toc{position:static;padding:18px 20px;background:#f6f3ee}
+  .post__toc ol{border:0}
+  .post__toc a{padding:8px 0}
+}
+@media (max-width:760px){
+  .blog__list{grid-template-columns:1fr}
+  .blog__title{font-size:13vw}
+  .post__title{font-size:9.6vw}
+  .post__media{margin-inline:calc(-1 * var(--gutter))}
+  .post__media :is(picture,.ph){aspect-ratio:4/3}
+  .post__cta-actions .btn{flex:1 1 100%}
+}

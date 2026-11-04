@@ -21,9 +21,11 @@ interface Props {
   jsonLd?: unknown[];
   /** La pagina apre su una foto a tutto schermo (la home): l'header parte trasparente. */
   overHero?: boolean;
+  /** Le lingue in cui esiste la pagina: il blog è solo in italiano. */
+  langs?: readonly Lang[];
 }
 
-const { lang, path, title, description, image, jsonLd = [], overHero = false } = Astro.props;
+const { lang, path, title, description, image, jsonLd = [], overHero = false, langs = LANGS } = Astro.props;
 const t = ui[lang];
 const locali = await getLocali(lang);
 const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
@@ -41,8 +43,8 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
   <link rel="canonical" href={abs(lang)} />
   {!indexable && <meta name="robots" content="noindex, nofollow" />}
 
-  {LANGS.map((l) => <link rel="alternate" hreflang={l} href={abs(l)} />)}
-  <link rel="alternate" hreflang="x-default" href={abs(FALLBACK)} />
+  {langs.map((l) => <link rel="alternate" hreflang={l} href={abs(l)} />)}
+  <link rel="alternate" hreflang="x-default" href={abs(langs.includes(FALLBACK) ? FALLBACK : langs[0])} />
 
   {/* Nessun selettore: comanda la lingua del browser. I crawler restano dove
       arrivano, altrimenti Google (che naviga in inglese) non vedrebbe mai
@@ -72,7 +74,7 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
 
   <meta property="og:type" content="website" />
   <meta property="og:locale" content={OG_LOCALE[lang]} />
-  {LANGS.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
+  {langs.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
   <meta property="og:site_name" content="Trattoria Boboli" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -86,11 +88,11 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
 </head>
 <body>
   <a class="skip-link" href="#contenuto">{t.meta.skip}</a>
-  <Header lang={lang} locali={locali} overHero={overHero} path={path} />
+  <Header lang={lang} locali={locali} overHero={overHero} path={path} langs={langs} />
   <main id="contenuto">
     <slot />
   </main>
-  <Footer lang={lang} locali={locali} path={path} />
+  <Footer lang={lang} locali={locali} path={path} langs={langs} />
   <BookingDialog lang={lang} locali={locali} />
   <MobileBar lang={lang} />
   <WhatsApp lang={lang} />

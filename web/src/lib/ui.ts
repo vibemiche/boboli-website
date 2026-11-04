@@ -216,6 +216,8 @@ In allegato il mio CV.
     links: { lab: 'Il laboratorio', manifesto: '100% gluten free', menu: 'Il menu', shop: 'I prodotti', smartbox: 'Smartbox', jobs: 'Lavora con noi', events: 'Gruppi ed eventi' },
     contact: 'Contatti',
     faq: 'Domande frequenti',
+    legal: 'Note legali',
+    vat: 'P. IVA',
   },
   place: {
     crumb: 'Percorso',
@@ -457,6 +459,8 @@ Please find my CV attached.
     links: { lab: 'The workshop', manifesto: '100% gluten free', menu: 'The menu', shop: 'Products', smartbox: 'Smartbox', jobs: 'Work with us', events: 'Groups & events' },
     contact: 'Contact',
     faq: 'FAQ',
+    legal: 'Legal notice',
+    vat: 'VAT no.',
   },
   place: {
     crumb: 'Breadcrumb',
@@ -694,6 +698,8 @@ Adjunto mi CV.
     links: { lab: 'El obrador', manifesto: '100% sin gluten', menu: 'La carta', shop: 'Los productos', smartbox: 'Smartbox', jobs: 'Trabaja con nosotros', events: 'Grupos y eventos' },
     contact: 'Contacto',
     faq: 'Preguntas frecuentes',
+    legal: 'Aviso legal',
+    vat: 'IVA',
   },
   place: {
     crumb: 'Ruta de navegación',
@@ -931,6 +937,8 @@ Meinen Lebenslauf findet ihr im Anhang.
     links: { lab: 'Die Manufaktur', manifesto: '100 % glutenfrei', menu: 'Die Speisekarte', shop: 'Produkte', smartbox: 'Smartbox', jobs: 'Arbeite bei uns', events: 'Gruppen & Events' },
     contact: 'Kontakt',
     faq: 'Häufige Fragen',
+    legal: 'Impressum',
+    vat: 'USt-IdNr.',
   },
   place: {
     crumb: 'Navigationspfad',
@@ -1168,6 +1176,8 @@ Tu trouveras mon CV en pièce jointe.
     links: { lab: "L'atelier", manifesto: '100 % sans gluten', menu: 'La carte', shop: 'Les produits', smartbox: 'Smartbox', jobs: 'Travailler avec nous', events: 'Groupes et événements' },
     contact: 'Contact',
     faq: 'Questions fréquentes',
+    legal: 'Mentions légales',
+    vat: 'TVA',
   },
   place: {
     crumb: "Fil d'Ariane",

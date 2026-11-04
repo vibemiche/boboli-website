@@ -6,10 +6,24 @@ import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
 import { ui } from '../lib/ui';
+import { LEGAL, legalAddress } from '../lib/legal';
 
 interface Props { lang: Lang; locali: Locale[]; path: string; langs?: readonly Lang[] }
 const { lang, locali, path, langs } = Astro.props;
 const t = ui[lang];
+
+// La riga legale in fondo: chi pubblica il sito e la partita IVA, su ogni pagina
+// (la legge la vuole almeno in home). I dati mancanti non compaiono.
+const addr = legalAddress();
+const legalLine = [
+  `© ${new Date().getFullYear()} ${LEGAL.name}`,
+  addr && `Sede legale ${addr}`,
+  `${t.footer.vat} ${LEGAL.vat}`,
+  LEGAL.taxCode && `C.F. ${LEGAL.taxCode}`,
+  LEGAL.registry && LEGAL.rea && `REA ${LEGAL.rea}`,
+  LEGAL.capital && `Capitale sociale ${LEGAL.capital}`,
+  LEGAL.soleShareholder && 'Socio unico',
+].filter(Boolean);
 
 const columns = [
   {
@@ -56,4 +70,9 @@ const columns = [
       {col.links.map((l) => <a href={lp(lang, l.path)} data-book={'book' in l ? '' : undefined}>{l.label}</a>)}
     </nav>
   ))}
+  <div class="site-footer__legal">
+    <p>{legalLine.join(' · ')}</p>
+    {/* le note legali sono in italiano: da ogni lingua si arriva alla stessa pagina */}
+    <a href={lp('it', '/note-legali/')} hreflang={lang === 'it' ? undefined : 'it'}>{t.footer.legal}</a>
+  </div>
 </footer>

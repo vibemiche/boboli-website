@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import { lp } from '../lib/i18n';
+import { ui } from '../lib/ui';
+import { LEGAL, legalAddress, missingLegal } from '../lib/legal';
+import { breadcrumbSchema } from '../lib/schema';
+import { REVIEWS_AS_OF } from '../lib/reviews';
+
+// Le note legali: chi pubblica il sito e le regole per usarne i contenuti.
+// Solo in italiano: dalle altre lingue il footer porta qui.
+const t = ui.it;
+const site = Astro.site!;
+const missing = missingLegal();
+if (missing.length) console.warn(`[note legali] dati obbligatori mancanti in src/lib/legal.ts: ${missing.join('; ')}`);
+
+const addr = legalAddress();
+const facts: [string, string][] = [
+  ['Denominazione', `${LEGAL.name}, ${LEGAL.form}`],
+  ...(addr ? [['Sede legale', addr] as [string, string]] : []),
+  ['Partita IVA', LEGAL.vat],
+  ...(LEGAL.taxCode ? [['Codice fiscale', LEGAL.taxCode] as [string, string]] : []),
+  ...(LEGAL.registry && LEGAL.rea ? [['Registro delle imprese', `${LEGAL.registry}, REA ${LEGAL.rea}`] as [string, string]] : []),
+  ...(LEGAL.capital ? [['Capitale sociale', LEGAL.capital] as [string, string]] : []),
+  ...(LEGAL.soleShareholder ? [['Compagine sociale', 'Società a socio unico'] as [string, string]] : []),
+  ...(LEGAL.pec ? [['PEC', LEGAL.pec] as [string, string]] : []),
+  ...(LEGAL.email ? [['E-mail', LEGAL.email] as [string, string]] : []),
+];
+const asOf = new Intl.DateTimeFormat('it-IT', { month: 'long', year: 'numeric' }).format(new Date(REVIEWS_AS_OF.year, REVIEWS_AS_OF.month - 1, 1));
+const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp('it', '/') }, { name: 'Note legali', url: lp('it', '/note-legali/') }], site)];
+---
+<Base
+  lang="it"
+  path="/note-legali/"
+  langs={['it']}
+  title="Note legali · Trattoria Boboli"
+  description={`Note legali del sito di Trattoria Boboli: chi lo pubblica (${LEGAL.name}, P. IVA ${LEGAL.vat}), contenuti, menu e allergeni, recensioni e link esterni.`}
+  image={null}
+  jsonLd={jsonLd}
+>
+  <article class="post legal">
+    <header class="post__head">
+      <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+        <a href={lp('it', '/')}>Boboli</a> <span aria-hidden="true">›</span> <span aria-current="page">Note legali</span>
+      </nav>
+      <h1 class="post__title">Note legali</h1>
+      <p class="post__lead">Chi pubblica questo sito e le regole per usarne i contenuti.</p>
+    </header>
+
+    <div class="prose legal__body">
+      <h2 id="titolare">Chi pubblica il sito</h2>
+      <p>Il sito trattoriaboboli.it è pubblicato da:</p>
+      <dl class="legal__facts">
+        {facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+      </dl>
+      <p>
+        Per prenotare o per informazioni sui locali trovi indirizzi, orari e telefoni nella pagina di
+        ciascun locale, partendo da <a href={lp('it', '/#locali')}>i nostri locali</a>.
+      </p>
+
+      <h2 id="contenuti">Contenuti e proprietà intellettuale</h2>
+      <p>
+        Testi, fotografie, logo, illustrazioni e grafica di questo sito sono protetti dalla legge sul diritto
+        d'autore (legge 22 aprile 1941, n. 633) e appartengono a {LEGAL.name} o ai rispettivi autori.
+        Non possono essere copiati, modificati o ripubblicati senza autorizzazione scritta. Puoi citare brevi
+        parti dei testi indicando la fonte con un link alla pagina.
+      </p>
+
+      <h2 id="menu">Menu, allergeni e prezzi</h2>
+      <p>
+        I menu pubblicati sul sito sono indicativi: i piatti cambiano con le stagioni e i prezzi validi sono
+        quelli esposti nel locale. Le informazioni sugli allergeni (Regolamento UE 1169/2011) sono indicate nel
+        menu e sono sempre disponibili presso il personale: se hai allergie o intolleranze, segnalalo quando ordini.
+      </p>
+
+      <h2 id="recensioni">Recensioni</h2>
+      <p>
+        I voti e il numero di recensioni mostrati sul sito sono la somma dei dati pubblici dei nostri locali su
+        Google e TheFork, aggiornati a {asOf}. Riportiamo tutte le recensioni delle piattaforme, senza
+        selezionarle; le singole recensioni si leggono sulle piattaforme, che ne curano la raccolta.
+      </p>
+
+      <h2 id="link">Link e servizi esterni</h2>
+      <p>
+        Alcune funzioni del sito si appoggiano a servizi di terzi: la prenotazione online (TheFork), le consegne
+        a domicilio (Glovo), le indicazioni stradali (Google Maps), la mappa dei locali (OpenStreetMap e
+        OpenFreeMap) e la chat (WhatsApp). Quando li usi valgono le condizioni e l'informativa privacy di chi
+        offre il servizio. Non siamo responsabili dei contenuti dei siti esterni a cui rimandiamo.
+      </p>
+
+      <h2 id="legge">Legge applicabile</h2>
+      <p>Queste note legali sono regolate dalla legge italiana.</p>
+    </div>
+  </article>
+</Base>

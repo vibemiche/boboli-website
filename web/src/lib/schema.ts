@@ -5,6 +5,7 @@ import type { Locale } from './locali';
 import type { Dict } from './ui';
 import { findImage } from './images';
 import { openingHoursSpecification } from './contact';
+import { LEGAL } from './legal';
 
 /** La scheda del locale su Google Maps, cercata per nome e indirizzo: gli stessi del NAP. */
 const mapsUrl = (l: Locale) =>
@@ -78,6 +79,8 @@ export function organizationSchema(t: Dict, lang: Lang, site: URL) {
     '@type': 'Organization',
     '@id': orgId(site),
     name: 'Trattoria Boboli',
+    legalName: LEGAL.name,
+    vatID: `IT${LEGAL.vat}`,
     url: abs(lp(lang, '/'), site),
     slogan: t.footer.tagline[0].replace(/\.$/, ''),
     description: t.meta.orgDesc,

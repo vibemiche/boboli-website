@@ -18,9 +18,11 @@ const addr = legalAddress();
 const legalLine = [
   `© ${new Date().getFullYear()} ${LEGAL.name}`,
   addr && `Sede legale ${addr}`,
-  `${t.footer.vat} ${LEGAL.vat}`,
-  LEGAL.taxCode && `C.F. ${LEGAL.taxCode}`,
+  // per le Srl codice fiscale e partita IVA di solito coincidono: una voce sola
+  LEGAL.taxCode === LEGAL.vat && lang === 'it' ? `C.F. e P. IVA ${LEGAL.vat}` : `${t.footer.vat} ${LEGAL.vat}`,
+  LEGAL.taxCode && LEGAL.taxCode !== LEGAL.vat && `C.F. ${LEGAL.taxCode}`,
   LEGAL.registry && LEGAL.rea && `REA ${LEGAL.rea}`,
+  LEGAL.pec && `PEC ${LEGAL.pec}`,
   LEGAL.capital && `Capitale sociale ${LEGAL.capital}`,
   LEGAL.soleShareholder && 'Socio unico',
 ].filter(Boolean);

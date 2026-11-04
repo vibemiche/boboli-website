@@ -14,23 +14,23 @@ export const LEGAL = {
   form: 'società a responsabilità limitata',
   vat: '06873090481',
   /** Il codice fiscale, se diverso dalla partita IVA. Per le Srl di solito coincide. */
-  taxCode: null as string | null,
+  taxCode: '06873090481' as string | null,
   address: {
     street: "Via Duca d'Aosta",
-    number: null as string | null,
-    postalCode: null as string | null,
-    city: null as string | null,
-    province: null as string | null,
+    number: '16' as string | null,
+    postalCode: '50129' as string | null,
+    city: 'Firenze' as string | null,
+    province: 'FI' as string | null,
   },
   /** Es. «Firenze»: l'ufficio del Registro delle imprese. */
-  registry: null as string | null,
+  registry: 'Firenze' as string | null,
   /** Es. «FI-123456». */
-  rea: null as string | null,
+  rea: 'FI-662858' as string | null,
   /** Es. «10.000,00 € interamente versato». */
-  capital: null as string | null,
+  capital: '10.000,00 € interamente versato' as string | null,
   /** true se la società ha un solo socio: la legge chiede di scriverlo. */
-  soleShareholder: null as boolean | null,
-  pec: null as string | null,
+  soleShareholder: false as boolean | null,
+  pec: 'yanasrl@pec.it' as string | null,
   email: null as string | null,
 };
 
@@ -38,7 +38,7 @@ export const LEGAL = {
 export function legalAddress(): string | null {
   const a = LEGAL.address;
   if (!a.number || !a.postalCode || !a.city) return null;
-  return `${a.street} ${a.number}, ${a.postalCode} ${a.city}${a.province ? ` (${a.province})` : ''}`;
+  return `${a.street}, ${a.number} - ${a.postalCode} ${a.city}${a.province ? ` (${a.province})` : ''}`;
 }
 
 /** I dati obbligatori che mancano ancora. */

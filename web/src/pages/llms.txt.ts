@@ -25,7 +25,7 @@ export const GET: APIRoute = async ({ site }) => {
         `- Cosa offre: ${l.blurb}`,
         `- Pagina: ${url(`/locali/${l.id}/`)}`,
         `- Menu: ${url(l.id === 'to-go' ? '/menu/#to-go' : '/menu/')}`,
-        l.smartboxUrl ? `- Smartbox: si usa qui; il codice si inserisce da ${url('/smartbox/')}` : null,
+        l.smartbox ? `- Smartbox: si usa qui; il voucher si registra sul sito Smartbox, istruzioni su ${url('/smartbox/')}` : null,
       ]
         .filter(Boolean)
         .join('\n'),

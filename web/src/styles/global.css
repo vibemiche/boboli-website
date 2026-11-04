@@ -723,6 +723,7 @@ html.is-locked{overflow:hidden}
   color:var(--cream-50);font-size:12px;line-height:1.5;
 }
 .site-footer__legal p{margin:0}
+.site-footer__legal-links{display:flex;gap:0 22px}
 .site-footer__legal a{color:rgba(255,255,255,.8);text-decoration:underline;text-underline-offset:3px}
 .site-footer__legal a:hover{color:var(--terracotta)}
 .site-footer__addr{display:block;color:var(--cream-50);font-size:clamp(11px,1.02vw,13px);line-height:1.4}
@@ -904,12 +905,17 @@ html.is-locked{overflow:hidden}
 .ticket__kicker{color:var(--cream-50)}
 .ticket__name{
   padding-right:clamp(70px,8vw,104px);
-  font-weight:700;font-size:clamp(28px,3.2vw,50px);line-height:.95;letter-spacing:-.03em;
+  font-weight:700;font-size:clamp(24px,2.4vw,38px);line-height:1;letter-spacing:-.03em;
 }
 .ticket__name a:hover{color:var(--terracotta)}
 .ticket__addr{color:var(--cream-60);font-size:var(--body)}
-.ticket__cta{gap:.7em;margin-top:clamp(14px,2vw,26px)}
+.ticket__actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;margin-top:clamp(14px,2vw,26px)}
+.ticket__cta{gap:.7em}
+/* sul biglietto scuro l'arancio acceso: 7:1 contro l'inchiostro */
+.ticket .btn--terracotta{background:var(--arancio);color:var(--ink)}
 .ticket__cta:hover{background:var(--bg);color:var(--ink)}
+.ticket__call{color:rgba(255,255,255,.85);font-weight:700;font-size:var(--body);border-bottom:1px solid rgba(255,255,255,.4)}
+.ticket__call:hover{color:var(--arancio);border-color:currentColor}
 .gift__note{margin-top:clamp(22px,3vw,36px);color:var(--muted);font-size:var(--body)}
 
 /* ── lavora con noi, gruppi ed eventi ──────────────────────────────────── */
@@ -1296,3 +1302,126 @@ html.is-locked{overflow:hidden}
 .legal__facts dt{color:var(--muted);font-size:.9em}
 .legal__facts dd{margin:0;color:var(--ink);font-weight:700}
 @media (max-width:760px){.legal__facts div{grid-template-columns:1fr}}
+
+/* ── smartbox, eventi, candidature: apertura con i passi ─────────────────── */
+.gift__head,.events__head{
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:end;gap:clamp(28px,5vw,90px);
+}
+.gift__cta{gap:.7em;margin-top:clamp(22px,3vw,36px);padding:18px 30px}
+.events__steps{margin:0;padding:0;list-style:none;counter-reset:none}
+.events__steps li{
+  display:grid;grid-template-columns:auto 1fr;align-items:baseline;gap:clamp(14px,1.6vw,22px);
+  padding:clamp(12px,1.4vw,18px) 0;border-top:1px solid var(--rule);
+}
+.events__steps li:last-child{border-bottom:1px solid var(--rule)}
+.events__num{font-weight:700;font-size:clamp(26px,2.8vw,42px);line-height:.9;color:var(--terracotta-deep)}
+.events__steps p{margin:0;color:var(--muted);font-size:var(--body-lg);line-height:1.5}
+
+/* la scelta della sede: due inviti grandi, con il civico come sulla porta */
+.pick{margin-top:clamp(50px,7vw,110px)}
+.pick__title{color:var(--kicker);margin-bottom:clamp(14px,2vw,24px)}
+.pick__list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,28px)}
+.pick__card{
+  position:relative;display:grid;grid-template-columns:auto 1fr;grid-template-areas:"civic name" "civic where" "civic go";
+  column-gap:clamp(16px,2vw,28px);row-gap:6px;align-items:center;height:100%;
+  padding:clamp(20px,2.6vw,36px);border:1px solid var(--ink);color:var(--ink);
+  transition:background-color .2s ease,color .2s ease;
+}
+.pick__civic{grid-area:civic;font-weight:700;font-size:clamp(40px,5vw,84px);line-height:.85;letter-spacing:-.04em;color:var(--terracotta-deep)}
+.pick__name{grid-area:name;font-weight:700;font-size:clamp(20px,2vw,30px);line-height:1.05;letter-spacing:-.03em}
+.pick__where{grid-area:where;color:var(--muted)}
+.pick__go{grid-area:go;margin-top:8px;font-weight:700;font-size:13px;letter-spacing:var(--track);text-transform:uppercase}
+@media (hover:hover){
+  .pick__card:hover{background:var(--wine);color:#fff}
+  .pick__card:hover :is(.pick__where){color:rgba(255,255,255,.75)}
+  .pick__card:hover .pick__civic{color:var(--arancio)}
+}
+
+/* ogni sede: la foto da una parte, il modulo dall'altra */
+.venue{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  border-top:1px solid var(--rule);scroll-margin-top:var(--header-h);
+}
+.venue--reverse .venue__media{order:2}
+.venue__media{position:relative}
+.venue__media :is(picture,.ph){position:sticky;top:var(--header-h);height:calc(100svh - var(--header-h));min-height:420px}
+.venue__body{padding:clamp(36px,5vw,90px) clamp(20px,4.4vw,72px)}
+.venue__kicker{color:var(--terracotta-deep)}
+.venue__name{margin:10px 0 0;font-weight:700;font-size:clamp(32px,3.6vw,58px);line-height:.95;letter-spacing:-.035em}
+.venue__where{margin-top:12px;color:var(--kicker)}
+.venue__text{max-width:48ch;margin:16px 0 0;color:var(--muted);font-size:var(--body-lg);line-height:1.6}
+.venue__call{margin:14px 0 0;font-size:var(--body)}
+.venue__call a{font-weight:700;border-bottom:1px solid currentColor}
+.venue .fs{margin-top:clamp(24px,3vw,40px)}
+
+.events__promise{
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:clamp(28px,5vw,80px);
+  padding:var(--section-y) var(--gutter);background:var(--wine);color:#fff;
+}
+.events__promise .promise{margin:0}
+.events__promise .promise__text{color:rgba(255,255,255,.85)}
+.events__photo :is(picture,.ph){aspect-ratio:4/3}
+
+/* ── moduli ──────────────────────────────────────────────────────────────── */
+.fs__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field--wide{grid-column:1 / -1}
+.field__label{font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.field__input{
+  width:100%;min-height:52px;padding:13px 14px;border:1px solid rgba(32,30,29,.45);border-radius:0;
+  background:#fff;color:var(--ink);font:inherit;font-size:16px;line-height:1.4;
+  transition:border-color .15s ease,box-shadow .15s ease;-webkit-appearance:none;appearance:none;
+}
+.field__input:hover{border-color:var(--ink)}
+.field__input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(198,113,57,.35)}
+.field__input::placeholder{color:#8a847b}
+textarea.field__input{min-height:140px;resize:vertical}
+select.field__input{
+  padding-right:42px;cursor:pointer;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23201e1d' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 16px center;
+}
+input[type="file"].field__input{padding:11px 12px;cursor:pointer}
+input[type="file"].field__input::file-selector-button{
+  margin-right:14px;padding:9px 14px;border:0;background:var(--ink);color:#fff;
+  font:inherit;font-weight:700;font-size:12px;letter-spacing:var(--track);text-transform:uppercase;cursor:pointer;
+}
+.field__input:user-invalid{border-color:#b23a33;box-shadow:0 0 0 1px #b23a33}
+.field__hint{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+.fs__check{display:flex;align-items:flex-start;gap:12px;margin-top:22px;font-size:15px;line-height:1.45;cursor:pointer}
+.fs__check input{flex:none;width:22px;height:22px;margin:0;accent-color:var(--terracotta-deep);cursor:pointer}
+.fs__check a{text-decoration:underline;text-underline-offset:3px}
+.fs__note{margin:12px 0 0;color:var(--muted);font-size:13px}
+.fs__submit{gap:.7em;margin-top:22px;padding:18px 32px;min-width:min(100%,280px)}
+.fs__submit:disabled{opacity:.7;cursor:progress}
+.fs__trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fs__success{
+  display:flex;align-items:flex-start;gap:16px;padding:clamp(22px,3vw,34px);
+  background:#eef3e8;border-left:4px solid var(--sage);color:var(--ink);
+  font-size:var(--body-lg);line-height:1.5;outline:none;
+}
+.fs__success[hidden]{display:none}
+.fs__success svg{flex:none;width:30px;height:30px;color:var(--sage)}
+.fs__success p{margin:0}
+/* la scheda bianca sul fondo verde delle candidature */
+.fs--card{padding:clamp(22px,3vw,40px);background:#fff;color:var(--ink);box-shadow:0 24px 50px -30px rgba(0,0,0,.6)}
+.fs--card .fs__check a{color:var(--ink)}
+
+@media (max-width:900px){
+  .gift__head,.events__head{grid-template-columns:1fr;align-items:start}
+  .venue{grid-template-columns:1fr}
+  .venue--reverse .venue__media{order:0}
+  .venue__media :is(picture,.ph){position:static;height:auto;min-height:0;aspect-ratio:4/3}
+  .events__promise{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .pick__list{grid-template-columns:1fr}
+  .fs__grid{grid-template-columns:1fr}
+  .fs__submit{width:100%}
+  .venue__body{padding:32px var(--gutter) 44px}
+}
+@media (max-width:760px){
+  /* nel biglietto stretto il bottone va a capo invece di uscire dallo schermo */
+  .ticket__actions{width:100%}
+  .ticket__cta{width:100%;white-space:normal;text-align:center;line-height:1.3}
+  .ticket__body{min-width:0}
+}

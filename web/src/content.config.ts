@@ -37,8 +37,8 @@ const locali = defineCollection({
     phone: z.string().nullable().default(null),
     // L'indirizzo del widget TheFork: se c'è, il locale si prenota online.
     bookingUrl: z.string().url().nullable().default(null),
-    // Il modulo Google in cui si inserisce il codice Smartbox; senza, il locale non la accetta.
-    smartboxUrl: z.string().url().nullable().default(null),
+    // Il locale accetta la Smartbox: il voucher si registra sul sito Smartbox (lib/forms.ts).
+    smartbox: z.boolean().default(false),
     // Dove si ordina a domicilio (Glovo): se c'è, accanto a «Chiama» compare «Ordina».
     orderUrl: z.string().url().nullable().default(null),
     geo: z.object({ lat: z.number(), lng: z.number() }).nullable().default(null),

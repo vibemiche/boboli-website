@@ -1,0 +1,53 @@
+---
+// Un campo dei moduli: etichetta sopra, campo, suggerimento sotto. Il `name` è
+// in italiano in tutte le lingue: è l'intestazione che il locale legge nella mail.
+interface Props {
+  label: string;
+  name: string;
+  type?: 'text' | 'email' | 'tel' | 'number' | 'date' | 'file' | 'select' | 'textarea';
+  required?: boolean;
+  autocomplete?: string;
+  hint?: string;
+  options?: string[];
+  choose?: string;
+  /** Occupa tutta la riga anche da computer. */
+  wide?: boolean;
+  accept?: string;
+  min?: string;
+  placeholder?: string;
+  /** Dimensione massima del file, in MB (controllata prima dell'invio). */
+  maxMb?: number;
+  tooBig?: string;
+}
+const { label, name, type = 'text', required = false, autocomplete, hint, options = [], choose = '', wide = false, accept, min, placeholder, maxMb, tooBig } = Astro.props;
+const id = `f-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${Math.random().toString(36).slice(2, 7)}`;
+const hintId = hint ? `${id}-hint` : undefined;
+---
+<div class:list={['field', { 'field--wide': wide || type === 'textarea' || type === 'file' }]}>
+  <label class="field__label" for={id}>{label}{required && <span aria-hidden="true"> *</span>}</label>
+  {type === 'textarea' ? (
+    <textarea class="field__input" id={id} name={name} rows="5" required={required} aria-describedby={hintId} placeholder={placeholder}></textarea>
+  ) : type === 'select' ? (
+    <select class="field__input" id={id} name={name} required={required} aria-describedby={hintId}>
+      <option value="">{choose}</option>
+      {options.map((o) => <option>{o}</option>)}
+    </select>
+  ) : (
+    <input
+      class="field__input"
+      id={id}
+      name={name}
+      type={type}
+      required={required}
+      autocomplete={autocomplete}
+      aria-describedby={hintId}
+      accept={accept}
+      min={min}
+      placeholder={placeholder}
+      inputmode={type === 'number' ? 'numeric' : undefined}
+      data-max-mb={maxMb}
+      data-too-big={tooBig}
+    />
+  )}
+  {hint && <p class="field__hint" id={hintId}>{hint}</p>}
+</div>

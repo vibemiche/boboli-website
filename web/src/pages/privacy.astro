@@ -1,0 +1,131 @@
+---
+import Base from '../layouts/Base.astro';
+import { lp } from '../lib/i18n';
+import { ui } from '../lib/ui';
+import { LEGAL, legalAddress } from '../lib/legal';
+import { breadcrumbSchema } from '../lib/schema';
+
+// Informativa privacy e cookie (artt. 13 e 14 GDPR). Solo in italiano: i moduli
+// delle altre lingue rimandano qui. Da far rivedere a un consulente privacy,
+// soprattutto i tempi di conservazione.
+const t = ui.it;
+const site = Astro.site!;
+const UPDATED = '5 novembre 2026';
+const contact = LEGAL.pec ?? LEGAL.email;
+const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp('it', '/') }, { name: 'Privacy', url: lp('it', '/privacy/') }], site)];
+---
+<Base
+  lang="it"
+  path="/privacy/"
+  langs={['it']}
+  title="Informativa privacy e cookie · Trattoria Boboli"
+  description={`Come ${LEGAL.name} tratta i dati personali di chi visita il sito di Trattoria Boboli e di chi invia una richiesta per un evento o una candidatura.`}
+  image={null}
+  jsonLd={jsonLd}
+>
+  <article class="post legal">
+    <header class="post__head">
+      <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+        <a href={lp('it', '/')}>Boboli</a> <span aria-hidden="true">›</span> <span aria-current="page">Privacy</span>
+      </nav>
+      <h1 class="post__title">Informativa privacy e cookie</h1>
+      <p class="post__lead">Quali dati raccogliamo dal sito, perché, per quanto tempo e quali sono i tuoi diritti.</p>
+      <p class="post__meta">Aggiornata il {UPDATED}</p>
+    </header>
+
+    <div class="prose legal__body">
+      <h2 id="titolare">Titolare del trattamento</h2>
+      <p>
+        Il titolare del trattamento è <strong>{LEGAL.name}</strong>{legalAddress() && <>, con sede legale in {legalAddress()}</>},
+        partita IVA {LEGAL.vat}. Per qualsiasi domanda sui tuoi dati puoi scrivere a
+        {contact && <> <a href={`mailto:${contact}`}>{contact}</a></>}.
+      </p>
+
+      <h2 id="dati">Quali dati trattiamo</h2>
+      <h3>Navigazione</h3>
+      <p>
+        Quando visiti il sito, il fornitore che lo ospita registra i dati tecnici necessari a mostrarti le
+        pagine e a proteggerle: indirizzo IP, browser, data e ora della visita, pagine richieste. Non li usiamo
+        per identificarti né per profilarti.
+      </p>
+      <h3>Richieste per gruppi ed eventi</h3>
+      <p>
+        Se compili il modulo della pagina <a href={lp('it', '/eventi/')}>Gruppi ed eventi</a> trattiamo nome,
+        cognome, e-mail, telefono, tipo di evento, numero di ospiti, data desiderata e quello che ci racconti nel
+        messaggio. La richiesta arriva alla casella della sede che hai scelto.
+      </p>
+      <h3>Candidature</h3>
+      <p>
+        Se ci invii una candidatura dalla pagina <a href={lp('it', '/lavora-con-noi/')}>Lavora con noi</a>
+        trattiamo nome, cognome, e-mail, telefono, l'area che ti interessa, la tua presentazione e il curriculum.
+        Ti chiediamo di non inserire nel CV dati che non servono a valutare la candidatura, come informazioni sulla
+        salute, sulle opinioni o fotografie non necessarie.
+      </p>
+
+      <h2 id="finalita">Perché li trattiamo</h2>
+      <ul>
+        <li><strong>Rispondere alla tua richiesta</strong> e preparare un preventivo per l'evento: è una misura precontrattuale richiesta da te (art. 6.1.b GDPR).</li>
+        <li><strong>Valutare la tua candidatura</strong> ed eventualmente contattarti per un colloquio (art. 6.1.b GDPR). Per i curricula inviati spontaneamente non serve il consenso (art. 111-bis del Codice privacy).</li>
+        <li><strong>Far funzionare il sito e proteggerlo</strong> da abusi: è un nostro legittimo interesse (art. 6.1.f GDPR).</li>
+        <li><strong>Rispettare obblighi di legge</strong>, per esempio fiscali, se alla richiesta segue un contratto (art. 6.1.c GDPR).</li>
+      </ul>
+      <p>
+        I campi segnati come obbligatori servono per poterti rispondere: senza, non possiamo gestire la richiesta.
+        Non usiamo i tuoi dati per inviarti pubblicità e non prendiamo decisioni automatiche su di te.
+      </p>
+
+      <h2 id="conservazione">Per quanto tempo</h2>
+      <ul>
+        <li><strong>Richieste per eventi</strong>: per il tempo necessario a gestirle e fino a 12 mesi; se l'evento si fa, conserviamo i documenti contabili per il tempo previsto dalla legge (10 anni).</li>
+        <li><strong>Candidature</strong>: fino a 24 mesi dall'invio, poi le cancelliamo. Puoi chiederci di cancellarle prima in qualsiasi momento.</li>
+        <li><strong>Dati di navigazione</strong>: per il tempo stabilito dal fornitore di hosting per la sicurezza del servizio.</li>
+      </ul>
+
+      <h2 id="destinatari">Chi li riceve</h2>
+      <p>
+        I dati sono letti solo dalle persone di {LEGAL.name} e dei nostri locali autorizzate a gestire richieste e
+        candidature. Per il funzionamento del sito ci affidiamo ad alcuni fornitori: il servizio che ospita il sito,
+        FormSubmit, che inoltra per e-mail i moduli compilati, e Google (Gmail), che gestisce le caselle di posta dei
+        locali. Non vendiamo né diffondiamo i tuoi dati.
+      </p>
+      <p>
+        Alcuni di questi fornitori possono trattare i dati fuori dall'Unione europea, in particolare negli Stati Uniti.
+        In questi casi il trasferimento avviene sulla base di una decisione di adeguatezza della Commissione europea
+        (EU-U.S. Data Privacy Framework) o delle clausole contrattuali standard (art. 46 GDPR).
+      </p>
+
+      <h2 id="servizi">Servizi esterni</h2>
+      <p>
+        Alcune funzioni si appoggiano a servizi di terzi, che trattano i dati come titolari autonomi secondo le loro
+        informative: la prenotazione online (TheFork), che si carica solo quando apri la finestra Prenota; le
+        consegne a domicilio (Glovo), le indicazioni stradali (Google Maps) e la chat (WhatsApp), quando segui i
+        relativi link; la mappa dei locali (OpenStreetMap e OpenFreeMap), che per mostrarti le mappe riceve
+        l'indirizzo IP del tuo dispositivo.
+      </p>
+
+      <h2 id="cookie">Cookie</h2>
+      <p>
+        Questo sito <strong>non usa cookie di profilazione né cookie statistici</strong>, nostri o di terzi. Salva solo,
+        nel tuo browser, la lingua che scegli dal selettore, per mostrarti il sito in quella lingua alle visite
+        successive: è uno strumento tecnico, che non richiede consenso e che puoi cancellare dalle impostazioni del browser.
+        I servizi esterni elencati sopra possono usare propri cookie solo quando li apri: trovi i dettagli nelle loro
+        informative.
+      </p>
+
+      <h2 id="diritti">I tuoi diritti</h2>
+      <p>
+        In qualsiasi momento puoi chiederci di accedere ai tuoi dati, correggerli, cancellarli, limitarne il trattamento,
+        riceverli in un formato leggibile (portabilità) o opporti al trattamento basato sul legittimo interesse
+        (artt. 15–22 GDPR){contact && <>, scrivendo a <a href={`mailto:${contact}`}>{contact}</a></>}. Se ritieni che il
+        trattamento non sia corretto, puoi presentare reclamo al Garante per la protezione dei dati personali
+        (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>).
+      </p>
+
+      <h2 id="modifiche">Modifiche</h2>
+      <p>
+        Possiamo aggiornare questa informativa quando cambiano i servizi del sito o la legge: la data in alto indica
+        l'ultima versione. Le altre informazioni su chi pubblica il sito sono nelle <a href={lp('it', '/note-legali/')}>note legali</a>.
+      </p>
+    </div>
+  </article>
+</Base>

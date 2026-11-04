@@ -1,36 +1,45 @@
 ---
 import Base from '../layouts/Base.astro';
-import FormBand from './FormBand.astro';
 import Figure from './Figure.astro';
+import SiteForm from './SiteForm.astro';
+import Field from './Field.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
+import { getLocali } from '../lib/locali';
 import { ui } from '../lib/ui';
-import { EVENTS_FORM } from '../lib/forms';
+import { telHref } from '../lib/contact';
+import { EVENTS_EMAIL } from '../lib/forms';
 import { breadcrumbSchema, socialImage } from '../lib/schema';
 
+// Due sedi per gruppi ed eventi, ognuna con la sua foto e il suo modulo, che
+// arriva alla casella di quella sede.
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = ui[lang];
 const e = t.events;
+const f = t.form;
 const site = Astro.site!;
 const image = await socialImage('eventi', site);
+const venues = (await getLocali(lang))
+  .filter((l) => EVENTS_EMAIL[l.id])
+  .sort((a, b) => Object.keys(EVENTS_EMAIL).indexOf(a.id) - Object.keys(EVENTS_EMAIL).indexOf(b.id));
 const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: e.kicker, url: lp(lang, '/eventi/') }], site)];
 ---
 <Base lang={lang} path="/eventi/" title={e.title} description={e.desc} image={image} jsonLd={jsonLd}>
-  <article class="join">
+  <article class="join events">
     <nav class="u-label place__crumb" aria-label={t.place.crumb}>
       <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">{e.kicker}</span>
     </nav>
-    <header class="join__head join__head--wide">
+    <header class="events__head">
       <div>
         <p class="u-label join__kicker">{e.kicker}</p>
         <h1 class="join__title">{e.h1}</h1>
         <p class="join__lead">{e.lead}</p>
       </div>
+      <ol class="events__steps" aria-label={e.stepsTitle}>
+        {e.steps.map((s, i) => <li><span class="events__num" aria-hidden="true">{i + 1}</span><p>{s}</p></li>)}
+      </ol>
     </header>
-    <div class="join__media">
-      <Figure slot="eventi" alt={e.alt} label="" widths={[768, 1280, 1920]} sizes="100vw" />
-    </div>
 
     {/* Una tavola lunga, con un segnaposto per ogni occasione. */}
     <section class="table">
@@ -41,10 +50,65 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
       <div class="table__top" aria-hidden="true"></div>
     </section>
 
-    <section class="promise">
+    {/* la scelta della sede: due inviti che portano ciascuno al suo modulo */}
+    <nav class="pick" aria-labelledby="scegli">
+      <h2 class="u-label pick__title" id="scegli">{e.chooseTitle}</h2>
+      <ul class="pick__list">
+        {venues.map((l) => (
+          <li>
+            <a class="pick__card" href={`#evento-${l.id}`}>
+              <span class="pick__civic" aria-hidden="true">{l.civic}</span>
+              <span class="pick__name">{l.nameLegal}</span>
+              <span class="u-label pick__where">{l.street} · {l.zone}</span>
+              <span class="pick__go">{e.venueCta} <span aria-hidden="true">&darr;</span></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </article>
+
+  {venues.map((l, i) => (
+    <section class:list={['venue', { 'venue--reverse': i % 2 === 1 }]} id={`evento-${l.id}`} aria-labelledby={`evento-${l.id}-titolo`}>
+      <div class="venue__media">
+        <Figure slot={`locali/${l.id}`} alt={l.imageAlt} label="" widths={[640, 960, 1280, 1600]} sizes="(max-width: 900px) 100vw, 46vw" />
+      </div>
+      <div class="venue__body">
+        <p class="u-label venue__kicker">{e.formKicker}</p>
+        <h2 class="venue__name" id={`evento-${l.id}-titolo`}>{l.nameLegal}</h2>
+        <p class="u-label venue__where">{l.street} · {l.zone}</p>
+        <p class="venue__text">{e.venues[l.id as keyof typeof e.venues]}</p>
+        {l.phone && <p class="venue__call">{e.orCall} <a href={telHref(l.phone)}>{l.phone}</a></p>}
+        <SiteForm
+          id={`modulo-${l.id}`}
+          lang={lang}
+          to={EVENTS_EMAIL[l.id]}
+          path="/eventi/"
+          subject="RICHIESTA EVENTO - {Sede} - {Nome} {Cognome} - {Data} - {Ospiti} ospiti"
+          submit={e.submit}
+          success={e.success}
+        >
+          <input type="hidden" name="Sede" value={l.nameLegal} />
+          <Field label={f.name} name="Nome" required autocomplete="given-name" />
+          <Field label={f.surname} name="Cognome" required autocomplete="family-name" />
+          <Field label={f.email} name="Email" type="email" required autocomplete="email" />
+          <Field label={f.phone} name="Telefono" type="tel" required autocomplete="tel" placeholder="+39" />
+          <Field label={e.type} name="Tipo di evento" type="select" options={[...e.occasions, e.other]} choose={f.choose} required wide />
+          <Field label={e.guests} name="Ospiti" type="number" min="1" required />
+          <Field label={e.date} name="Data" type="date" required />
+          <Field label={e.message} name="Messaggio" type="textarea" hint={e.messageHint} required />
+        </SiteForm>
+      </div>
+    </section>
+  ))}
+
+  <section class="events__promise">
+    <div class="promise">
       <h2 class="promise__title">{e.promiseTitle}</h2>
       <p class="promise__text">{e.promise}</p>
-    </section>
-  </article>
-  <FormBand lang={lang} title={e.stepsTitle} steps={e.steps} cta={e.cta} soon={e.soon} url={EVENTS_FORM} />
+    </div>
+    <div class="events__photo">
+      <Figure slot="eventi" alt={e.alt} label="" widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 40vw" />
+    </div>
+  </section>
 </Base>

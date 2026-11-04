@@ -75,6 +75,9 @@ const columns = [
   <div class="site-footer__legal">
     <p>{legalLine.join(' · ')}</p>
     {/* le note legali sono in italiano: da ogni lingua si arriva alla stessa pagina */}
-    <a href={lp('it', '/note-legali/')} hreflang={lang === 'it' ? undefined : 'it'}>{t.footer.legal}</a>
+    <span class="site-footer__legal-links">
+      <a href={lp('it', '/note-legali/')} hreflang={lang === 'it' ? undefined : 'it'}>{t.footer.legal}</a>
+      <a href={lp('it', '/privacy/')} hreflang={lang === 'it' ? undefined : 'it'}>{t.footer.privacy}</a>
+    </span>
   </div>
 </footer>

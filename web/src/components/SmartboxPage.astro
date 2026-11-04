@@ -5,14 +5,18 @@ import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { getLocali } from '../lib/locali';
 import { ui } from '../lib/ui';
+import { telHref } from '../lib/contact';
+import { SMARTBOX_REGISTER } from '../lib/forms';
 import { breadcrumbSchema } from '../lib/schema';
 
+// La Smartbox: prima si registra il voucher sul sito Smartbox, poi si prenota
+// in uno dei locali che la accettano.
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = ui[lang];
 const s = t.smartbox;
 const site = Astro.site!;
-const locali = (await getLocali(lang)).filter((l) => l.smartboxUrl);
+const locali = (await getLocali(lang)).filter((l) => l.smartbox);
 const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: 'Smartbox', url: lp(lang, '/smartbox/') }], site)];
 ---
 <Base lang={lang} path="/smartbox/" title={s.title} description={s.desc} image={null} jsonLd={jsonLd}>
@@ -21,9 +25,17 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
       <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">Smartbox</span>
     </nav>
     <header class="gift__head">
-      <p class="u-label gift__kicker">{s.kicker}</p>
-      <h1 class="gift__title">{s.h1}</h1>
-      <p class="gift__lead">{s.lead}</p>
+      <div>
+        <p class="u-label gift__kicker">{s.kicker}</p>
+        <h1 class="gift__title">{s.h1}</h1>
+        <p class="gift__lead">{s.lead}</p>
+        <a class="btn btn--terracotta gift__cta" href={SMARTBOX_REGISTER} target="_blank" rel="noopener">
+          {s.cta} <span aria-hidden="true">&rarr;</span><span class="sr-only"> ({s.newTab})</span>
+        </a>
+      </div>
+      <ol class="events__steps gift__steps" aria-label={s.stepsTitle}>
+        {s.steps.map((step, i) => <li><span class="events__num" aria-hidden="true">{i + 1}</span><p>{step}</p></li>)}
+      </ol>
     </header>
 
     <ul class="gift__list">
@@ -35,12 +47,14 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
           </div>
           <div class="ticket__body">
             {l.seal && <Figure class="ticket__seal" slot={`illustrazioni/${l.seal}`} alt="" label="" widths={[160, 320]} sizes="96px" />}
-            <p class="u-label ticket__kicker">{l.kicker}</p>
-            <h2 class="ticket__name"><a href={lp(lang, `/locali/${l.id}/`)}>{l.nameShort}</a></h2>
+            <h2 class="ticket__name"><a href={lp(lang, `/locali/${l.id}/`)}>{l.nameLegal}</a></h2>
             <p class="ticket__addr">{l.street} · {l.zone}</p>
-            <a class="btn btn--terracotta ticket__cta" href={l.smartboxUrl} target="_blank" rel="noopener">
-              {s.cta} <span aria-hidden="true">&rarr;</span><span class="sr-only"> — {l.nameShort} ({s.newTab})</span>
-            </a>
+            <div class="ticket__actions">
+              <a class="btn btn--terracotta ticket__cta" href={SMARTBOX_REGISTER} target="_blank" rel="noopener">
+                {s.cta} <span aria-hidden="true">&rarr;</span><span class="sr-only"> — {l.nameLegal} ({s.newTab})</span>
+              </a>
+              {l.phone && <a class="ticket__call" href={telHref(l.phone)}>{s.call} · {l.phone}</a>}
+            </div>
           </div>
         </li>
       ))}

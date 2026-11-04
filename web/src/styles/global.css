@@ -724,7 +724,7 @@ html.is-locked{overflow:hidden}
 }
 .site-footer__legal p{margin:0}
 .site-footer__legal-links{display:flex;gap:0 22px}
-.site-footer__legal a{color:rgba(255,255,255,.8);text-decoration:underline;text-underline-offset:3px}
+.site-footer__legal a{display:inline-flex;align-items:center;justify-content:center;min-width:44px;color:rgba(255,255,255,.8);text-decoration:underline;text-underline-offset:3px}
 .site-footer__legal a:hover{color:var(--terracotta)}
 .site-footer__addr{display:block;color:var(--cream-50);font-size:clamp(11px,1.02vw,13px);line-height:1.4}
 

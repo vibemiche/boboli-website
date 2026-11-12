@@ -1479,3 +1479,9 @@ input[type="file"].field__input::file-selector-button{
 @media (max-width:760px){.guide__actions .btn{flex:1 1 100%}}
 
 .blog__more{margin:clamp(48px,7vw,96px) 0 clamp(20px,3vw,36px);padding-top:28px;border-top:1px solid var(--rule);color:var(--muted)}
+
+.guide__more{margin-top:2.6em;padding-top:22px;border-top:1px solid var(--rule)}
+.guide__more h2{margin:0 0 12px;color:var(--muted);font-size:var(--label)}
+.guide__more ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 26px}
+.guide__more li{padding:0;margin:0}
+.guide__more a{display:inline-flex;align-items:center;min-height:44px}

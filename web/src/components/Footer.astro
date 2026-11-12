@@ -8,7 +8,7 @@ import type { Locale } from '../lib/locali';
 import { ui } from '../lib/ui';
 import { LEGAL, legalAddress } from '../lib/legal';
 import { tracking } from '../lib/tracking';
-import { GUIDES } from '../lib/guides';
+import { MAIN_GUIDES } from '../lib/guides';
 
 interface Props { lang: Lang; locali: Locale[]; path: string; langs?: readonly Lang[] }
 const { lang, locali, path, langs } = Astro.props;
@@ -37,7 +37,7 @@ const columns = [
       { label: t.footer.links.manifesto, path: '/#manifesto' },
       { label: t.footer.links.menu, path: '/menu/' },
       // le pagine guida: senza glutine a Firenze, dove mangiare per zona
-      ...GUIDES.map((g) => ({ label: g.tr[lang].label, path: g.path })),
+      ...MAIN_GUIDES.map((g) => ({ label: g.tr[lang].label, path: g.path })),
       // il blog esiste solo in italiano
       ...(lang === 'it' ? [{ label: 'Blog', path: '/blog/' }] : []),
     ],

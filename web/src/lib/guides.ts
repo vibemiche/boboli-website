@@ -1,4 +1,5 @@
 import type { Lang } from './i18n';
+import { TEMI } from './guides-temi';
 
 /**
  * Le pagine guida: rispondono alle ricerche che contano («ristorante senza
@@ -7,7 +8,7 @@ import type { Lang } from './i18n';
  * li aggiunge la pagina dai dati dei locali, così non possono invecchiare.
  *
  * Nei paragrafi `[testo](/percorso/)` diventa un link interno nella lingua
- * della pagina.
+ * della pagina e `**testo**` va in grassetto.
  */
 export interface GuideText {
   /** Titolo per Google, entro 60 caratteri. */
@@ -717,7 +718,9 @@ const santaCroce: Guide = {
   },
 };
 
-export const GUIDES: Guide[] = [glutenFree, oltrarno, santaCroce];
+/** Le guide principali: stanno anche nel footer. */
+export const MAIN_GUIDES: Guide[] = [glutenFree, oltrarno, santaCroce];
+export const GUIDES: Guide[] = [...MAIN_GUIDES, ...TEMI];
 
 /** La guida di zona di un locale, per il link «nei dintorni» dalla sua pagina. */
 export const guideOfLocale = (id: string): Guide | undefined => [oltrarno, santaCroce].find((g) => g.locali.includes(id));

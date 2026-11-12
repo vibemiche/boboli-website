@@ -7,7 +7,7 @@ import { ui } from '../lib/ui';
 import { getLocali } from '../lib/locali';
 import { formatHours, directionsUrl } from '../lib/contact';
 import { breadcrumbSchema, faqSchema, socialImage } from '../lib/schema';
-import { LANDMARKS, WALK, walkMinutes } from '../lib/guides';
+import { GUIDES, LANDMARKS, WALK, walkMinutes } from '../lib/guides';
 import type { Guide } from '../lib/guides';
 
 // Una pagina guida: testo proprio dalla guida, locali (indirizzo, orari, strada a
@@ -25,7 +25,13 @@ const image = await socialImage(guide.image, site);
 // [testo](/percorso/) → link interno nella lingua della pagina; il blog è solo in italiano
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const rich = (s: string) =>
-  esc(s).replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, path) => `<a href="${lp(path.startsWith('/blog/') ? 'it' : lang, path)}">${text}</a>`);
+  esc(s)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, path) => `<a href="${lp(path.startsWith('/blog/') ? 'it' : lang, path)}">${text}</a>`);
+
+// le altre guide, per chi vuole continuare a leggere (e per i link interni)
+const others = GUIDES.filter((x) => x.path !== guide.path);
+const MORE = { it: 'Continua a leggere', en: 'Keep reading', es: 'Sigue leyendo', de: 'Weiterlesen', fr: 'À lire aussi' }[lang];
 
 const jsonLd = [
   breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: g.label, url: lp(lang, guide.path) }], site),
@@ -95,6 +101,11 @@ const jsonLd = [
             </details>
           ))}
         </section>
+
+        <nav class="guide__more" aria-labelledby="altre-guide">
+          <h2 class="u-label" id="altre-guide">{MORE}</h2>
+          <ul>{others.map((o) => <li><a class="link-more" href={lp(lang, o.path)}>{o.tr[lang].label} &rarr;</a></li>)}</ul>
+        </nav>
       </div>
     </div>
   </article>

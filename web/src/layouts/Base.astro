@@ -13,6 +13,8 @@ import { LANGS, FALLBACK, OG_LOCALE, lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { getLocali } from '../lib/locali';
 import { ui } from '../lib/ui';
+// il peso dei titoli: lo chiedo subito, senza aspettare che arrivi il CSS
+import font700 from '@fontsource/cooper-hewitt/files/cooper-hewitt-latin-700-normal.woff2?url';
 
 interface Props {
   lang: Lang;
@@ -46,6 +48,7 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
   <link rel="icon" href={href('/favicon.ico')} sizes="32x32" />
   <link rel="icon" href={href('/favicon.svg')} type="image/svg+xml" />
   <link rel="apple-touch-icon" href={href('/apple-touch-icon.png')} />
+  <link rel="preload" as="font" type="font/woff2" href={font700} crossorigin />
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={abs(lang)} />
@@ -83,7 +86,7 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
   {/* Consent Mode v2: tutto negato finché il visitatore non accetta dal banner;
       la scelta salvata vale dalle visite successive. Poi Tag Manager. */}
   {tracking && (
-    <script is:inline define:vars={{ gtm: GTM_ID }}>
+    <script is:inline define:vars={{ gtm: GTM_ID, now: path.startsWith('/grazie/') }}>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       var ALL = ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'];
@@ -92,10 +95,23 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
       gtag('consent', 'default', d);
       window.boboliConsent = function (v) { gtag('consent', 'update', state(v)); dataLayer.push({ event: 'consent_choice', consent: v }); };
       try { if (localStorage.getItem('boboli-consent') === 'granted') gtag('consent', 'update', state('granted')); } catch (e) {}
-      (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-        var f = d.getElementsByTagName(s)[0], j = d.createElement(s); j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i; f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', gtm);
+      // Tag Manager parte quando la pagina è già comparsa (o al primo gesto), così
+      // non toglie banda e processore alla foto di apertura. Gli eventi segnalati
+      // nel frattempo restano nel dataLayer e li legge appena parte. Sulla pagina
+      // di ringraziamento parte subito: lì conta la conversione.
+      var started = false;
+      function startGtm() {
+        if (started) return; started = true;
+        dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = document.getElementsByTagName('script')[0], j = document.createElement('script');
+        j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtm; f.parentNode.insertBefore(j, f);
+      }
+      if (now) startGtm();
+      else {
+        var idle = function () { (window.requestIdleCallback || function (cb) { setTimeout(cb, 1); })(startGtm, { timeout: 2000 }); };
+        if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
+        ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) { window.addEventListener(e, startGtm, { once: true, passive: true }); });
+      }
     </script>
   )}
 

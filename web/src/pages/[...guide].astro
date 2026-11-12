@@ -1,0 +1,11 @@
+---
+import GuidePage from '../components/GuidePage.astro';
+import { GUIDES } from '../lib/guides';
+
+// Le pagine guida in italiano: /senza-glutine-firenze/, /dove-mangiare/…/
+export function getStaticPaths() {
+  return GUIDES.map((guide) => ({ params: { guide: guide.path.replace(/^\/|\/$/g, '') }, props: { guide } }));
+}
+const { guide } = Astro.props;
+---
+<GuidePage lang="it" guide={guide} />

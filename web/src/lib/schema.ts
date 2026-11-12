@@ -73,6 +73,12 @@ export function restaurantSchema(l: Locale, lang: Lang, t: Dict, site: URL, imag
         ? { potentialAction: { '@type': 'ReserveAction', target: l.bookingUrl, result: { '@type': 'FoodEstablishmentReservation', name: t.book.book } } }
         : {}),
     keywords: t.meta.keywords,
+    // i locali sono nel programma dell'Associazione Italiana Celiachia per chi mangia fuori casa
+    memberOf: {
+      '@type': 'ProgramMembership',
+      programName: 'Alimentazione Fuori Casa',
+      hostingOrganization: { '@type': 'Organization', name: 'Associazione Italiana Celiachia (AIC)', url: 'https://www.celiachia.it/' },
+    },
     ...(l.sameAs.length ? { sameAs: l.sameAs } : {}),
     parentOrganization: { '@id': orgId(site) },
   };
@@ -91,6 +97,7 @@ export function organizationSchema(t: Dict, lang: Lang, site: URL) {
     description: t.meta.orgDesc,
     foundingDate: '1978',
     logo: abs('/apple-touch-icon.png', site),
+    sameAs: ['https://www.instagram.com/trattoria.boboli/'],
     areaServed: { '@type': 'City', name: 'Firenze' },
   };
 }

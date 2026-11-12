@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import Figure from './Figure.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+import { getLocali } from '../lib/locali';
+import { formatHours, directionsUrl } from '../lib/contact';
+import { breadcrumbSchema, faqSchema, socialImage } from '../lib/schema';
+import { LANDMARKS, WALK, walkMinutes } from '../lib/guides';
+import type { Guide } from '../lib/guides';
+
+// Una pagina guida: testo proprio dalla guida, locali (indirizzo, orari, strada a
+// piedi dai monumenti) dai dati, domande frequenti con i dati strutturati.
+interface Props { lang: Lang; guide: Guide }
+const { lang, guide } = Astro.props;
+const t = ui[lang];
+const g = guide.tr[lang];
+const site = Astro.site!;
+
+const all = await getLocali(lang);
+const locali = guide.locali.map((id) => all.find((l) => l.id === id)!).filter(Boolean);
+const image = await socialImage(guide.image, site);
+
+// [testo](/percorso/) → link interno nella lingua della pagina; il blog è solo in italiano
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const rich = (s: string) =>
+  esc(s).replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, path) => `<a href="${lp(path.startsWith('/blog/') ? 'it' : lang, path)}">${text}</a>`);
+
+const jsonLd = [
+  breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: g.label, url: lp(lang, guide.path) }], site),
+  faqSchema(g.faq),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: g.placesTitle,
+    itemListElement: locali.map((l, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: { '@id': new URL(lp('it', `/locali/${l.id}/`), site).href + '#restaurant', name: l.nameLegal, url: new URL(lp(lang, `/locali/${l.id}/`), site).href },
+    })),
+  },
+];
+---
+<Base lang={lang} path={guide.path} title={g.title} description={g.desc} image={image} jsonLd={jsonLd}>
+  <article class="post guide">
+    <header class="post__head">
+      <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+        <a href={lp(lang, '/')}>Boboli</a> <span aria-hidden="true">›</span> <span aria-current="page">{g.label}</span>
+      </nav>
+      <p class="u-label post__kicker">{g.label}</p>
+      <h1 class="post__title">{g.h1}</h1>
+      <p class="post__lead">{g.lead}</p>
+    </header>
+    <div class="post__media">
+      <Figure slot={guide.image} alt={guide.imageAlt[lang]} label="" widths={[640, 960, 1280, 1600]} sizes="(max-width: 760px) 100vw, min(1040px, 92vw)" priority />
+    </div>
+
+    <div class="post__grid">
+      <div class="prose">
+        {g.sections.map((s) => (
+          <>
+            <h2>{s.h2}</h2>
+            {s.p.map((p) => <p set:html={rich(p)} />)}
+          </>
+        ))}
+
+        <h2>{g.placesTitle}</h2>
+        <ul class="guide__places">
+          {locali.map((l) => (
+            <li>
+              <h3><a href={lp(lang, `/locali/${l.id}/`)}>{l.nameLegal}</a></h3>
+              <p>{l.blurb}</p>
+              <p class="guide__facts">
+                <a href={directionsUrl(l)} target="_blank" rel="noopener">{l.street}, {l.postalCode} {l.city}</a> · {l.zone}
+                {l.hours.length > 0 && <><br />{formatHours(l.hours, t.hours).join(' · ')}</>}
+                {l.geo && guide.landmarks.map((k) => <><br />{WALK[lang](walkMinutes(l.geo!, LANDMARKS[k]), LANDMARKS[k].name[lang])}</>)}
+              </p>
+              <p class="guide__actions">
+                {l.bookable
+                  ? <a class="btn btn--terracotta" href={l.bookingUrl} target="_blank" rel="noopener" data-book={l.id}>{t.book.book}</a>
+                  : l.orderUrl && <a class="btn btn--terracotta" href={l.orderUrl} target="_blank" rel="noopener">{t.book.order}</a>}
+                <a class="btn btn--ghost" href={lp(lang, `/locali/${l.id}/`)}>{t.format.more}</a>
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <section class="post__faq" aria-labelledby="domande">
+          <h2 id="domande">{t.seo.faqTitle}</h2>
+          {g.faq.map(([q, a]) => (
+            <details>
+              <summary>{q}<span aria-hidden="true">+</span></summary>
+              <p>{a}</p>
+            </details>
+          ))}
+        </section>
+      </div>
+    </div>
+  </article>
+</Base>

@@ -1463,3 +1463,17 @@ input[type="file"].field__input::file-selector-button{
 .h1-stack{font:inherit;letter-spacing:normal}
 .h1-stack>span{display:block}
 .h1-stack--flat{display:contents}
+
+/* ── Pagine guida ──────────────────────────────────────────────── */
+.guide{padding-bottom:var(--section-y)}
+.guide__places{list-style:none;margin:1.2em 0 0;padding:0;display:grid;gap:0}
+.guide__places li{padding:22px 0;border-top:1px solid var(--rule)}
+.guide__places li:last-child{border-bottom:1px solid var(--rule)}
+.guide__places h3{margin:0 0 6px}
+.guide__places p{margin:0 0 10px}
+.guide__facts{color:var(--muted);font-size:.95em;line-height:1.6}
+.guide__actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.guide__actions .btn{text-decoration:none;padding:13px 20px}
+.guide__actions .btn--terracotta{color:#fff}
+.place__guides{display:flex;flex-wrap:wrap;gap:6px 24px;margin-top:22px}
+@media (max-width:760px){.guide__actions .btn{flex:1 1 100%}}

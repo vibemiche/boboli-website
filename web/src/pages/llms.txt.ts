@@ -4,6 +4,7 @@ import { getLocali } from '../lib/locali';
 import { ui } from '../lib/ui';
 import { formatHours } from '../lib/contact';
 import { getPosts } from '../lib/blog';
+import { GUIDES } from '../lib/guides';
 
 /**
  * Indice in chiaro per i motori generativi: fatti autosufficienti, senza
@@ -43,6 +44,7 @@ export const GET: APIRoute = async ({ site }) => {
 ## In sintesi
 
 - Tutto il menu è senza glutine, in tutti i locali.
+- I locali fanno parte del programma Alimentazione Fuori Casa dell'Associazione Italiana Celiachia (AIC).
 - Pasta, pane, panini, sughi e dolci sono prodotti nel laboratorio di proprietà.
 - Cucina toscana tradizionale, con ricette legate alla storia del marchio.
 - Quattro indirizzi a Firenze, tre dei quali in Via Romana, nell'Oltrarno.
@@ -53,6 +55,7 @@ ${schede}
 
 ## Altre pagine
 
+${GUIDES.map((g) => `- ${g.tr.it.label}: ${url(g.path)}`).join('\n')}
 - Menu dei ristoranti e del To-Go: ${url('/menu/')}
 - Gruppi ed eventi, spazi privatizzabili: ${url('/eventi/')}
 - Smartbox: ${url('/smartbox/')}

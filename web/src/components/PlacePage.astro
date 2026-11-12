@@ -10,6 +10,7 @@ import type { Lang } from '../lib/i18n';
 import { getLocali, toneOf } from '../lib/locali';
 import { ui } from '../lib/ui';
 import { telHref, formatHours, directionsUrl } from '../lib/contact';
+import { guideOfLocale, GLUTEN_FREE_GUIDE } from '../lib/guides';
 import { findSeries } from '../lib/images';
 import { restaurantSchema, breadcrumbSchema, socialImage } from '../lib/schema';
 
@@ -66,6 +67,10 @@ const jsonLd = [
           <Badges lang={lang} class="place__badges" />
           <p>{t.place.text}</p>
         </div>
+        {/* le guide collegate: la zona del locale e il senza glutine a Firenze */}
+        <p class="place__guides">
+          {[guideOfLocale(l.id), GLUTEN_FREE_GUIDE].filter((g) => !!g).map((g) => <a class="link-more" href={lp(lang, g!.path)}>{g!.tr[lang].label} &rarr;</a>)}
+        </p>
       </div>
       {gallery.map((g) => (
         <div class="place__photo" data-reveal>

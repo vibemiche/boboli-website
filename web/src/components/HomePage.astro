@@ -12,7 +12,7 @@ import type { Lang } from '../lib/i18n';
 import { getLocali, toneOf } from '../lib/locali';
 import { ui } from '../lib/ui';
 import { buildFaq } from '../lib/faq';
-import { restaurantSchema, organizationSchema, faqSchema, socialImage } from '../lib/schema';
+import { restaurantSchema, organizationSchema, webSiteSchema, faqSchema, socialImage } from '../lib/schema';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -26,6 +26,7 @@ const image = await socialImage('hero', site);
 
 const jsonLd = [
   organizationSchema(t, lang, site),
+  webSiteSchema(lang, site),
   ...(await Promise.all(locali.map(async (l) => restaurantSchema(l, lang, t, site, await socialImage(`locali/${l.id}`, site))))),
   faqSchema(faq),
 ];

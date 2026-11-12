@@ -38,8 +38,8 @@ const jsonLd = [
 <Base
   lang={lang}
   path={path}
-  title={t.meta.placeTitle(l.nameShort, l.street)}
-  description={t.meta.placeDesc(l.nameLegal, l.blurb, l.street, l.zone)}
+  title={t.meta.placeTitle(l.id)}
+  description={t.meta.placeDesc(l.blurb, l.street, l.zone, l.bookable)}
   image={image}
   jsonLd={jsonLd}
 >

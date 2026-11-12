@@ -32,8 +32,11 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
     </nav>
     <header class="events__head">
       <div>
-        <p class="u-label join__kicker">{e.kicker}</p>
-        <h1 class="join__title">{e.h1}</h1>
+        {/* il sopratitolo sta dentro l'h1: Google legge anche le parole che si cercano */}
+        <h1 class="h1-stack">
+          <span class="u-label join__kicker">{e.kicker}</span>
+          <span class="join__title">{e.h1}</span>
+        </h1>
         <p class="join__lead">{e.lead}</p>
       </div>
       <ol class="events__steps" aria-label={e.stepsTitle}>

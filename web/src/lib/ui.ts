@@ -1,16 +1,24 @@
 const it = {
   meta: {
-    homeTitle: 'Boboli — Ristoranti 100% senza glutine a Firenze, dal 1978',
+    homeTitle: 'Ristoranti senza glutine a Firenze · Trattoria Boboli',
     homeDesc:
-      'Boboli a Firenze: quattro locali e un laboratorio, tutta la cucina senza glutine. Trattoria, Bargello, To-Go e Cantina in Via Romana e Via Ghibellina. Prenota online.',
-    placeTitle: (name: string, street: string) => `${name} · ${street}, Firenze`,
-    placeDesc: (legal: string, blurb: string, addr: string, zone: string) =>
-      `${legal}: ${blurb} ${addr}, ${zone}, Firenze. Tutto il menu è senza glutine.`,
+      'Quattro ristoranti a Firenze con tutta la cucina senza glutine, anche per celiaci, dal 1978: trattoria, vino e panini tra Oltrarno e Santa Croce. Prenota online.',
+    // Il titolo per Google: marchio breve + cosa si cerca («ristorante senza glutine a Firenze»).
+    placeTitle: (id: string) =>
+      (({
+        'trattoria-1978': 'Trattoria Boboli 1978 · Ristorante senza glutine a Firenze',
+        'al-bargello': 'Boboli Al Bargello · Ristorante senza glutine a Firenze',
+        'la-cantina': 'Boboli La Cantina · Vino e cucina senza glutine a Firenze',
+        'to-go': 'Boboli To-Go · Panini senza glutine da asporto a Firenze',
+      }) as Record<string, string>)[id],
+    placeDesc: (blurb: string, addr: string, zone: string, bookable: boolean) =>
+      `${blurb} ${addr}, ${zone}, Firenze. Menu 100% senza glutine${bookable ? ': prenota online' : ''}.`,
     skip: 'Vai al contenuto',
     orgDesc:
       'Gruppo di ristorazione fiorentino con quattro locali e un laboratorio di produzione proprio: tutta la cucina è senza glutine.',
     cuisine: ['Toscana', 'Italiana'],
     menuName: 'Tutto il menu, senza glutine',
+    keywords: 'senza glutine, gluten free, celiaci, cucina toscana, Firenze',
   },
   nav: {
     home: 'Trattoria Boboli, home',
@@ -131,7 +139,7 @@ const it = {
   menuPage: {
     title: 'Menu — Boboli, ristoranti senza glutine a Firenze',
     desc: 'Il menu di Boboli: pane, panini, pasta fresca, sughi, carne e dolci, tutto senza glutine. La carta dei ristoranti e quella del To-Go.',
-    kicker: 'La carta',
+    kicker: 'La carta · 100% senza glutine',
     h1: 'Il menu.',
     lead: "Tutto quello che trovi in carta, tutto senza glutine. Lo aggiorniamo un paio di volte l'anno.",
     tabsLabel: 'Scegli il menu',
@@ -187,7 +195,7 @@ const it = {
     },
   },
   events: {
-    title: "Gruppi ed eventi — Trattoria Boboli, Firenze",
+    title: "Cene di gruppo ed eventi senza glutine a Firenze · Boboli",
     desc: "Feste, compleanni, cene di lavoro e cocktail a Firenze con una cucina 100% senza glutine: scegli tra Trattoria Boboli 1978 in Oltrarno e Al Bargello a Santa Croce.",
     kicker: "Gruppi ed eventi",
     h1: "Allunghiamo la tavola.",
@@ -273,14 +281,15 @@ const full = (t: string) => t.replace(/^0/, '');
 
 const en: Dict = {
   meta: {
-    homeTitle: 'Boboli — Gluten-free restaurants in Florence since 1978',
+    homeTitle: 'Gluten-free restaurants in Florence · Trattoria Boboli',
     homeDesc:
-      'Boboli in Florence: four restaurants and our own workshop, the whole kitchen 100% gluten free. Trattoria, Bargello, To-Go and Cantina on Via Romana and Via Ghibellina. Book online.',
-    placeTitle: (name, street) => `${name} · ${street}, Florence`,
-    placeDesc: (legal, blurb, addr, zone) => `${legal}: ${blurb} ${addr}, ${zone}, Florence. The whole menu is gluten free.`,
+      'Four restaurants in Florence with a 100% gluten-free kitchen since 1978, coeliac friendly: trattoria, wine and sandwiches in Oltrarno and Santa Croce. Book online.',
+    placeTitle: (id) => (({ 'trattoria-1978': 'Trattoria Boboli 1978 · Gluten-free restaurant in Florence', 'al-bargello': 'Boboli Al Bargello · Gluten-free restaurant in Florence', 'la-cantina': 'Boboli La Cantina · Gluten-free food & wine in Florence', 'to-go': 'Boboli To-Go · Gluten-free sandwiches to go in Florence' }) as Record<string, string>)[id],
+    placeDesc: (blurb, addr, zone, bookable) => `${blurb} ${addr}, ${zone}, Florence. 100% gluten-free menu${bookable ? ': book online' : ''}.`,
     skip: 'Skip to content',
     orgDesc: 'Florentine restaurant group with four restaurants and its own production workshop: the whole kitchen is gluten free.',
     cuisine: ['Tuscan', 'Italian'],
+    keywords: 'gluten free, coeliac friendly, celiac, Tuscan food, Florence',
     menuName: 'The whole menu, gluten free',
   },
   nav: {
@@ -401,7 +410,7 @@ const en: Dict = {
   menuPage: {
     title: 'Menu — Boboli, gluten-free restaurants in Florence',
     desc: "The Boboli menu: bread, sandwiches, fresh pasta, sauces, meat and desserts, all gluten free. The restaurants' menu and the To-Go menu.",
-    kicker: 'The menu',
+    kicker: 'The menu · 100% gluten free',
     h1: 'The menu.',
     lead: 'Everything on our menu, all of it gluten free. We update it a couple of times a year.',
     tabsLabel: 'Choose a menu',
@@ -457,7 +466,7 @@ const en: Dict = {
     },
   },
   events: {
-    title: "Groups & events — Trattoria Boboli, Florence",
+    title: "Group dinners & events in Florence, gluten free · Boboli",
     desc: "Parties, birthdays, business dinners and cocktails in Florence with a 100% gluten-free kitchen: choose Trattoria Boboli 1978 in the Oltrarno or Al Bargello in Santa Croce.",
     kicker: "Groups & events",
     h1: "Let's make the table longer.",
@@ -539,15 +548,16 @@ const en: Dict = {
 
 const es: Dict = {
   meta: {
-    homeTitle: 'Boboli — Restaurantes sin gluten en Florencia desde 1978',
+    homeTitle: 'Restaurantes sin gluten en Florencia · Trattoria Boboli',
     homeDesc:
-      'Boboli en Florencia: cuatro locales y obrador propio, toda la cocina 100% sin gluten. Trattoria, Bargello, To-Go y Cantina en Via Romana y Via Ghibellina. Reserva online.',
-    placeTitle: (name, street) => `${name} · ${street}, Florencia`,
-    placeDesc: (legal, blurb, addr, zone) => `${legal}: ${blurb} ${addr}, ${zone}, Florencia. Toda la carta es sin gluten.`,
+      'Cuatro restaurantes en Florencia con cocina 100% sin gluten desde 1978, también para celíacos: trattoria, vino y bocadillos en Oltrarno y Santa Croce. Reserva online.',
+    placeTitle: (id) => (({ 'trattoria-1978': 'Trattoria Boboli 1978 · Restaurante sin gluten en Florencia', 'al-bargello': 'Boboli Al Bargello · Restaurante sin gluten en Florencia', 'la-cantina': 'Boboli La Cantina · Vino y cocina sin gluten en Florencia', 'to-go': 'Boboli To-Go · Bocadillos sin gluten para llevar, Florencia' }) as Record<string, string>)[id],
+    placeDesc: (blurb, addr, zone, bookable) => `${blurb} ${addr}, ${zone}, Florencia. Carta 100% sin gluten${bookable ? ': reserva online' : ''}.`,
     skip: 'Ir al contenido',
     orgDesc: 'Grupo de restauración florentino con cuatro locales y obrador propio: toda la cocina es sin gluten.',
     cuisine: ['Toscana', 'Italiana'],
     menuName: 'Toda la carta, sin gluten',
+    keywords: 'sin gluten, celíacos, cocina toscana, Florencia',
   },
   nav: {
     home: 'Trattoria Boboli, inicio',
@@ -667,7 +677,7 @@ const es: Dict = {
   menuPage: {
     title: 'Carta — Boboli, restaurantes sin gluten en Florencia',
     desc: 'La carta de Boboli: pan, bocadillos, pasta fresca, salsas, carne y postres, todo sin gluten. La carta de los restaurantes y la del To-Go.',
-    kicker: 'La carta',
+    kicker: 'La carta · 100% sin gluten',
     h1: 'La carta.',
     lead: 'Todo lo que hay en nuestra carta, todo sin gluten. La actualizamos un par de veces al año.',
     tabsLabel: 'Elige la carta',
@@ -805,14 +815,15 @@ const es: Dict = {
 
 const de: Dict = {
   meta: {
-    homeTitle: 'Boboli — Glutenfreie Restaurants in Florenz seit 1978',
+    homeTitle: 'Glutenfreie Restaurants in Florenz · Trattoria Boboli',
     homeDesc:
-      'Boboli in Florenz: vier Restaurants und eine eigene Manufaktur, die ganze Küche 100 % glutenfrei. Trattoria, Bargello, To-Go und Cantina in der Via Romana und Via Ghibellina. Online reservieren.',
-    placeTitle: (name, street) => `${name} · ${street}, Florenz`,
-    placeDesc: (legal, blurb, addr, zone) => `${legal}: ${blurb} ${addr}, ${zone}, Florenz. Die ganze Karte ist glutenfrei.`,
+      'Vier Restaurants in Florenz mit 100 % glutenfreier Küche seit 1978, auch bei Zöliakie: Trattoria, Wein und Panini in Oltrarno und Santa Croce. Online reservieren.',
+    placeTitle: (id) => (({ 'trattoria-1978': 'Trattoria Boboli 1978 · Glutenfreies Restaurant in Florenz', 'al-bargello': 'Boboli Al Bargello · Glutenfreies Restaurant in Florenz', 'la-cantina': 'Boboli La Cantina · Wein & glutenfreie Küche in Florenz', 'to-go': 'Boboli To-Go · Glutenfreie Panini to go in Florenz' }) as Record<string, string>)[id],
+    placeDesc: (blurb, addr, zone, bookable) => `${blurb} ${addr}, ${zone}, Florenz. Karte 100 % glutenfrei${bookable ? ': online reservieren' : ''}.`,
     skip: 'Zum Inhalt',
     orgDesc: 'Florentiner Gastronomiegruppe mit vier Restaurants und eigener Manufaktur: die ganze Küche ist glutenfrei.',
     cuisine: ['Toskanisch', 'Italienisch'],
+    keywords: 'glutenfrei, Zöliakie, toskanische Küche, Florenz',
     menuName: 'Die ganze Karte, glutenfrei',
   },
   nav: {
@@ -933,7 +944,7 @@ const de: Dict = {
   menuPage: {
     title: 'Speisekarte — Boboli, glutenfreie Restaurants in Florenz',
     desc: 'Die Karte von Boboli: Brot, Panini, frische Pasta, Saucen, Fleisch und Desserts, alles glutenfrei. Die Karte der Restaurants und die To-Go-Karte.',
-    kicker: 'Die Karte',
+    kicker: 'Die Karte · 100 % glutenfrei',
     h1: 'Die Speisekarte.',
     lead: 'Alles auf unserer Karte, alles glutenfrei. Wir aktualisieren sie ein paar Mal im Jahr.',
     tabsLabel: 'Karte wählen',
@@ -1071,14 +1082,15 @@ const de: Dict = {
 
 const fr: Dict = {
   meta: {
-    homeTitle: 'Boboli — Restaurants sans gluten à Florence depuis 1978',
+    homeTitle: 'Restaurants sans gluten à Florence · Trattoria Boboli',
     homeDesc:
-      'Boboli à Florence : quatre adresses et notre propre atelier, toute la cuisine 100 % sans gluten. Trattoria, Bargello, To-Go et Cantina via Romana et via Ghibellina. Réservation en ligne.',
-    placeTitle: (name, street) => `${name} · ${street}, Florence`,
-    placeDesc: (legal, blurb, addr, zone) => `${legal} : ${blurb} ${addr}, ${zone}, Florence. Toute la carte est sans gluten.`,
+      'Quatre restaurants à Florence, cuisine 100 % sans gluten depuis 1978, aussi pour les cœliaques : trattoria, vin et panini, Oltrarno et Santa Croce. Réservez en ligne.',
+    placeTitle: (id) => (({ 'trattoria-1978': 'Trattoria Boboli 1978 · Restaurant sans gluten à Florence', 'al-bargello': 'Boboli Al Bargello · Restaurant sans gluten à Florence', 'la-cantina': 'Boboli La Cantina · Vin et cuisine sans gluten à Florence', 'to-go': 'Boboli To-Go · Panini sans gluten à emporter à Florence' }) as Record<string, string>)[id],
+    placeDesc: (blurb, addr, zone, bookable) => `${blurb} ${addr}, ${zone}, Florence. Carte 100 % sans gluten${bookable ? ' : réservation en ligne' : ''}.`,
     skip: 'Aller au contenu',
     orgDesc: 'Groupe de restauration florentin avec quatre adresses et son propre atelier de production : toute la cuisine est sans gluten.',
     cuisine: ['Toscane', 'Italienne'],
+    keywords: 'sans gluten, cœliaques, cuisine toscane, Florence',
     menuName: 'Toute la carte, sans gluten',
   },
   nav: {
@@ -1199,7 +1211,7 @@ const fr: Dict = {
   menuPage: {
     title: 'Carte — Boboli, restaurants sans gluten à Florence',
     desc: 'La carte de Boboli : pain, sandwichs, pâtes fraîches, sauces, viande et desserts, tout sans gluten. La carte des restaurants et celle du To-Go.',
-    kicker: 'La carte',
+    kicker: 'La carte · 100 % sans gluten',
     h1: 'La carte.',
     lead: "Tout ce qu'il y a sur notre carte, tout sans gluten. Nous la mettons à jour quelques fois par an.",
     tabsLabel: 'Choisis la carte',

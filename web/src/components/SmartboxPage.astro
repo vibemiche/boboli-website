@@ -26,8 +26,11 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
     </nav>
     <header class="gift__head">
       <div>
-        <p class="u-label gift__kicker">{s.kicker}</p>
-        <h1 class="gift__title">{s.h1}</h1>
+        {/* il sopratitolo sta dentro l'h1: Google legge anche le parole che si cercano */}
+        <h1 class="h1-stack">
+          <span class="u-label gift__kicker">{s.kicker}</span>
+          <span class="gift__title">{s.h1}</span>
+        </h1>
         <p class="gift__lead">{s.lead}</p>
         <a class="btn btn--terracotta gift__cta" href={SMARTBOX_REGISTER} target="_blank" rel="noopener">
           {s.cta} <span aria-hidden="true">&rarr;</span><span class="sr-only"> ({s.newTab})</span>

@@ -13,6 +13,9 @@
     { "source": "/it/blog/:slug/", "destination": "/blog/:slug/", "permanent": true },
     { "source": "/it/blog/", "destination": "/blog/", "permanent": true },
     { "source": "/:lang(en|es|de|fr)/blog/(.*)", "destination": "/blog/", "permanent": false },
+    { "source": "/it/(prenotazioni|sedi|contatti)/(.*)", "destination": "/#locali", "permanent": true },
+    { "source": "/it/menu/(.*)", "destination": "/menu/", "permanent": true },
+    { "source": "/:lang(en|es|de|fr)/(reservation|reservations|reservas|reservierungen|locations|ubicaciones|standorte|etablissements|contact|contacto|kontakt)/(.*)", "destination": "/:lang/#locali", "permanent": true },
     { "source": "/it/", "destination": "/", "permanent": true },
     { "source": "/it/:path+/", "destination": "/", "permanent": false }
   ]

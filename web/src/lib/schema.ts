@@ -67,7 +67,12 @@ export function restaurantSchema(l: Locale, lang: Lang, t: Dict, site: URL, imag
         })),
       },
     },
-    ...(l.orderUrl ? { potentialAction: { '@type': 'OrderAction', target: l.orderUrl } } : {}),
+    ...(l.orderUrl
+      ? { potentialAction: { '@type': 'OrderAction', target: l.orderUrl } }
+      : l.bookingUrl
+        ? { potentialAction: { '@type': 'ReserveAction', target: l.bookingUrl, result: { '@type': 'FoodEstablishmentReservation', name: t.book.book } } }
+        : {}),
+    keywords: t.meta.keywords,
     ...(l.sameAs.length ? { sameAs: l.sameAs } : {}),
     parentOrganization: { '@id': orgId(site) },
   };
@@ -85,6 +90,22 @@ export function organizationSchema(t: Dict, lang: Lang, site: URL) {
     slogan: t.footer.tagline[0].replace(/\.$/, ''),
     description: t.meta.orgDesc,
     foundingDate: '1978',
+    logo: abs('/apple-touch-icon.png', site),
+    areaServed: { '@type': 'City', name: 'Firenze' },
+  };
+}
+
+/** Il sito, per Google: nome da mostrare nei risultati e chi lo pubblica. */
+export function webSiteSchema(lang: Lang, site: URL) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': abs(lp('it', '/'), site) + '#website',
+    name: 'Trattoria Boboli',
+    alternateName: 'Boboli',
+    url: abs(lp(lang, '/'), site),
+    inLanguage: lang,
+    publisher: { '@id': orgId(site) },
   };
 }
 

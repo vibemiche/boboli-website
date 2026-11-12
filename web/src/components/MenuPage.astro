@@ -44,8 +44,11 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
       <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">{m.h1.replace(/\.$/, '')}</span>
     </nav>
     <header class="carte__head">
-      <p class="u-label carte__kicker">{m.kicker}</p>
-      <h1 class="carte__title">{m.h1}</h1>
+      {/* il sopratitolo sta dentro l'h1: Google legge anche le parole che si cercano */}
+      <h1 class="h1-stack h1-stack--flat">
+        <span class="u-label carte__kicker">{m.kicker}</span>
+        <span class="carte__title">{m.h1}</span>
+      </h1>
       <p class="carte__lead">{m.lead}</p>
     </header>
 

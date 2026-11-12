@@ -1458,3 +1458,8 @@ input[type="file"].field__input::file-selector-button{
 @media (max-width:760px){
   .consent{bottom:calc(var(--bar-h) + 10px + env(safe-area-inset-bottom))}
 }
+
+/* Sopratitolo e titolo dentro lo stesso h1 (per Google), con l'aspetto di prima. */
+.h1-stack{font:inherit;letter-spacing:normal}
+.h1-stack>span{display:block}
+.h1-stack--flat{display:contents}

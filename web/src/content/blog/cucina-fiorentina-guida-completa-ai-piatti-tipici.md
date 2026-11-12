@@ -114,7 +114,7 @@ Trovi tutti i piatti nel [menu](../../menu/).
 Se cerchi una trattoria tipica a Firenze, lontana dalle vie più turistiche, ecco dove ti aspettiamo:
 
 - **[Trattoria Boboli 1978 Gluten Free](../../locali/trattoria-1978/)**, Via Romana 45/R, Oltrarno: la nostra trattoria, a pochi passi da Palazzo Pitti e dal Giardino di Boboli. Per il pranzo, per la famiglia, per la cucina toscana di tutti i giorni.
-- **[Trattoria Boboli Al Bargello Gluten Free](../../locali/al-bargello/)**, Via Ghibellina 147/R, Santa Croce: la cena con calma, tra mattoni a vista e un buon bicchiere di vino.
+- **[Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../locali/al-bargello/)**, Via Ghibellina 147/R, Santa Croce: la cena con calma, tra mattoni a vista e un buon bicchiere di vino.
 - **[Trattoria Boboli La Cantina Gluten Free](../../locali/la-cantina/)**, Via Romana 60/R, Oltrarno: per chi sceglie il piatto partendo dal vino, con abbinamenti e degustazioni.
 - **[Trattoria Boboli To-Go Gluten Free](../../locali/to-go/)**, Via Romana 52, Oltrarno: i panini con il pane del laboratorio, da portare via mentre giri Firenze.
 

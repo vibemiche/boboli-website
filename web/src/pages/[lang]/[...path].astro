@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import HomePage from '../../components/HomePage.astro';
+import MenuPage from '../../components/MenuPage.astro';
+import EventsPage from '../../components/EventsPage.astro';
+import JobsPage from '../../components/JobsPage.astro';
+import SmartboxPage from '../../components/SmartboxPage.astro';
+import PlacePage from '../../components/PlacePage.astro';
+import ShortLink from '../../components/ShortLink.astro';
+import GuidePage from '../../components/GuidePage.astro';
+import { GUIDES } from '../../lib/guides';
+import type { Guide } from '../../lib/guides';
+import { TRANSLATED, localPath } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+// Tutte le pagine nelle altre lingue. Gli indirizzi sono tradotti
+// (`/en/restaurants/to-go/`): qui si parte dal percorso italiano e `localPath`
+// dice dove pubblicarlo. Le pagine italiane hanno ciascuna il suo file.
+type Page =
+  | { kind: 'home' | 'menu' | 'events' | 'jobs' | 'smartbox' | 'short' }
+  | { kind: 'place'; id: string }
+  | { kind: 'guide'; guide: Guide };
+
+export async function getStaticPaths() {
+  const locali = await getCollection('locali');
+  const pages: [string, Page][] = [
+    ['/', { kind: 'home' }],
+    ['/menu/', { kind: 'menu' }],
+    ['/eventi/', { kind: 'events' }],
+    ['/lavora-con-noi/', { kind: 'jobs' }],
+    ['/smartbox/', { kind: 'smartbox' }],
+    ['/locali/', { kind: 'short' }],
+    ...locali.map((l) => [`/locali/${l.id}/`, { kind: 'place', id: l.id }] as [string, Page]),
+    ...GUIDES.map((guide) => [guide.path, { kind: 'guide', guide }] as [string, Page]),
+  ];
+  return TRANSLATED.flatMap((lang) =>
+    pages.map(([path, page]) => ({
+      params: { lang, path: localPath(lang, path).replace(/^\/|\/$/g, '') || undefined },
+      props: { page },
+    })),
+  );
+}
+const lang = Astro.params.lang as Lang;
+const page = Astro.props.page as Page;
+---
+{page.kind === 'home' && <HomePage lang={lang} />}
+{page.kind === 'menu' && <MenuPage lang={lang} />}
+{page.kind === 'events' && <EventsPage lang={lang} />}
+{page.kind === 'jobs' && <JobsPage lang={lang} />}
+{page.kind === 'smartbox' && <SmartboxPage lang={lang} />}
+{page.kind === 'short' && <ShortLink lang={lang} to="/#locali" />}
+{page.kind === 'place' && <PlacePage lang={lang} id={page.id} />}
+{page.kind === 'guide' && <GuidePage lang={lang} guide={page.guide} />}

@@ -88,7 +88,7 @@ Nel laboratorio puoi anche **portare a casa** alcune delle nostre specialità pi
 Le ricette di famiglia sono nel [menu dei ristoranti](../../menu/) e le trovi in tre locali, tutti 100% senza glutine:
 
 - **[Trattoria Boboli 1978 Gluten Free](../../locali/trattoria-1978/)**, Via Romana 45/R, Oltrarno;
-- **[Trattoria Boboli Al Bargello Gluten Free](../../locali/al-bargello/)**, Via Ghibellina 147/R, Santa Croce;
+- **[Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../locali/al-bargello/)**, Via Ghibellina 147/R, Santa Croce;
 - **[Trattoria Boboli La Cantina Gluten Free](../../locali/la-cantina/)**, Via Romana 60/R, Oltrarno.
 
 Ogni piatto è un viaggio nella vera cucina toscana. Ti aspettiamo a tavola.

@@ -1,5 +1,5 @@
 {
-  "nameLegal": "Trattoria Boboli Al Bargello Gluten Free",
+  "nameLegal": "Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe",
   "nameShort": "Trattoria Boboli Al Bargello Gluten Free",
   "kicker": "Boboli Bargello",
   "title": "Stasera ci fermiamo a cena.",
@@ -16,6 +16,7 @@
   "phone": "+39 055 289264",
   "bookingUrl": "https://widget.thefork.com/55c4e6a9-f46d-46f7-ad35-119e2dbc8e69",
   "smartbox": true,
+  "priceRange": "20–40 €",
   "googleUrl": "https://share.google/zy68rcW8RAMZqZ3sY",
   "geo": { "lat": 43.770562, "lng": 11.258978 },
   "hours": [{ "from": "Mo", "to": "Su", "opens": "12:00", "closes": "22:30" }],

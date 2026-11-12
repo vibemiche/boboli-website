@@ -44,6 +44,8 @@ const locali = defineCollection({
     geo: z.object({ lat: z.number(), lng: z.number() }).nullable().default(null),
     // Una riga per fascia; i giorni non coperti risultano chiusi.
     hours: z.array(z.object({ from: day, to: day, opens: z.string(), closes: z.string() })).default([]),
+    /** La fascia di prezzo a persona, come su Google: «20–30 €». */
+    priceRange: z.string().nullable().default(null),
     /** La scheda Google del locale: «Come arrivare» apre quella, cioè il posto esatto. */
     googleUrl: z.string().url().nullable().default(null),
     sameAs: z.array(z.string().url()).default([]),

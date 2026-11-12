@@ -50,6 +50,7 @@ export function restaurantSchema(l: Locale, lang: Lang, t: Dict, site: URL, imag
     ...(l.phone ? { telephone: l.phone } : {}),
     ...(l.hours.length ? { openingHoursSpecification: openingHoursSpecification(l.hours) } : {}),
     servesCuisine: t.meta.cuisine,
+    ...(l.priceRange ? { priceRange: l.priceRange } : {}),
     acceptsReservations: l.bookingUrl ?? false,
     // La dieta sta sui piatti, dove schema.org la prevede: è la promessa del brand
     // detta a una macchina.

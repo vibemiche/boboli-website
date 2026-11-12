@@ -21,11 +21,7 @@ export default defineConfig({
     sitemap({
       // Gli indirizzi corti per i QR code rimandano alla home: fuori dalla sitemap.
       // Fuori anche le pagine di ringraziamento dopo la prenotazione.
-      filter: (page) => !/\/locali\/$/.test(page) && !/\/grazie\//.test(page),
-      i18n: {
-        defaultLocale: 'it',
-        locales: { it: 'it-IT', en: 'en', es: 'es', de: 'de', fr: 'fr' },
-      },
+      filter: (page) => !/\/(locali|restaurants|restaurantes)\/$/.test(page) && !/\/grazie\//.test(page),
     }),
   ],
 });

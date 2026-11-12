@@ -17,6 +17,7 @@
   "phone": "+39 055 2336401",
   "bookingUrl": "https://widget.thefork.com/13c79f43-4870-44dd-ae95-4d647eb50193",
   "smartbox": true,
+  "priceRange": "20–30 €",
   "googleUrl": "https://share.google/ZvYkWya2SkX1nN0gk",
   "geo": { "lat": 43.764149, "lng": 11.246213 },
   "hours": [{ "from": "Mo", "to": "Su", "opens": "12:00", "closes": "22:00" }],

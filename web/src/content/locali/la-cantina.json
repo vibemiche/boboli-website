@@ -15,6 +15,7 @@
   "zone": "Oltrarno",
   "phone": "+39 055 7099425",
   "bookingUrl": "https://widget.thefork.com/1f42afea-6865-41bb-942e-13fe43dd7a88",
+  "priceRange": "20–30 €",
   "googleUrl": "https://share.google/WpUH8o6ORtPbEZBFg",
   "geo": { "lat": 43.764148, "lng": 11.24607 },
   "hours": [{ "from": "Mo", "to": "Su", "opens": "11:30", "closes": "22:00" }],

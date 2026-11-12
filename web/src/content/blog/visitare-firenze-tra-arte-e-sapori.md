@@ -21,7 +21,7 @@ faq:
   - q: "Dove mangiare vicino a Palazzo Pitti e al Giardino di Boboli?"
     a: "In Via Romana, la strada che parte da Piazza Pitti e arriva a Porta Romana. Al 45/R c'è Trattoria Boboli 1978 Gluten Free, al 60/R Trattoria Boboli La Cantina Gluten Free e al 52 Trattoria Boboli To-Go Gluten Free, per un panino veloce."
   - q: "Dove mangiare vicino a Santa Croce e al Bargello?"
-    a: "In Via Ghibellina 147/R, tra il Museo del Bargello e la Basilica di Santa Croce, c'è Trattoria Boboli Al Bargello Gluten Free: cucina toscana, vino e cena con calma, tutto senza glutine."
+    a: "In Via Ghibellina 147/R, tra il Museo del Bargello e la Basilica di Santa Croce, c'è Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe: cucina toscana, vino e cena con calma, tutto senza glutine."
   - q: "Quanti giorni servono per visitare Firenze?"
     a: "Per vedere il centro storico, gli Uffizi, l'Oltrarno e Santa Croce senza correre servono almeno due o tre giorni. Conviene prenotare in anticipo i musei più visitati e, la sera, il tavolo per cena."
   - q: "Cosa mangiare a Firenze durante una visita?"
@@ -79,7 +79,7 @@ La seconda giornata è dedicata alla Firenze di Michelangelo. Comincia dal **Mus
 
 Al tramonto sali a **Piazzale Michelangelo** per la vista più famosa sulla città, poi torna in Via Ghibellina per cena.
 
-### Trattoria Boboli Al Bargello Gluten Free
+### Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe
 
 **Via Ghibellina 147/R, Santa Croce.** Se ami le osterie dal carattere deciso, questo è il tuo posto: muri di mattoni, tavoli vicini, chiacchiere e piatti robusti. È il locale che molti fiorentini conoscevano come **il Gatto e la Volpe**, oggi parte della famiglia Boboli. La cena qui prende il suo tempo: cucina schietta, senza fronzoli, ingredienti protagonisti, porzioni generose e un buon vino. Tutto senza glutine.
 
@@ -90,7 +90,7 @@ Perché sceglierla:
 - un ambiente informale e conviviale, ideale per una cena a due o in compagnia;
 - tutto il menu è 100% senza glutine.
 
-[Scopri Trattoria Boboli Al Bargello Gluten Free](../../locali/al-bargello/)
+[Scopri Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../locali/al-bargello/)
 
 ## Cosa mangiare durante la visita
 

@@ -1477,3 +1477,5 @@ input[type="file"].field__input::file-selector-button{
 .guide__actions .btn--terracotta{color:#fff}
 .place__guides{display:flex;flex-wrap:wrap;gap:6px 24px;margin-top:22px}
 @media (max-width:760px){.guide__actions .btn{flex:1 1 100%}}
+
+.blog__more{margin:clamp(48px,7vw,96px) 0 clamp(20px,3vw,36px);padding-top:28px;border-top:1px solid var(--rule);color:var(--muted)}

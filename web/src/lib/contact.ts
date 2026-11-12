@@ -40,12 +40,13 @@ export function openingHoursSpecification(hours: Hours) {
 }
 
 /**
- * «Come arrivare»: le indicazioni di Google Maps verso il locale cercato per
- * nome e indirizzo, così Maps apre la sua scheda e porta alla porta giusta.
- * Le sole coordinate lasciavano il segnaposto in mezzo alla strada, e i civici
- * rossi di Firenze (45/R) da soli vengono spesso confusi con quelli neri.
+ * «Come arrivare»: apre la scheda Google del locale, cioè il posto esatto, da cui
+ * si chiedono le indicazioni. Senza scheda, le indicazioni di Maps verso nome e
+ * indirizzo: le sole coordinate lasciavano il segnaposto in mezzo alla strada, e
+ * i civici rossi di Firenze (45/R) da soli vengono confusi con quelli neri.
  */
-export function directionsUrl(l: Pick<Locale, 'nameLegal' | 'street' | 'postalCode' | 'city'>): string {
+export function directionsUrl(l: Pick<Locale, 'nameLegal' | 'street' | 'postalCode' | 'city' | 'googleUrl'>): string {
+  if (l.googleUrl) return l.googleUrl;
   const dest = `${l.nameLegal}, ${l.street}, ${l.postalCode} ${l.city}`;
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}`;
 }

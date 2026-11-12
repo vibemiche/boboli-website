@@ -46,7 +46,7 @@ export function restaurantSchema(l: Locale, lang: Lang, t: Dict, site: URL, imag
       addressCountry: 'IT',
     },
     ...(l.geo ? { geo: { '@type': 'GeoCoordinates', latitude: l.geo.lat, longitude: l.geo.lng } } : {}),
-    hasMap: mapsUrl(l),
+    hasMap: l.googleUrl ?? mapsUrl(l),
     ...(l.phone ? { telephone: l.phone } : {}),
     ...(l.hours.length ? { openingHoursSpecification: openingHoursSpecification(l.hours) } : {}),
     servesCuisine: t.meta.cuisine,
@@ -79,7 +79,7 @@ export function restaurantSchema(l: Locale, lang: Lang, t: Dict, site: URL, imag
       programName: 'Alimentazione Fuori Casa',
       hostingOrganization: { '@type': 'Organization', name: 'Associazione Italiana Celiachia (AIC)', url: 'https://www.celiachia.it/' },
     },
-    ...(l.sameAs.length ? { sameAs: l.sameAs } : {}),
+    ...(l.googleUrl || l.sameAs.length ? { sameAs: [...(l.googleUrl ? [l.googleUrl] : []), ...l.sameAs] } : {}),
     parentOrganization: { '@id': orgId(site) },
   };
 }

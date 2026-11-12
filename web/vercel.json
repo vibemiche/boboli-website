@@ -8,6 +8,8 @@
       "destination": "https://www.trattoriaboboli.it/$1",
       "permanent": true
     },
+    { "source": "/it/news/5678303400907767910/", "destination": "/grazie/trattoria-1978/", "permanent": false },
+    { "source": "/it/news/5678256332495388738/", "destination": "/grazie/al-bargello/", "permanent": false },
     { "source": "/it/blog/:slug/", "destination": "/blog/:slug/", "permanent": true },
     { "source": "/it/blog/", "destination": "/blog/", "permanent": true },
     { "source": "/:lang(en|es|de|fr)/blog/(.*)", "destination": "/blog/", "permanent": false },

@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import { lp } from '../../lib/i18n';
+import { getLocali } from '../../lib/locali';
+import { telHref } from '../../lib/contact';
+
+// La pagina a cui TheFork rimanda dopo una prenotazione: ringrazia e segnala a
+// Tag Manager la prenotazione conclusa (evento booking_complete). Una per
+// locale, in italiano e inglese insieme perché TheFork ha un solo indirizzo di
+// ritorno per ristorante. Fuori da Google e dalla sitemap.
+export async function getStaticPaths() {
+  const locali = await getLocali('it');
+  return locali.filter((l) => l.bookable).map((l) => ({ params: { slug: l.id }, props: { l } }));
+}
+const { l } = Astro.props;
+---
+<Base lang="it" path={`/grazie/${l.id}/`} langs={['it']} noindex title={`Prenotazione ricevuta · ${l.nameShort}`} description={`Grazie per aver prenotato da ${l.nameLegal}.`} image={null}>
+  <div class="blog lost" data-thanks={l.id}>
+    <header class="blog__head">
+      <p class="u-label blog__kicker">{l.nameLegal}</p>
+      <h1 class="blog__title">Grazie, ti aspettiamo.</h1>
+      <p class="blog__lead">
+        La tua prenotazione è arrivata: riceverai la conferma da TheFork per e-mail.
+        Ci trovi in {l.street}, {l.city}{l.phone && <>. Per cambiare qualcosa chiamaci al <a href={telHref(l.phone)}>{l.phone}</a></>}.
+      </p>
+      <p class="blog__lead" lang="en">
+        Thank you, see you soon. Your booking has been received: TheFork will email you the confirmation.
+      </p>
+      <div class="lost__actions">
+        <a class="btn btn--terracotta" href={lp('it', `/locali/${l.id}/`)}>Come arrivare</a>
+        <a class="btn btn--ghost" href={lp('it', '/menu/')}>Guarda il menu</a>
+      </div>
+    </header>
+  </div>
+</Base>
+
+<script>
+  const id = document.querySelector<HTMLElement>('[data-thanks]')?.dataset.thanks;
+  if (id) {
+    if (window.top !== window) {
+      // TheFork ha aperto la pagina dentro il riquadro: la porto a tutto schermo,
+      // e la prenotazione si conta lì, una volta sola.
+      try { window.top!.location.replace(location.href); } catch { location.href = location.href; }
+    } else {
+      // ricaricare la pagina non deve contare una seconda prenotazione
+      const KEY = 'boboli-thanks-' + id;
+      let seen = false;
+      try { seen = !!sessionStorage.getItem(KEY); sessionStorage.setItem(KEY, '1'); } catch {}
+      if (!seen) ((window as any).dataLayer ||= []).push({ event: 'booking_complete', locale: id });
+    }
+  }
+</script>

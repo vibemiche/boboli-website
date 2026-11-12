@@ -1,0 +1,36 @@
+---
+// Gli eventi che il sito segnala a Tag Manager (dataLayer). I tag di Google Ads
+// e Analytics si agganciano a questi nomi, non al testo dei pulsanti:
+//   booking_open      scelto un locale, si apre il modulo TheFork   {locale}
+//   booking_complete  pagina di ringraziamento dopo la prenotazione {locale}
+//   form_sent         modulo eventi o candidatura inviato           {form}
+//   contact_click     clic su telefono o WhatsApp                   {method}
+//   order_click       clic su Glovo
+//   smartbox_click    clic sulla registrazione del voucher Smartbox
+---
+<script>
+  const w = window as any;
+  w.dataLayer = w.dataLayer || [];
+  const push = (event: string, data: Record<string, unknown> = {}) => w.dataLayer.push({ event, ...data });
+
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null;
+    if (!a) return;
+    const url = a.href;
+    if (url.startsWith('tel:')) push('contact_click', { method: 'phone', link_url: url });
+    else if (/wa\.me|whatsapp\.com/.test(url)) push('contact_click', { method: 'whatsapp', link_url: url });
+    else if (/glovoapp\.com/.test(url)) push('order_click', { link_url: url });
+    else if (/smartbox\.com/.test(url)) push('smartbox_click', { link_url: url });
+    // senza la finestra (nuova scheda, JS vecchio) il link porta dritto a TheFork
+    else if (/widget\.thefork\.com/.test(url) && !e.defaultPrevented) push('booking_open', { locale: a.dataset.widget ?? a.dataset.book ?? '' });
+  });
+
+  // Il modulo TheFork vive in un riquadro di un altro sito: se manda messaggi
+  // alla pagina li rendo visibili in Tag Manager (anteprima), per poterli usare.
+  window.addEventListener('message', (e) => {
+    if (!/thefork|lafourchette/.test(e.origin)) return;
+    let data = '';
+    try { data = typeof e.data === 'string' ? e.data : JSON.stringify(e.data); } catch {}
+    push('thefork_message', { tf_data: data.slice(0, 500) });
+  });
+</script>

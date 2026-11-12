@@ -10,7 +10,7 @@ import { breadcrumbSchema } from '../lib/schema';
 // soprattutto i tempi di conservazione.
 const t = ui.it;
 const site = Astro.site!;
-const UPDATED = '5 novembre 2026';
+const UPDATED = '12 novembre 2026';
 const contact = LEGAL.pec ?? LEGAL.email;
 const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp('it', '/') }, { name: 'Privacy', url: lp('it', '/privacy/') }], site)];
 ---
@@ -67,6 +67,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp('it', '/')
         <li><strong>Rispondere alla tua richiesta</strong> e preparare un preventivo per l'evento: è una misura precontrattuale richiesta da te (art. 6.1.b GDPR).</li>
         <li><strong>Valutare la tua candidatura</strong> ed eventualmente contattarti per un colloquio (art. 6.1.b GDPR). Per i curricula inviati spontaneamente non serve il consenso (art. 111-bis del Codice privacy).</li>
         <li><strong>Far funzionare il sito e proteggerlo</strong> da abusi: è un nostro legittimo interesse (art. 6.1.f GDPR).</li>
+        <li><strong>Misurare le visite e l'efficacia delle campagne</strong>, solo con il tuo consenso (art. 6.1.a GDPR).</li>
         <li><strong>Rispettare obblighi di legge</strong>, per esempio fiscali, se alla richiesta segue un contratto (art. 6.1.c GDPR).</li>
       </ul>
       <p>
@@ -85,8 +86,8 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp('it', '/')
       <p>
         I dati sono letti solo dalle persone di {LEGAL.name} e dei nostri locali autorizzate a gestire richieste e
         candidature. Per il funzionamento del sito ci affidiamo ad alcuni fornitori: il servizio che ospita il sito,
-        FormSubmit, che inoltra per e-mail i moduli compilati, e Google (Gmail), che gestisce le caselle di posta dei
-        locali. Non vendiamo né diffondiamo i tuoi dati.
+        FormSubmit, che inoltra per e-mail i moduli compilati, Google (Gmail), che gestisce le caselle di posta dei
+        locali, e Google Ireland Limited per gli strumenti di misurazione descritti nella sezione sui cookie. Non vendiamo né diffondiamo i tuoi dati.
       </p>
       <p>
         Alcuni di questi fornitori possono trattare i dati fuori dall'Unione europea, in particolare negli Stati Uniti.
@@ -103,13 +104,24 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp('it', '/')
         l'indirizzo IP del tuo dispositivo.
       </p>
 
-      <h2 id="cookie">Cookie</h2>
+      <h2 id="cookie">Cookie e strumenti di misurazione</h2>
       <p>
-        Questo sito <strong>non usa cookie di profilazione né cookie statistici</strong>, nostri o di terzi. Salva solo,
-        nel tuo browser, la lingua che scegli dal selettore, per mostrarti il sito in quella lingua alle visite
-        successive: è uno strumento tecnico, che non richiede consenso e che puoi cancellare dalle impostazioni del browser.
-        I servizi esterni elencati sopra possono usare propri cookie solo quando li apri: trovi i dettagli nelle loro
-        informative.
+        Il sito salva nel tuo browser, senza bisogno di consenso, solo quello che serve a farlo funzionare: la
+        lingua che scegli dal selettore e la tua scelta sui cookie.
+      </p>
+      <p>
+        <strong>Solo se accetti dal banner</strong> usiamo, tramite Google Tag Manager, i cookie di Google Ireland Limited:
+      </p>
+      <ul>
+        <li><strong>Google Analytics 4</strong> (statistica): ci dice in forma aggregata quante persone visitano il sito e quali pagine guardano. Cookie <code>_ga</code> e <code>_ga_*</code>, durata fino a 2 anni.</li>
+        <li><strong>Google Ads</strong> (marketing): misura se un annuncio ha portato a una prenotazione o a una richiesta, e permette di mostrare i nostri annunci a chi ha già visitato il sito. Cookie <code>_gcl_*</code>, durata fino a 90 giorni, oltre ai cookie di Google sul dominio google.com.</li>
+      </ul>
+      <p>
+        La base giuridica è il tuo consenso (art. 6.1.a GDPR). Se rifiuti o chiudi il banner, questi cookie non
+        vengono installati: Google riceve soltanto segnali tecnici anonimi, senza identificativi, che usa per stime
+        aggregate (Consent Mode). Puoi cambiare idea quando vuoi dal link «Preferenze cookie» in fondo a ogni pagina.
+        I dati possono essere trattati da Google anche negli Stati Uniti, secondo quanto indicato sopra.
+        I servizi esterni elencati sopra possono usare propri cookie solo quando li apri: trovi i dettagli nelle loro informative.
       </p>
 
       <h2 id="diritti">I tuoi diritti</h2>

@@ -5,7 +5,10 @@ import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
 import WhatsApp from '../components/WhatsApp.astro';
 import BookingDialog from '../components/BookingDialog.astro';
+import Consent from '../components/Consent.astro';
+import Tracking from '../components/Tracking.astro';
 import { indexable, href } from '../lib/site';
+import { GTM_ID, tracking } from '../lib/tracking';
 import { LANGS, FALLBACK, OG_LOCALE, lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { getLocali } from '../lib/locali';
@@ -23,9 +26,11 @@ interface Props {
   overHero?: boolean;
   /** Le lingue in cui esiste la pagina: il blog è solo in italiano. */
   langs?: readonly Lang[];
+  /** Pagine di servizio (il grazie dopo la prenotazione): fuori da Google. */
+  noindex?: boolean;
 }
 
-const { lang, path, title, description, image, jsonLd = [], overHero = false, langs = LANGS } = Astro.props;
+const { lang, path, title, description, image, jsonLd = [], overHero = false, langs = LANGS, noindex = false } = Astro.props;
 const t = ui[lang];
 const locali = await getLocali(lang);
 const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
@@ -44,7 +49,7 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={abs(lang)} />
-  {!indexable && <meta name="robots" content="noindex, nofollow" />}
+  {(!indexable || noindex) && <meta name="robots" content="noindex, nofollow" />}
 
   {langs.map((l) => <link rel="alternate" hreflang={l} href={abs(l)} />)}
   <link rel="alternate" hreflang="x-default" href={abs(langs.includes(FALLBACK) ? FALLBACK : langs[0])} />
@@ -75,6 +80,25 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
     })();
   </script>
 
+  {/* Consent Mode v2: tutto negato finché il visitatore non accetta dal banner;
+      la scelta salvata vale dalle visite successive. Poi Tag Manager. */}
+  {tracking && (
+    <script is:inline define:vars={{ gtm: GTM_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      var ALL = ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'];
+      function state(v) { var o = {}; ALL.forEach(function (k) { o[k] = v; }); return o; }
+      var d = state('denied'); d.wait_for_update = 500;
+      gtag('consent', 'default', d);
+      window.boboliConsent = function (v) { gtag('consent', 'update', state(v)); dataLayer.push({ event: 'consent_choice', consent: v }); };
+      try { if (localStorage.getItem('boboli-consent') === 'granted') gtag('consent', 'update', state('granted')); } catch (e) {}
+      (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s); j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', gtm);
+    </script>
+  )}
+
   <meta property="og:type" content="website" />
   <meta property="og:locale" content={OG_LOCALE[lang]} />
   {langs.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
@@ -90,6 +114,7 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
   ))}
 </head>
 <body>
+  {tracking && <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>}
   <a class="skip-link" href="#contenuto">{t.meta.skip}</a>
   <Header lang={lang} locali={locali} overHero={overHero} path={path} langs={langs} />
   <main id="contenuto">
@@ -99,5 +124,7 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
   <BookingDialog lang={lang} locali={locali} />
   <MobileBar lang={lang} />
   <WhatsApp lang={lang} />
+  {tracking && <Consent lang={lang} />}
+  <Tracking />
 </body>
 </html>

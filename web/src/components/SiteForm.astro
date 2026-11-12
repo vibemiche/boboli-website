@@ -75,6 +75,7 @@ const fallback = subject.split(' - {')[0].trim();
     if (sent && sent === box.id) {
       form.hidden = true;
       done.hidden = false;
+      ((window as any).dataLayer ||= []).push({ event: 'form_sent', form: box.id });
       requestAnimationFrame(() => done.focus({ preventScroll: true }));
       history.replaceState(null, '', location.pathname + location.hash);
     }

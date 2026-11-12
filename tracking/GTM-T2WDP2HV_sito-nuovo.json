@@ -1,0 +1,684 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-11-12 15:20:45",
+  "containerVersion": {
+    "path": "accounts/6347665062/containers/248196805/versions/8",
+    "accountId": "6347665062",
+    "containerId": "248196805",
+    "containerVersionId": "8",
+    "container": {
+      "path": "accounts/6347665062/containers/248196805",
+      "accountId": "6347665062",
+      "containerId": "248196805",
+      "name": "www.trattoriaboboli.it",
+      "publicId": "GTM-T2WDP2HV",
+      "usageContext": [
+        "WEB"
+      ],
+      "fingerprint": "1781102641753",
+      "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6347665062/containers/248196805/workspaces?apiLink=container",
+      "features": {
+        "supportUserPermissions": true,
+        "supportEnvironments": true,
+        "supportWorkspaces": true,
+        "supportGtagConfigs": false,
+        "supportBuiltInVariables": true,
+        "supportClients": false,
+        "supportFolders": true,
+        "supportTags": true,
+        "supportTemplates": true,
+        "supportTriggers": true,
+        "supportVariables": true,
+        "supportVersions": true,
+        "supportZones": true,
+        "supportTransformations": false
+      },
+      "tagIds": [
+        "GTM-T2WDP2HV"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "tagId": "4",
+        "name": "Linker conversioni",
+        "type": "gclidw",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableCrossDomain",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableUrlPassthrough",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableCookieOverrides",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479553"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "tagId": "16",
+        "name": "Tag Google AW-18039713427",
+        "type": "googtag",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "tagId",
+            "value": "AW-18039713427"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "tagId": "18",
+        "name": "Google Ads - Prenota Ora (apertura modulo TheFork)",
+        "type": "awct",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableNewCustomerReporting",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableConversionLinker",
+            "value": "true"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableProductReporting",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableShippingData",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionId",
+            "value": "18039713427"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionLabel",
+            "value": "VZ2SCKz7-ZYcEJPdgJpD"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "rdp",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "40"
+        ],
+        "tagFiringOption": "UNLIMITED",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "tagId": "26",
+        "name": "Google Ads - Prenotazione Online (pagina di ringraziamento)",
+        "type": "awct",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableNewCustomerReporting",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableConversionLinker",
+            "value": "true"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableProductReporting",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableShippingData",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionId",
+            "value": "18039713427"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionLabel",
+            "value": "-CKHCMqbuZ4cEJPdgJpD"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "rdp",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "41"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "tagId": "27",
+        "name": "Tag Remarketing Google Ads",
+        "type": "sp",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableConversionLinker",
+            "value": "true"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableDynamicRemarketing",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionId",
+            "value": "18039713427"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "customParamsFormat",
+            "value": "NONE"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "rdp",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479553"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "tagId": "28",
+        "name": "Ga4 - Google Tag",
+        "type": "googtag",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "tagId",
+            "value": "G-60G5Z1W1T7"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "tagId": "29",
+        "name": "Verifica Dominio Meta Ads",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n  (function() {\n    var m = document.createElement('meta');\n    m.setAttribute('name', 'facebook-domain-verification');\n    m.setAttribute('content', 'h8d0wdgb0y1y6w5bakd6bvuaftwvp7');\n    document.head.appendChild(m);\n  })();\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479553"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "tagId": "45",
+        "name": "GA4 - Eventi del sito",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "sendEcommerceData",
+            "value": "false"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "locale"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - locale}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "form"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - form}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "method"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - method}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "link_url"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - link_url}}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "{{Event}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "G-60G5Z1W1T7"
+          }
+        ],
+        "firingTriggerId": [
+          "42"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "triggerId": "40",
+        "name": "Evento - booking_open (scelto il locale, si apre TheFork)",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "booking_open"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "triggerId": "41",
+        "name": "Evento - booking_complete (pagina di ringraziamento)",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "booking_complete"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "triggerId": "42",
+        "name": "Evento - tutti gli eventi del sito per GA4",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "MATCH_REGEX",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "^(booking_open|booking_complete|form_sent|contact_click|order_click|smartbox_click)$"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "PAGE_URL",
+        "name": "Page URL"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "PAGE_HOSTNAME",
+        "name": "Page Hostname"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "PAGE_PATH",
+        "name": "Page Path"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "REFERRER",
+        "name": "Referrer"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "EVENT",
+        "name": "Event"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "CLICK_ELEMENT",
+        "name": "Click Element"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "CLICK_CLASSES",
+        "name": "Click Classes"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "CLICK_ID",
+        "name": "Click ID"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "CLICK_TARGET",
+        "name": "Click Target"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "CLICK_URL",
+        "name": "Click URL"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "CLICK_TEXT",
+        "name": "Click Text"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "FORM_ELEMENT",
+        "name": "Form Element"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "FORM_CLASSES",
+        "name": "Form Classes"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "FORM_ID",
+        "name": "Form ID"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "FORM_TARGET",
+        "name": "Form Target"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "FORM_URL",
+        "name": "Form URL"
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "type": "FORM_TEXT",
+        "name": "Form Text"
+      }
+    ],
+    "fingerprint": "1785171154156",
+    "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6347665062/containers/248196805/versions/8?apiLink=version",
+    "variable": [
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "variableId": "50",
+        "name": "DLV - locale",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "locale"
+          }
+        ]
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "variableId": "51",
+        "name": "DLV - form",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "form"
+          }
+        ]
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "variableId": "52",
+        "name": "DLV - method",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "method"
+          }
+        ]
+      },
+      {
+        "accountId": "6347665062",
+        "containerId": "248196805",
+        "variableId": "53",
+        "name": "DLV - link_url",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "link_url"
+          }
+        ]
+      }
+    ]
+  }
+}

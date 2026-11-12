@@ -1,0 +1,49 @@
+---
+import type { Lang } from '../lib/i18n';
+import { lp } from '../lib/i18n';
+
+// Il banner dei cookie. Analytics e Google Ads partono senza cookie finché non
+// si accetta (Consent Mode v2: lo stato iniziale è nel <head> di Base.astro).
+// Accetta e Rifiuta hanno lo stesso peso; la X vale come rifiuto.
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const T = {
+  it: { title: 'Cookie', text: 'Usiamo cookie di statistica e di marketing (Google) per capire come viene usato il sito e misurare le nostre campagne. Li attiviamo solo se accetti.', ok: 'Accetta', no: 'Rifiuta', more: 'Informativa privacy', close: 'Chiudi e rifiuta' },
+  en: { title: 'Cookies', text: 'We use analytics and marketing cookies (Google) to understand how the site is used and to measure our campaigns. They are switched on only if you accept.', ok: 'Accept', no: 'Decline', more: 'Privacy policy (Italian)', close: 'Close and decline' },
+  es: { title: 'Cookies', text: 'Usamos cookies de estadística y de marketing (Google) para entender cómo se usa el sitio y medir nuestras campañas. Solo se activan si aceptas.', ok: 'Aceptar', no: 'Rechazar', more: 'Política de privacidad (italiano)', close: 'Cerrar y rechazar' },
+  de: { title: 'Cookies', text: 'Wir verwenden Statistik- und Marketing-Cookies (Google), um die Nutzung der Website zu verstehen und unsere Kampagnen zu messen. Sie werden nur aktiviert, wenn du zustimmst.', ok: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz (Italienisch)', close: 'Schließen und ablehnen' },
+  fr: { title: 'Cookies', text: "Nous utilisons des cookies de statistique et de marketing (Google) pour comprendre l'utilisation du site et mesurer nos campagnes. Ils ne sont activés que si tu acceptes.", ok: 'Accepter', no: 'Refuser', more: 'Confidentialité (italien)', close: 'Fermer et refuser' },
+}[lang];
+---
+<section class="consent" id="consenso" aria-labelledby="consenso-titolo" hidden>
+  <button class="consent__close" type="button" data-consent="denied" aria-label={T.close}>&times;</button>
+  <h2 class="u-label" id="consenso-titolo">{T.title}</h2>
+  <p>{T.text} <a href={lp('it', '/privacy/') + '#cookie'}>{T.more}</a></p>
+  <div class="consent__actions">
+    <button class="btn btn--ghost" type="button" data-consent="denied">{T.no}</button>
+    <button class="btn btn--ghost" type="button" data-consent="granted">{T.ok}</button>
+  </div>
+</section>
+
+<script>
+  const box = document.getElementById('consenso');
+  if (box) {
+    const KEY = 'boboli-consent';
+    let saved: string | null = null;
+    try { saved = localStorage.getItem(KEY); } catch {}
+    // dentro un riquadro (iframe) il banner non serve
+    if (!saved && window.top === window) box.hidden = false;
+    box.querySelectorAll<HTMLElement>('[data-consent]').forEach((b) => {
+      b.addEventListener('click', () => {
+        const v = b.dataset.consent === 'granted' ? 'granted' : 'denied';
+        try { localStorage.setItem(KEY, v); } catch {}
+        (window as any).boboliConsent?.(v);
+        box.hidden = true;
+      });
+    });
+    // «Preferenze cookie» nel footer riapre il banner
+    document.querySelectorAll<HTMLElement>('[data-consent-open]').forEach((b) => {
+      b.addEventListener('click', () => { box.hidden = false; box.querySelector<HTMLElement>('.btn')?.focus(); });
+    });
+  }
+</script>

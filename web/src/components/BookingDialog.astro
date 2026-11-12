@@ -86,6 +86,7 @@ const widgets = Object.fromEntries(
       }
       if (iframe.src !== w.url) iframe.src = w.url;
       iframe.title = w.title;
+      ((window as any).dataLayer ||= []).push({ event: 'booking_open', locale: id });
     };
 
     document.querySelectorAll<HTMLElement>('[data-book]').forEach((el) => {

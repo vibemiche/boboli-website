@@ -39,7 +39,13 @@ export function openingHoursSpecification(hours: Hours) {
   }));
 }
 
-export function directionsUrl(l: Pick<Locale, 'geo' | 'nameLegal' | 'street' | 'postalCode' | 'city'>): string {
-  const dest = l.geo ? `${l.geo.lat},${l.geo.lng}` : `${l.nameLegal}, ${l.street}, ${l.postalCode} ${l.city}`;
+/**
+ * «Come arrivare»: le indicazioni di Google Maps verso il locale cercato per
+ * nome e indirizzo, così Maps apre la sua scheda e porta alla porta giusta.
+ * Le sole coordinate lasciavano il segnaposto in mezzo alla strada, e i civici
+ * rossi di Firenze (45/R) da soli vengono spesso confusi con quelli neri.
+ */
+export function directionsUrl(l: Pick<Locale, 'nameLegal' | 'street' | 'postalCode' | 'city'>): string {
+  const dest = `${l.nameLegal}, ${l.street}, ${l.postalCode} ${l.city}`;
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}`;
 }

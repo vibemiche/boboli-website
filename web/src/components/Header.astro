@@ -26,12 +26,13 @@ const more = [
   // il blog esiste solo in italiano
   ...(lang === 'it' ? [{ label: 'Blog', path: '/blog/' }] : []),
 ];
-// l'indice al centro dell'header: le sezioni della home, da qualunque pagina
+// l'indice al centro dell'header: le sezioni della home nell'ordine in cui si
+// incontrano scorrendo. «I locali» porta all'elenco da cui si prenota.
 const index = [
-  { label: t.nav.places, hash: 'i-nostri-locali' },
-  { label: t.nav.food, hash: 'menu' },
-  { label: t.nav.gf, hash: 'manifesto' },
   { label: t.nav.reviews, hash: 'recensioni' },
+  { label: t.nav.gf, hash: 'manifesto' },
+  { label: t.nav.food, hash: 'menu' },
+  { label: t.nav.places, hash: 'locali' },
 ];
 ---
 <header class:list={['site-header', { 'is-solid': !overHero }]} data-over-hero={overHero ? '' : undefined}>

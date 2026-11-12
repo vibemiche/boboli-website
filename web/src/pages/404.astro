@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import { lp } from '../lib/i18n';
+import { ui } from '../lib/ui';
+
+// La pagina che non c'è: invece dell'errore dell'hosting, la strada per tornare a tavola.
+const t = ui.it;
+const links = [
+  { label: 'I nostri locali', path: '/#locali' },
+  { label: t.nav.food, path: '/menu/' },
+  { label: t.nav.events, path: '/eventi/' },
+  { label: 'Blog', path: '/blog/' },
+];
+---
+<Base lang="it" path="/404/" langs={['it']} title="Pagina non trovata · Trattoria Boboli" description="La pagina che cerchi non esiste o è stata spostata. Torna alla home di Trattoria Boboli, ai locali o al menu." image={null}>
+  <div class="blog lost">
+    <header class="blog__head">
+      <p class="u-label blog__kicker">Errore 404 · Page not found</p>
+      <h1 class="blog__title">Questo tavolo non c'è.</h1>
+      <p class="blog__lead">La pagina che cerchi non esiste o è stata spostata. Ma un posto per te lo troviamo lo stesso.</p>
+      <div class="lost__actions">
+        <a class="btn btn--terracotta" href={lp('it', '/')}>Torna alla home</a>
+        <a class="btn btn--ghost" href={lp('en', '/')} hreflang="en" lang="en">Back to the homepage</a>
+      </div>
+    </header>
+    <ul class="lost__links">
+      {links.map((l) => <li><a class="link-more" href={lp('it', l.path)}>{l.label} &rarr;</a></li>)}
+    </ul>
+  </div>
+</Base>

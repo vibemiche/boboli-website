@@ -2,7 +2,16 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
   "redirects": [
-    { "source": "/it/blog", "destination": "/blog/", "permanent": true },
-    { "source": "/it/blog/:slug", "destination": "/blog/:slug/", "permanent": true }
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "trattoriaboboli.it" }],
+      "destination": "https://www.trattoriaboboli.it/:path*",
+      "permanent": true
+    },
+    { "source": "/it/blog/:slug/", "destination": "/blog/:slug/", "permanent": true },
+    { "source": "/it/blog/", "destination": "/blog/", "permanent": true },
+    { "source": "/:lang(en|es|de|fr)/blog/:path*", "destination": "/blog/", "permanent": false },
+    { "source": "/it/", "destination": "/", "permanent": true },
+    { "source": "/it/:path+/", "destination": "/", "permanent": false }
   ]
 }

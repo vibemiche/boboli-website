@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
 import WhatsApp from '../components/WhatsApp.astro';
 import BookingDialog from '../components/BookingDialog.astro';
-import { indexable } from '../lib/site';
+import { indexable, href } from '../lib/site';
 import { LANGS, FALLBACK, OG_LOCALE, lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { getLocali } from '../lib/locali';
@@ -38,6 +38,9 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
   <meta name="theme-color" content="#ffffff" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
+  <link rel="icon" href={href('/favicon.ico')} sizes="32x32" />
+  <link rel="icon" href={href('/favicon.svg')} type="image/svg+xml" />
+  <link rel="apple-touch-icon" href={href('/apple-touch-icon.png')} />
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={abs(lang)} />

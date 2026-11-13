@@ -38,8 +38,7 @@ const columns = [
       { label: t.footer.links.menu, path: '/menu/' },
       // le pagine guida: senza glutine a Firenze, dove mangiare per zona
       ...MAIN_GUIDES.map((g) => ({ label: g.tr[lang].label, path: g.path })),
-      // il blog esiste solo in italiano
-      ...(lang === 'it' ? [{ label: 'Blog', path: '/blog/' }] : []),
+      { label: 'Blog', path: '/blog/' },
     ],
   },
   {

@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import Figure from './Figure.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+import { BLOG, getPosts, dateOf, isoDay, keyOf, minutesOf } from '../lib/blog';
+import { breadcrumbSchema, socialImage } from '../lib/schema';
+import { GUIDES } from '../lib/guides';
+
+// L'elenco degli articoli e delle guide, in una delle cinque lingue.
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const b = BLOG[lang];
+const site = Astro.site!;
+const posts = await getPosts(lang);
+const image = await socialImage('firenze', site);
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    '@id': new URL(lp(lang, '/blog/'), site).href + '#blog',
+    name: b.name,
+    url: new URL(lp(lang, '/blog/'), site).href,
+    inLanguage: lang,
+    blogPost: posts.map((p) => ({ '@id': new URL(lp(lang, `/blog/${keyOf(p)}/`), site).href + '#article' })),
+  },
+  breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: 'Blog', url: lp(lang, '/blog/') }], site),
+];
+---
+<Base lang={lang} path="/blog/" title={b.title} description={b.desc} image={image} jsonLd={jsonLd}>
+  <div class="blog">
+    <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+      <a href={lp(lang, '/')}>Boboli</a> <span aria-hidden="true">›</span> <span aria-current="page">Blog</span>
+    </nav>
+    <header class="blog__head">
+      <p class="u-label blog__kicker">{b.kicker}</p>
+      <h1 class="blog__title">{b.h1}</h1>
+      <p class="blog__lead">{b.lead}</p>
+    </header>
+    <ul class="blog__list">
+      {posts.map((p, i) => (
+        <li class="card">
+          <a class="card__link" href={lp(lang, `/blog/${keyOf(p)}/`)}>
+            <div class="card__media">
+              <Figure slot={p.data.image} alt={p.data.imageAlt} label="" widths={[480, 800, 1200]} sizes="(max-width: 760px) 100vw, 33vw" priority={i === 0} />
+            </div>
+            <p class="u-label card__kicker">{p.data.kicker}</p>
+            <h2 class="card__title">{p.data.title}</h2>
+            <p class="card__desc">{p.data.description}</p>
+            <p class="card__meta"><time datetime={isoDay(p.data.date)}>{dateOf(p.data.date, lang)}</time> · {b.minutes(minutesOf(p))}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {/* le pagine guida: dove mangiare per zona e il senza glutine a Firenze */}
+    <h2 class="u-label blog__more">{b.guides}</h2>
+    <ul class="blog__list">
+      {GUIDES.map((g) => (
+        <li class="card">
+          <a class="card__link" href={lp(lang, g.path)}>
+            <div class="card__media">
+              <Figure slot={g.image} alt={g.imageAlt[lang]} label="" widths={[480, 800, 1200]} sizes="(max-width: 760px) 100vw, 33vw" />
+            </div>
+            <p class="u-label card__kicker">{b.guide} · {g.tr[lang].label}</p>
+            <h3 class="card__title">{g.tr[lang].h1.replace(/\.$/, '')}</h3>
+            <p class="card__desc">{g.tr[lang].desc}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Base>

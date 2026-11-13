@@ -24,7 +24,7 @@ const more = [
   { label: t.nav.smartbox, path: '/smartbox/' },
   { label: t.nav.jobs, path: '/lavora-con-noi/' },
   // il blog esiste solo in italiano
-  ...(lang === 'it' ? [{ label: 'Blog', path: '/blog/' }] : []),
+  { label: 'Blog', path: '/blog/' },
 ];
 // l'indice al centro dell'header: le sezioni della home nell'ordine in cui si
 // incontrano scorrendo. «I locali» porta all'elenco da cui si prenota.

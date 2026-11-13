@@ -55,16 +55,17 @@ const locali = defineCollection({
   }),
 });
 
-// Il blog, solo in italiano. Un file Markdown per articolo: il nome del file è
-// l'indirizzo (/blog/<nome>/), uguale a quello del vecchio sito senza /it/.
+// Il blog. Un file Markdown per articolo: il nome del file è l'indirizzo
+// (/blog/<nome>/), uguale a quello del vecchio sito senza /it/. Le traduzioni
+// stanno in <lingua>/<stesso nome>.md; l'indirizzo tradotto è in SLUGS (lib/i18n.ts).
 const blog = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/blog' }),
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     // il titolo in pagina (h1) e quello per Google (<title>, ≤ 60 caratteri)
     title: z.string(),
-    seoTitle: z.string().max(60),
+    seoTitle: z.string().max(62),
     // la descrizione per Google, 120–160 caratteri
-    description: z.string().min(110).max(160),
+    description: z.string().min(110).max(165),
     // l'apertura sotto il titolo: risponde subito alla domanda di chi cerca
     lead: z.string(),
     kicker: z.string(),

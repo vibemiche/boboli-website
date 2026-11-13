@@ -8,6 +8,9 @@ import SmartboxPage from '../../components/SmartboxPage.astro';
 import PlacePage from '../../components/PlacePage.astro';
 import ShortLink from '../../components/ShortLink.astro';
 import GuidePage from '../../components/GuidePage.astro';
+import BlogIndex from '../../components/BlogIndex.astro';
+import BlogPost from '../../components/BlogPost.astro';
+import { getPosts, keyOf, type Post } from '../../lib/blog';
 import { GUIDES } from '../../lib/guides';
 import type { Guide } from '../../lib/guides';
 import { TRANSLATED, localPath } from '../../lib/i18n';
@@ -19,7 +22,9 @@ import type { Lang } from '../../lib/i18n';
 type Page =
   | { kind: 'home' | 'menu' | 'events' | 'jobs' | 'smartbox' | 'short' }
   | { kind: 'place'; id: string }
-  | { kind: 'guide'; guide: Guide };
+  | { kind: 'guide'; guide: Guide }
+  | { kind: 'blog' }
+  | { kind: 'post'; post: Post; others: Post[] };
 
 export async function getStaticPaths() {
   const locali = await getCollection('locali');
@@ -33,12 +38,17 @@ export async function getStaticPaths() {
     ...locali.map((l) => [`/locali/${l.id}/`, { kind: 'place', id: l.id }] as [string, Page]),
     ...GUIDES.map((guide) => [guide.path, { kind: 'guide', guide }] as [string, Page]),
   ];
-  return TRANSLATED.flatMap((lang) =>
-    pages.map(([path, page]) => ({
-      params: { lang, path: localPath(lang, path).replace(/^\/|\/$/g, '') || undefined },
-      props: { page },
-    })),
-  );
+  const out = [];
+  for (const lang of TRANSLATED) {
+    const posts = await getPosts(lang);
+    const all: [string, Page][] = [
+      ...pages,
+      ['/blog/', { kind: 'blog' }],
+      ...posts.map((post) => [`/blog/${keyOf(post)}/`, { kind: 'post', post, others: posts.filter((p) => p.id !== post.id) }] as [string, Page]),
+    ];
+    for (const [path, page] of all) out.push({ params: { lang, path: localPath(lang, path).replace(/^\/|\/$/g, '') || undefined }, props: { page } });
+  }
+  return out;
 }
 const lang = Astro.params.lang as Lang;
 const page = Astro.props.page as Page;
@@ -51,3 +61,5 @@ const page = Astro.props.page as Page;
 {page.kind === 'short' && <ShortLink lang={lang} to="/#locali" />}
 {page.kind === 'place' && <PlacePage lang={lang} id={page.id} />}
 {page.kind === 'guide' && <GuidePage lang={lang} guide={page.guide} />}
+{page.kind === 'blog' && <BlogIndex lang={lang} />}
+{page.kind === 'post' && <BlogPost lang={lang} post={page.post} others={page.others} />}

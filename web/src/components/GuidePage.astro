@@ -22,12 +22,12 @@ const all = await getLocali(lang);
 const locali = guide.locali.map((id) => all.find((l) => l.id === id)!).filter(Boolean);
 const image = await socialImage(guide.image, site);
 
-// [testo](/percorso/) → link interno nella lingua della pagina; il blog è solo in italiano
+// [testo](/percorso/) → link interno nella lingua della pagina
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const rich = (s: string) =>
   esc(s)
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, path) => `<a href="${lp(path.startsWith('/blog/') ? 'it' : lang, path)}">${text}</a>`);
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, path) => `<a href="${lp(lang, path)}">${text}</a>`);
 
 // le altre guide, per chi vuole continuare a leggere (e per i link interni)
 const others = GUIDES.filter((x) => x.path !== guide.path);

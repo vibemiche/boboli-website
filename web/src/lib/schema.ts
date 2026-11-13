@@ -151,6 +151,7 @@ export function blogPostingSchema(
   url: string,
   image: string | null,
   site: URL,
+  lang: Lang = 'it',
 ) {
   return {
     '@context': 'https://schema.org',
@@ -158,7 +159,7 @@ export function blogPostingSchema(
     '@id': abs(url, site) + '#article',
     headline: p.title,
     description: p.description,
-    inLanguage: 'it-IT',
+    inLanguage: lang,
     mainEntityOfPage: abs(url, site),
     url: abs(url, site),
     ...(image ? { image } : {}),
@@ -168,6 +169,6 @@ export function blogPostingSchema(
     wordCount: p.wordCount,
     author: { '@id': orgId(site) },
     publisher: { '@id': orgId(site) },
-    isPartOf: { '@type': 'Blog', '@id': abs(lp('it', '/blog/'), site) + '#blog', name: 'Il blog di Trattoria Boboli' },
+    isPartOf: { '@type': 'Blog', '@id': abs(lp(lang, '/blog/'), site) + '#blog' },
   };
 }

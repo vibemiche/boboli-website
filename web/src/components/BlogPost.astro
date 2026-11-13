@@ -1,0 +1,111 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Figure from './Figure.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+import { BLOG, dateOf, isoDay, keyOf, minutesOf, wordsOf, type Post } from '../lib/blog';
+import { blogPostingSchema, breadcrumbSchema, faqSchema, socialImage } from '../lib/schema';
+
+// Un articolo del blog, in una delle cinque lingue.
+interface Props { lang: Lang; post: Post; others: Post[] }
+const { lang, post, others } = Astro.props;
+const b = BLOG[lang];
+const d = post.data;
+const t = ui[lang];
+const site = Astro.site!;
+const path = `/blog/${keyOf(post)}/`;
+const { Content, headings } = await render(post);
+// l'indice: solo i capitoli (h2)
+const toc = [
+  ...headings.filter((h) => h.depth === 2),
+  ...(d.faq.length ? [{ slug: 'domande', text: b.faq }] : []),
+];
+const image = await socialImage(d.image, site);
+const jsonLd = [
+  blogPostingSchema({ ...d, wordCount: wordsOf(post) }, lp(lang, path), image, site, lang),
+  breadcrumbSchema(
+    [{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: 'Blog', url: lp(lang, '/blog/') }, { name: d.title, url: lp(lang, path) }],
+    site,
+  ),
+  ...(d.faq.length ? [faqSchema(d.faq.map((f) => [f.q, f.a] as [string, string]))] : []),
+];
+---
+<Base lang={lang} path={path} title={d.seoTitle} description={d.description} image={image} jsonLd={jsonLd}>
+  <article class="post">
+    <header class="post__head">
+      <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+        <a href={lp(lang, '/')}>Boboli</a> <span aria-hidden="true">›</span> <a href={lp(lang, '/blog/')}>Blog</a>
+      </nav>
+      <p class="u-label post__kicker">{d.kicker}</p>
+      <h1 class="post__title">{d.title}</h1>
+      <p class="post__lead">{d.lead}</p>
+      <p class="post__meta">
+        <span>Trattoria Boboli</span>
+        <span aria-hidden="true">·</span>
+        {d.updated && d.updated > d.date
+          ? <span>{b.updated} <time datetime={isoDay(d.updated)}>{dateOf(d.updated, lang)}</time></span>
+          : <time datetime={isoDay(d.date)}>{dateOf(d.date, lang)}</time>}
+        <span aria-hidden="true">·</span>
+        <span>{b.minutes(minutesOf(post))}</span>
+      </p>
+    </header>
+    <div class="post__media">
+      <Figure slot={d.image} alt={d.imageAlt} label="" widths={[640, 960, 1280, 1600]} sizes="(max-width: 760px) 100vw, min(1040px, 92vw)" priority />
+    </div>
+
+    <div class="post__grid">
+      {toc.length > 2 && (
+        <nav class="post__toc" aria-labelledby="indice">
+          <p class="u-label" id="indice">{b.toc}</p>
+          <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+        </nav>
+      )}
+      <div class="prose">
+        <Content />
+
+        {d.faq.length > 0 && (
+          <section class="post__faq" aria-labelledby="domande">
+            <h2 id="domande">{b.faq}</h2>
+            {d.faq.map((f) => (
+              <details>
+                <summary>{f.q}<span aria-hidden="true">+</span></summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </section>
+        )}
+
+        <aside class="post__cta">
+          <p class="post__cta-title">A tavola!</p>
+          <p>{b.ctaText}</p>
+          <div class="post__cta-actions">
+            <a class="btn btn--terracotta" href={lp(lang, '/#locali')} data-book>{t.nav.book}</a>
+            <a class="btn btn--ghost" href={lp(lang, '/menu/')}>{t.nav.food}</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+
+  {others.length > 0 && (
+    <nav class="post__more" aria-labelledby="altri">
+      <h2 class="u-label" id="altri">{b.more}</h2>
+      <ul class="blog__list">
+        {others.map((p) => (
+          <li class="card">
+            <a class="card__link" href={lp(lang, `/blog/${keyOf(p)}/`)}>
+              <div class="card__media">
+                <Figure slot={p.data.image} alt={p.data.imageAlt} label="" widths={[480, 800, 1200]} sizes="(max-width: 760px) 100vw, 33vw" />
+              </div>
+              <p class="u-label card__kicker">{p.data.kicker}</p>
+              <h3 class="card__title">{p.data.title}</h3>
+              <p class="card__meta"><time datetime={isoDay(p.data.date)}>{dateOf(p.data.date, lang)}</time> · {b.minutes(minutesOf(p))}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )}
+</Base>

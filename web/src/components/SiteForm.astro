@@ -44,6 +44,8 @@ const fallback = subject.split(' - {')[0].trim();
     <input type="hidden" name="_next" value={next} />
     <input type="hidden" name="_template" value="table" />
     <input type="hidden" name="_captcha" value="false" />
+    {/* «Rispondi» nella mail va a chi ha scritto: lo riempie lo script con il campo Email */}
+    <input type="hidden" name="_replyto" value="" />
     <input type="hidden" name="Lingua del sito" value={lang.toUpperCase()} />
     {/* trappola per i bot: un campo che le persone non vedono e lasciano vuoto */}
     <div class="fs__trap" aria-hidden="true"><label>Lascia vuoto <input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label></div>
@@ -104,6 +106,7 @@ const fallback = subject.split(' - {')[0].trim();
       };
       const subject = (form.dataset.subject ?? '').replace(/\{([^}]+)\}/g, (_, k) => val(k));
       form.querySelector<HTMLInputElement>('input[name="_subject"]')!.value = subject.replace(/\s+/g, ' ').trim();
+      form.querySelector<HTMLInputElement>('input[name="_replyto"]')!.value = val('Email');
       const btn = form.querySelector<HTMLButtonElement>('.fs__submit')!;
       btn.dataset.label = btn.innerHTML;
       btn.disabled = true;

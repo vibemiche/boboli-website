@@ -8,6 +8,9 @@ export const SMARTBOX_REGISTER = 'https://myaccount.smartbox.com/it/voucher/regi
 // I moduli del sito non hanno un server: li inoltra FormSubmit (formsubmit.co)
 // alla casella indicata. La prima volta che arriva un modulo a una casella,
 // FormSubmit manda lì una mail di attivazione da confermare con un clic.
+// Dopo l'attivazione FormSubmit manda anche un codice casuale (alias): usarlo
+// al posto dell'indirizzo qui sotto lo toglie dal codice della pagina, dove i
+// programmi che raccolgono indirizzi per lo spam lo leggerebbero.
 export const formAction = (email: string) => `https://formsubmit.co/${email}`;
 
 // Le candidature, con il CV allegato.

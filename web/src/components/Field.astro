@@ -9,6 +9,8 @@ interface Props {
   autocomplete?: string;
   hint?: string;
   options?: string[];
+  /** Il valore che arriva nella mail, se diverso dall'etichetta (es. in italiano). */
+  values?: string[];
   choose?: string;
   /** Occupa tutta la riga anche da computer. */
   wide?: boolean;
@@ -19,7 +21,7 @@ interface Props {
   maxMb?: number;
   tooBig?: string;
 }
-const { label, name, type = 'text', required = false, autocomplete, hint, options = [], choose = '', wide = false, accept, min, placeholder, maxMb, tooBig } = Astro.props;
+const { label, name, type = 'text', required = false, autocomplete, hint, options = [], values = [], choose = '', wide = false, accept, min, placeholder, maxMb, tooBig } = Astro.props;
 const id = `f-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${Math.random().toString(36).slice(2, 7)}`;
 const hintId = hint ? `${id}-hint` : undefined;
 ---
@@ -30,7 +32,7 @@ const hintId = hint ? `${id}-hint` : undefined;
   ) : type === 'select' ? (
     <select class="field__input" id={id} name={name} required={required} aria-describedby={hintId}>
       <option value="">{choose}</option>
-      {options.map((o) => <option>{o}</option>)}
+      {options.map((o, i) => <option value={values[i] ?? o}>{o}</option>)}
     </select>
   ) : (
     <input

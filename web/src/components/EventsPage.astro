@@ -96,7 +96,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
           <Field label={f.surname} name="Cognome" required autocomplete="family-name" />
           <Field label={f.email} name="Email" type="email" required autocomplete="email" />
           <Field label={f.phone} name="Telefono" type="tel" required autocomplete="tel" placeholder="+39" />
-          <Field label={e.type} name="Tipo di evento" type="select" options={[...e.occasions, e.other]} choose={f.choose} required wide />
+          <Field label={e.type} name="Tipo di evento" type="select" options={[...e.occasions, e.other]} values={[...ui.it.events.occasions, ui.it.events.other]} choose={f.choose} required wide />
           <Field label={e.guests} name="Ospiti" type="number" min="1" required />
           <Field label={e.date} name="Data" type="date" required />
           <Field label={e.message} name="Messaggio" type="textarea" hint={e.messageHint} required />

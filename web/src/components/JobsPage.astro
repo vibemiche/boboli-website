@@ -59,7 +59,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
       <Field label={f.surname} name="Cognome" required autocomplete="family-name" />
       <Field label={f.email} name="Email" type="email" required autocomplete="email" />
       <Field label={f.phone} name="Telefono" type="tel" required autocomplete="tel" placeholder="+39" />
-      <Field label={sp.area} name="Area" type="select" options={sp.areas} choose={f.choose} required wide />
+      <Field label={sp.area} name="Area" type="select" options={sp.areas} values={ui.it.jobs.spont.areas} choose={f.choose} required wide />
       <Field label={sp.message} name="Presentazione" type="textarea" hint={sp.messageHint} required />
       <Field label={sp.cv} name="attachment" type="file" hint={sp.cvHint} accept=".pdf,.doc,.docx,application/pdf" required maxMb={5} tooBig={sp.cvTooBig} />
     </SiteForm>

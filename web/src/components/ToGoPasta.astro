@@ -23,7 +23,7 @@ const dishes = TOGO_DISHES.filter((d) => findImage(d.slot));
         <li class="togo-pasta__item">
           <Figure slot={d.slot} alt={t.alt(d.name)} label="" widths={[455]} sizes="(max-width: 760px) 70vw, 22vw" />
           <p class="togo-pasta__name">{d.name}</p>
-          <p class="u-label togo-pasta__tag">{d.dessert ? t.dessert : t.tag}</p>
+          <p class="u-label togo-pasta__tag">{t.tag}</p>
         </li>
       ))}
     </ul>

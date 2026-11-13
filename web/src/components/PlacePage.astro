@@ -5,6 +5,7 @@ import FormatBlock from './FormatBlock.astro';
 import Badges from './Badges.astro';
 import Reveal from './Reveal.astro';
 import OpenNow from './OpenNow.astro';
+import ToGoPasta from './ToGoPasta.astro';
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { getLocali, toneOf } from '../lib/locali';
@@ -78,6 +79,8 @@ const jsonLd = [
         </div>
       ))}
     </section>
+
+    {l.id === 'to-go' && <ToGoPasta lang={lang} />}
 
     <nav class="place__others" aria-label={t.place.others}>
       <h2 class="place__others-title">{t.place.others}</h2>

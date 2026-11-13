@@ -1,0 +1,31 @@
+---
+import Figure from './Figure.astro';
+import type { Lang } from '../lib/i18n';
+import { findImage } from '../lib/images';
+import { TOGO_DISHES, TOGO_PASTA } from '../lib/togo-pasta';
+
+// La sezione «Pasta fresca to go» nella pagina del To-Go: compaiono solo le
+// ricette di cui c'è la foto.
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = TOGO_PASTA[lang];
+const dishes = TOGO_DISHES.filter((d) => findImage(d.slot));
+---
+{dishes.length > 0 && (
+  <section class="togo-pasta" id="pasta-fresca" aria-labelledby="togo-pasta-title">
+    <div class="togo-pasta__head" data-reveal>
+      <p class="u-label togo-pasta__kicker">{t.kicker}</p>
+      <h2 class="togo-pasta__title" id="togo-pasta-title">{t.title}</h2>
+      <p class="togo-pasta__lead">{t.lead}</p>
+    </div>
+    <ul class="togo-pasta__list" data-reveal>
+      {dishes.map((d) => (
+        <li class="togo-pasta__item">
+          <Figure slot={d.slot} alt={t.alt(d.name)} label="" widths={[455]} sizes="(max-width: 760px) 70vw, 22vw" />
+          <p class="togo-pasta__name">{d.name}</p>
+          <p class="u-label togo-pasta__tag">{d.dessert ? t.dessert : t.tag}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

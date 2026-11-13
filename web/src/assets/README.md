@@ -109,3 +109,9 @@ Quale illustrazione va accanto a quale locale si decide nel campo `seal` di
 5. Dopo ~2 minuti il sito è aggiornato. Lo stato è nella tab **Actions**
 
 Limiti di GitHub via browser: 25 MB per file, 100 file per commit.
+
+### Pasta fresca del To-Go
+
+Nella pagina del To-Go, la sezione «Pasta fresca to go» mostra le foto in `to-go-pasta/`, in ordine
+di numero, tagliate in verticale 4:5. Per aggiungere una ricetta basta caricare il file con il nome
+già previsto in `src/lib/togo-pasta.ts`: `6-mezzi-paccheri-in-verde.jpg`, `7-tiramisu.jpg`.

@@ -1485,3 +1485,27 @@ input[type="file"].field__input::file-selector-button{
 .guide__more ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 26px}
 .guide__more li{padding:0;margin:0}
 .guide__more a{display:inline-flex;align-items:center;min-height:44px}
+
+/* To-Go: la pasta fresca da portare via, una foto per ricetta.
+   Da telefono le foto scorrono di lato; da computer stanno in griglia. */
+.togo-pasta{padding:0 0 var(--section-y)}
+.togo-pasta__head{padding:0 var(--gutter);max-width:62ch;margin-bottom:clamp(24px,3vw,40px)}
+.togo-pasta__kicker{color:var(--kicker)}
+.togo-pasta__title{margin-top:10px;font-size:clamp(30px,3.6vw,56px);line-height:1.02;letter-spacing:-.01em}
+.togo-pasta__lead{margin-top:16px;color:var(--muted);font-size:var(--body-lg);line-height:1.6}
+.togo-pasta__list{
+  list-style:none;margin:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);
+  gap:clamp(12px,1.4vw,20px);padding:0 var(--gutter);
+}
+.togo-pasta__item :is(picture,.ph){aspect-ratio:4/5;height:auto;border-radius:2px;overflow:hidden}
+.togo-pasta__item img{width:100%;height:100%;object-fit:cover}
+.togo-pasta__name{margin-top:12px;font-weight:700;font-size:clamp(17px,1.4vw,21px);line-height:1.2}
+.togo-pasta__tag{margin-top:4px;color:var(--muted)}
+@media (max-width:900px){
+  .togo-pasta__list{
+    grid-auto-columns:68%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--gutter);
+    padding-bottom:8px;scrollbar-width:none;
+  }
+  .togo-pasta__list::-webkit-scrollbar{display:none}
+  .togo-pasta__item{scroll-snap-align:start}
+}

@@ -21,7 +21,7 @@ export default defineConfig({
     sitemap({
       // Gli indirizzi corti per i QR code rimandano alla home: fuori dalla sitemap.
       // Fuori anche le pagine di ringraziamento dopo la prenotazione.
-      filter: (page) => !/\/(locali|restaurants|restaurantes)\/$/.test(page) && !/\/grazie\//.test(page),
+      filter: (page) => !/\/(locali|restaurants|restaurantes)\/$/.test(page) && !/\/(grazie|prova-modulo)\//.test(page),
     }),
   ],
 });

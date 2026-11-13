@@ -10,8 +10,10 @@ import { JOBS_EMAIL } from '../lib/forms';
 import { breadcrumbSchema, socialImage } from '../lib/schema';
 
 // Solo candidature spontanee: un modulo con il CV allegato, che arriva per mail.
-interface Props { lang: Lang }
-const { lang } = Astro.props;
+// `test` serve solo alla pagina di prova /prova-modulo/: stessa pagina, casella
+// diversa, fuori da Google e senza le altre lingue.
+interface Props { lang: Lang; test?: { to: string; path: string } }
+const { lang, test } = Astro.props;
 const t = ui[lang];
 const j = t.jobs;
 const sp = j.spont;
@@ -20,7 +22,7 @@ const site = Astro.site!;
 const image = await socialImage('illustrazioni/staff', site);
 const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: j.kicker, url: lp(lang, '/lavora-con-noi/') }], site)];
 ---
-<Base lang={lang} path="/lavora-con-noi/" title={j.title} description={j.desc} image={image} jsonLd={jsonLd}>
+<Base lang={lang} path={test?.path ?? '/lavora-con-noi/'} title={j.title} description={j.desc} image={image} jsonLd={test ? [] : jsonLd} langs={test ? ['it'] : undefined} noindex={!!test}>
   <article class="join join--jobs">
     <nav class="u-label place__crumb" aria-label={t.place.crumb}>
       <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">{j.kicker}</span>
@@ -48,8 +50,8 @@ const jsonLd = [breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/')
       id="modulo-candidatura"
       class="fs--card"
       lang={lang}
-      to={JOBS_EMAIL}
-      path="/lavora-con-noi/"
+      to={test?.to ?? JOBS_EMAIL}
+      path={test?.path ?? '/lavora-con-noi/'}
       subject="NUOVA CANDIDATURA - {Nome} {Cognome} - {Telefono} - {Email}"
       submit={sp.submit}
       success={sp.success}

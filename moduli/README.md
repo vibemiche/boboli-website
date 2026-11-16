@@ -11,7 +11,8 @@ Il sito non ha un server: i moduli «Gruppi ed eventi» e «Lavora con noi» li 
 | Eventi, Al Bargello | `/eventi/` (e traduzioni) | osteriagv@gmail.com |
 | Candidature, con CV | `/lavora-con-noi/` (e traduzioni) | boboli.trattoria@gmail.com |
 
-Le caselle stanno in `web/src/lib/forms.ts` (`JOBS_EMAIL`, `EVENTS_EMAIL`).
+Le caselle stanno in `web/src/lib/forms.ts` (`JOBS_EMAIL`, `EVENTS_EMAIL`), come **alias** di FormSubmit:
+`6a07d1e1…` = boboli.trattoria@gmail.com, `c78be9c5…` = osteriagv@gmail.com. Nelle pagine non compare più nessun indirizzo.
 
 ## Come si attiva una casella
 
@@ -48,7 +49,12 @@ Se si cambia una casella in `forms.ts`, va attivata di nuovo.
 
 - Reply-To: il campo nascosto `_replyto` viene riempito con l'email del modulo, quindi «Rispondi» va a chi ha scritto.
 - Allegati: massimo 10 MB in totale per FormSubmit; il sito blocca prima i file oltre 5 MB.
-- Spam: c'è la trappola nascosta `_honey`; il reCAPTCHA è spento (`_captcha=false`). Se arriva spam,
-  si può riaccendere o aggiungere `_blacklist` con le parole da scartare.
+- Spam, senza reCAPTCHA (spento con `_captcha=false`):
+  - alias al posto degli indirizzi;
+  - trappola nascosta `_honey`;
+  - niente invii nei primi 3 secondi dopo l'apertura della pagina («Aspetta un attimo e riprova»);
+  - niente link nei campi di testo («Togli i link dal testo»);
+  - filtro parole `_blacklist` (`SPAM_WORDS` in `forms.ts`): FormSubmit scarta in silenzio le richieste che le contengono.
+    Non metterci parole italiane comuni (per esempio «casino»).
 - Le richieste di prova del 16/11 hanno nome «TEST Attivazione sito» ed email test.sito@example.com: si possono cancellare.
 - Per disattivare un modulo: formsubmit.co/help → «Request Deactivation».

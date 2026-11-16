@@ -14,10 +14,25 @@ export const SMARTBOX_REGISTER = 'https://myaccount.smartbox.com/it/voucher/regi
 export const formAction = (email: string) => `https://formsubmit.co/${email}`;
 
 // Le candidature, con il CV allegato.
-export const JOBS_EMAIL = 'boboli.trattoria@gmail.com';
+// Al posto degli indirizzi ci sono gli alias di FormSubmit, così le caselle non
+// si leggono nel codice della pagina. Alias → casella:
+//   6a07d1e1… → boboli.trattoria@gmail.com · c78be9c5… → osteriagv@gmail.com
+// Cambiando casella serve un nuovo alias (e una nuova attivazione).
+const BOBOLI = '6a07d1e195f0569efaee2d0bd11300f8';
+const GV = 'c78be9c597519e7207153d4f3b7c4ac3';
+
+export const JOBS_EMAIL = BOBOLI;
 
 // Le richieste per gruppi ed eventi: ogni sede ha la sua casella.
 export const EVENTS_EMAIL: Record<string, string> = {
-  'trattoria-1978': 'boboli.trattoria@gmail.com',
-  'al-bargello': 'osteriagv@gmail.com',
+  'trattoria-1978': BOBOLI,
+  'al-bargello': GV,
 };
+
+// Le richieste che contengono una di queste parole FormSubmit le scarta in
+// silenzio (`_blacklist`, massimo una ventina).
+export const SPAM_WORDS = [
+  'crypto', 'bitcoin', 'forex', 'viagra', 'cialis', 'porn', 'loan',
+  'seo services', 'backlinks', 'web design services', 'guest post', 'rank your website',
+  'telegram', 'betting', 'escort', 'payday',
+];

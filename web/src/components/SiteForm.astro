@@ -2,7 +2,7 @@
 import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import { ui } from '../lib/ui';
-import { formAction } from '../lib/forms';
+import { formAction, SPAM_WORDS } from '../lib/forms';
 
 // Un modulo che arriva per mail, tramite FormSubmit: funziona anche senza
 // JavaScript. Con JavaScript l'oggetto della mail si compone dai campi
@@ -39,6 +39,8 @@ const fallback = subject.split(' - {')[0].trim();
     data-fs
     data-subject={subject}
     data-sending={f.sending}
+    data-too-fast={f.tooFast}
+    data-no-links={f.noLinks}
   >
     <input type="hidden" name="_subject" value={fallback} />
     <input type="hidden" name="_next" value={next} />
@@ -46,6 +48,7 @@ const fallback = subject.split(' - {')[0].trim();
     <input type="hidden" name="_captcha" value="false" />
     {/* «Rispondi» nella mail va a chi ha scritto: lo riempie lo script con il campo Email */}
     <input type="hidden" name="_replyto" value="" />
+    <input type="hidden" name="_blacklist" value={SPAM_WORDS.join(', ')} />
     <input type="hidden" name="Lingua del sito" value={lang.toUpperCase()} />
     {/* trappola per i bot: un campo che le persone non vedono e lasciano vuoto */}
     <div class="fs__trap" aria-hidden="true"><label>Lascia vuoto <input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label></div>
@@ -96,8 +99,24 @@ const fallback = subject.split(' - {')[0].trim();
       });
     });
 
+    // contro lo spam: niente link nei campi di testo (le richieste vere non ne
+    // hanno bisogno) e niente invii nei primi secondi dopo l'apertura della pagina
+    const opened = Date.now();
+    const texts = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('textarea, input[type="text"]')];
+    const hasLink = (v: string) => /https?:\/\/|www\.|\[url|<a\s/i.test(v);
+    texts.forEach((el) => el.addEventListener('input', () => el.setCustomValidity('')));
+
     form.addEventListener('submit', (e) => {
+      texts.forEach((el) => el.setCustomValidity(hasLink(el.value) ? form.dataset.noLinks ?? '' : ''));
       if (!form.checkValidity()) { e.preventDefault(); form.reportValidity(); return; }
+      if (Date.now() - opened < 3000) {
+        e.preventDefault();
+        const btn = form.querySelector<HTMLButtonElement>('.fs__submit')!;
+        btn.setCustomValidity(form.dataset.tooFast ?? '');
+        btn.reportValidity();
+        setTimeout(() => btn.setCustomValidity(''), 3000);
+        return;
+      }
       const data = new FormData(form);
       // nell'oggetto le date si leggono all'italiana: 12/12/2026
       const val = (k: string) => {

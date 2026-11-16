@@ -237,6 +237,8 @@ const it = {
     requiredNote: "I campi con * sono obbligatori.",
     privacy: ["Ho letto l'", "informativa sulla privacy", "."],
     sending: "Invio in corso…",
+    tooFast: "Aspetta un attimo e riprova a inviare.",
+    noLinks: "Togli i link dal testo: li leggeremo meglio senza.",
   },
   badges: {
     label: 'Marchi senza glutine',
@@ -508,6 +510,8 @@ const en: Dict = {
     requiredNote: "Fields marked * are required.",
     privacy: ["I have read the ", "privacy policy", " (in Italian)."],
     sending: "Sending…",
+    tooFast: "Please wait a moment and try sending again.",
+    noLinks: "Please remove the links from your text.",
   },
   badges: {
     label: 'Gluten-free marks',
@@ -775,6 +779,8 @@ const es: Dict = {
     requiredNote: "Los campos con * son obligatorios.",
     privacy: ["He leído la ", "política de privacidad", " (en italiano)."],
     sending: "Enviando…",
+    tooFast: "Espera un momento y vuelve a enviarlo.",
+    noLinks: "Quita los enlaces del texto, por favor.",
   },
   badges: {
     label: 'Sellos sin gluten',
@@ -1042,6 +1048,8 @@ const de: Dict = {
     requiredNote: "Felder mit * sind Pflichtfelder.",
     privacy: ["Ich habe die ", "Datenschutzerklärung", " (auf Italienisch) gelesen."],
     sending: "Wird gesendet…",
+    tooFast: "Bitte warte kurz und sende erneut.",
+    noLinks: "Bitte entferne die Links aus deinem Text.",
   },
   badges: {
     label: 'Glutenfrei-Siegel',
@@ -1309,6 +1317,8 @@ const fr: Dict = {
     requiredNote: "Les champs marqués * sont obligatoires.",
     privacy: ["J'ai lu la ", "politique de confidentialité", " (en italien)."],
     sending: "Envoi en cours…",
+    tooFast: "Attends un instant et réessaie d'envoyer.",
+    noLinks: "Merci de retirer les liens de ton texte.",
   },
   badges: {
     label: 'Labels sans gluten',

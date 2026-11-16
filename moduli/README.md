@@ -41,6 +41,7 @@ Se si cambia una casella in `forms.ts`, va attivata di nuovo.
 | 13/11/2026 | Collaudo senza invii (richieste intercettate): validazione, oggetto, trappola per bot, conferma, conteggio `form_sent`. Corretti «Rispondi» (`_replyto`) e i valori in italiano. |
 | 13/11/2026 | Prova vera su una pagina temporanea verso una casella di prova: prima richiesta trattenuta e arrivata senza PDF dopo l'attivazione; seconda richiesta arrivata con PDF, «Rispondi» al candidato, codice HTML mostrato come testo. Pagina di prova tolta. |
 | 16/11/2026 | Inviate 3 richieste «TEST DEL SITO» dai moduli veri: eventi 1978 e candidature → boboli.trattoria@gmail.com, eventi Bargello → osteriagv@gmail.com. Esito per tutte: **«This form needs Activation»**, cioè caselle non ancora attive. Mail di attivazione partite. |
+| 16/11/2026 | Attivata osteriagv@gmail.com (dopo il clic FormSubmit apre la pagina del sito da cui è partito il modulo). Verifica: eventi Bargello consegnato con conferma sul sito; boboli.trattoria@gmail.com ancora da attivare (eventi 1978 e candidature). |
 
 ## Cosa sapere
 

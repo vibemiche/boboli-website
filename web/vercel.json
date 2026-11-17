@@ -14,6 +14,26 @@
       "permanent": true
     },
     {
+      "source": "/en/about",
+      "destination": "/en/gluten-free-florence/",
+      "statusCode": 301
+    },
+    {
+      "source": "/en/about/",
+      "destination": "/en/gluten-free-florence/",
+      "statusCode": 301
+    },
+    {
+      "source": "/en/menu/menu",
+      "destination": "/en/menu/",
+      "statusCode": 301
+    },
+    {
+      "source": "/en/menu/menu/",
+      "destination": "/en/menu/",
+      "statusCode": 301
+    },
+    {
       "source": "/it/news/5678303400907767910/",
       "destination": "/grazie/trattoria-1978/",
       "permanent": false

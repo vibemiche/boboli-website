@@ -78,7 +78,8 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
         }
         if (want === document.documentElement.lang) return;
         var alt = document.querySelector('link[rel="alternate"][hreflang="' + want + '"]');
-        if (alt) location.replace(alt.href + location.hash);
+        // la query (gclid, utm…) va portata dietro, o Google Ads perde il clic
+        if (alt) location.replace(alt.href + location.search + location.hash);
       } catch (e) {}
     })();
   </script>
@@ -91,6 +92,15 @@ const abs = (l: Lang) => new URL(lp(l, path), Astro.site).href;
       function gtag() { dataLayer.push(arguments); }
       var ALL = ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'];
       function state(v) { var o = {}; ALL.forEach(function (k) { o[k] = v; }); return o; }
+      // Sulla pagina di ringraziamento TheFork aggiunge utm_source=trattoriaboboli.it:
+      // Analytics la leggerebbe come una nuova visita arrivata dal sito stesso e
+      // toglierebbe la prenotazione alla campagna. Tolgo gli utm prima di Tag Manager
+      // (il gclid resta).
+      if (now) try {
+        var u = new URL(location.href), cut = false;
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id'].forEach(function (k) { if (u.searchParams.has(k)) { u.searchParams.delete(k); cut = true; } });
+        if (cut) history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+      } catch (e) {}
       var d = state('denied'); d.wait_for_update = 500;
       gtag('consent', 'default', d);
       window.boboliConsent = function (v) { gtag('consent', 'update', state(v)); dataLayer.push({ event: 'consent_choice', consent: v }); };

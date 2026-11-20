@@ -9,6 +9,7 @@ import { ui } from '../lib/ui';
 import { LEGAL, legalAddress } from '../lib/legal';
 import { tracking } from '../lib/tracking';
 import { MAIN_GUIDES } from '../lib/guides';
+import { ABOUT } from '../lib/about';
 
 interface Props { lang: Lang; locali: Locale[]; path: string; langs?: readonly Lang[] }
 const { lang, locali, path, langs } = Astro.props;
@@ -33,6 +34,7 @@ const columns = [
   {
     title: t.footer.discover,
     links: [
+      { label: ABOUT[lang].label, path: '/chi-siamo/' },
       { label: t.footer.links.lab, path: '/#laboratorio' },
       { label: t.footer.links.manifesto, path: '/#manifesto' },
       { label: t.footer.links.menu, path: '/menu/' },

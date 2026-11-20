@@ -5,6 +5,7 @@ import MenuPage from '../../components/MenuPage.astro';
 import EventsPage from '../../components/EventsPage.astro';
 import JobsPage from '../../components/JobsPage.astro';
 import SmartboxPage from '../../components/SmartboxPage.astro';
+import AboutPage from '../../components/AboutPage.astro';
 import PlacePage from '../../components/PlacePage.astro';
 import ShortLink from '../../components/ShortLink.astro';
 import GuidePage from '../../components/GuidePage.astro';
@@ -20,7 +21,7 @@ import type { Lang } from '../../lib/i18n';
 // (`/en/restaurants/to-go/`): qui si parte dal percorso italiano e `localPath`
 // dice dove pubblicarlo. Le pagine italiane hanno ciascuna il suo file.
 type Page =
-  | { kind: 'home' | 'menu' | 'events' | 'jobs' | 'smartbox' | 'short' }
+  | { kind: 'home' | 'menu' | 'events' | 'jobs' | 'smartbox' | 'short' | 'about' }
   | { kind: 'place'; id: string }
   | { kind: 'guide'; guide: Guide }
   | { kind: 'blog' }
@@ -34,6 +35,7 @@ export async function getStaticPaths() {
     ['/eventi/', { kind: 'events' }],
     ['/lavora-con-noi/', { kind: 'jobs' }],
     ['/smartbox/', { kind: 'smartbox' }],
+    ['/chi-siamo/', { kind: 'about' }],
     ['/locali/', { kind: 'short' }],
     ...locali.map((l) => [`/locali/${l.id}/`, { kind: 'place', id: l.id }] as [string, Page]),
     ...GUIDES.map((guide) => [guide.path, { kind: 'guide', guide }] as [string, Page]),
@@ -58,6 +60,7 @@ const page = Astro.props.page as Page;
 {page.kind === 'events' && <EventsPage lang={lang} />}
 {page.kind === 'jobs' && <JobsPage lang={lang} />}
 {page.kind === 'smartbox' && <SmartboxPage lang={lang} />}
+{page.kind === 'about' && <AboutPage lang={lang} />}
 {page.kind === 'short' && <ShortLink lang={lang} to="/#locali" />}
 {page.kind === 'place' && <PlacePage lang={lang} id={page.id} />}
 {page.kind === 'guide' && <GuidePage lang={lang} guide={page.guide} />}

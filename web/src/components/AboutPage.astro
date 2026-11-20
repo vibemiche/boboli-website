@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import Figure from './Figure.astro';
+import Badges from './Badges.astro';
+import { lp } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+import { ui } from '../lib/ui';
+import { ABOUT } from '../lib/about';
+import { breadcrumbSchema, socialImage } from '../lib/schema';
+
+// «Chi siamo»: la storia della famiglia, con il testo della prima pagina del menu.
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const a = ABOUT[lang];
+const site = Astro.site!;
+const path = '/chi-siamo/';
+const image = await socialImage('chi-siamo/famiglia', site);
+const url = new URL(lp(lang, path), site).href;
+const jsonLd = [
+  breadcrumbSchema([{ name: 'Trattoria Boboli', url: lp(lang, '/') }, { name: a.label, url: lp(lang, path) }], site),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    '@id': url,
+    url,
+    name: a.title,
+    description: a.desc,
+    inLanguage: lang,
+    about: { '@id': new URL(lp('it', '/'), site).href + '#organization' },
+  },
+];
+---
+<Base lang={lang} path={path} title={a.title} description={a.desc} image={image} jsonLd={jsonLd}>
+  <article class="about">
+    <nav class="u-label place__crumb" aria-label={t.place.crumb}>
+      <a href={lp(lang, '/')}>Boboli</a> › <span aria-current="page">{a.label}</span>
+    </nav>
+    <header class="about__head">
+      <h1 class="h1-stack">
+        <span class="u-label about__kicker">{a.kicker}</span>
+        <span class="about__title">{a.h1}</span>
+      </h1>
+    </header>
+    <div class="about__grid">
+      <div class="about__text prose">
+        {a.body.map((p) => <p>{p}</p>)}
+        <div class="about__foot">
+          <Badges lang={lang} class="about__badges" />
+          <a class="btn btn--terracotta" href={lp(lang, '/#locali')} data-book>{a.cta} <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="about__photos">
+        <Figure class="about__family" slot="chi-siamo/famiglia" alt={a.alt.family} label="" widths={[262]} sizes="(max-width: 760px) 80vw, 262px" />
+        <p class="u-label about__archive">{a.archive}</p>
+        <Figure class="about__old" slot="chi-siamo/archivio-1-fattoria-rufina" alt={a.alt.rufina} label="" widths={[230]} sizes="(max-width: 760px) 80vw, 262px" />
+        <Figure class="about__old" slot="chi-siamo/archivio-2-cortile" alt={a.alt.yard} label="" widths={[231]} sizes="(max-width: 760px) 80vw, 262px" />
+      </div>
+    </div>
+  </article>
+</Base>

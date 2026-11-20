@@ -14,16 +14,6 @@
       "permanent": true
     },
     {
-      "source": "/en/about",
-      "destination": "/en/gluten-free-florence/",
-      "statusCode": 301
-    },
-    {
-      "source": "/en/about/",
-      "destination": "/en/gluten-free-florence/",
-      "statusCode": 301
-    },
-    {
       "source": "/en/menu/menu",
       "destination": "/en/menu/",
       "statusCode": 301

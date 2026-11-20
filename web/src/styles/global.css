@@ -1509,3 +1509,23 @@ input[type="file"].field__input::file-selector-button{
   .togo-pasta__list::-webkit-scrollbar{display:none}
   .togo-pasta__item{scroll-snap-align:start}
 }
+
+/* Chi siamo: il testo del menu a sinistra, le foto di famiglia a destra */
+.about{padding:clamp(96px,12vw,150px) var(--gutter) clamp(40px,6vw,96px)}
+.about__head{margin:18px 0 clamp(28px,4vw,56px)}
+.about__kicker{color:var(--kicker)}
+.about__title{display:block;margin-top:10px;max-width:16ch;font-size:clamp(38px,5.2vw,86px);line-height:1;letter-spacing:-.01em}
+.about__grid{display:grid;grid-template-columns:minmax(0,1fr) 262px;gap:clamp(32px,6vw,96px);align-items:start}
+.about__text p{font-size:var(--body-lg);line-height:1.7;max-width:62ch;margin:0 0 1.2em}
+.about__text p:first-child{font-size:clamp(20px,1.8vw,26px);line-height:1.45}
+.about__foot{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:clamp(24px,3vw,40px)}
+.about__badges{--badge-h:72px}
+.about__photos{display:flex;flex-direction:column;gap:14px}
+.about__photos :is(picture,img){display:block;width:100%;height:auto}
+.about__family{margin-bottom:14px}
+.about__archive{color:var(--kicker)}
+.about__old img{filter:grayscale(1)}
+@media (max-width:760px){
+  .about__grid{grid-template-columns:1fr}
+  .about__photos{max-width:320px}
+}

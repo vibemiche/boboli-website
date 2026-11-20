@@ -23,6 +23,7 @@ export const OG_LOCALE: Record<Lang, string> = {
  */
 export const SLUGS: Record<string, Record<Exclude<Lang, 'it'>, string>> = {
   locali: { en: 'restaurants', es: 'restaurantes', de: 'restaurants', fr: 'restaurants' },
+  'chi-siamo': { en: 'about', es: 'quienes-somos', de: 'ueber-uns', fr: 'qui-sommes-nous' },
   menu: { en: 'menu', es: 'carta', de: 'speisekarte', fr: 'carte' },
   eventi: { en: 'events', es: 'eventos', de: 'events', fr: 'evenements' },
   'lavora-con-noi': { en: 'careers', es: 'trabaja-con-nosotros', de: 'jobs', fr: 'recrutement' },

@@ -7,6 +7,7 @@ import { lp } from '../lib/i18n';
 import type { Lang } from '../lib/i18n';
 import type { Locale } from '../lib/locali';
 import { ui } from '../lib/ui';
+import { ABOUT } from '../lib/about';
 
 // `overHero`: solo la home apre su una foto e l'header parte trasparente
 interface Props { lang: Lang; locali: Locale[]; overHero?: boolean; path: string; langs?: readonly Lang[] }
@@ -20,6 +21,7 @@ const links = [
 ];
 const previews = [{ slot: 'hero', alt: t.hero.alt }, ...links.flatMap((l) => (l.preview ? [{ slot: l.preview, alt: l.alt }] : []))];
 const more = [
+  { label: ABOUT[lang].label, path: '/chi-siamo/' },
   { label: t.nav.events, path: '/eventi/' },
   { label: t.nav.smartbox, path: '/smartbox/' },
   { label: t.nav.jobs, path: '/lavora-con-noi/' },

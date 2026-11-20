@@ -805,8 +805,8 @@ html.is-locked{overflow:hidden}
 .carte{padding:clamp(96px,12vw,150px) var(--gutter) clamp(40px,6vw,96px)}
 .carte__head{display:grid;grid-template-columns:1fr minmax(0,24em);align-items:end;gap:18px clamp(24px,5vw,80px)}
 .carte__kicker{grid-column:1 / -1;color:var(--kicker)}
-.carte__title{font-weight:700;font-size:clamp(64px,12vw,196px);line-height:.82;letter-spacing:-.045em}
-.carte__lead{font-weight:100;font-size:clamp(19px,2.2vw,32px);line-height:1.2}
+.carte__title{font-weight:700;font-size:clamp(48px,7.6vw,128px);line-height:.88;letter-spacing:-.04em}
+.carte__lead{font-weight:100;font-size:clamp(19px,2.2vw,32px);line-height:1.22}
 .carte__tabs{
   display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(16px,3vw,40px);
   margin-top:clamp(30px,4.5vw,64px);border-top:1px solid var(--ink);
@@ -831,10 +831,13 @@ html.is-locked{overflow:hidden}
 .has-tabs .carte__panel + .carte__panel{margin-top:0}
 
 .viewer__bar{
-  position:sticky;top:62px;z-index:5;
+  position:sticky;top:var(--header-solid-h,64px);z-index:5;
   display:flex;justify-content:space-between;align-items:center;gap:10px 18px;
-  padding:12px 0;background:var(--bg);box-shadow:0 1px 0 var(--rule);
+  margin:0 calc(-1 * var(--gutter));padding:12px var(--gutter);
+  background:var(--bg);box-shadow:0 1px 0 var(--rule);
+  transition:top .35s cubic-bezier(.2,.7,.2,1);
 }
+:root:has(.site-header.is-hidden) .viewer__bar{top:0}
 .viewer__count{color:var(--kicker)}
 .viewer__actions{display:flex;gap:10px}
 .viewer__actions .btn{padding:12px 20px}
@@ -875,7 +878,7 @@ html.is-locked{overflow:hidden}
 /* ── Smartbox: due buoni, con la matrice da staccare ────────────────────── */
 .gift{padding:clamp(96px,12vw,150px) var(--gutter) clamp(40px,6vw,96px)}
 .gift__kicker{color:var(--kicker);margin-bottom:12px}
-.gift__title{max-width:11ch;font-weight:700;font-size:clamp(52px,9vw,150px);line-height:.86;letter-spacing:-.04em}
+.gift__title{max-width:11ch;font-weight:700;font-size:clamp(48px,7.6vw,128px);line-height:.88;letter-spacing:-.04em}
 .gift__lead{max-width:30ch;margin-top:20px;font-weight:100;font-size:clamp(19px,2.2vw,32px);line-height:1.2}
 .gift__list{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,470px),1fr));
@@ -1099,7 +1102,7 @@ html.is-locked{overflow:hidden}
   .placecard{font-size:20px}
   .promise__text{font-size:19px}
   .carte__head{grid-template-columns:1fr;gap:12px}
-  .carte__title{font-size:22vw}
+  .carte__title{font-size:13vw}
   .carte__lead{font-size:19px}
   .carte__tab-name{font-size:26px}
   .carte__tab-meta{font-size:12px}
@@ -1108,7 +1111,7 @@ html.is-locked{overflow:hidden}
   .viewer__actions{width:100%}
   .viewer__actions .btn{flex:1;padding:13px 10px}
   .viewer__pages{padding:14px 10px 18px;gap:12px}
-  .gift__title{font-size:16vw}
+  .gift__title{font-size:13vw}
   .gift__lead{font-size:19px}
   .ticket{--stub:86px}
   .ticket__civic{font-size:26px}
@@ -1204,7 +1207,8 @@ html.is-locked{overflow:hidden}
 .blog,.post{padding:calc(var(--header-h) + clamp(28px,4vw,60px)) var(--gutter) 0}
 .blog{padding-bottom:var(--section-y)}
 .blog__head{max-width:900px;margin:18px 0 clamp(30px,4vw,56px)}
-.blog__kicker,.post__kicker,.card__kicker{color:var(--terracotta-deep)}
+.blog__kicker,.post__kicker{color:var(--kicker)}
+.card__kicker{color:var(--terracotta-deep)}
 .blog__title{margin:12px 0 0;font-weight:700;font-size:clamp(48px,7.6vw,128px);line-height:.88;letter-spacing:-.04em}
 .blog__lead{max-width:40ch;margin-top:20px;font-weight:100;font-size:clamp(19px,2.2vw,32px);line-height:1.22}
 .blog__list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,44px)}
@@ -1510,22 +1514,18 @@ input[type="file"].field__input::file-selector-button{
   .togo-pasta__item{scroll-snap-align:start}
 }
 
-/* Chi siamo: il testo del menu a sinistra, le foto di famiglia a destra */
-.about{padding:clamp(96px,12vw,150px) var(--gutter) clamp(40px,6vw,96px)}
-.about__head{margin:18px 0 clamp(28px,4vw,56px)}
-.about__kicker{color:var(--kicker)}
-.about__title{display:block;margin-top:10px;max-width:16ch;font-size:clamp(38px,5.2vw,86px);line-height:1;letter-spacing:-.01em}
-.about__grid{display:grid;grid-template-columns:minmax(0,1fr) 262px;gap:clamp(32px,6vw,96px);align-items:start}
-.about__text p{font-size:var(--body-lg);line-height:1.7;max-width:62ch;margin:0 0 1.2em}
-.about__text p:first-child{font-size:clamp(20px,1.8vw,26px);line-height:1.45}
-.about__foot{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:clamp(24px,3vw,40px)}
-.about__badges{--badge-h:72px}
-.about__photos{display:flex;flex-direction:column;gap:14px}
-.about__photos :is(picture,img){display:block;width:100%;height:auto}
-.about__family{margin-bottom:14px}
-.about__archive{color:var(--kicker)}
-.about__old img{filter:grayscale(1)}
+/* Chi siamo: testata come Lavora con noi; sotto, il racconto e l'archivio */
+.about__seal{max-width:300px;justify-self:center;mix-blend-mode:normal}
+.about__story{
+  display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:clamp(32px,6vw,96px);align-items:start;
+  margin-top:clamp(40px,6vw,96px);padding-top:clamp(28px,3.5vw,48px);border-top:1px solid var(--ink);
+}
+.about__text p{max-width:60ch;margin:0 0 1.2em;font-size:var(--body-lg);line-height:1.7}
+.about__archive{display:flex;flex-direction:column;gap:12px;margin:0}
+.about__archive figcaption{color:var(--kicker)}
+.about__archive :is(picture,img){display:block;width:100%;height:auto;filter:grayscale(1)}
 @media (max-width:760px){
-  .about__grid{grid-template-columns:1fr}
-  .about__photos{max-width:320px}
+  .about__seal{width:62%}
+  .about__story{grid-template-columns:1fr}
+  .about__archive{max-width:320px}
 }

@@ -12,7 +12,6 @@ export interface AboutText {
   body: string[];
   alt: { family: string; rufina: string; yard: string };
   archive: string;
-  cta: string;
 }
 
 export const ABOUT: Record<Lang, AboutText> = {
@@ -34,7 +33,6 @@ export const ABOUT: Record<Lang, AboutText> = {
       yard: "Foto d'archivio: un gruppo di lavoranti in posa in un cortile",
     },
     archive: "Dall'archivio di famiglia",
-    cta: 'Prenota un tavolo',
   },
   en: {
     title: 'About us · The story of Trattoria Boboli, Florence',
@@ -54,7 +52,6 @@ export const ABOUT: Record<Lang, AboutText> = {
       yard: 'Archive photo: a group of workers posing in a courtyard',
     },
     archive: 'From the family archive',
-    cta: 'Book a table',
   },
   es: {
     title: 'Quiénes somos · La historia de Trattoria Boboli, Florencia',
@@ -74,7 +71,6 @@ export const ABOUT: Record<Lang, AboutText> = {
       yard: 'Foto de archivo: un grupo de trabajadores posando en un patio',
     },
     archive: 'Del archivo de la familia',
-    cta: 'Reservar mesa',
   },
   de: {
     title: 'Über uns · Die Geschichte der Trattoria Boboli, Florenz',
@@ -94,7 +90,6 @@ export const ABOUT: Record<Lang, AboutText> = {
       yard: 'Archivfoto: eine Gruppe von Arbeitern, die in einem Hof posieren',
     },
     archive: 'Aus dem Familienarchiv',
-    cta: 'Tisch reservieren',
   },
   fr: {
     title: 'Qui sommes-nous · L’histoire de Trattoria Boboli, Florence',
@@ -114,6 +109,5 @@ export const ABOUT: Record<Lang, AboutText> = {
       yard: 'Photo d’archive : un groupe de travailleurs posant dans une cour',
     },
     archive: 'Des archives de la famille',
-    cta: 'Réserver une table',
   },
 };

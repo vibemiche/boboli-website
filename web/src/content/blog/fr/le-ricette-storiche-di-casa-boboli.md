@@ -86,7 +86,7 @@ C'est là, à quelques pas de la Porta Romana, que naissent toutes nos pâtes : 
 Les recettes de famille sont sur la [carte des restaurants](../../carte/) et vous les trouverez dans trois adresses, toutes 100 % sans gluten :
 
 - **[Trattoria Boboli 1978 Gluten Free](../../restaurants/trattoria-1978/)**, via Romana 45/R, Oltrarno ;
-- **[Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../restaurants/al-bargello/)**, via Ghibellina 147/R, Santa Croce ;
+- **[Trattoria Boboli Al Bargello Gluten Free](../../restaurants/al-bargello/)**, via Ghibellina 147/R, Santa Croce ;
 - **[Trattoria Boboli La Cantina Gluten Free](../../restaurants/la-cantina/)**, via Romana 60/R, Oltrarno.
 
 Chaque plat est un voyage dans la vraie cuisine toscane. Nous vous attendons à table.

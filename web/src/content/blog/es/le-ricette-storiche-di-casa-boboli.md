@@ -86,7 +86,7 @@ En el obrador también puedes **llevarte a casa** algunas de nuestras especialid
 Las recetas de familia están en la [carta de los restaurantes](../../carta/) y las encuentras en tres locales, todos 100% sin gluten:
 
 - **[Trattoria Boboli 1978 Gluten Free](../../restaurantes/trattoria-1978/)**, Via Romana 45/R, Oltrarno;
-- **[Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../restaurantes/al-bargello/)**, Via Ghibellina 147/R, Santa Croce;
+- **[Trattoria Boboli Al Bargello Gluten Free](../../restaurantes/al-bargello/)**, Via Ghibellina 147/R, Santa Croce;
 - **[Trattoria Boboli La Cantina Gluten Free](../../restaurantes/la-cantina/)**, Via Romana 60/R, Oltrarno.
 
 Cada plato es un viaje a la verdadera cocina toscana. Te esperamos a la mesa.

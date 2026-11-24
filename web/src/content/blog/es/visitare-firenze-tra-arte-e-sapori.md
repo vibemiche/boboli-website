@@ -20,7 +20,7 @@ faq:
   - q: "¿Dónde comer cerca del Palacio Pitti y del Jardín de Bóboli?"
     a: "En Via Romana, la calle que sale de la Piazza Pitti y llega a Porta Romana. En el 45/R está Trattoria Boboli 1978 Gluten Free, en el 60/R Trattoria Boboli La Cantina Gluten Free y en el 52 Trattoria Boboli To-Go Gluten Free, para un bocadillo rápido."
   - q: "¿Dónde comer cerca de Santa Croce y del Bargello?"
-    a: "En Via Ghibellina 147/R, entre el Museo del Bargello y la Basílica de Santa Croce, está Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe: cocina toscana, vino y una cena con calma, todo sin gluten."
+    a: "En Via Ghibellina 147/R, entre el Museo del Bargello y la Basílica de Santa Croce, está Trattoria Boboli Al Bargello Gluten Free: cocina toscana, vino y una cena con calma, todo sin gluten."
   - q: "¿Cuántos días hacen falta para visitar Florencia?"
     a: "Para ver el centro histórico, los Uffizi, el Oltrarno y Santa Croce sin correr hacen falta al menos dos o tres días. Conviene reservar con antelación los museos más visitados y, por la noche, la mesa para cenar."
   - q: "¿Qué comer en Florencia durante la visita?"
@@ -78,7 +78,7 @@ El segundo día es para la Florencia de Miguel Ángel. Empieza por el **Museo de
 
 Al atardecer sube al **Piazzale Michelangelo** para la vista más famosa de la ciudad y vuelve a Via Ghibellina para cenar. Mira también [dónde comer cerca de Santa Croce](../../donde-comer/santa-croce-bargello/).
 
-### Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe
+### Trattoria Boboli Al Bargello Gluten Free
 
 **Via Ghibellina 147/R, Santa Croce.** Si te gustan las osterias con carácter, este es tu sitio: paredes de ladrillo, mesas juntas, charla y platos contundentes. Es el local que muchos florentinos conocían como **il Gatto e la Volpe**, hoy parte de la familia Boboli. Aquí la cena se toma su tiempo: cocina franca, sin adornos, ingredientes protagonistas, raciones generosas y un buen vino. Todo sin gluten.
 
@@ -89,7 +89,7 @@ Por qué elegirla:
 - un ambiente informal y animado, ideal para una cena en pareja o con amigos;
 - toda la carta es 100% sin gluten.
 
-[Descubre Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../restaurantes/al-bargello/)
+[Descubre Trattoria Boboli Al Bargello Gluten Free](../../restaurantes/al-bargello/)
 
 ## Qué comer durante la visita
 

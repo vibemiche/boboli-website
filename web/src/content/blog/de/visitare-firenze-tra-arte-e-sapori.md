@@ -20,7 +20,7 @@ faq:
   - q: "Wo isst man in der Nähe von Palazzo Pitti und Boboli-Garten?"
     a: "In der Via Romana, die an der Piazza Pitti beginnt und bis zur Porta Romana führt. In Nr. 45/R liegt die Trattoria Boboli 1978 Gluten Free, in Nr. 60/R die Trattoria Boboli La Cantina Gluten Free und in Nr. 52 die Trattoria Boboli To-Go Gluten Free, für ein schnelles Panino."
   - q: "Wo isst man in der Nähe von Santa Croce und Bargello?"
-    a: "In der Via Ghibellina 147/R, zwischen Bargello-Museum und Basilika Santa Croce, liegt die Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe: toskanische Küche, Wein und ein Abendessen in Ruhe, alles glutenfrei."
+    a: "In der Via Ghibellina 147/R, zwischen Bargello-Museum und Basilika Santa Croce, liegt die Trattoria Boboli Al Bargello Gluten Free: toskanische Küche, Wein und ein Abendessen in Ruhe, alles glutenfrei."
   - q: "Wie viele Tage braucht man für Florenz?"
     a: "Um die Altstadt, die Uffizien, den Oltrarno und Santa Croce ohne Eile zu sehen, braucht man mindestens zwei bis drei Tage. Die meistbesuchten Museen sollte man vorab buchen, abends auch den Tisch."
   - q: "Was isst man bei einem Besuch in Florenz?"
@@ -78,7 +78,7 @@ Der zweite Tag gehört dem Florenz Michelangelos. Beginne im **Bargello-Museum**
 
 Zum Sonnenuntergang geht es hinauf zum **Piazzale Michelangelo** mit dem berühmtesten Blick auf die Stadt, dann zurück in die Via Ghibellina zum Abendessen. Siehe auch [Essen nahe Santa Croce](../../essen-in-der-naehe/santa-croce-bargello/).
 
-### Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe
+### Trattoria Boboli Al Bargello Gluten Free
 
 **Via Ghibellina 147/R, Santa Croce.** Wenn du Osterien mit Charakter magst, bist du hier richtig: Ziegelwände, eng gestellte Tische, Stimmengewirr und kräftige Gerichte. Es ist das Lokal, das viele Florentiner als **il Gatto e la Volpe** kannten und das heute zur Boboli-Familie gehört. Das Abendessen nimmt sich hier Zeit: geradlinige Küche ohne Schnörkel, Zutaten im Mittelpunkt, großzügige Portionen und ein guter Wein. Alles glutenfrei.
 
@@ -89,7 +89,7 @@ Warum sie die richtige Wahl ist:
 - ein unkomplizierter, geselliger Raum, ideal für ein Abendessen zu zweit oder mit Freunden;
 - die ganze Karte ist 100 % glutenfrei.
 
-[Zur Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../restaurants/al-bargello/)
+[Zur Trattoria Boboli Al Bargello Gluten Free](../../restaurants/al-bargello/)
 
 ## Was man während des Besuchs isst
 

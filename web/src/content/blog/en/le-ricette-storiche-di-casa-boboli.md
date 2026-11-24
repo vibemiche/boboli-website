@@ -86,7 +86,7 @@ At the workshop you can also **take home** some of our best-loved specialities, 
 The family recipes are on the [restaurant menu](../../menu/) and you will find them in three places, all 100% gluten free:
 
 - **[Trattoria Boboli 1978 Gluten Free](../../restaurants/trattoria-1978/)**, Via Romana 45/R, Oltrarno;
-- **[Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../restaurants/al-bargello/)**, Via Ghibellina 147/R, Santa Croce;
+- **[Trattoria Boboli Al Bargello Gluten Free](../../restaurants/al-bargello/)**, Via Ghibellina 147/R, Santa Croce;
 - **[Trattoria Boboli La Cantina Gluten Free](../../restaurants/la-cantina/)**, Via Romana 60/R, Oltrarno.
 
 Every dish is a journey into real Tuscan cooking. We look forward to seeing you at the table.

@@ -113,7 +113,7 @@ Tous les plats sont sur la [carte](../../carte/), et vous en saurez plus dans no
 Si vous cherchez une trattoria typique à Florence, loin des rues les plus touristiques, voici où nous trouver :
 
 - **[Trattoria Boboli 1978 Gluten Free](../../restaurants/trattoria-1978/)**, via Romana 45/R, Oltrarno : notre trattoria, à deux pas du palais Pitti et du jardin de Boboli. Pour le déjeuner, pour la famille, pour la cuisine toscane de tous les jours.
-- **[Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../restaurants/al-bargello/)**, via Ghibellina 147/R, Santa Croce : un dîner sans se presser, entre briques apparentes et un bon verre de vin.
+- **[Trattoria Boboli Al Bargello Gluten Free](../../restaurants/al-bargello/)**, via Ghibellina 147/R, Santa Croce : un dîner sans se presser, entre briques apparentes et un bon verre de vin.
 - **[Trattoria Boboli La Cantina Gluten Free](../../restaurants/la-cantina/)**, via Romana 60/R, Oltrarno : pour ceux qui choisissent le plat en partant du vin, avec accords et dégustations.
 - **[Trattoria Boboli To-Go Gluten Free](../../restaurants/to-go/)**, via Romana 52, Oltrarno : des sandwichs au pain de l'atelier, à emporter en visitant Florence.
 

@@ -86,7 +86,7 @@ In der Manufaktur kannst du einige unserer beliebtesten Spezialitäten auch **mi
 Die Familienrezepte stehen auf der [Speisekarte der Restaurants](../../speisekarte/), und es gibt sie in drei Lokalen, alle 100 % glutenfrei:
 
 - **[Trattoria Boboli 1978 Gluten Free](../../restaurants/trattoria-1978/)**, Via Romana 45/R, Oltrarno;
-- **[Trattoria Boboli Al Bargello Gluten Free by il Gatto e la Volpe](../../restaurants/al-bargello/)**, Via Ghibellina 147/R, Santa Croce;
+- **[Trattoria Boboli Al Bargello Gluten Free](../../restaurants/al-bargello/)**, Via Ghibellina 147/R, Santa Croce;
 - **[Trattoria Boboli La Cantina Gluten Free](../../restaurants/la-cantina/)**, Via Romana 60/R, Oltrarno.
 
 Jedes Gericht ist eine Reise in die echte toskanische Küche. Wir freuen uns auf dich am Tisch.
